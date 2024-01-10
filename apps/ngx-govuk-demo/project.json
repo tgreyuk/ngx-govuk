@@ -2,7 +2,7 @@
   "name": "ngx-govuk-demo",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
-  "prefix": "ngx-gov-uk",
+  "prefix": "ngx-govuk",
   "sourceRoot": "apps/ngx-govuk-demo/src",
   "tags": [],
   "targets": {

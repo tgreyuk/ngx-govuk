@@ -14,7 +14,11 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "ngx-govuk": ["libs/ngx-govuk/src/index.ts"],
+      "ngx-govuk/accordion": ["libs/ngx-govuk/accordion/src/index.ts"],
+      "ngx-govuk/breadcrumbs": ["libs/ngx-govuk/breadcrumbs/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
