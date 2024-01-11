@@ -11,8 +11,8 @@ import { nanoid } from 'nanoid';
   selector: 'ngx-govuk-accordion-panel',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './accordion-panel.component.html',
-  styleUrl: './accordion-panel.component.scss',
+  templateUrl: './ngx-govuk-accordion-panel.component.html',
+  styleUrl: './ngx-govuk-accordion-panel.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NgxGovukAccordionPanelComponent {

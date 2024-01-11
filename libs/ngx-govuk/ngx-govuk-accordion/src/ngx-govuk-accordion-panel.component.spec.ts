@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { NgxGovukAccordionPanelComponent } from './accordion-panel.component';
+import { NgxGovukAccordionPanelComponent } from './ngx-govuk-accordion-panel.component';
 
 jest.mock('nanoid', () => {
   return { nanoid: () => '1234' };

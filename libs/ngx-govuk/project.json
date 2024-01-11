@@ -2,7 +2,7 @@
   "name": "ngx-govuk",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/ngx-govuk/src",
-  "prefix": "ngx-govuk",
+  "prefix": "",
   "tags": [],
   "projectType": "library",
   "targets": {
