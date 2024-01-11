@@ -1,5 +1,11 @@
-import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  signal,
+} from '@angular/core';
+import { nanoid } from 'nanoid';
 
 @Component({
   selector: 'ngx-govuk-accordion-panel',
@@ -7,5 +13,17 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule],
   templateUrl: './accordion-panel.component.html',
   styleUrl: './accordion-panel.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AccordionPanelComponent {}
+export class NgxGovukAccordionPanelComponent {
+  @Input({ required: true }) heading!: string;
+
+  isExpanded = signal(false);
+
+  headingId = nanoid();
+  contentId = nanoid();
+
+  toggle() {
+    this.isExpanded.set(!this.isExpanded());
+  }
+}

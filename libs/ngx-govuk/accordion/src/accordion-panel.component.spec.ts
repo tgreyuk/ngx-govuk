@@ -1,16 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { AccordionPanelComponent } from './accordion-panel.component';
+import { NgxGovukAccordionPanelComponent } from './accordion-panel.component';
+
+jest.mock('nanoid', () => {
+  return { nanoid: () => '1234' };
+});
 
 describe('AccordionPanelComponent', () => {
-  let component: AccordionPanelComponent;
-  let fixture: ComponentFixture<AccordionPanelComponent>;
+  let component: NgxGovukAccordionPanelComponent;
+  let fixture: ComponentFixture<NgxGovukAccordionPanelComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AccordionPanelComponent],
+      imports: [NgxGovukAccordionPanelComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(AccordionPanelComponent);
+    fixture = TestBed.createComponent(NgxGovukAccordionPanelComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

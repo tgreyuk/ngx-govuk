@@ -1,1 +1,15 @@
-<p>breadcrumbs works!</p>
+<div class="govuk-breadcrumbs">
+  <ol class="govuk-breadcrumbs__list">
+    @for (item of items; track item.text) {
+    <li class="govuk-breadcrumbs__list-item">
+      @if (item.routerLink) {
+      <a class="govuk-breadcrumbs__link" [routerLink]="item.routerLink"
+        >{{ item.text }}
+      </a>
+      } @else {
+      {{ item.text }}
+      }
+    </li>
+    }
+  </ol>
+</div>
