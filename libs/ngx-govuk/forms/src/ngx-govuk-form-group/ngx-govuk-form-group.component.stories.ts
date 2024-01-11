@@ -4,7 +4,7 @@ import { NgxGovukFormGroupComponent } from './ngx-govuk-form-group.component';
 
 const meta: Meta<NgxGovukFormGroupComponent> = {
   component: NgxGovukFormGroupComponent,
-  title: 'ngx-govuk-form-group',
+  title: 'Forms/ngx-govuk-form-group',
   decorators: [
     moduleMetadata({
       imports: [],

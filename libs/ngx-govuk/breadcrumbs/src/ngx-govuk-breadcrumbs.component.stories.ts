@@ -11,7 +11,7 @@ import { NgxGovukBreadcrumbsComponent } from './ngx-govuk-breadcrumbs.component'
 
 const meta: Meta<NgxGovukBreadcrumbsComponent> = {
   component: NgxGovukBreadcrumbsComponent,
-  title: 'ngx-govuk-breadcrumbs',
+  title: 'UI/ngx-govuk-breadcrumbs',
   decorators: [
     moduleMetadata({
       imports: [RouterModule, NgxGovukBreadcrumbItemDirective],
