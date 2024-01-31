@@ -28,10 +28,9 @@ export class NgxGovukFormGroupComponent implements AfterViewInit {
   constructor(private renderer: Renderer2, private elementRef: ElementRef) {}
 
   ngAfterViewInit(): void {
-    const field = this.elementRef.nativeElement.querySelector('input');
+    const field = this.elementRef.nativeElement.querySelector('input,textarea');
     if (field) {
       this.renderer.setAttribute(field, 'id', this.elId);
-
       if (this.hint) {
         this.renderer.setAttribute(field, 'aria-describedby', this.hintId);
       }

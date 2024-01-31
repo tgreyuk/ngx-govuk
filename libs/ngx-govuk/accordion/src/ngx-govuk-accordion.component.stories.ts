@@ -4,7 +4,7 @@ import { NgxGovukAccordionComponent } from './ngx-govuk-accordion.component';
 
 const meta: Meta<NgxGovukAccordionComponent> = {
   component: NgxGovukAccordionComponent,
-  title: 'UI/ngx-govuk-accordion',
+  title: 'UI Components/ngx-govuk-accordion',
   decorators: [
     moduleMetadata({
       imports: [NgxGovukAccordionComponent, NgxGovukAccordionPanelComponent],
