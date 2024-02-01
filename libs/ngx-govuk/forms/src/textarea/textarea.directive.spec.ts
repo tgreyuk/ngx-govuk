@@ -1,4 +1,4 @@
-import { NgxGovukTextareaDirective } from './ngx-govuk-textarea.directive';
+import { NgxGovukTextareaDirective } from './textarea.directive';
 
 describe('NgxGovukTextareaDirective', () => {
   it('should create an instance', () => {

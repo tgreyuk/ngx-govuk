@@ -1,6 +1,6 @@
 import { moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';
-import { NgxGovukAccordionPanelComponent } from './ngx-govuk-accordion-panel.component';
-import { NgxGovukAccordionComponent } from './ngx-govuk-accordion.component';
+import { NgxGovukAccordionPanelComponent } from './accordion-panel.component';
+import { NgxGovukAccordionComponent } from './accordion.component';
 
 const meta: Meta<NgxGovukAccordionComponent> = {
   component: NgxGovukAccordionComponent,

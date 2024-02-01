@@ -1,2 +1,2 @@
-export * from './ngx-govuk-accordion-panel.component';
-export * from './ngx-govuk-accordion.component';
+export * from './accordion-panel.component';
+export * from './accordion.component';

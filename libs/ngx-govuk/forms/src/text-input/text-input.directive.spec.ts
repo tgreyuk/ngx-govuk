@@ -1,4 +1,4 @@
-import { NgxGovukTextInputDirective } from './ngx-govuk-text-input.directive';
+import { NgxGovukTextInputDirective } from './text-input.directive';
 
 describe('NgxGovukTextInputDirective', () => {
   it('should create an instance', () => {

@@ -6,7 +6,7 @@ import { RouterModule } from '@angular/router';
   selector: 'ngx-govuk-breadcrumbs',
   standalone: true,
   imports: [CommonModule, RouterModule],
-  templateUrl: './ngx-govuk-breadcrumbs.component.html',
-  styleUrl: './ngx-govuk-breadcrumbs.component.scss',
+  templateUrl: './breadcrumbs.component.html',
+  styleUrl: './breadcrumbs.component.scss',
 })
 export class NgxGovukBreadcrumbsComponent {}

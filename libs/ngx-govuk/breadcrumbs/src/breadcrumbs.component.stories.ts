@@ -6,8 +6,8 @@ import {
   type StoryObj,
 } from '@storybook/angular';
 
-import { NgxGovukBreadcrumbItemDirective } from './ngx-govuk-breadcrumb-item.directive';
-import { NgxGovukBreadcrumbsComponent } from './ngx-govuk-breadcrumbs.component';
+import { NgxGovukBreadcrumbItemDirective } from './breadcrumb-item.directive';
+import { NgxGovukBreadcrumbsComponent } from './breadcrumbs.component';
 
 const meta: Meta<NgxGovukBreadcrumbsComponent> = {
   component: NgxGovukBreadcrumbsComponent,

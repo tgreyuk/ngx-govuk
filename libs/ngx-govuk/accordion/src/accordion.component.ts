@@ -6,14 +6,14 @@ import {
   QueryList,
   signal,
 } from '@angular/core';
-import { NgxGovukAccordionPanelComponent } from './ngx-govuk-accordion-panel.component';
+import { NgxGovukAccordionPanelComponent } from './accordion-panel.component';
 
 @Component({
   selector: 'ngx-govuk-accordion',
   standalone: true,
   imports: [CommonModule, NgxGovukAccordionPanelComponent],
-  templateUrl: './ngx-govuk-accordion.component.html',
-  styleUrl: './ngx-govuk-accordion.component.scss',
+  templateUrl: './accordion.component.html',
+  styleUrl: './accordion.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NgxGovukAccordionComponent {

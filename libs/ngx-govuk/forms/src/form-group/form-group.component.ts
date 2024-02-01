@@ -13,8 +13,8 @@ import { nanoid } from 'nanoid';
   selector: 'ngx-govuk-form-group',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './ngx-govuk-form-group.component.html',
-  styleUrl: './ngx-govuk-form-group.component.scss',
+  templateUrl: './form-group.component.html',
+  styleUrl: './form-group.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NgxGovukFormGroupComponent implements AfterViewInit {
