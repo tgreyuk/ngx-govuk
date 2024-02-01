@@ -1,8 +1,8 @@
 import { moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';
 
-import { NgxGovukTextInputDirective } from '../ngx-govuk-text-input/ngx-govuk-text-input.directive';
-import { NgxGovukTextareaDirective } from '../ngx-govuk-textarea/ngx-govuk-textarea.directive';
-import { NgxGovukFormGroupComponent } from './ngx-govuk-form-group.component';
+import { NgxGovukTextInputDirective } from '../text-input/text-input.directive';
+import { NgxGovukTextareaDirective } from '../textarea/textarea.directive';
+import { NgxGovukFormGroupComponent } from './form-group.component';
 
 const meta: Meta<NgxGovukFormGroupComponent> = {
   component: NgxGovukFormGroupComponent,

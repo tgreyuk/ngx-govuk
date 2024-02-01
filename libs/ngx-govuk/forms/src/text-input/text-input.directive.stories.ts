@@ -1,5 +1,5 @@
 import { moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';
-import { NgxGovukTextInputDirective } from './ngx-govuk-text-input.directive';
+import { NgxGovukTextInputDirective } from './text-input.directive';
 
 const meta: Meta<NgxGovukTextInputDirective> = {
   component: NgxGovukTextInputDirective,
