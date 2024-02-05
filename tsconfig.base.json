@@ -17,6 +17,7 @@
     "paths": {
       "ngx-govuk": ["libs/ngx-govuk/src/index.ts"],
       "ngx-govuk/accordion": ["libs/ngx-govuk/accordion/src/index.ts"],
+      "ngx-govuk/back-link": ["libs/ngx-govuk/back-link/src/index.ts"],
       "ngx-govuk/breadcrumbs": ["libs/ngx-govuk/breadcrumbs/src/index.ts"],
       "ngx-govuk/forms": ["libs/ngx-govuk/forms/src/index.ts"]
     }
