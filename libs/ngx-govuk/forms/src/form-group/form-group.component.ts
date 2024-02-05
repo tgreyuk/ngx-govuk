@@ -20,7 +20,7 @@ import { nanoid } from 'nanoid';
 export class NgxGovukFormGroupComponent implements AfterViewInit {
   @Input({ required: true }) label!: string;
   @Input() hint!: string;
-  @Input() asPageHeading = false;
+  @Input() asPageHeading = true;
 
   elId = nanoid();
   hintId = nanoid();

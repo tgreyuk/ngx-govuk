@@ -3,7 +3,7 @@ import { NgxGovukBackLinkDirective } from './back-link.directive';
 
 const meta: Meta<NgxGovukBackLinkDirective> = {
   component: NgxGovukBackLinkDirective,
-  title: 'UI/ngxGovUkBackLink',
+  title: 'Back Link',
   decorators: [
     moduleMetadata({
       imports: [],
