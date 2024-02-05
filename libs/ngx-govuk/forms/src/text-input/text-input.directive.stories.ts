@@ -3,7 +3,7 @@ import { NgxGovukTextInputDirective } from './text-input.directive';
 
 const meta: Meta<NgxGovukTextInputDirective> = {
   component: NgxGovukTextInputDirective,
-  title: 'Form/ngxGovUkTextInput',
+  title: 'Text Input',
   decorators: [
     moduleMetadata({
       imports: [],

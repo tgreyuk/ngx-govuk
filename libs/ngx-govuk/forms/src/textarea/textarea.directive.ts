@@ -16,10 +16,13 @@ export class NgxGovukTextareaDirective implements AfterViewInit {
   }
   constructor(private renderer: Renderer2, private elementRef: ElementRef) {}
 
+  get field() {
+    return this.elementRef.nativeElement;
+  }
+
   ngAfterViewInit(): void {
-    const field = this.elementRef.nativeElement;
-    if (field) {
-      this.renderer.setAttribute(field, 'rows', '5');
+    if (this.field) {
+      this.renderer.setAttribute(this.field, 'rows', '5');
     }
   }
 }
