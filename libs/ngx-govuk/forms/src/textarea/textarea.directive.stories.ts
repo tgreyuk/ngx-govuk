@@ -3,7 +3,7 @@ import { NgxGovukTextareaDirective } from './textarea.directive';
 
 const meta: Meta<NgxGovukTextareaDirective> = {
   component: NgxGovukTextareaDirective,
-  title: 'Forms/ngxGovukTextarea',
+  title: 'Form/ngxGovukTextarea',
   decorators: [
     moduleMetadata({
       imports: [],

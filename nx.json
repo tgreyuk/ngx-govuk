@@ -76,11 +76,13 @@
     "@nx/angular:component": {
       "style": "scss",
       "directory": "libs/ngx-govuk",
-      "export": true
+      "export": true,
+      "prefix": "ngx-govuk"
     },
     "@nx/angular:directive": {
       "directory": "libs/ngx-govuk",
-      "export": true
+      "export": true,
+      "prefix": "ngxGovuk"
     }
   },
   "nxCloudAccessToken": "ZDRhMzNmNGYtOWQ2Yy00NmE4LTljY2ItNjU4YzEyNWI2M2UwfHJlYWQtd3JpdGU=",

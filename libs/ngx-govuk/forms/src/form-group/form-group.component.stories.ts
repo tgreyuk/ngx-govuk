@@ -6,7 +6,7 @@ import { NgxGovukFormGroupComponent } from './form-group.component';
 
 const meta: Meta<NgxGovukFormGroupComponent> = {
   component: NgxGovukFormGroupComponent,
-  title: 'Forms/ngx-govuk-form-group',
+  title: 'Form/ngx-govuk-form-group',
   decorators: [
     moduleMetadata({
       imports: [NgxGovukTextInputDirective, NgxGovukTextareaDirective],
