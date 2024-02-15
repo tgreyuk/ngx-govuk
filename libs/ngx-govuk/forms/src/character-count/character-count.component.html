@@ -2,6 +2,7 @@
   <ng-content></ng-content>
   <div class="govuk-hint govuk-character-count__message">
     You have
-    {{ count() }} {{ count() === 1 ? 'character' : 'characters' }} remaining.
+    {{ remainingCount() }}
+    {{ remainingCount() === 1 ? 'character' : 'characters' }} remaining.
   </div>
 </div>
