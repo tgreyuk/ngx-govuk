@@ -4,10 +4,10 @@ import {
   ChangeDetectionStrategy,
   Component,
   ContentChild,
-  Input,
   Renderer2,
   computed,
   effect,
+  input,
   signal,
 } from '@angular/core';
 import { NgxGovukTextareaDirective } from '../textarea/textarea.directive';
@@ -21,16 +21,16 @@ import { NgxGovukTextareaDirective } from '../textarea/textarea.directive';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NgxGovUkCharacterCountComponent implements AfterViewInit {
-  @Input() set limit(limit: number) {
-    this.maxLength.set(limit);
-  }
-
   @ContentChild(NgxGovukTextareaDirective)
   textarea!: NgxGovukTextareaDirective;
 
+  limit = input(200);
   count = signal(0);
-  maxLength = signal(0);
-  remainingCount = computed(() => this.maxLength() - this.count());
+
+  remainingCount = computed(() => {
+    const remaining = this.limit() - this.count();
+    return remaining < 0 ? 0 : remaining;
+  });
 
   constructor(private renderer: Renderer2) {
     effect(() => {
@@ -45,17 +45,18 @@ export class NgxGovUkCharacterCountComponent implements AfterViewInit {
   }
 
   setMaxLength(): void {
-    if (this.textarea.field.maxLength != this.maxLength()) {
+    if (this.textarea.field.maxLength != this.limit()) {
       if (this.textarea.field.value) {
         this.textarea.field.value = this.textarea.field.value.substring(
           0,
-          this.maxLength()
+          this.limit()
         );
       }
+
       this.renderer.setAttribute(
         this.textarea.field,
         'maxLength',
-        this.maxLength().toString()
+        this.limit().toString()
       );
     }
   }
