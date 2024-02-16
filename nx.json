@@ -62,6 +62,7 @@
     ],
     "sharedGlobals": []
   },
+
   "generators": {
     "@nx/angular:application": {
       "style": "scss",
@@ -77,12 +78,17 @@
       "style": "scss",
       "directory": "libs/ngx-govuk",
       "export": true,
+      "changeDetection": "onPush",
       "prefix": "ngx-govuk"
     },
     "@nx/angular:directive": {
       "directory": "libs/ngx-govuk",
       "export": true,
       "prefix": "ngxGovuk"
+    },
+    "@nx/angular:library-secondary-entry-point": {
+      "library": "ngx-govuk",
+      "skipModule": true
     }
   },
   "nxCloudAccessToken": "ZDRhMzNmNGYtOWQ2Yy00NmE4LTljY2ItNjU4YzEyNWI2M2UwfHJlYWQtd3JpdGU=",
