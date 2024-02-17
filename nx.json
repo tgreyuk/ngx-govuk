@@ -62,7 +62,6 @@
     ],
     "sharedGlobals": []
   },
-
   "generators": {
     "@nx/angular:application": {
       "style": "scss",
