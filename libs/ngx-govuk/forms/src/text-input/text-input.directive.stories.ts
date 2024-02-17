@@ -3,7 +3,7 @@ import { NgxGovukTextInputDirective } from './text-input.directive';
 
 const meta: Meta<NgxGovukTextInputDirective> = {
   component: NgxGovukTextInputDirective,
-  title: 'Text Input',
+  title: 'Form Components/Text Input',
   decorators: [
     moduleMetadata({
       imports: [],
@@ -19,7 +19,7 @@ const meta: Meta<NgxGovukTextInputDirective> = {
 export default meta;
 type Story = StoryObj<NgxGovukTextInputDirective>;
 
-export const Preview: Story = {
+export const TextInput: Story = {
   args: {
     width: 'full',
   },

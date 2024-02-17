@@ -3,7 +3,7 @@ import { NgxGovukBackLinkDirective } from './back-link.directive';
 
 const meta: Meta<NgxGovukBackLinkDirective> = {
   component: NgxGovukBackLinkDirective,
-  title: 'Back Link',
+  title: 'UI Components/Back Link',
   decorators: [
     moduleMetadata({
       imports: [],
@@ -13,7 +13,7 @@ const meta: Meta<NgxGovukBackLinkDirective> = {
 export default meta;
 type Story = StoryObj<NgxGovukBackLinkDirective>;
 
-export const Preview: Story = {
+export const BackLink: Story = {
   args: {},
   render: (args) => ({
     props: args,

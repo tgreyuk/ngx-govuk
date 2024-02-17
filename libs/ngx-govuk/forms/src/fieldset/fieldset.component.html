@@ -1,0 +1,7 @@
+<fieldset class="govuk-fieldset" [attr.aria-describedby]="hintId">
+  <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+    <h1 class="govuk-fieldset__heading">{{ legend() }}</h1>
+  </legend>
+  <div [attr.id]="hintId" class="govuk-hint">{{ hint() }}</div>
+  <ng-content></ng-content>
+</fieldset>
