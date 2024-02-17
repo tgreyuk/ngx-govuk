@@ -20,6 +20,7 @@
       "ngx-govuk/back-link": ["libs/ngx-govuk/back-link/src/index.ts"],
       "ngx-govuk/breadcrumbs": ["libs/ngx-govuk/breadcrumbs/src/index.ts"],
       "ngx-govuk/button": ["libs/ngx-govuk/button/src/index.ts"],
+      "ngx-govuk/cookie-banner": ["libs/ngx-govuk/cookie-banner/src/index.ts"],
       "ngx-govuk/forms": ["libs/ngx-govuk/forms/src/index.ts"]
     }
   },
