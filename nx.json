@@ -77,7 +77,7 @@
       "style": "scss",
       "directory": "libs/ngx-govuk",
       "export": true,
-      "changeDetection": "onPush",
+      "changeDetection": "OnPush",
       "prefix": "ngx-govuk"
     },
     "@nx/angular:directive": {
@@ -90,6 +90,7 @@
       "skipModule": true
     }
   },
+  "defaultProject": "ngx-govuk",
   "nxCloudAccessToken": "ZDRhMzNmNGYtOWQ2Yy00NmE4LTljY2ItNjU4YzEyNWI2M2UwfHJlYWQtd3JpdGU=",
   "tasksRunnerOptions": {
     "default": {
