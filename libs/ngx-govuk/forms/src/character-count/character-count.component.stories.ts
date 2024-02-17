@@ -6,7 +6,7 @@ import { NgxGovUkCharacterCountComponent } from './character-count.component';
 
 const meta: Meta<NgxGovUkCharacterCountComponent> = {
   component: NgxGovUkCharacterCountComponent,
-  title: 'Character Count',
+  title: 'Form Components/Character Count',
   decorators: [
     moduleMetadata({
       imports: [NgxGovukFormGroupComponent, NgxGovukTextareaDirective],
@@ -16,7 +16,7 @@ const meta: Meta<NgxGovUkCharacterCountComponent> = {
 export default meta;
 //type Story = StoryObj<NgxGovUkCharacterCountComponent>
 // Currently unable to type Preview: Story - See https://github.com/storybookjs/storybook/issues/25784
-export const Preview = {
+export const CharacterCount = {
   args: {
     limit: 10,
   },
@@ -26,7 +26,7 @@ export const Preview = {
     },
     template: `
 <ngx-govuk-character-count [limit]="limit">
-  <ngx-govuk-form-group label="Can you provide more detail?" hint="Do not include personal or financial information like your National Insurance number or credit card details." >
+  <ngx-govuk-form-group [asPageHeading]="true" label="Can you provide more detail?" hint="Do not include personal or financial information like your National Insurance number or credit card details." >
     <textarea ngxGovukTextarea></textarea>
   </ngx-govuk-form-group>
 </ngx-govuk-character-count>`,

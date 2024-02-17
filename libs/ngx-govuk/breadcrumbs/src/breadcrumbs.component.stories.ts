@@ -11,7 +11,7 @@ import { NgxGovukBreadcrumbsComponent } from './breadcrumbs.component';
 
 const meta: Meta<NgxGovukBreadcrumbsComponent> = {
   component: NgxGovukBreadcrumbsComponent,
-  title: 'Breadcrumbs',
+  title: 'UI Components/Breadcrumbs',
   decorators: [
     moduleMetadata({
       imports: [RouterModule, NgxGovukBreadcrumbItemDirective],
@@ -28,7 +28,7 @@ const meta: Meta<NgxGovukBreadcrumbsComponent> = {
 export default meta;
 type Story = StoryObj<NgxGovukBreadcrumbsComponent>;
 
-export const Preview: Story = {
+export const Breadcrumbs: Story = {
   args: {},
   render: (args) => ({
     props: args,

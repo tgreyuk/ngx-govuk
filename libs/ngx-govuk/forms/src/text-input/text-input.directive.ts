@@ -20,6 +20,4 @@ export class NgxGovukTextInputDirective {
   }
 
   @Input() width: InputWidth = 'full';
-
-  constructor() {}
 }

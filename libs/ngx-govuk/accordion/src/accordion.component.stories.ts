@@ -4,7 +4,7 @@ import { NgxGovukAccordionComponent } from './accordion.component';
 
 const meta: Meta<NgxGovukAccordionComponent> = {
   component: NgxGovukAccordionComponent,
-  title: 'Accordion',
+  title: 'UI Components/Accordion',
   decorators: [
     moduleMetadata({
       imports: [NgxGovukAccordionComponent, NgxGovukAccordionPanelComponent],
@@ -14,7 +14,7 @@ const meta: Meta<NgxGovukAccordionComponent> = {
 export default meta;
 type Story = StoryObj<NgxGovukAccordionComponent>;
 
-export const Preview: Story = {
+export const Accordion: Story = {
   args: {},
   render: (args) => ({
     props: args,
