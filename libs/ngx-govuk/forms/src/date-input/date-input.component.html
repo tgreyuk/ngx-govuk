@@ -1,0 +1,51 @@
+<div class="govuk-date-input">
+  <div class="govuk-date-input__item">
+    <div class="govuk-form-group">
+      <label class="govuk-label govuk-date-input__label" [attr.for]="dayId">
+        Day
+      </label>
+      <input
+        class="govuk-input govuk-date-input__input govuk-input--width-2"
+        [attr.id]="dayId"
+        type="text"
+        inputmode="numeric"
+        [(ngModel)]="day"
+        (input)="onDateChange()"
+        autocomplete="bday-day"
+      />
+    </div>
+  </div>
+  <div class="govuk-date-input__item">
+    <div class="govuk-form-group">
+      <label class="govuk-label govuk-date-input__label" [attr.for]="monthId">
+        Month
+      </label>
+      <input
+        class="govuk-input govuk-date-input__input govuk-input--width-2"
+        [attr.id]="monthId"
+        type="text"
+        inputmode="numeric"
+        [(ngModel)]="month"
+        (input)="onDateChange()"
+        autocomplete="bday-month"
+      />
+    </div>
+  </div>
+  <div class="govuk-date-input__item">
+    <div class="govuk-form-group">
+      <label class="govuk-label govuk-date-input__label" [attr.for]="yearId">
+        Year
+      </label>
+      <input
+        class="govuk-input govuk-date-input__input govuk-input--width-4"
+        [attr.id]="yearId"
+        name="passport-issued-year"
+        type="text"
+        inputmode="numeric"
+        [(ngModel)]="year"
+        (input)="onDateChange()"
+        autocomplete="bday-year"
+      />
+    </div>
+  </div>
+</div>
