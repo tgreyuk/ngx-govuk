@@ -1,0 +1,42 @@
+<h1 class="govuk-heading-l">Get started</h1>
+
+<div class="govuk-!-margin-bottom-8">
+  <h2 class="govuk-heading-m">1. Install packages</h2>
+  <p class="govuk-body">
+    You will need to install "govuk-frontend" and "ngx-govuk" packages from npm.
+  </p>
+  <pre class="govuk-body" [innerText]="INSTALL_CODE"></pre>
+</div>
+
+<div class="govuk-!-margin-bottom-8">
+  <h2 class="govuk-heading-m">2. Include GOV.UK styles</h2>
+
+  <p class="govuk-body">
+    You will need to reference the GOV.UK styles from node_modules.
+  </p>
+
+  <p class="govuk-body">
+    In your "(angular | project).json" file, add the following to the styles
+    array:
+  </p>
+
+  <pre class="govuk-body" [innerText]="STYLES_CODE"></pre>
+</div>
+
+<div class="govuk-!-margin-bottom-8">
+  <h2 class="govuk-heading-m">3. Consume components</h2>
+
+  <p class="govuk-body">
+    All components are exported as standalone components and should be added to
+    the imports array of your standalone component (or module).
+  </p>
+  <p class="govuk-body">
+    Let say we wanted to use "NgxGovukDetailsComponent" to a standalone
+    component.
+  </p>
+  <pre class="govuk-body" [innerText]="COMPONENT_CODE"></pre>
+  <p class="govuk-body">
+    For a complete list of components, please visit the
+    <a class="govuk-link" routerLink="/components">components</a> page.
+  </p>
+</div>

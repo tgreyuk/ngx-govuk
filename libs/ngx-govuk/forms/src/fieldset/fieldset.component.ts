@@ -13,5 +13,6 @@ import { nanoid } from 'nanoid';
 export class NgxGovukFieldsetComponent {
   legend = input.required<string>();
   hint = input<string>();
+  asPageHeading = input<boolean>(false);
   hintId = nanoid();
 }

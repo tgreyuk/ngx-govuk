@@ -1,3 +1,95 @@
-<h1>Welcome</h1>
+<header class="govuk-header" role="banner" data-module="govuk-header">
+  <div class="govuk-header__container govuk-width-container">
+    <div class="govuk-header__logo">
+      <a routerLink="/" class="govuk-header__link govuk-header__link--homepage">
+        <span class="govuk-header__product-name"
+          ><strong>ngx-govuk</strong></span
+        >
+      </a>
+    </div>
+    <div class="govuk-header__content">
+      <a routerLink="/" class="govuk-header__link govuk-header__service-name">
+        GOV.UK components for Angular
+      </a>
+      <nav aria-label="Menu" class="govuk-header__navigation">
+        <button
+          type="button"
+          class="govuk-header__menu-button govuk-js-header-toggle"
+          aria-controls="navigation"
+          hidden
+        >
+          Menu
+        </button>
+        <ul id="navigation" class="govuk-header__navigation-list">
+          <li
+            class="govuk-header__navigation-item"
+            routerLinkActive="govuk-header__navigation-item--active"
+          >
+            <a
+              class="govuk-header__link"
+              routerLink="/get-started"
+              routerLinkActive=""
+            >
+              Get started
+            </a>
+          </li>
+          <li class="govuk-header__navigation-item">
+            <a
+              class="govuk-header__link"
+              routerLink="/components"
+              routerLinkActive="govuk-header__navigation-item--active"
+            >
+              Components
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
 
-<ngx-govuk-accordion></ngx-govuk-accordion>
+<div class="govuk-width-container app-width-container">
+  <div class="govuk-phase-banner">
+    <p class="govuk-phase-banner__content">
+      <strong class="govuk-tag govuk-phase-banner__content__tag">
+        v1.0.1
+      </strong>
+      <span class="govuk-phase-banner__text">
+        Visit ngx-govuk on
+        <a class="govuk-link" href="#">GitHub</a> to raise issues and provide
+        feedback.
+      </span>
+    </p>
+  </div>
+  <main class="govuk-main-wrapper" role="main">
+    <router-outlet></router-outlet>
+  </main>
+</div>
+<footer class="govuk-footer" role="contentinfo">
+  <div class="govuk-width-container">
+    <div class="govuk-footer__meta">
+      <div class="govuk-footer__meta-item govuk-footer__meta-item--grow">
+        <span class="govuk-footer__licence-description">
+          This library is indepenently written and has no official connection
+          with GOV.UK.
+          <br /><br />
+          Please note that GOV.UK Design System is licensed under the
+          <a
+            class="govuk-footer__link"
+            href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
+            rel="license"
+            >Open Government Licence v3.0</a
+          >
+          and your are free to consume this library in a Government project.
+        </span>
+      </div>
+      <div class="govuk-footer__meta-item">
+        <a
+          class="govuk-footer__link govuk-footer__copyright-logo"
+          href="https://www.nationalarchives.gov.uk/information-management/re-using-public-sector-information/uk-government-licensing-framework/crown-copyright/"
+          >Licensed under MIT</a
+        >
+      </div>
+    </div>
+  </div>
+</footer>

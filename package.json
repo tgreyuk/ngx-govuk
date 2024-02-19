@@ -5,7 +5,9 @@
   "scripts": {
     "start": "nx serve ngx-govuk-demo",
     "test": "nx test ngx-govuk",
-    "storybook": "nx storybook ngx-govuk"
+    "prestorybook": "compodoc -p libs/ngx-govuk/tsconfig.json -e json -d libs/ngx-govuk/.storybook",
+    "storybook": "nx storybook ngx-govuk",
+    "typedoc": "npx typedoc --tsconfig ./libs/ngx-govuk/tsconfig.json  ./libs/ngx-govuk/accordion/**/*.ts"
   },
   "private": true,
   "dependencies": {
@@ -21,6 +23,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "rxjs": "~7.8.0",
+    "shiki": "^1.1.5",
     "tslib": "^2.3.0",
     "zone.js": "0.14.4"
   },
@@ -34,6 +37,7 @@
     "@angular/cli": "~17.1.0",
     "@angular/compiler-cli": "17.2.1",
     "@angular/language-service": "17.2.1",
+    "@compodoc/compodoc": "^1.1.23",
     "@nx/cypress": "18.0.4",
     "@nx/eslint": "18.0.4",
     "@nx/eslint-plugin": "18.0.4",

@@ -1,0 +1,45 @@
+<h1 class="govuk-heading-xl">Components</h1>
+
+<p class="govuk-body">
+  This component list directly maps those listed at
+  <a
+    class="govuk-link"
+    href="https://design-system.service.gov.uk/components"
+    target="_blank"
+    >https://design-system.service.gov.uk/components</a
+  >.
+</p>
+
+<p class="govuk-body">
+  Please navigate through for detailed usage and code examples.
+</p>
+
+<ul class="govuk-task-list">
+  @for (component of components; track component.name) { @if
+  (component.completed) {
+
+  <li class="govuk-task-list__item govuk-task-list__item--with-link">
+    <div class="govuk-task-list__name-and-hint">
+      <a
+        class="govuk-link govuk-task-list__link"
+        href="#"
+        aria-describedby="company-details-1-status"
+        >{{ component.name }}</a
+      >
+    </div>
+    <div class="govuk-task-list__status" id="company-details-1-status">
+      <strong class="govuk-tag govuk-tag--green"> Completed</strong>
+    </div>
+  </li>
+
+  } @else {
+
+  <li class="govuk-task-list__item">
+    <div class="govuk-task-list__name-and-hint">{{ component.name }}</div>
+    <div class="govuk-task-list__status" id="company-details-2-status">
+      <p class="govuk-tag govuk-tag--orange">To do</p>
+    </div>
+  </li>
+
+  } }
+</ul>
