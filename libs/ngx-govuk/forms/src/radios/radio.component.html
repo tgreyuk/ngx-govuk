@@ -1,0 +1,11 @@
+<input
+  #inputEl
+  class="govuk-radios__input"
+  [attr.id]="elId"
+  type="radio"
+  [attr.value]="value()"
+  (click)="onSelected()"
+/>
+<label class="govuk-label govuk-radios__label" [attr.for]="elId">
+  {{ label() }}
+</label>

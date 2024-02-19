@@ -12,9 +12,10 @@ const meta: Meta<NgxGovukAccordionComponent> = {
   ],
 };
 export default meta;
+
 type Story = StoryObj<NgxGovukAccordionComponent>;
 
-export const Accordion: Story = {
+export const Story: StoryObj<NgxGovukAccordionComponent> = {
   args: {},
   render: (args) => ({
     props: args,

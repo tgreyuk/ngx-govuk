@@ -1,11 +1,19 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { NgxGovukAccordionComponent } from 'ngx-govuk/accordion';
 
 @Component({
   standalone: true,
-  imports: [NgxGovukAccordionComponent],
+  imports: [
+    CommonModule,
+    NgxGovukAccordionComponent,
+    RouterOutlet,
+    RouterLink,
+    RouterLinkActive,
+  ],
   selector: 'ngx-govuk-root',
-  template: ` <ngx-govuk-accordion></ngx-govuk-accordion>`,
+  templateUrl: './app.component.html',
 })
 export class AppComponent {
   title = 'ngx-govuk-demo';

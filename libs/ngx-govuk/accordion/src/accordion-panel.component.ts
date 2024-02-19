@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
-  Input,
+  input,
   signal,
 } from '@angular/core';
 import { nanoid } from 'nanoid';
@@ -16,7 +16,12 @@ import { nanoid } from 'nanoid';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NgxGovukAccordionPanelComponent {
-  @Input({ required: true }) heading!: string;
+  // @Input({ required: true }) heading!: string;
+
+  /**
+   * Description for heading
+   */
+  heading = input.required<string>();
 
   isExpanded = signal(false);
 
