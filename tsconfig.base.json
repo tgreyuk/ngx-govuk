@@ -21,7 +21,8 @@
       "ngx-govuk/breadcrumbs": ["libs/ngx-govuk/breadcrumbs/src/index.ts"],
       "ngx-govuk/button": ["libs/ngx-govuk/button/src/index.ts"],
       "ngx-govuk/details": ["libs/ngx-govuk/details/src/index.ts"],
-      "ngx-govuk/forms": ["libs/ngx-govuk/forms/src/index.ts"]
+      "ngx-govuk/forms": ["libs/ngx-govuk/forms/src/index.ts"],
+      "ngx-govuk/tabs": ["libs/ngx-govuk/tabs/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

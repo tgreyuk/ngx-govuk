@@ -1,0 +1,66 @@
+<span class="govuk-caption-xl"> Components </span>
+<h1 class="govuk-heading-xl">Accordion</h1>
+
+<ngx-govuk-tabs>
+  <ngx-govuk-tabs-tab>
+    <a routerLink="./api" routerLinkActive #ngxTabLink="routerLinkActive"
+      >API</a
+    >
+  </ngx-govuk-tabs-tab>
+  <ngx-govuk-tabs-tab>
+    <a routerLink="./example" routerLinkActive #ngxTabLink="routerLinkActive"
+      >Example</a
+    >
+  </ngx-govuk-tabs-tab>
+  <router-outlet></router-outlet>
+</ngx-govuk-tabs>
+
+<ngx-govuk-tabs>
+  <ngx-govuk-tabs-panel label="Overview" [selected]="true"
+    >PANEL CONTENT A</ngx-govuk-tabs-panel
+  >
+  <ngx-govuk-tabs-panel label="API">
+    <h2 class="govuk-heading-l">API reference for tabs</h2>
+    <pre class="govuk-body" [innerText]="COMPONENT_CODE"></pre>
+
+    <h2 class="govuk-heading-m">NgxGovukAccordionComponent</h2>
+
+    <p class="govuk-body"><strong>Selector:</strong> ngx-govuk-accordion</p>
+
+    <h2 class="govuk-heading-m">NgxGovukAccordionPanelComponent</h2>
+
+    <p class="govuk-body">
+      <strong>Selector:</strong> ngx-govuk-accordio-panel
+    </p>
+
+    <h2 class="govuk-heading-s">Inputs</h2>
+
+    heading
+  </ngx-govuk-tabs-panel>
+  <ngx-govuk-tabs-panel label="Example">
+    <ngx-govuk-accordion>
+      <ngx-govuk-accordion-panel heading="Writing well for the web"
+        ><p class="govuk-body">
+          This is the content for Writing well for the web.
+        </p></ngx-govuk-accordion-panel
+      >
+      <ngx-govuk-accordion-panel heading="Writing well for specialists"
+        ><p class="govuk-body">
+          This is the content for Writing well for specialists.
+        </p></ngx-govuk-accordion-panel
+      >
+      <ngx-govuk-accordion-panel heading="Know your audience"
+        ><p class="govuk-body">
+          This is the content for Know your audience.
+        </p></ngx-govuk-accordion-panel
+      >
+      <ngx-govuk-accordion-panel heading="How people read"
+        ><p class="govuk-body">
+          This is the content for How people read.
+        </p></ngx-govuk-accordion-panel
+      >
+    </ngx-govuk-accordion>
+    <h2 class="govuk-heading-s">HTML</h2>
+    <pre class="govuk-body" [innerText]="HTML_CODE"></pre>
+  </ngx-govuk-tabs-panel>
+</ngx-govuk-tabs>

@@ -14,4 +14,6 @@ const preview: Preview = {
   },
 };
 
+document.body.classList.add('govuk-frontend-supported');
+
 export default preview;

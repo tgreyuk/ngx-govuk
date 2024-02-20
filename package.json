@@ -5,7 +5,7 @@
   "scripts": {
     "start": "nx serve ngx-govuk-demo",
     "test": "nx test ngx-govuk",
-    "prestorybook": "compodoc -p libs/ngx-govuk/tsconfig.json -e json -d libs/ngx-govuk/.storybook",
+    "compodoc": "compodoc -p libs/ngx-govuk/tsconfig.json -e json -d libs/ngx-govuk/.storybook",
     "storybook": "nx storybook ngx-govuk",
     "typedoc": "npx typedoc --tsconfig ./libs/ngx-govuk/tsconfig.json  ./libs/ngx-govuk/accordion/**/*.ts"
   },
