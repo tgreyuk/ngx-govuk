@@ -263,6 +263,103 @@
             }
         },
         {
+            "name": "NgxGovukTabsLinkDirective",
+            "id": "directive-NgxGovukTabsLinkDirective-53c3b43478735ed416c44278db1447dcecd912f3c4f7042d55f5d5e7a87818f1c14ecd127b07c27138c90ba2c24b03f0005d5eac220cb0417016021fc5cc2b0b",
+            "file": "libs/ngx-govuk/tabs/src/tabs-link.directive.ts",
+            "type": "directive",
+            "description": "",
+            "rawdescription": "\n",
+            "sourceCode": "import {\n  AfterViewInit,\n  Directive,\n  ElementRef,\n  HostBinding,\n  Renderer2,\n} from '@angular/core';\n\n@Directive({\n  selector: '[ngxGovukTabsLink]',\n  standalone: true,\n})\nexport class NgxGovukTabsLinkDirective implements AfterViewInit {\n  @HostBinding('class') get className() {\n    return `govuk-tabs__tab`;\n  }\n\n  constructor(private renderer: Renderer2, private el: ElementRef) {}\n\n  ngAfterViewInit(): void {\n    ///const listItem = this.renderer.createElement('li');\n    //const parent = this.el.nativeElement.parentNode;\n    //this.renderer.addClass(listItem, 'govuk-tabs__list-item');\n    //this.renderer.insertBefore(parent, listItem, this.el.nativeElement);\n    //this.renderer.appendChild(listItem, this.el.nativeElement);\n  }\n}\n",
+            "selector": "[ngxGovukTabsLink]",
+            "providers": [],
+            "hostDirectives": [],
+            "standalone": true,
+            "inputsClass": [],
+            "outputsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [
+                {
+                    "name": "class",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 14,
+                    "type": "string",
+                    "decorators": []
+                }
+            ],
+            "hostListeners": [],
+            "propertiesClass": [],
+            "methodsClass": [
+                {
+                    "name": "ngAfterViewInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 20,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                }
+            ],
+            "extends": [],
+            "implements": [
+                "AfterViewInit"
+            ],
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [
+                    {
+                        "name": "renderer",
+                        "type": "Renderer2",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    },
+                    {
+                        "name": "el",
+                        "type": "ElementRef",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "line": 16,
+                "jsdoctags": [
+                    {
+                        "name": "renderer",
+                        "type": "Renderer2",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    },
+                    {
+                        "name": "el",
+                        "type": "ElementRef",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            "accessors": {
+                "className": {
+                    "name": "className",
+                    "getSignature": {
+                        "name": "className",
+                        "type": "",
+                        "returnType": "",
+                        "line": 14
+                    }
+                }
+            }
+        },
+        {
             "name": "NgxGovukTextareaDirective",
             "id": "directive-NgxGovukTextareaDirective-93fffce0b9ffc116af08fc7cff39dc4b2c8166a088883998247540152115f589b37b9bc5145a5ccf4b25f246400f57e96421b6dc29024c392625c76cdfd5be1b",
             "file": "libs/ngx-govuk/forms/src/textarea/textarea.directive.ts",
@@ -422,6 +519,158 @@
         }
     ],
     "components": [
+        {
+            "name": "ContentAComponent",
+            "id": "component-ContentAComponent-e34f7842fe3526c90646f2239eeed5284b223b2e08abca0361a662e0b79ce64274d51cea034fa61c29848016e945b0ef146eb3efaa6c4df96f0c0e66ce800eb7",
+            "file": "libs/ngx-govuk/tabs/src/tabs-nav/tabs.component.stories.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "styleUrls": [],
+            "styles": [],
+            "template": "ContentA",
+            "templateUrl": [],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": false,
+            "imports": [],
+            "description": "",
+            "rawdescription": "",
+            "type": "component",
+            "sourceCode": "import { CommonModule } from '@angular/common';\nimport { Component } from '@angular/core';\nimport {\n  RouterLink,\n  RouterLinkActive,\n  RouterOutlet,\n  Routes,\n  provideRouter,\n} from '@angular/router';\nimport {\n  applicationConfig,\n  moduleMetadata,\n  type Meta,\n  type StoryObj,\n} from '@storybook/angular';\nimport {\n  NgxGovukTabsComponent,\n  NgxGovukTabsLinkComponent,\n  NgxGovukTabsLinkDirective,\n  NgxGovukTabsMenuComponent,\n  NgxGovukTabsNavComponent,\n  NgxGovukTabsPanelComponent,\n  NgxGovukTabsTabComponent,\n} from '../';\n\n@Component({\n  template: 'ContentA',\n})\nexport class ContentAComponent {}\n\n@Component({\n  template: 'ContentB',\n})\nexport class ContentBComponent {}\n\nconst routes: Routes = [\n  { path: 'iframe.html', component: ContentAComponent },\n  { path: 'b', component: ContentBComponent },\n];\n\nconst meta: Meta<NgxGovukTabsComponent> = {\n  component: NgxGovukTabsComponent,\n  title: 'Components/ngx-govuk-tabs-nav',\n  decorators: [\n    moduleMetadata({\n      imports: [\n        CommonModule,\n        NgxGovukTabsPanelComponent,\n        NgxGovukTabsLinkDirective,\n        NgxGovukTabsLinkComponent,\n        NgxGovukTabsTabComponent,\n        NgxGovukTabsMenuComponent,\n        NgxGovukTabsNavComponent,\n        RouterLinkActive,\n        RouterOutlet,\n        RouterLink,\n      ],\n    }),\n    applicationConfig({\n      providers: [provideRouter(routes)],\n    }),\n  ],\n};\nexport default meta;\n\nexport const Story: StoryObj<NgxGovukTabsComponent> = {\n  args: {},\n  render: (args) => ({\n    props: args,\n    template: `\n<ngx-govuk-tabs-nav>\n      <a routerLink=\"iframe.html\" routerLinkActive #ngxGovukTabsLink=\"routerLinkActive\">Label A</a>\n      <a routerLink=\"b\" routerLinkActive #ngxGovukTabsLink=\"routerLinkActive\">Label B</a>\n      <router-outlet></router-outlet>\n</ngx-govuk-tabs-nav>\n`,\n  }),\n};\n",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "",
+            "extends": []
+        },
+        {
+            "name": "ContentBComponent",
+            "id": "component-ContentBComponent-e34f7842fe3526c90646f2239eeed5284b223b2e08abca0361a662e0b79ce64274d51cea034fa61c29848016e945b0ef146eb3efaa6c4df96f0c0e66ce800eb7",
+            "file": "libs/ngx-govuk/tabs/src/tabs-nav/tabs.component.stories.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "styleUrls": [],
+            "styles": [],
+            "template": "ContentB",
+            "templateUrl": [],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": false,
+            "imports": [],
+            "description": "",
+            "rawdescription": "",
+            "type": "component",
+            "sourceCode": "import { CommonModule } from '@angular/common';\nimport { Component } from '@angular/core';\nimport {\n  RouterLink,\n  RouterLinkActive,\n  RouterOutlet,\n  Routes,\n  provideRouter,\n} from '@angular/router';\nimport {\n  applicationConfig,\n  moduleMetadata,\n  type Meta,\n  type StoryObj,\n} from '@storybook/angular';\nimport {\n  NgxGovukTabsComponent,\n  NgxGovukTabsLinkComponent,\n  NgxGovukTabsLinkDirective,\n  NgxGovukTabsMenuComponent,\n  NgxGovukTabsNavComponent,\n  NgxGovukTabsPanelComponent,\n  NgxGovukTabsTabComponent,\n} from '../';\n\n@Component({\n  template: 'ContentA',\n})\nexport class ContentAComponent {}\n\n@Component({\n  template: 'ContentB',\n})\nexport class ContentBComponent {}\n\nconst routes: Routes = [\n  { path: 'iframe.html', component: ContentAComponent },\n  { path: 'b', component: ContentBComponent },\n];\n\nconst meta: Meta<NgxGovukTabsComponent> = {\n  component: NgxGovukTabsComponent,\n  title: 'Components/ngx-govuk-tabs-nav',\n  decorators: [\n    moduleMetadata({\n      imports: [\n        CommonModule,\n        NgxGovukTabsPanelComponent,\n        NgxGovukTabsLinkDirective,\n        NgxGovukTabsLinkComponent,\n        NgxGovukTabsTabComponent,\n        NgxGovukTabsMenuComponent,\n        NgxGovukTabsNavComponent,\n        RouterLinkActive,\n        RouterOutlet,\n        RouterLink,\n      ],\n    }),\n    applicationConfig({\n      providers: [provideRouter(routes)],\n    }),\n  ],\n};\nexport default meta;\n\nexport const Story: StoryObj<NgxGovukTabsComponent> = {\n  args: {},\n  render: (args) => ({\n    props: args,\n    template: `\n<ngx-govuk-tabs-nav>\n      <a routerLink=\"iframe.html\" routerLinkActive #ngxGovukTabsLink=\"routerLinkActive\">Label A</a>\n      <a routerLink=\"b\" routerLinkActive #ngxGovukTabsLink=\"routerLinkActive\">Label B</a>\n      <router-outlet></router-outlet>\n</ngx-govuk-tabs-nav>\n`,\n  }),\n};\n",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "",
+            "extends": []
+        },
+        {
+            "name": "InlineTabsComponent",
+            "id": "component-InlineTabsComponent-9d7c3b742d270df25732adc0064746ad4568130eb5a9e562daf23932de7ccc087c637fef062cb3ccb45fe2a624f6b387b8400ca29d0c888396d2f49db294307c",
+            "file": "libs/ngx-govuk/tabs/src/inline-tabs.component.ts",
+            "changeDetection": "ChangeDetectionStrategy.OnPush",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "ngx-govuk-inline-tabs",
+            "styleUrls": [],
+            "styles": [],
+            "templateUrl": [
+                "./inline-tabs.component.html"
+            ],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "panels",
+                    "defaultValue": "contentChildren(NgxGovukTabsPanelComponent)",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 18
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "onSelected",
+                    "args": [
+                        {
+                            "name": "panel",
+                            "type": "NgxGovukTabsPanelComponent",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 20,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "panel",
+                            "type": "NgxGovukTabsPanelComponent",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": true,
+            "imports": [
+                {
+                    "name": "CommonModule",
+                    "type": "module"
+                }
+            ],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { CommonModule } from '@angular/common';\nimport {\n  ChangeDetectionStrategy,\n  Component,\n  contentChildren,\n} from '@angular/core';\nimport { NgxGovukTabsPanelComponent } from './tabs-panel.component';\n\n@Component({\n  selector: 'ngx-govuk-inline-tabs',\n  standalone: true,\n  imports: [CommonModule],\n  templateUrl: './inline-tabs.component.html',\n  styleUrl: './inline-tabs.component.scss',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class InlineTabsComponent {\n  panels = contentChildren(NgxGovukTabsPanelComponent);\n\n  onSelected(panel: NgxGovukTabsPanelComponent) {\n    this.panels().forEach((panel) => {\n      panel.selected.set(false);\n    });\n    panel.selected.set(true);\n  }\n}\n",
+            "styleUrl": "./inline-tabs.component.scss",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "",
+            "extends": [],
+            "templateData": "<ul class=\"govuk-tabs__list\">\n  @for (panel of panels(); track panel.label()) {\n  <li\n    class=\"govuk-tabs__list-item\"\n    [ngClass]=\"{\n      'govuk-tabs__list-item--selected': panel.selected()\n    }\"\n  >\n    <a\n      class=\"govuk-tabs__tab\"\n      href=\"#\"\n      (click)=\"onSelected(panel); $event.preventDefault()\"\n    >\n      {{ panel.label() }}\n    </a>\n  </li>\n  }\n  <ng-content select=\"ngx-govuk-tabs-tab\"></ng-content>\n</ul>\n"
+        },
         {
             "name": "NgxGovukAccordionComponent",
             "id": "component-NgxGovukAccordionComponent-894145e1464681cdf974ec20411bbb669680d92ac07c8011eb97da261b5137f89b70397fbabfc5069f0a2ce04bc70e6516476f780f476cafb315859b1f9a6b81",
@@ -605,7 +854,7 @@
             "styleUrlsData": "",
             "stylesData": "",
             "extends": [],
-            "templateData": "<div class=\"govuk-accordion__section\">\n  <div\n    class=\"govuk-accordion__section\"\n    [ngClass]=\"{\n      'govuk-accordion__section--expanded': isExpanded()\n    }\"\n  >\n    <div class=\"govuk-accordion__section-header\">\n      <h2 class=\"govuk-accordion__section-heading\">\n        <button\n          type=\"button\"\n          class=\"govuk-accordion__section-button\"\n          [attr.aria-controls]=\"contentId\"\n          [attr.aria-expanded]=\"isExpanded()\"\n          [attr.aria-label]=\"\n            heading + ', ' + isExpanded()\n              ? 'Hide this section'\n              : 'Show this section'\n          \"\n          (click)=\"toggle()\"\n        >\n          <span\n            class=\"govuk-accordion__section-heading-text\"\n            [attr.id]=\"headingId\"\n            ><span class=\"govuk-accordion__section-heading-text-focus\">\n              {{ heading }}\n            </span></span\n          ><span\n            class=\"govuk-visually-hidden govuk-accordion__section-heading-divider\"\n            >, </span\n          ><span class=\"govuk-accordion__section-toggle\"\n            ><span class=\"govuk-accordion__section-toggle-focus\"\n              ><span\n                class=\"govuk-accordion-nav__chevron\"\n                [ngClass]=\"{\n                  'govuk-accordion-nav__chevron--down': !isExpanded()\n                }\"\n              ></span\n              ><span class=\"govuk-accordion__section-toggle-text\">{{\n                isExpanded() ? 'Hide' : 'Show'\n              }}</span></span\n            ></span\n          >\n        </button>\n      </h2>\n    </div>\n    <div\n      [attr.id]=\"contentId\"\n      class=\"govuk-accordion__section-content\"\n      [attr.aria-labelledby]=\"headingId\"\n    >\n      <ng-content></ng-content>\n    </div>\n  </div>\n</div>\n"
+            "templateData": "<div class=\"govuk-accordion__section\">\n  <div\n    class=\"govuk-accordion__section\"\n    [ngClass]=\"{\n      'govuk-accordion__section--expanded': isExpanded()\n    }\"\n  >\n    <div class=\"govuk-accordion__section-header\">\n      <h2 class=\"govuk-accordion__section-heading\">\n        <button\n          type=\"button\"\n          class=\"govuk-accordion__section-button\"\n          [attr.aria-controls]=\"contentId\"\n          [attr.aria-expanded]=\"isExpanded()\"\n          [attr.aria-label]=\"\n            heading + ', ' + isExpanded()\n              ? 'Hide this section'\n              : 'Show this section'\n          \"\n          (click)=\"toggle()\"\n        >\n          <span\n            class=\"govuk-accordion__section-heading-text\"\n            [attr.id]=\"headingId\"\n            ><span class=\"govuk-accordion__section-heading-text-focus\">\n              {{ heading() }}\n            </span></span\n          ><span\n            class=\"govuk-visually-hidden govuk-accordion__section-heading-divider\"\n            >, </span\n          ><span class=\"govuk-accordion__section-toggle\"\n            ><span class=\"govuk-accordion__section-toggle-focus\"\n              ><span\n                class=\"govuk-accordion-nav__chevron\"\n                [ngClass]=\"{\n                  'govuk-accordion-nav__chevron--down': !isExpanded()\n                }\"\n              ></span\n              ><span class=\"govuk-accordion__section-toggle-text\">{{\n                isExpanded() ? 'Hide' : 'Show'\n              }}</span></span\n            ></span\n          >\n        </button>\n      </h2>\n    </div>\n    <div\n      [attr.id]=\"contentId\"\n      class=\"govuk-accordion__section-content\"\n      [attr.aria-labelledby]=\"headingId\"\n    >\n      <ng-content></ng-content>\n    </div>\n  </div>\n</div>\n"
         },
         {
             "name": "NgxGovukBreadcrumbsComponent",
@@ -1977,6 +2226,603 @@
                 }
             },
             "templateData": "<ng-content></ng-content>\n"
+        },
+        {
+            "name": "NgxGovukTabsComponent",
+            "id": "component-NgxGovukTabsComponent-a808567d0998c14e0acde06a56d8014f02ba076d66f30fb009c62c2f06f020297ef2268c800ddc7414bc79a096f9121e51201b38783fb92a1c532be4f08c4f1d",
+            "file": "libs/ngx-govuk/tabs/src/tabs/tabs.component.ts",
+            "changeDetection": "ChangeDetectionStrategy.OnPush",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "ngx-govuk-tabs",
+            "styleUrls": [],
+            "styles": [],
+            "templateUrl": [
+                "./tabs.component.html"
+            ],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "labels",
+                    "defaultValue": "signal<string[]>([])",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 22
+                },
+                {
+                    "name": "links",
+                    "defaultValue": "contentChildren(NgxGovukTabsLinkDirective)",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 21
+                },
+                {
+                    "name": "panels",
+                    "defaultValue": "contentChildren(NgxGovukTabsPanelComponent)",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 20
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "onSelected",
+                    "args": [
+                        {
+                            "name": "panel",
+                            "type": "NgxGovukTabsPanelComponent",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 24,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "panel",
+                            "type": "NgxGovukTabsPanelComponent",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": true,
+            "imports": [
+                {
+                    "name": "CommonModule",
+                    "type": "module"
+                }
+            ],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { CommonModule } from '@angular/common';\nimport {\n  ChangeDetectionStrategy,\n  Component,\n  contentChildren,\n  signal,\n} from '@angular/core';\nimport { NgxGovukTabsPanelComponent } from '..';\nimport { NgxGovukTabsLinkDirective } from '../tabs-link.directive';\n\n@Component({\n  selector: 'ngx-govuk-tabs',\n  standalone: true,\n  imports: [CommonModule],\n  templateUrl: './tabs.component.html',\n  styleUrl: './tabs.component.scss',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class NgxGovukTabsComponent {\n  panels = contentChildren(NgxGovukTabsPanelComponent);\n  links = contentChildren(NgxGovukTabsLinkDirective);\n  labels = signal<string[]>([]);\n\n  onSelected(panel: NgxGovukTabsPanelComponent) {\n    this.panels().forEach((panel) => {\n      panel.selected.set(false);\n    });\n    panel.selected.set(true);\n  }\n}\n",
+            "styleUrl": "./tabs.component.scss",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "",
+            "extends": [],
+            "templateData": "<ul class=\"govuk-tabs__list\">\n  @for (panel of panels(); track panel.label()) {\n  <li\n    class=\"govuk-tabs__list-item\"\n    [ngClass]=\"{\n      'govuk-tabs__list-item--selected': panel.selected()\n    }\"\n  >\n    <a\n      class=\"govuk-tabs__tab\"\n      href=\"#\"\n      (click)=\"onSelected(panel); $event.preventDefault()\"\n    >\n      {{ panel.label() }}\n    </a>\n  </li>\n  }\n  <ng-content select=\"ngx-govuk-tabs-tab\"></ng-content>\n</ul>\n"
+        },
+        {
+            "name": "NgxGovukTabsLinkComponent",
+            "id": "component-NgxGovukTabsLinkComponent-97aa018af86cd134e769ff19d78b350afc1f33efd92d99e70a098f1f0c2f251e078038f1677a4cb20353a4be67c7771ae66d3c279b2df5df8da5c787c39c8dc2",
+            "file": "libs/ngx-govuk/tabs/src/tabs-link.component.ts",
+            "changeDetection": "ChangeDetectionStrategy.OnPush",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "ngx-govuk-tabs-link",
+            "styleUrls": [],
+            "styles": [],
+            "templateUrl": [
+                "./tabs-link.component.html"
+            ],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [
+                {
+                    "name": "ngAfterViewInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 26,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                }
+            ],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [
+                {
+                    "name": "class",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 20,
+                    "type": "string",
+                    "decorators": []
+                }
+            ],
+            "hostListeners": [],
+            "standalone": true,
+            "imports": [
+                {
+                    "name": "CommonModule",
+                    "type": "module"
+                }
+            ],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { CommonModule } from '@angular/common';\nimport {\n  AfterViewInit,\n  ChangeDetectionStrategy,\n  Component,\n  ElementRef,\n  HostBinding,\n  Renderer2,\n} from '@angular/core';\n\n@Component({\n  selector: 'ngx-govuk-tabs-link',\n  standalone: true,\n  imports: [CommonModule],\n  templateUrl: './tabs-link.component.html',\n  styleUrl: './tabs-link.component.scss',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class NgxGovukTabsLinkComponent implements AfterViewInit {\n  @HostBinding('class') get className() {\n    return `govuk-tabs__list-item`;\n  }\n\n  constructor(private renderer: Renderer2, private el: ElementRef) {}\n\n  ngAfterViewInit(): void {\n    //const listItem = this.renderer.createElement('li');\n    //const parent = this.el.nativeElement.parentNode;\n    console.log(\n      this.el.nativeElement,\n      this.el.nativeElement.getElementsByTagName('a')\n    );\n    //this.renderer.insertBefore(parent, listItem, this.el.nativeElement);\n    //this.renderer.appendChild(listItem, this.el.nativeElement);\n  }\n}\n",
+            "styleUrl": "./tabs-link.component.scss",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [
+                    {
+                        "name": "renderer",
+                        "type": "Renderer2",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    },
+                    {
+                        "name": "el",
+                        "type": "ElementRef",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "line": 22,
+                "jsdoctags": [
+                    {
+                        "name": "renderer",
+                        "type": "Renderer2",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    },
+                    {
+                        "name": "el",
+                        "type": "ElementRef",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            "extends": [],
+            "implements": [
+                "AfterViewInit"
+            ],
+            "accessors": {
+                "className": {
+                    "name": "className",
+                    "getSignature": {
+                        "name": "className",
+                        "type": "",
+                        "returnType": "",
+                        "line": 20
+                    }
+                }
+            },
+            "templateData": "tabs-link-workds\n"
+        },
+        {
+            "name": "NgxGovukTabsMenuComponent",
+            "id": "component-NgxGovukTabsMenuComponent-9369c74befbea6b2de26d68b53b920d2a8d4070d459a51315b61f03476712a642d84fbda9ba12e4cf570ec5ac271f5391b1899f797ef991addc643d50887a523",
+            "file": "libs/ngx-govuk/tabs/src/tabs-menu.component.ts",
+            "changeDetection": "ChangeDetectionStrategy.OnPush",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "ngx-govuk-tabs-menu",
+            "styleUrls": [],
+            "styles": [],
+            "templateUrl": [
+                "./tabs-menu.component.html"
+            ],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "links",
+                    "defaultValue": "contentChildren(NgxGovukTabsLinkDirective)",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 19
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "ngAfterViewInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 21,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                }
+            ],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": true,
+            "imports": [
+                {
+                    "name": "CommonModule",
+                    "type": "module"
+                }
+            ],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { CommonModule } from '@angular/common';\nimport {\n  AfterViewInit,\n  ChangeDetectionStrategy,\n  Component,\n  contentChildren,\n} from '@angular/core';\nimport { NgxGovukTabsLinkDirective } from './tabs-link.directive';\n\n@Component({\n  selector: 'ngx-govuk-tabs-menu',\n  standalone: true,\n  imports: [CommonModule],\n  templateUrl: './tabs-menu.component.html',\n  styleUrl: './tabs-menu.component.scss',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class NgxGovukTabsMenuComponent implements AfterViewInit {\n  links = contentChildren(NgxGovukTabsLinkDirective);\n\n  ngAfterViewInit(): void {\n    console.log(this.links());\n    this.links().forEach((link) => {\n      console.log(link);\n    });\n  }\n}\n",
+            "styleUrl": "./tabs-menu.component.scss",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "",
+            "extends": [],
+            "implements": [
+                "AfterViewInit"
+            ],
+            "templateData": "<ul class=\"govuk-tabs__list\">\n  <ng-content></ng-content>\n</ul>\n"
+        },
+        {
+            "name": "NgxGovukTabsNavComponent",
+            "id": "component-NgxGovukTabsNavComponent-b113c6b8272bbfa19f482d5f6511cfd7b5e9a7cc7119262052febd461e553d416d625cfb0b4c4d2a2a15537b8290826285ced576197cb0dd3f8613e35f90390d",
+            "file": "libs/ngx-govuk/tabs/src/tabs-nav/tabs-nav.component.ts",
+            "changeDetection": "ChangeDetectionStrategy.OnPush",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "ngx-govuk-tabs-nav",
+            "styleUrls": [],
+            "styles": [],
+            "templateUrl": [
+                "./tabs-nav.component.html"
+            ],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "tabLinks",
+                    "defaultValue": "contentChildren<RouterLinkActive>('ngxGovukTabsLink')",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 21
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "ngAfterViewInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 25,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                }
+            ],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": true,
+            "imports": [
+                {
+                    "name": "CommonModule",
+                    "type": "module"
+                }
+            ],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { CommonModule } from '@angular/common';\nimport {\n  AfterViewInit,\n  ChangeDetectionStrategy,\n  Component,\n  ElementRef,\n  Renderer2,\n  contentChildren,\n} from '@angular/core';\nimport { RouterLinkActive } from '@angular/router';\n\n@Component({\n  selector: 'ngx-govuk-tabs-nav',\n  standalone: true,\n  imports: [CommonModule],\n  templateUrl: './tabs-nav.component.html',\n  styleUrl: './tabs-nav.component.scss',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class NgxGovukTabsNavComponent implements AfterViewInit {\n  tabLinks = contentChildren<RouterLinkActive>('ngxGovukTabsLink');\n\n  constructor(private renderer: Renderer2, private el: ElementRef) {}\n\n  ngAfterViewInit(): void {\n    const nativeLinkEls = [...this.el.nativeElement.getElementsByTagName('a')];\n    nativeLinkEls.forEach((nativeLinkEl) => {\n      const listItem = this.renderer.createElement('li');\n      const parent = nativeLinkEl.parentNode;\n      this.renderer.addClass(nativeLinkEl, 'govuk-tabs__tab');\n      this.renderer.addClass(listItem, 'govuk-tabs__list-item');\n      this.renderer.insertBefore(parent, listItem, nativeLinkEl);\n      this.renderer.appendChild(listItem, nativeLinkEl);\n    });\n\n    this.tabLinks().forEach((tabLink, i) => {\n      console.log(tabLink);\n      const nativeLiEls = [...this.el.nativeElement.getElementsByTagName('li')];\n      tabLink?.isActiveChange.subscribe((isActive) => {\n        if (isActive) {\n          this.renderer.addClass(\n            nativeLiEls[i],\n            'govuk-tabs__list-item--selected'\n          );\n        } else {\n          this.renderer.removeClass(\n            nativeLiEls[i],\n            'govuk-tabs__list-item--selected'\n          );\n        }\n      });\n    });\n  }\n}\n",
+            "styleUrl": "./tabs-nav.component.scss",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [
+                    {
+                        "name": "renderer",
+                        "type": "Renderer2",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    },
+                    {
+                        "name": "el",
+                        "type": "ElementRef",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "line": 21,
+                "jsdoctags": [
+                    {
+                        "name": "renderer",
+                        "type": "Renderer2",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    },
+                    {
+                        "name": "el",
+                        "type": "ElementRef",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            "extends": [],
+            "implements": [
+                "AfterViewInit"
+            ],
+            "templateData": "<div class=\"govuk-tabs\">\n  <ul class=\"govuk-tabs__list\">\n    <ng-content select=\"a\"></ng-content>\n  </ul>\n  <div class=\"govuk-tabs__panel\">\n    <ng-content></ng-content>\n  </div>\n</div>\n"
+        },
+        {
+            "name": "NgxGovukTabsPanelComponent",
+            "id": "component-NgxGovukTabsPanelComponent-7a5df1b5cef3bce2bb408eabffac384653b2b11f04fa62c095543bbdbf3a84842eaae1b3301a55c3801eeaf4e1770a84eae925e8fbfdf0a40f9e238ac0ae7e83",
+            "file": "libs/ngx-govuk/tabs/src/tabs-panel.component.ts",
+            "changeDetection": "ChangeDetectionStrategy.OnPush",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "ngx-govuk-tabs-panel",
+            "styleUrls": [],
+            "styles": [],
+            "templateUrl": [
+                "./tabs-panel.component.html"
+            ],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "label",
+                    "defaultValue": "input.required<string>()",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 18
+                },
+                {
+                    "name": "selected",
+                    "defaultValue": "model<boolean>(false)",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 19
+                }
+            ],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": true,
+            "imports": [
+                {
+                    "name": "CommonModule",
+                    "type": "module"
+                }
+            ],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { CommonModule } from '@angular/common';\nimport {\n  ChangeDetectionStrategy,\n  Component,\n  input,\n  model,\n} from '@angular/core';\n\n@Component({\n  selector: 'ngx-govuk-tabs-panel',\n  standalone: true,\n  imports: [CommonModule],\n  templateUrl: './tabs-panel.component.html',\n  styleUrl: './tabs-panel.component.scss',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class NgxGovukTabsPanelComponent {\n  label = input.required<string>();\n  selected = model<boolean>(false);\n}\n",
+            "styleUrl": "./tabs-panel.component.scss",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "",
+            "extends": [],
+            "templateData": "<div class=\"govuk-tabs__panel\" [hidden]=\"!selected()\">\n  <ng-content></ng-content>\n</div>\n"
+        },
+        {
+            "name": "NgxGovukTabsTabComponent",
+            "id": "component-NgxGovukTabsTabComponent-bca6c0296ed0a0899df7157e81b58fdcd89096bc7f9c1a8f6ac15ed864e4a23774059e2a93ab41ac5e005c7eb929b244ceb803d337f2fff9ff6a8b940dd6e1d7",
+            "file": "libs/ngx-govuk/tabs/src/tabs-tab.component.ts",
+            "changeDetection": "ChangeDetectionStrategy.OnPush",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "ngx-govuk-tabs-tab",
+            "styleUrls": [],
+            "styles": [],
+            "templateUrl": [
+                "./tabs-tab.component.html"
+            ],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "routerLink",
+                    "defaultValue": "contentChild<RouterLinkActive>('ngxTabLink')",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 27
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "ngAfterViewInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 31,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                }
+            ],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [
+                {
+                    "name": "class",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 22,
+                    "type": "string",
+                    "decorators": []
+                }
+            ],
+            "hostListeners": [],
+            "standalone": true,
+            "imports": [
+                {
+                    "name": "CommonModule",
+                    "type": "module"
+                }
+            ],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { CommonModule } from '@angular/common';\nimport {\n  AfterViewInit,\n  ChangeDetectionStrategy,\n  Component,\n  ElementRef,\n  HostBinding,\n  Renderer2,\n  contentChild,\n} from '@angular/core';\nimport { RouterLinkActive } from '@angular/router';\n\n@Component({\n  selector: 'ngx-govuk-tabs-tab',\n  standalone: true,\n  imports: [CommonModule],\n  templateUrl: './tabs-tab.component.html',\n  styleUrl: './tabs-tab.component.scss',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class NgxGovukTabsTabComponent implements AfterViewInit {\n  @HostBinding('class') get className() {\n    //return `govuk-tabs__list-item`;\n    return '';\n  }\n\n  routerLink = contentChild<RouterLinkActive>('ngxTabLink');\n\n  constructor(private renderer: Renderer2, private el: ElementRef) {}\n\n  ngAfterViewInit(): void {\n    this.renderer.addClass(\n      this.el.nativeElement.getElementsByTagName('a')[0],\n      'govuk-tabs__tab'\n    );\n    this.routerLink()?.isActiveChange.subscribe((isActive) => {\n      if (isActive) {\n        this.renderer.addClass(listItem, 'govuk-tabs__list-item--selected');\n      } else {\n        this.renderer.removeClass(listItem, 'govuk-tabs__list-item--selected');\n      }\n    });\n    const listItem = this.renderer.createElement('li');\n    const parent = this.el.nativeElement.parentNode;\n    this.renderer.addClass(listItem, 'govuk-tabs__list-item');\n    this.renderer.insertBefore(parent, listItem, this.el.nativeElement);\n    this.renderer.appendChild(listItem, this.el.nativeElement);\n  }\n}\n",
+            "styleUrl": "./tabs-tab.component.scss",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [
+                    {
+                        "name": "renderer",
+                        "type": "Renderer2",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    },
+                    {
+                        "name": "el",
+                        "type": "ElementRef",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "line": 27,
+                "jsdoctags": [
+                    {
+                        "name": "renderer",
+                        "type": "Renderer2",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    },
+                    {
+                        "name": "el",
+                        "type": "ElementRef",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            "extends": [],
+            "implements": [
+                "AfterViewInit"
+            ],
+            "accessors": {
+                "className": {
+                    "name": "className",
+                    "getSignature": {
+                        "name": "className",
+                        "type": "",
+                        "returnType": "",
+                        "line": 22
+                    }
+                }
+            },
+            "templateData": "<ng-content></ng-content>\n"
         }
     ],
     "modules": [],
@@ -2090,7 +2936,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<NgxGovukAccordionComponent>",
-                "defaultValue": "{\n  component: NgxGovukAccordionComponent,\n  title: 'UI Components/Accordion',\n  decorators: [\n    moduleMetadata({\n      imports: [NgxGovukAccordionComponent, NgxGovukAccordionPanelComponent],\n    }),\n  ],\n  parameters: {\n    controls: {\n      include: ['heading'],\n    },\n  },\n}"
+                "defaultValue": "{\n  component: NgxGovukAccordionComponent,\n  title: 'UI Components/Accordion',\n  decorators: [\n    moduleMetadata({\n      imports: [NgxGovukAccordionComponent, NgxGovukAccordionPanelComponent],\n    }),\n  ],\n}"
             },
             {
                 "name": "meta",
@@ -2116,16 +2962,6 @@
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "libs/ngx-govuk/details/src/details.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Meta<NgxGovukDetailsComponent>",
-                "defaultValue": "{\n  component: NgxGovukDetailsComponent,\n  title: 'UI Components/Details',\n  decorators: [\n    moduleMetadata({\n      imports: [],\n    }),\n  ],\n}"
-            },
-            {
-                "name": "meta",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "libs/ngx-govuk/button/src/button.directive.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -2136,11 +2972,31 @@
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "libs/ngx-govuk/details/src/details.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<NgxGovukDetailsComponent>",
+                "defaultValue": "{\n  component: NgxGovukDetailsComponent,\n  title: 'UI Components/Details',\n  decorators: [\n    moduleMetadata({\n      imports: [],\n    }),\n  ],\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "libs/ngx-govuk/forms/src/character-count/character-count.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<NgxGovUkCharacterCountComponent>",
                 "defaultValue": "{\n  component: NgxGovUkCharacterCountComponent,\n  title: 'Form Components/Character Count',\n  decorators: [\n    moduleMetadata({\n      imports: [NgxGovukFormGroupComponent, NgxGovukTextareaDirective],\n    }),\n  ],\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "libs/ngx-govuk/forms/src/date-input/date-input.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<NgxGovukDateInputComponent>",
+                "defaultValue": "{\n  component: NgxGovukDateInputComponent,\n  title: 'Form Components/Date Input',\n  decorators: [\n    moduleMetadata({\n      imports: [\n        ReactiveFormsModule,\n        NgxGovukFieldsetComponent,\n        NgxGovukFormGroupComponent,\n      ],\n    }),\n  ],\n}"
             },
             {
                 "name": "meta",
@@ -2166,21 +3022,21 @@
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "libs/ngx-govuk/forms/src/date-input/date-input.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Meta<NgxGovukDateInputComponent>",
-                "defaultValue": "{\n  component: NgxGovukDateInputComponent,\n  title: 'Form Components/Date Input',\n  decorators: [\n    moduleMetadata({\n      imports: [\n        ReactiveFormsModule,\n        NgxGovukFieldsetComponent,\n        NgxGovukFormGroupComponent,\n      ],\n    }),\n  ],\n}"
-            },
-            {
-                "name": "meta",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "libs/ngx-govuk/forms/src/fieldset/fieldset.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<NgxGovukFieldsetComponent>",
                 "defaultValue": "{\n  component: NgxGovukFieldsetComponent,\n  title: 'Form Components/Fieldset',\n  decorators: [\n    moduleMetadata({\n      imports: [NgxGovukFormGroupComponent, NgxGovukTextInputDirective],\n    }),\n  ],\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "libs/ngx-govuk/forms/src/text-input/text-input.directive.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<NgxGovukTextInputDirective>",
+                "defaultValue": "{\n  component: NgxGovukTextInputDirective,\n  title: 'Form Components/Text Input',\n  decorators: [\n    moduleMetadata({\n      imports: [],\n    }),\n  ],\n  argTypes: {\n    width: {\n      options: ['full', '20', '10', '5', '4', '3', '2'],\n      control: { type: 'select' },\n    },\n  },\n}"
             },
             {
                 "name": "meta",
@@ -2206,11 +3062,21 @@
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "libs/ngx-govuk/forms/src/text-input/text-input.directive.stories.ts",
+                "file": "libs/ngx-govuk/tabs/src/tabs/tabs.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
-                "type": "Meta<NgxGovukTextInputDirective>",
-                "defaultValue": "{\n  component: NgxGovukTextInputDirective,\n  title: 'Form Components/Text Input',\n  decorators: [\n    moduleMetadata({\n      imports: [],\n    }),\n  ],\n  argTypes: {\n    width: {\n      options: ['full', '20', '10', '5', '4', '3', '2'],\n      control: { type: 'select' },\n    },\n  },\n}"
+                "type": "Meta<NgxGovukTabsComponent>",
+                "defaultValue": "{\n  component: NgxGovukTabsComponent,\n  title: 'Components/ngx-govuk-tabs',\n  decorators: [\n    moduleMetadata({\n      imports: [\n        CommonModule,\n        NgxGovukTabsPanelComponent,\n        NgxGovukTabsLinkDirective,\n        NgxGovukTabsLinkComponent,\n        NgxGovukTabsTabComponent,\n        NgxGovukTabsMenuComponent,\n        NgxGovukTabsNavComponent,\n        RouterLinkActive,\n        RouterOutlet,\n        RouterLink,\n      ],\n    }),\n  ],\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "libs/ngx-govuk/tabs/src/tabs-nav/tabs.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<NgxGovukTabsComponent>",
+                "defaultValue": "{\n  component: NgxGovukTabsComponent,\n  title: 'Components/ngx-govuk-tabs-nav',\n  decorators: [\n    moduleMetadata({\n      imports: [\n        CommonModule,\n        NgxGovukTabsPanelComponent,\n        NgxGovukTabsLinkDirective,\n        NgxGovukTabsLinkComponent,\n        NgxGovukTabsTabComponent,\n        NgxGovukTabsMenuComponent,\n        NgxGovukTabsNavComponent,\n        RouterLinkActive,\n        RouterOutlet,\n        RouterLink,\n      ],\n    }),\n    applicationConfig({\n      providers: [provideRouter(routes)],\n    }),\n  ],\n}"
             },
             {
                 "name": "Radios",
@@ -2231,6 +3097,26 @@
                 "deprecationMessage": "",
                 "type": "StoryObj<NgxGovukAccordionComponent>",
                 "defaultValue": "{\n  args: {},\n  render: (args) => ({\n    props: args,\n    template: `\n<div class=\"govuk-frontend-supported\">\n  <ngx-govuk-accordion>\n    <ngx-govuk-accordion-panel heading=\"Writing well for the web\"><p class=\"govuk-body\">This is the content for Writing well for the web.</p></ngx-govuk-accordion-panel>\n    <ngx-govuk-accordion-panel heading=\"Writing well for specialists\"><p class=\"govuk-body\">This is the content for Writing well for specialists.</p></ngx-govuk-accordion-panel>\n    <ngx-govuk-accordion-panel heading=\"Know your audience\"><p class=\"govuk-body\">This is the content for Know your audience.</p></ngx-govuk-accordion-panel>\n    <ngx-govuk-accordion-panel heading=\"How people read\"><p class=\"govuk-body\">This is the content for How people read.</p></ngx-govuk-accordion-panel>\n  </ngx-govuk-accordion>\n</div>\n`,\n  }),\n}"
+            },
+            {
+                "name": "Story",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "libs/ngx-govuk/tabs/src/tabs/tabs.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "StoryObj<NgxGovukTabsComponent>",
+                "defaultValue": "{\n  args: {},\n  render: (args) => ({\n    props: args,\n    template: `\n  <ngx-govuk-tabs>\n    <ngx-govuk-tabs-tab label=\"Label A\">\n      PANEL CONTENT A\n    </ngx-govuk-tabs-tab>\n    <ngx-govuk-tabs-tab label=\"Label B\">\n      PANEL CONTENT B\n    </ngx-govuk-tabs>\n  </ngx-govuk-tabs>\n`,\n  }),\n}"
+            },
+            {
+                "name": "Story",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "libs/ngx-govuk/tabs/src/tabs-nav/tabs.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "StoryObj<NgxGovukTabsComponent>",
+                "defaultValue": "{\n  args: {},\n  render: (args) => ({\n    props: args,\n    template: `\n<ngx-govuk-tabs-nav>\n      <a routerLink=\"iframe.html\" routerLinkActive #ngxGovukTabsLink=\"routerLinkActive\">Label A</a>\n      <a routerLink=\"b\" routerLinkActive #ngxGovukTabsLink=\"routerLinkActive\">Label B</a>\n      <router-outlet></router-outlet>\n</ngx-govuk-tabs-nav>\n`,\n  }),\n}"
             },
             {
                 "name": "Textarea",
@@ -2314,8 +3200,8 @@
                 "name": "Story",
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
-                "rawtype": "StoryObj<NgxGovukTextareaDirective>",
-                "file": "libs/ngx-govuk/forms/src/textarea/textarea.directive.stories.ts",
+                "rawtype": "StoryObj<NgxGovukTextInputDirective>",
+                "file": "libs/ngx-govuk/forms/src/text-input/text-input.directive.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -2325,8 +3211,8 @@
                 "name": "Story",
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
-                "rawtype": "StoryObj<NgxGovukTextInputDirective>",
-                "file": "libs/ngx-govuk/forms/src/text-input/text-input.directive.stories.ts",
+                "rawtype": "StoryObj<NgxGovukTextareaDirective>",
+                "file": "libs/ngx-govuk/forms/src/textarea/textarea.directive.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -2552,7 +3438,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<NgxGovukAccordionComponent>",
-                    "defaultValue": "{\n  component: NgxGovukAccordionComponent,\n  title: 'UI Components/Accordion',\n  decorators: [\n    moduleMetadata({\n      imports: [NgxGovukAccordionComponent, NgxGovukAccordionPanelComponent],\n    }),\n  ],\n  parameters: {\n    controls: {\n      include: ['heading'],\n    },\n  },\n}"
+                    "defaultValue": "{\n  component: NgxGovukAccordionComponent,\n  title: 'UI Components/Accordion',\n  decorators: [\n    moduleMetadata({\n      imports: [NgxGovukAccordionComponent, NgxGovukAccordionPanelComponent],\n    }),\n  ],\n}"
                 },
                 {
                     "name": "Story",
@@ -2563,6 +3449,28 @@
                     "deprecationMessage": "",
                     "type": "StoryObj<NgxGovukAccordionComponent>",
                     "defaultValue": "{\n  args: {},\n  render: (args) => ({\n    props: args,\n    template: `\n<div class=\"govuk-frontend-supported\">\n  <ngx-govuk-accordion>\n    <ngx-govuk-accordion-panel heading=\"Writing well for the web\"><p class=\"govuk-body\">This is the content for Writing well for the web.</p></ngx-govuk-accordion-panel>\n    <ngx-govuk-accordion-panel heading=\"Writing well for specialists\"><p class=\"govuk-body\">This is the content for Writing well for specialists.</p></ngx-govuk-accordion-panel>\n    <ngx-govuk-accordion-panel heading=\"Know your audience\"><p class=\"govuk-body\">This is the content for Know your audience.</p></ngx-govuk-accordion-panel>\n    <ngx-govuk-accordion-panel heading=\"How people read\"><p class=\"govuk-body\">This is the content for How people read.</p></ngx-govuk-accordion-panel>\n  </ngx-govuk-accordion>\n</div>\n`,\n  }),\n}"
+                }
+            ],
+            "libs/ngx-govuk/forms/src/text-input/text-input.directive.stories.ts": [
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "libs/ngx-govuk/forms/src/text-input/text-input.directive.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta<NgxGovukTextInputDirective>",
+                    "defaultValue": "{\n  component: NgxGovukTextInputDirective,\n  title: 'Form Components/Text Input',\n  decorators: [\n    moduleMetadata({\n      imports: [],\n    }),\n  ],\n  argTypes: {\n    width: {\n      options: ['full', '20', '10', '5', '4', '3', '2'],\n      control: { type: 'select' },\n    },\n  },\n}"
+                },
+                {
+                    "name": "TextInput",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "libs/ngx-govuk/forms/src/text-input/text-input.directive.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  args: {\n    width: 'full',\n  },\n  render: (args) => ({\n    props: args,\n    template: `\n      <input ngxGovukTextInput type=\"text\" [width]=\"width\" />\n    `,\n  }),\n}"
                 }
             ],
             "libs/ngx-govuk/forms/src/radios/radios.stories.ts": [
@@ -2609,26 +3517,48 @@
                     "defaultValue": "{\n  render: (args) => ({\n    props: args,\n    template: `\n      <textarea ngxGovukTextarea></textarea>\n    `,\n  }),\n}"
                 }
             ],
-            "libs/ngx-govuk/forms/src/text-input/text-input.directive.stories.ts": [
+            "libs/ngx-govuk/tabs/src/tabs/tabs.component.stories.ts": [
                 {
                     "name": "meta",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "libs/ngx-govuk/forms/src/text-input/text-input.directive.stories.ts",
+                    "file": "libs/ngx-govuk/tabs/src/tabs/tabs.component.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "type": "Meta<NgxGovukTextInputDirective>",
-                    "defaultValue": "{\n  component: NgxGovukTextInputDirective,\n  title: 'Form Components/Text Input',\n  decorators: [\n    moduleMetadata({\n      imports: [],\n    }),\n  ],\n  argTypes: {\n    width: {\n      options: ['full', '20', '10', '5', '4', '3', '2'],\n      control: { type: 'select' },\n    },\n  },\n}"
+                    "type": "Meta<NgxGovukTabsComponent>",
+                    "defaultValue": "{\n  component: NgxGovukTabsComponent,\n  title: 'Components/ngx-govuk-tabs',\n  decorators: [\n    moduleMetadata({\n      imports: [\n        CommonModule,\n        NgxGovukTabsPanelComponent,\n        NgxGovukTabsLinkDirective,\n        NgxGovukTabsLinkComponent,\n        NgxGovukTabsTabComponent,\n        NgxGovukTabsMenuComponent,\n        NgxGovukTabsNavComponent,\n        RouterLinkActive,\n        RouterOutlet,\n        RouterLink,\n      ],\n    }),\n  ],\n}"
                 },
                 {
-                    "name": "TextInput",
+                    "name": "Story",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "libs/ngx-govuk/forms/src/text-input/text-input.directive.stories.ts",
+                    "file": "libs/ngx-govuk/tabs/src/tabs/tabs.component.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "type": "Story",
-                    "defaultValue": "{\n  args: {\n    width: 'full',\n  },\n  render: (args) => ({\n    props: args,\n    template: `\n      <input ngxGovukTextInput type=\"text\" [width]=\"width\" />\n    `,\n  }),\n}"
+                    "type": "StoryObj<NgxGovukTabsComponent>",
+                    "defaultValue": "{\n  args: {},\n  render: (args) => ({\n    props: args,\n    template: `\n  <ngx-govuk-tabs>\n    <ngx-govuk-tabs-tab label=\"Label A\">\n      PANEL CONTENT A\n    </ngx-govuk-tabs-tab>\n    <ngx-govuk-tabs-tab label=\"Label B\">\n      PANEL CONTENT B\n    </ngx-govuk-tabs>\n  </ngx-govuk-tabs>\n`,\n  }),\n}"
+                }
+            ],
+            "libs/ngx-govuk/tabs/src/tabs-nav/tabs.component.stories.ts": [
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "libs/ngx-govuk/tabs/src/tabs-nav/tabs.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta<NgxGovukTabsComponent>",
+                    "defaultValue": "{\n  component: NgxGovukTabsComponent,\n  title: 'Components/ngx-govuk-tabs-nav',\n  decorators: [\n    moduleMetadata({\n      imports: [\n        CommonModule,\n        NgxGovukTabsPanelComponent,\n        NgxGovukTabsLinkDirective,\n        NgxGovukTabsLinkComponent,\n        NgxGovukTabsTabComponent,\n        NgxGovukTabsMenuComponent,\n        NgxGovukTabsNavComponent,\n        RouterLinkActive,\n        RouterOutlet,\n        RouterLink,\n      ],\n    }),\n    applicationConfig({\n      providers: [provideRouter(routes)],\n    }),\n  ],\n}"
+                },
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "libs/ngx-govuk/tabs/src/tabs-nav/tabs.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "StoryObj<NgxGovukTabsComponent>",
+                    "defaultValue": "{\n  args: {},\n  render: (args) => ({\n    props: args,\n    template: `\n<ngx-govuk-tabs-nav>\n      <a routerLink=\"iframe.html\" routerLinkActive #ngxGovukTabsLink=\"routerLinkActive\">Label A</a>\n      <a routerLink=\"b\" routerLinkActive #ngxGovukTabsLink=\"routerLinkActive\">Label B</a>\n      <router-outlet></router-outlet>\n</ngx-govuk-tabs-nav>\n`,\n  }),\n}"
                 }
             ]
         },
@@ -2700,19 +3630,6 @@
                     "kind": 183
                 }
             ],
-            "libs/ngx-govuk/forms/src/textarea/textarea.directive.stories.ts": [
-                {
-                    "name": "Story",
-                    "ctype": "miscellaneous",
-                    "subtype": "typealias",
-                    "rawtype": "StoryObj<NgxGovukTextareaDirective>",
-                    "file": "libs/ngx-govuk/forms/src/textarea/textarea.directive.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "description": "",
-                    "kind": 183
-                }
-            ],
             "libs/ngx-govuk/forms/src/text-input/text-input.directive.stories.ts": [
                 {
                     "name": "Story",
@@ -2720,6 +3637,19 @@
                     "subtype": "typealias",
                     "rawtype": "StoryObj<NgxGovukTextInputDirective>",
                     "file": "libs/ngx-govuk/forms/src/text-input/text-input.directive.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 183
+                }
+            ],
+            "libs/ngx-govuk/forms/src/textarea/textarea.directive.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "StoryObj<NgxGovukTextareaDirective>",
+                    "file": "libs/ngx-govuk/forms/src/textarea/textarea.directive.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
@@ -3163,6 +4093,136 @@
                 "name": "NgxGovukTextareaDirective",
                 "coveragePercent": 0,
                 "coverageCount": "0/4",
+                "status": "low"
+            },
+            {
+                "filePath": "libs/ngx-govuk/tabs/src/inline-tabs.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "InlineTabsComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/3",
+                "status": "low"
+            },
+            {
+                "filePath": "libs/ngx-govuk/tabs/src/tabs-link.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "NgxGovukTabsLinkComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/4",
+                "status": "low"
+            },
+            {
+                "filePath": "libs/ngx-govuk/tabs/src/tabs-link.directive.ts",
+                "type": "directive",
+                "linktype": "directive",
+                "name": "NgxGovukTabsLinkDirective",
+                "coveragePercent": 0,
+                "coverageCount": "0/4",
+                "status": "low"
+            },
+            {
+                "filePath": "libs/ngx-govuk/tabs/src/tabs-menu.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "NgxGovukTabsMenuComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/3",
+                "status": "low"
+            },
+            {
+                "filePath": "libs/ngx-govuk/tabs/src/tabs-nav/tabs-nav.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "NgxGovukTabsNavComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/4",
+                "status": "low"
+            },
+            {
+                "filePath": "libs/ngx-govuk/tabs/src/tabs-nav/tabs.component.stories.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "ContentAComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "libs/ngx-govuk/tabs/src/tabs-nav/tabs.component.stories.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "ContentBComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "libs/ngx-govuk/tabs/src/tabs-nav/tabs.component.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "meta",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "libs/ngx-govuk/tabs/src/tabs-nav/tabs.component.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Story",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "libs/ngx-govuk/tabs/src/tabs-panel.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "NgxGovukTabsPanelComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/3",
+                "status": "low"
+            },
+            {
+                "filePath": "libs/ngx-govuk/tabs/src/tabs-tab.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "NgxGovukTabsTabComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/5",
+                "status": "low"
+            },
+            {
+                "filePath": "libs/ngx-govuk/tabs/src/tabs/tabs.component.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "meta",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "libs/ngx-govuk/tabs/src/tabs/tabs.component.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Story",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "libs/ngx-govuk/tabs/src/tabs/tabs.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "NgxGovukTabsComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/5",
                 "status": "low"
             }
         ]

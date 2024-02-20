@@ -1,17 +1,18 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'ngx-govuk-components',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './components.component.html',
   styleUrl: './components.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ComponentsComponent {
   components: { name: string; routerLink?: string; completed?: boolean }[] = [
-    { name: 'Accordion', routerLink: '/accordion', completed: true },
+    { name: 'Accordion', routerLink: 'accordion', completed: true },
     { name: 'Back Link' },
     { name: 'Breadcrumbs' },
     { name: 'Button' },
@@ -37,7 +38,7 @@ export class ComponentsComponent {
     { name: 'Skip link' },
     { name: 'Summary list' },
     { name: 'Table' },
-    { name: 'Tabs' },
+    { name: 'Tabs', routerLink: 'tabs', completed: true },
     { name: 'Tag' },
     { name: 'Task list' },
     { name: 'Text input' },
