@@ -10,7 +10,7 @@ import {
   input,
   viewChild,
 } from '@angular/core';
-import { nanoid } from 'nanoid';
+import { NgxGovukUtilsService } from 'ngx-govuk';
 
 @Component({
   selector: 'ngx-govuk-radio',
@@ -30,8 +30,9 @@ export class NgxGovukRadioComponent {
   label = input.required<string>();
   value = input.required<string>();
   inputEl = viewChild<ElementRef<HTMLInputElement>>('inputEl');
+  elId = this.utilsService.randomId('radio');
 
-  elId = nanoid();
+  constructor(private utilsService: NgxGovukUtilsService) {}
 
   onSelected() {
     this.selected.emit(this.value());

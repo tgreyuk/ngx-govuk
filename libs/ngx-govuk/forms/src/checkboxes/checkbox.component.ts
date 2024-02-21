@@ -10,7 +10,7 @@ import {
   model,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { nanoid } from 'nanoid';
+import { NgxGovukUtilsService } from 'ngx-govuk';
 
 @Component({
   selector: 'ngx-govuk-checkbox',
@@ -35,7 +35,9 @@ export class NgxGovukCheckboxComponent implements ControlValueAccessor {
   label = input.required<string>();
   value = model(false);
 
-  elId = nanoid();
+  fieldId = this.utilsService.randomId('field');
+
+  constructor(private utilsService: NgxGovukUtilsService) {}
 
   onChecked(event: Event) {
     const target = event.target as HTMLInputElement;

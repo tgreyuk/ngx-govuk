@@ -1,12 +1,11 @@
 {
   "name": "ngx-govuk",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "peerDependencies": {
-    "@angular/common": "^17.0.0",
-    "@angular/core": "^17.0.0"
+    "@angular/common": "^17.2.0",
+    "@angular/core": "^17.2.0"
   },
   "dependencies": {
-    "nanoid": "^5.0.4",
     "tslib": "^2.3.0"
   },
   "sideEffects": false

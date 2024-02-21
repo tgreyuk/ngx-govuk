@@ -40,8 +40,4 @@ export class NgxGovukAccordion {
       panel.isExpanded.set(this.isExpanded());
     });
   }
-
-  someOtherMesthod() {
-    return 'ok';
-  }
 }

@@ -5,7 +5,7 @@ import {
   input,
   signal,
 } from '@angular/core';
-import { nanoid } from 'nanoid';
+import { NgxGovukUtilsService } from 'ngx-govuk';
 /**
  * Component to be used to define the accordion panels.
  *
@@ -33,8 +33,10 @@ export class NgxGovukAccordionPanel {
    */
   isExpanded = signal(false);
 
-  headingId = nanoid();
-  contentId = nanoid();
+  headingId = this.utilsService.randomId('heading');
+  contentId = this.utilsService.randomId('content');
+
+  constructor(private utilsService: NgxGovukUtilsService) {}
 
   /**
    * Toggles the accordion panel visibility.
