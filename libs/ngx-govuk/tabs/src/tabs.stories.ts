@@ -14,9 +14,10 @@ import {
   type StoryObj,
 } from '@storybook/angular';
 import {
+  NgxGovukTabComponent,
+  NgxGovukTabLinkDirective,
   NgxGovukTabsComponent,
   NgxGovukTabsNavComponent,
-  NgxGovukTabsPanelComponent,
 } from './';
 
 @Component({
@@ -36,18 +37,19 @@ const routes: Routes = [
 
 const meta: Meta<NgxGovukTabsComponent> = {
   component: NgxGovukTabsComponent,
+  title: 'Components/Tabs',
   parameters: {
     controls: {
       include: [],
     },
   },
-  title: 'Components/Tabs',
   decorators: [
     moduleMetadata({
       imports: [
         CommonModule,
-        NgxGovukTabsPanelComponent,
+        NgxGovukTabComponent,
         NgxGovukTabsNavComponent,
+        NgxGovukTabLinkDirective,
         RouterLinkActive,
         RouterOutlet,
         RouterLink,
@@ -81,8 +83,8 @@ export const TabsNav: StoryObj = {
     props: args,
     template: `
 <ngx-govuk-tabs-nav>
-  <a routerLink="iframe.html" routerLinkActive #ngxGovukTabsLink="routerLinkActive">Label A</a>
-  <a routerLink="b" routerLinkActive #ngxGovukTabsLink="routerLinkActive">Label B</a>
+  <a ngxGovukTabLink routerLink="iframe.html" routerLinkActive>Label A</a>
+  <a ngxGovukTabLink routerLink="b" routerLinkActive>Label B</a>
   <router-outlet></router-outlet>
 </ngx-govuk-tabs-nav>
 `,

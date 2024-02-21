@@ -39,15 +39,15 @@ export class NgxGovUkCharacterCountComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.renderer.listen(this.textarea.field, 'input', () => {
-      this.count.set(this.textarea.field.value.length);
+    this.renderer.listen(this.textarea?.field, 'input', () => {
+      this.count.set(this.textarea?.field.value.length);
     });
   }
 
   setMaxLength(): void {
-    if (this.textarea.field.maxLength != this.limit()) {
-      if (this.textarea.field.value) {
-        this.textarea.field.value = this.textarea.field.value.substring(
+    if (this.textarea?.field.maxLength != this.limit()) {
+      if (this.textarea?.field.value) {
+        this.textarea.field.value = this.textarea?.field.value.substring(
           0,
           this.limit()
         );

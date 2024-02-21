@@ -1,0 +1,40 @@
+.nav {
+  border-bottom: 1px solid #b1b4b6;
+  background: #f8f8f8;
+  ul {
+    padding: 15px 0 0 0;
+    margin: 0;
+  }
+  li {
+    display: inline-block;
+    list-style: none;
+    margin-right: 30px;
+    height: 35px;
+  }
+  a {
+    font-weight: bold;
+  }
+  .active {
+    border-bottom: 4px solid #1d70b8;
+  }
+}
+
+.logo {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  margin-top: -8px;
+  img {
+    margin-right: 12px;
+    width: 26px;
+    height: 26px;
+  }
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+}

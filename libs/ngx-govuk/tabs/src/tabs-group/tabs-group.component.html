@@ -1,0 +1,19 @@
+<ul class="govuk-tabs__list">
+  @for (tab of tabs(); track tab.label()) {
+  <li
+    class="govuk-tabs__list-item"
+    [ngClass]="{
+      'govuk-tabs__list-item--selected': tab.selected()
+    }"
+  >
+    <a
+      class="govuk-tabs__tab"
+      href="#"
+      (click)="onSelected(tab); $event.preventDefault()"
+    >
+      {{ tab.label() }}
+    </a>
+  </li>
+  }
+</ul>
+<ng-content></ng-content>

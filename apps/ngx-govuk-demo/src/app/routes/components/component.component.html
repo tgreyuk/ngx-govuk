@@ -1,1 +1,20 @@
-<p>component works!</p>
+<span class="govuk-caption-xl"> Components </span>
+<h1 class="govuk-heading-xl">{{ componentId() | titlecase }}</h1>
+
+<p class="govuk-body govuk-!-margin-bottom-8">
+  Please visit
+  <a
+    class="govuk-link"
+    href="https://design-system.service.gov.uk/components/{{ componentId() }}"
+    target="_blank"
+    >GOV.UK {{ componentId() | titlecase }}
+  </a>
+  for official documentation and usage.
+</p>
+
+<ngx-govuk-tabs-nav>
+  <a ngxGovukTabLink routerLink="./preview" routerLinkActive>Demo</a>
+  <a ngxGovukTabLink routerLink="./code" routerLinkActive>Code</a>
+  <a ngxGovukTabLink routerLink="./api" routerLinkActive>API</a>
+  <router-outlet></router-outlet>
+</ngx-govuk-tabs-nav>

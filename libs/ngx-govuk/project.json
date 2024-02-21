@@ -31,7 +31,8 @@
     },
     "lint": {
       "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"]
+      "outputs": ["{options.outputFile}"],
+      "component-class-suffix": false
     },
     "storybook": {
       "executor": "@storybook/angular:start-storybook",
