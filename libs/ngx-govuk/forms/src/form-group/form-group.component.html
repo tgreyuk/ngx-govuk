@@ -1,12 +1,12 @@
 <div class="govuk-form-group">
   @if (asPageHeading){
   <h1 class="govuk-label-wrapper">
-    <label [attr.for]="elId" class="govuk-label govuk-label--l">{{
+    <label [attr.for]="fieldId" class="govuk-label govuk-label--l">{{
       label
     }}</label>
   </h1>
   } @else {
-  <label [attr.for]="elId" class="govuk-label">{{ label }}</label>
+  <label [attr.for]="fieldId" class="govuk-label">{{ label }}</label>
   }
   <div *ngIf="hint" [attr.id]="hintId" class="govuk-hint">
     {{ hint }}

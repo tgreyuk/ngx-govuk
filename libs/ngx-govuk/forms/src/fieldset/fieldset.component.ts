@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { nanoid } from 'nanoid';
+import { NgxGovukUtilsService } from 'ngx-govuk';
 
 @Component({
   selector: 'ngx-govuk-fieldset',
@@ -14,5 +14,7 @@ export class NgxGovukFieldsetComponent {
   legend = input.required<string>();
   hint = input<string>();
   asPageHeading = input<boolean>(false);
-  hintId = nanoid();
+  hintId = this.utilsService.randomId('hint');
+
+  constructor(private utilsService: NgxGovukUtilsService) {}
 }

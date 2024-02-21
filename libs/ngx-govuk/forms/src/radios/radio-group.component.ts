@@ -12,7 +12,7 @@ import {
   forwardRef,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { nanoid } from 'nanoid';
+import { NgxGovukUtilsService } from 'ngx-govuk';
 import { NgxGovukRadioComponent } from './radio.component';
 
 @Component({
@@ -36,13 +36,16 @@ export class NgxGovukRadioGroupComponent
     return 'govuk-radios';
   }
 
-  groupName = nanoid();
+  groupName = this.utilsService.randomId('radio-group');
 
   radios = contentChildren(NgxGovukRadioComponent);
 
   value!: string;
 
-  constructor(private renderer: Renderer2) {}
+  constructor(
+    private renderer: Renderer2,
+    private utilsService: NgxGovukUtilsService
+  ) {}
 
   ngAfterViewInit(): void {
     this.radios().forEach((radio) => {

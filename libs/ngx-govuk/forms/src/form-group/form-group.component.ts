@@ -7,7 +7,7 @@ import {
   Input,
   Renderer2,
 } from '@angular/core';
-import { nanoid } from 'nanoid';
+import { NgxGovukUtilsService } from 'ngx-govuk';
 
 @Component({
   selector: 'ngx-govuk-form-group',
@@ -22,15 +22,19 @@ export class NgxGovukFormGroupComponent implements AfterViewInit {
   @Input() hint!: string;
   @Input() asPageHeading = false;
 
-  elId = nanoid();
-  hintId = nanoid();
+  fieldId = this.utilsService.randomId('field');
+  hintId = this.utilsService.randomId('hint');
 
-  constructor(private renderer: Renderer2, private elementRef: ElementRef) {}
+  constructor(
+    private renderer: Renderer2,
+    private elementRef: ElementRef,
+    private utilsService: NgxGovukUtilsService
+  ) {}
 
   ngAfterViewInit(): void {
     const field = this.elementRef.nativeElement.querySelector('input,textarea');
     if (field) {
-      this.renderer.setAttribute(field, 'id', this.elId);
+      this.renderer.setAttribute(field, 'id', this.fieldId);
       if (this.hint) {
         this.renderer.setAttribute(field, 'aria-describedby', this.hintId);
       }

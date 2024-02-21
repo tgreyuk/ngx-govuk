@@ -7,7 +7,7 @@ import {
   FormsModule,
   NG_VALUE_ACCESSOR,
 } from '@angular/forms';
-import { nanoid } from 'nanoid';
+import { NgxGovukUtilsService } from 'ngx-govuk';
 import { NgxGovukFieldsetComponent } from '../fieldset/fieldset.component';
 
 @Component({
@@ -26,15 +26,17 @@ import { NgxGovukFieldsetComponent } from '../fieldset/fieldset.component';
   ],
 })
 export class NgxGovukDateInputComponent implements ControlValueAccessor {
-  dayId = nanoid();
-  monthId = nanoid();
-  yearId = nanoid();
+  dayId = this.utilsService.randomId('day');
+  monthId = this.utilsService.randomId('month');
+  yearId = this.utilsService.randomId('year');
 
   day!: number;
   month!: number;
   year!: number;
 
   value!: string;
+
+  constructor(private utilsService: NgxGovukUtilsService) {}
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   onChange = (value: string) => {};

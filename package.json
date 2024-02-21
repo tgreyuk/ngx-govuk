@@ -5,6 +5,7 @@
   "scripts": {
     "prestart": "npm run typedoc",
     "start": "nx serve ngx-govuk-demo",
+    "build": "nx build ngx-govuk --verbose",
     "test": "nx test ngx-govuk",
     "compodoc": "compodoc -p libs/ngx-govuk/tsconfig.json -e json -d libs/ngx-govuk/.storybook",
     "storybook": "nx storybook ngx-govuk",
@@ -71,7 +72,6 @@
     "jest-environment-jsdom": "^29.4.1",
     "jest-preset-angular": "~13.1.4",
     "jsonc-eslint-parser": "^2.1.0",
-    "nanoid": "^5.0.4",
     "ng-packagr": "17.1.2",
     "nx": "18.0.4",
     "postcss": "^8.4.5",

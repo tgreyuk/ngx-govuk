@@ -1,11 +1,11 @@
 <input
   class="govuk-checkboxes__input"
-  [attr.id]="elId"
+  [attr.id]="fieldId"
   type="checkbox"
   [checked]="value()"
   (change)="onChecked($event)"
   (blur)="onTouched()"
 />
-<label class="govuk-label govuk-checkboxes__label" [attr.for]="elId">
+<label class="govuk-label govuk-checkboxes__label" [attr.for]="fieldId">
   {{ label() }}
 </label>

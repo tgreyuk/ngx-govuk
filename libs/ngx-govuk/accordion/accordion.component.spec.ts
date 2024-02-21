@@ -1,10 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NgxGovukAccordion } from './accordion.component';
 
-jest.mock('nanoid', () => {
-  return { nanoid: () => '1234' };
-});
-
 describe('NgxGovukAccordion', () => {
   let component: NgxGovukAccordion;
   let fixture: ComponentFixture<NgxGovukAccordion>;
