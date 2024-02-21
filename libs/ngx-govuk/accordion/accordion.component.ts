@@ -20,7 +20,6 @@ import { NgxGovukAccordionPanel } from './accordion-panel.component';
   standalone: true,
   imports: [CommonModule, NgxGovukAccordionPanel],
   templateUrl: './accordion.component.html',
-  styleUrl: './accordion.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NgxGovukAccordion {
@@ -29,12 +28,12 @@ export class NgxGovukAccordion {
   /**
    * Flag to determine if all NgxGovukAccordionPanel instances are expanded.
    */
-  public isExpanded = signal(false);
+  isExpanded = signal(false);
 
   /**
    * Toggles all accordion NgxGovukAccordionPanel instances between expanded and collapsed.
    */
-  public toggle() {
+  toggle() {
     this.isExpanded.set(!this.isExpanded());
     this.panels().forEach((panel) => {
       panel.isExpanded.set(this.isExpanded());

@@ -3,7 +3,7 @@
     <button
       type="button"
       class="govuk-accordion__show-all"
-      aria-expanded="false"
+      [attr.aria-expanded]="isExpanded()"
       (click)="toggle()"
     >
       <span
