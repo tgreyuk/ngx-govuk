@@ -21,7 +21,7 @@
           "error",
           {
             "type": "element",
-            "prefix": "ngx-govuk",
+            "prefix": ["ngx-govuk", "app"],
             "style": "kebab-case"
           }
         ]

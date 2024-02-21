@@ -1,0 +1,116 @@
+<p class="govuk-body-m">
+  For general documentation of how to use component inputs, properties and
+  methods, please refer to the components usage documentation in the
+  <a routerLink="/get-started">get started guide</a>
+  .
+</p>
+
+@for (component of docs(); track component.name) {
+<h2 class="govuk-heading-l">{{ component.name }}</h2>
+
+<pre
+  class="govuk-body"
+  [innerText]="component.name | importCode : componentId()"
+></pre>
+
+@for (comments of component.comments; track comments) {
+<p class="govuk-body">{{ comments }}</p>
+}
+
+<h4 class="govuk-heading-m">Selector</h4>
+
+<p class="govuk-body">{{ component.selector }}</p>
+
+<h4 class="govuk-heading-m">Inputs</h4>
+
+@if (component.inputs) {
+
+<table class="govuk-table">
+  <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+      <th scope="col" class="govuk-table__header">Name</th>
+      <th scope="col" class="govuk-table__header">Description</th>
+      <th scope="col" class="govuk-table__header">Type</th>
+      <th scope="col" class="govuk-table__header">Required</th>
+    </tr>
+  </thead>
+  <tbody class="govuk-table__body">
+    @for (input of component.inputs; track input.name) {
+    <tr class="govuk-table__row">
+      <td class="govuk-table__cell">{{ input.name }}</td>
+      <td class="govuk-table__cell">
+        @for (comments of input.comments; track comments) {
+        <p class="govuk-body">{{ comments }}</p>
+        }
+      </td>
+      <td class="govuk-table__cell">{{ input.type }}</td>
+      <td class="govuk-table__cell">{{ input.required }}</td>
+    </tr>
+    }
+  </tbody>
+</table>
+}@else {
+<p class="govuk-body">None</p>
+}
+
+<h4 class="govuk-heading-m">Properties</h4>
+
+@if (component.properties) {
+
+<table class="govuk-table">
+  <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+      <th scope="col" class="govuk-table__header">Name</th>
+      <th scope="col" class="govuk-table__header">Description</th>
+      <th scope="col" class="govuk-table__header">Type</th>
+    </tr>
+  </thead>
+  <tbody class="govuk-table__body">
+    @for (property of component.properties; track property.name) {
+    <tr class="govuk-table__row">
+      <td class="govuk-table__cell">{{ property.name }}</td>
+      <td class="govuk-table__cell">
+        @for (comments of property.comments; track comments) {
+        <p class="govuk-body">{{ comments }}</p>
+        }
+      </td>
+      <td class="govuk-table__cell">{{ property.type }}</td>
+    </tr>
+    }
+  </tbody>
+</table>
+}@else {
+<p class="govuk-body">None</p>
+}
+
+<h4 class="govuk-heading-m">Methods</h4>
+
+@if (component.methods) {
+
+<table class="govuk-table">
+  <thead class="govuk-table__head">
+    <tr class="govuk-table__row">
+      <th scope="col" class="govuk-table__header">Name</th>
+      <th scope="col" class="govuk-table__header">Description</th>
+    </tr>
+  </thead>
+  <tbody class="govuk-table__body">
+    @for (method of component.methods; track method.name) {
+    <tr class="govuk-table__row">
+      <td class="govuk-table__cell">{{ method.name }}()</td>
+      <td class="govuk-table__cell">
+        @for (comments of method.comments; track comments) {
+        <p class="govuk-body">{{ comments }}</p>
+        }
+      </td>
+    </tr>
+    }
+  </tbody>
+</table>
+}@else {
+<p class="govuk-body">None</p>
+} }
+
+<!--
+{{ docs() | json }}
+-->

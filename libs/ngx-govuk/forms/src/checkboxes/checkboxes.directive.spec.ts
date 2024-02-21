@@ -1,8 +1,8 @@
-import { CheckboxesDirective } from './checkboxes.directive';
+import { NgxGovukCheckboxesDirective } from './checkboxes.directive';
 
-describe('CheckboxesDirective', () => {
+describe('NgxGovukCheckboxesDirective', () => {
   it('should create an instance', () => {
-    const directive = new CheckboxesDirective();
+    const directive = new NgxGovukCheckboxesDirective();
     expect(directive).toBeTruthy();
   });
 });

@@ -1,0 +1,431 @@
+{
+	"id": 0,
+	"name": "ngx-govuk",
+	"variant": "project",
+	"kind": 1,
+	"flags": {},
+	"children": [
+		{
+			"id": 1,
+			"name": "accordion/accordion-panel.component",
+			"variant": "declaration",
+			"kind": 2,
+			"flags": {},
+			"children": [
+				{
+					"id": 2,
+					"name": "NgxGovukAccordionPanel",
+					"variant": "declaration",
+					"kind": 128,
+					"flags": {},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "Component to be used to define the accordion panels.\n\nThe content slot should contain the content of the accordion panel."
+							}
+						],
+						"blockTags": [
+							{
+								"tag": "@selector",
+								"content": [
+									{
+										"kind": "text",
+										"text": "ngx-govuk-accordion-panel"
+									}
+								]
+							}
+						]
+					},
+					"children": [
+						{
+							"id": 5,
+							"name": "heading",
+							"variant": "declaration",
+							"kind": 1024,
+							"flags": {},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "The heading of the panel"
+									}
+								],
+								"blockTags": [
+									{
+										"tag": "@required",
+										"content": []
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "accordion/accordion-panel.component.ts",
+									"line": 29,
+									"character": 2,
+									"url": "https://github.com/tgreyuk/govuk-components/blob/f40fdc2/libs/ngx-govuk/accordion/accordion-panel.component.ts#L29"
+								}
+							],
+							"type": {
+								"type": "reference",
+								"target": {
+									"sourceFileName": "node_modules/@angular/core/index.d.ts",
+									"qualifiedName": "InputSignal"
+								},
+								"typeArguments": [
+									{
+										"type": "intrinsic",
+										"name": "string"
+									}
+								],
+								"name": "InputSignal",
+								"package": "@angular/core"
+							},
+							"defaultValue": "..."
+						},
+						{
+							"id": 6,
+							"name": "isExpanded",
+							"variant": "declaration",
+							"kind": 1024,
+							"flags": {},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Flag to determine if the accordion panel is expanded."
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "accordion/accordion-panel.component.ts",
+									"line": 34,
+									"character": 2,
+									"url": "https://github.com/tgreyuk/govuk-components/blob/f40fdc2/libs/ngx-govuk/accordion/accordion-panel.component.ts#L34"
+								}
+							],
+							"type": {
+								"type": "reference",
+								"target": {
+									"sourceFileName": "node_modules/@angular/core/index.d.ts",
+									"qualifiedName": "WritableSignal"
+								},
+								"typeArguments": [
+									{
+										"type": "intrinsic",
+										"name": "boolean"
+									}
+								],
+								"name": "WritableSignal",
+								"package": "@angular/core"
+							},
+							"defaultValue": "..."
+						},
+						{
+							"id": 9,
+							"name": "toggle",
+							"variant": "declaration",
+							"kind": 2048,
+							"flags": {},
+							"sources": [
+								{
+									"fileName": "accordion/accordion-panel.component.ts",
+									"line": 42,
+									"character": 2,
+									"url": "https://github.com/tgreyuk/govuk-components/blob/f40fdc2/libs/ngx-govuk/accordion/accordion-panel.component.ts#L42"
+								}
+							],
+							"signatures": [
+								{
+									"id": 10,
+									"name": "toggle",
+									"variant": "signature",
+									"kind": 4096,
+									"flags": {},
+									"comment": {
+										"summary": [
+											{
+												"kind": "text",
+												"text": "Toggles the accordion panel visibility."
+											}
+										]
+									},
+									"sources": [
+										{
+											"fileName": "accordion/accordion-panel.component.ts",
+											"line": 42,
+											"character": 2,
+											"url": "https://github.com/tgreyuk/govuk-components/blob/f40fdc2/libs/ngx-govuk/accordion/accordion-panel.component.ts#L42"
+										}
+									],
+									"type": {
+										"type": "intrinsic",
+										"name": "void"
+									}
+								}
+							]
+						}
+					],
+					"groups": [
+						{
+							"title": "Properties",
+							"children": [
+								5,
+								6
+							]
+						},
+						{
+							"title": "Methods",
+							"children": [
+								9
+							]
+						}
+					],
+					"sources": [
+						{
+							"fileName": "accordion/accordion-panel.component.ts",
+							"line": 24,
+							"character": 13,
+							"url": "https://github.com/tgreyuk/govuk-components/blob/f40fdc2/libs/ngx-govuk/accordion/accordion-panel.component.ts#L24"
+						}
+					]
+				}
+			],
+			"groups": [
+				{
+					"title": "Classes",
+					"children": [
+						2
+					]
+				}
+			],
+			"sources": [
+				{
+					"fileName": "accordion/accordion-panel.component.ts",
+					"line": 1,
+					"character": 0,
+					"url": "https://github.com/tgreyuk/govuk-components/blob/f40fdc2/libs/ngx-govuk/accordion/accordion-panel.component.ts#L1"
+				}
+			]
+		},
+		{
+			"id": 11,
+			"name": "accordion/accordion.component",
+			"variant": "declaration",
+			"kind": 2,
+			"flags": {},
+			"children": [
+				{
+					"id": 12,
+					"name": "NgxGovukAccordion",
+					"variant": "declaration",
+					"kind": 128,
+					"flags": {},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "The main accordion wrapping component.\n\nThe template expects x number of NgxGovukAccordionPanel components in the content slot."
+							}
+						],
+						"blockTags": [
+							{
+								"tag": "@selector",
+								"content": [
+									{
+										"kind": "text",
+										"text": "ngx-govuk-accordion"
+									}
+								]
+							}
+						]
+					},
+					"children": [
+						{
+							"id": 16,
+							"name": "isExpanded",
+							"variant": "declaration",
+							"kind": 1024,
+							"flags": {
+								"isPublic": true
+							},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Flag to determine if all NgxGovukAccordionPanel instances are expanded."
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "accordion/accordion.component.ts",
+									"line": 32,
+									"character": 9,
+									"url": "https://github.com/tgreyuk/govuk-components/blob/f40fdc2/libs/ngx-govuk/accordion/accordion.component.ts#L32"
+								}
+							],
+							"type": {
+								"type": "reference",
+								"target": {
+									"sourceFileName": "node_modules/@angular/core/index.d.ts",
+									"qualifiedName": "WritableSignal"
+								},
+								"typeArguments": [
+									{
+										"type": "intrinsic",
+										"name": "boolean"
+									}
+								],
+								"name": "WritableSignal",
+								"package": "@angular/core"
+							},
+							"defaultValue": "..."
+						},
+						{
+							"id": 17,
+							"name": "toggle",
+							"variant": "declaration",
+							"kind": 2048,
+							"flags": {
+								"isPublic": true
+							},
+							"sources": [
+								{
+									"fileName": "accordion/accordion.component.ts",
+									"line": 37,
+									"character": 9,
+									"url": "https://github.com/tgreyuk/govuk-components/blob/f40fdc2/libs/ngx-govuk/accordion/accordion.component.ts#L37"
+								}
+							],
+							"signatures": [
+								{
+									"id": 18,
+									"name": "toggle",
+									"variant": "signature",
+									"kind": 4096,
+									"flags": {},
+									"comment": {
+										"summary": [
+											{
+												"kind": "text",
+												"text": "Toggles all accordion NgxGovukAccordionPanel instances between expanded and collapsed."
+											}
+										]
+									},
+									"sources": [
+										{
+											"fileName": "accordion/accordion.component.ts",
+											"line": 37,
+											"character": 9,
+											"url": "https://github.com/tgreyuk/govuk-components/blob/f40fdc2/libs/ngx-govuk/accordion/accordion.component.ts#L37"
+										}
+									],
+									"type": {
+										"type": "intrinsic",
+										"name": "void"
+									}
+								}
+							]
+						}
+					],
+					"groups": [
+						{
+							"title": "Properties",
+							"children": [
+								16
+							]
+						},
+						{
+							"title": "Methods",
+							"children": [
+								17
+							]
+						}
+					],
+					"sources": [
+						{
+							"fileName": "accordion/accordion.component.ts",
+							"line": 26,
+							"character": 13,
+							"url": "https://github.com/tgreyuk/govuk-components/blob/f40fdc2/libs/ngx-govuk/accordion/accordion.component.ts#L26"
+						}
+					]
+				}
+			],
+			"groups": [
+				{
+					"title": "Classes",
+					"children": [
+						12
+					]
+				}
+			],
+			"sources": [
+				{
+					"fileName": "accordion/accordion.component.ts",
+					"line": 1,
+					"character": 0,
+					"url": "https://github.com/tgreyuk/govuk-components/blob/f40fdc2/libs/ngx-govuk/accordion/accordion.component.ts#L1"
+				}
+			]
+		}
+	],
+	"groups": [
+		{
+			"title": "Modules",
+			"children": [
+				1,
+				11
+			]
+		}
+	],
+	"packageName": "ngx-govuk",
+	"symbolIdMap": {
+		"1": {
+			"sourceFileName": "libs/ngx-govuk/accordion/accordion-panel.component.ts",
+			"qualifiedName": ""
+		},
+		"2": {
+			"sourceFileName": "libs/ngx-govuk/accordion/accordion-panel.component.ts",
+			"qualifiedName": "NgxGovukAccordionPanel"
+		},
+		"5": {
+			"sourceFileName": "libs/ngx-govuk/accordion/accordion-panel.component.ts",
+			"qualifiedName": "NgxGovukAccordionPanel.heading"
+		},
+		"6": {
+			"sourceFileName": "libs/ngx-govuk/accordion/accordion-panel.component.ts",
+			"qualifiedName": "NgxGovukAccordionPanel.isExpanded"
+		},
+		"9": {
+			"sourceFileName": "libs/ngx-govuk/accordion/accordion-panel.component.ts",
+			"qualifiedName": "NgxGovukAccordionPanel.toggle"
+		},
+		"10": {
+			"sourceFileName": "libs/ngx-govuk/accordion/accordion-panel.component.ts",
+			"qualifiedName": "NgxGovukAccordionPanel.toggle"
+		},
+		"11": {
+			"sourceFileName": "libs/ngx-govuk/accordion/accordion.component.ts",
+			"qualifiedName": ""
+		},
+		"12": {
+			"sourceFileName": "libs/ngx-govuk/accordion/accordion.component.ts",
+			"qualifiedName": "NgxGovukAccordion"
+		},
+		"16": {
+			"sourceFileName": "libs/ngx-govuk/accordion/accordion.component.ts",
+			"qualifiedName": "NgxGovukAccordion.isExpanded"
+		},
+		"17": {
+			"sourceFileName": "libs/ngx-govuk/accordion/accordion.component.ts",
+			"qualifiedName": "NgxGovukAccordion.toggle"
+		},
+		"18": {
+			"sourceFileName": "libs/ngx-govuk/accordion/accordion.component.ts",
+			"qualifiedName": "NgxGovukAccordion.toggle"
+		}
+	}
+}

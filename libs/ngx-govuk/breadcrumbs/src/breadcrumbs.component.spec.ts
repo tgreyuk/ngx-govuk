@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { NgxGovukBreadcrumbsComponent } from './ngx-govuk-breadcrumbs.component';
+import { NgxGovukBreadcrumbsComponent } from './breadcrumbs.component';
 
-describe('BreadcrumbsComponent', () => {
+describe('NgxGovukBreadcrumbsComponent', () => {
   let component: NgxGovukBreadcrumbsComponent;
   let fixture: ComponentFixture<NgxGovukBreadcrumbsComponent>;
 

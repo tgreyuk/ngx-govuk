@@ -1,0 +1,10 @@
+{
+  "entryPoints": ["./libs/ngx-govuk/**/*.ts"],
+  "tsconfig": "./libs/ngx-govuk/tsconfig.json",
+  "out": "./docs",
+  "json": "./apps/ngx-govuk-demo/src/assets/documentation.json",
+  "exclude": ["**/*+(index|.spec|.e2e|.stories|.config|setup).ts"],
+  "excludeNotDocumented": true,
+  "excludeReferences": true,
+  "readme": "none"
+}

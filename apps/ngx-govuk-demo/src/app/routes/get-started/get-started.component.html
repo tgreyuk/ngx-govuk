@@ -12,31 +12,82 @@
   <h2 class="govuk-heading-m">2. Include GOV.UK styles</h2>
 
   <p class="govuk-body">
-    You will need to reference the GOV.UK styles from node_modules.
+    This libary does not come packaged with any additional styles or style
+    references. You will need to be include GOV.UK styles from node_modules into
+    your project.
   </p>
 
   <p class="govuk-body">
-    In your "(angular | project).json" file, add the following to the styles
-    array:
+    There are two options for including
+    <a
+      href="https://frontend.design-system.service.gov.uk/importing-css-assets-and-javascript/#css"
+      target="_blank"
+      >GOV.UK styles</a
+    >
+    into your project.
+  </p>
+
+  <h3 class="govuk-heading-s">2.1 Include all GOV.UK styles</h3>
+
+  <p class="govuk-body">
+    To include all GOV.UK styles, in your "(angular | project).json" file, add
+    the following to the styles array:
   </p>
 
   <pre class="govuk-body" [innerText]="STYLES_CODE"></pre>
+
+  <h3 class="govuk-heading-s">2.2 Include specific styles</h3>
+
+  <p class="govuk-body">
+    If you are only using a subset of GOV.UK components you may prefer to import
+    specific styles. For example if are only using the header and footer
+    components you can import only the component styles you need in your
+    "styles.scss" stylesheet (you may need to update the path to node_modules).
+  </p>
+
+  <pre class="govuk-body" [innerText]="CHERRY_PICK_STYLES"></pre>
 </div>
 
 <div class="govuk-!-margin-bottom-8">
-  <h2 class="govuk-heading-m">3. Consume components</h2>
+  <h2 class="govuk-heading-m">3. Components usage</h2>
+
+  <p class="govuk-body">
+    Components are exported under secondary entrypoints which enforces a
+    deterministic API and true tree-shaking capabilities.
+  </p>
+
+  <h3 class="govuk-heading-s">3.1 Importing components into your app</h3>
 
   <p class="govuk-body">
     All components are exported as standalone components and should be added to
     the imports array of your standalone component or NgModule.
   </p>
   <p class="govuk-body">
-    Let say we wanted to use "NgxGovukDetailsComponent" to a standalone
-    component.
+    In the following code examples, we want to use an imaginary component called
+    "NgxGovukExample" in a standalone component. The component selector is named
+    "ngx-govuk-example".
   </p>
   <pre class="govuk-body" [innerText]="COMPONENT_CODE"></pre>
   <p class="govuk-body">
     For a complete list of components, please visit the
     <a class="govuk-link" routerLink="/components">components</a> page.
   </p>
+
+  <h3 class="govuk-heading-s">
+    3.2 Component inputs, output, properties and methods.
+  </h3>
+
+  <p class="govuk-body">
+    Each component has a documented set of input and outputs that should be
+    consumed as standard.
+  </p>
+
+  <pre class="govuk-body" [innerText]="COMPONENT_INPUT_CODE"></pre>
+
+  <p class="govuk-body">
+    If you want to work with the properties and methods, you can get the
+    component instance by using template variables.
+  </p>
+
+  <pre class="govuk-body" [innerText]="COMPONENT_PROP_CODE"></pre>
 </div>

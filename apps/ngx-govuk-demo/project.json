@@ -21,12 +21,19 @@
           "node_modules/govuk-frontend/dist/govuk/all.scss",
           "apps/ngx-govuk-demo/src/styles.scss"
         ],
+
         "scripts": [],
         "assets": [
+          "apps/ngx-govuk-demo/src/assets",
           {
             "input": "node_modules/govuk-frontend/dist/govuk/assets",
             "glob": "**/*",
             "output": "assets"
+          },
+          {
+            "input": "apps/ngx-govuk-demo/src/app/routes/components/examples",
+            "glob": "**/*",
+            "output": "examples"
           }
         ]
       },

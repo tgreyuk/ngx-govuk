@@ -16,12 +16,29 @@ export class GetStartedComponent {
   "node_modules/govuk-frontend/dist/govuk/all.scss"
 ]`;
 
-  COMPONENT_CODE = `import { NgxGovukDetailsComponent } from 'ngx-govuk/details';
+  CHERRY_PICK_STYLES = `@import "node_modules/govuk-frontend/dist/govuk/base";
+@import "node_modules/govuk-frontend/dist/govuk/core/all";
+@import "node_modules/govuk-frontend/dist/govuk/objects/all";
+@import "node_modules/govuk-frontend/dist/govuk/components/footer/index";
+@import "node_modules/govuk-frontend/dist/govuk/components/header/index";
+@import "node_modules/govuk-frontend/dist/govuk/utilities/all";
+@import "node_modules/govuk-frontend/dist/govuk/overrides/all";`;
+
+  COMPONENT_CODE = `import { NgxGovukExample } from 'ngx-govuk/example';
 
 @Component({
-  selector: 'my-consumer-component',
+  selector: 'app-some-component',
   standalone: true,
-  imports: [CommonModule, NgxGovukDetailsComponent],
-  templateUrl: '<ngx-govuk-details>...</ngx-govuk-details>',
+  imports: [CommonModule, NgxGovukExample],
+  template: '<ngx-govuk-example></ngx-govuk-example>',
 })`;
+
+  COMPONENT_INPUT_CODE = `<ngx-gov-uk-example [input]="'value'" (output)="someMethod()"></ngx-govuk-example>`;
+
+  COMPONENT_PROP_CODE = `<ngx-gov-uk-example #myComponent></ngx-govuk-example>
+
+Print property value: {{ myComponent.someProperty() }}
+
+<button (click)="myComponent.someMethod()">Click me</button>
+`;
 }

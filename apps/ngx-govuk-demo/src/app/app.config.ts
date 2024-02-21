@@ -1,7 +1,21 @@
 import { ApplicationConfig } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import {
+  provideRouter,
+  withComponentInputBinding,
+  withRouterConfig,
+} from '@angular/router';
 import { appRoutes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(appRoutes)],
+  providers: [
+    provideRouter(
+      appRoutes,
+
+      withRouterConfig({
+        paramsInheritanceStrategy: 'always',
+      }),
+
+      withComponentInputBinding()
+    ),
+  ],
 };

@@ -7,7 +7,6 @@ import { RouterLink } from '@angular/router';
   standalone: true,
   imports: [CommonModule, RouterLink],
   templateUrl: './components.component.html',
-  styleUrl: './components.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ComponentsComponent {
@@ -38,7 +37,7 @@ export class ComponentsComponent {
     { name: 'Skip link' },
     { name: 'Summary list' },
     { name: 'Table' },
-    { name: 'Tabs', routerLink: 'tabs', completed: true },
+    { name: 'Tabs' },
     { name: 'Tag' },
     { name: 'Task list' },
     { name: 'Text input' },

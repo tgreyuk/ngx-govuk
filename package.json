@@ -3,11 +3,12 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
+    "prestart": "npm run typedoc",
     "start": "nx serve ngx-govuk-demo",
     "test": "nx test ngx-govuk",
     "compodoc": "compodoc -p libs/ngx-govuk/tsconfig.json -e json -d libs/ngx-govuk/.storybook",
     "storybook": "nx storybook ngx-govuk",
-    "typedoc": "npx typedoc --tsconfig ./libs/ngx-govuk/tsconfig.json  ./libs/ngx-govuk/accordion/**/*.ts"
+    "typedoc": "typedoc"
   },
   "private": true,
   "dependencies": {
@@ -80,6 +81,7 @@
     "prettier": "^2.6.2",
     "ts-jest": "^29.1.0",
     "ts-node": "10.9.1",
+    "typedoc": "^0.25.8",
     "typescript": "5.3.3"
   }
 }
