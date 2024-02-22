@@ -5,11 +5,11 @@
   "scripts": {
     "prestart": "npm run typedoc",
     "start": "nx serve ngx-govuk-demo",
-    "build": "nx build ngx-govuk --verbose",
+    "build": "nx build ngx-govuk",
     "test": "nx test ngx-govuk",
-    "compodoc": "compodoc -p libs/ngx-govuk/tsconfig.json -e json -d libs/ngx-govuk/.storybook",
     "storybook": "nx storybook ngx-govuk",
-    "typedoc": "typedoc"
+    "typedoc": "typedoc",
+    "release": "release-it --dry-run"
   },
   "private": true,
   "dependencies": {
@@ -39,7 +39,6 @@
     "@angular/cli": "~17.2.0",
     "@angular/compiler-cli": "17.2.1",
     "@angular/language-service": "17.2.1",
-    "@compodoc/compodoc": "^1.1.23",
     "@nx/cypress": "18.0.4",
     "@nx/eslint": "18.0.4",
     "@nx/eslint-plugin": "18.0.4",
@@ -79,6 +78,7 @@
     "postcss-preset-env": "~9.4.0",
     "postcss-url": "~10.1.3",
     "prettier": "^3.2.5",
+    "release-it": "^17.1.1",
     "ts-jest": "^29.1.2",
     "ts-node": "10.9.2",
     "typedoc": "^0.25.8",

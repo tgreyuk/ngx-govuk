@@ -1,0 +1,12 @@
+name: Release & Publish to NPM
+on: workflow_dispatch
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install the dependencies
+        run: npm ci
+      - name: End message
+        run: echo 'All done!'
