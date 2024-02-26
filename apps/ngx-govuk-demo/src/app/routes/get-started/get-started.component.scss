@@ -3,3 +3,18 @@
   border-left: 2px solid #ddd;
   padding-left: 16px;
 }
+
+#contents {
+  counter-reset: heading;
+  h2:before {
+    content: counter(heading) '. ';
+    counter-increment: heading;
+  }
+  h2 {
+    counter-reset: subheading;
+  }
+  h3:before {
+    content: counter(heading) '.' counter(subheading) '. ';
+    counter-increment: subheading;
+  }
+}

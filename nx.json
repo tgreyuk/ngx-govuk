@@ -1,23 +1,25 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "release": {
+    "projects": "ngx-govuk",
+    "version": {
+      "conventionalCommits": false
+    },
+    "changelog": {
+      "workspaceChangelog": {
+        "createRelease": false
+      }
+    }
+  },
   "targetDefaults": {
     "build": {
       "cache": true,
-      "dependsOn": [
-        "^build"
-      ],
-      "inputs": [
-        "production",
-        "^production"
-      ]
+      "dependsOn": ["^build"],
+      "inputs": ["production", "^production"]
     },
     "@nx/jest:jest": {
       "cache": true,
-      "inputs": [
-        "default",
-        "^production",
-        "{workspaceRoot}/jest.preset.js"
-      ],
+      "inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"],
       "options": {
         "passWithNoTests": true
       },
@@ -30,10 +32,7 @@
     },
     "e2e": {
       "cache": true,
-      "inputs": [
-        "default",
-        "^production"
-      ]
+      "inputs": ["default", "^production"]
     },
     "build-storybook": {
       "cache": true,
@@ -55,10 +54,7 @@
     }
   },
   "namedInputs": {
-    "default": [
-      "{projectRoot}/**/*",
-      "sharedGlobals"
-    ],
+    "default": ["{projectRoot}/**/*", "sharedGlobals"],
     "production": [
       "default",
       "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
@@ -105,17 +101,5 @@
       "skipModule": true
     }
   },
-  "defaultProject": "ngx-govuk",
-  "nxCloudAccessToken": "ZDRhMzNmNGYtOWQ2Yy00NmE4LTljY2ItNjU4YzEyNWI2M2UwfHJlYWQtd3JpdGU=",
-  "tasksRunnerOptions": {
-    "default": {
-      "runner": "nx-cloud",
-      "options": {
-        "cacheableOperations": [
-          "build-storybook"
-        ],
-        "accessToken": "MDUxYTZiZmUtZjkxNC00MmU2LTg3ZjAtYzNjYWQwZWM2ZDc1fHJlYWQtd3JpdGU="
-      }
-    }
-  }
+  "defaultProject": "ngx-govuk"
 }

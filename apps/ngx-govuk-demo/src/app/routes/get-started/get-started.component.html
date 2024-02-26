@@ -1,93 +1,189 @@
 <h1 class="govuk-heading-l">Get started</h1>
-
 <div class="govuk-!-margin-bottom-8">
-  <h2 class="govuk-heading-m">1. Install packages</h2>
-  <p class="govuk-body">
-    You will need to install "govuk-frontend" and "ngx-govuk" packages from npm.
-  </p>
-  <pre class="govuk-body" [innerText]="INSTALL_CODE"></pre>
+  <h2 class="govuk-heading-m">Contents</h2>
+  <ul class="govuk-list">
+    @for (item of toc(); track item.id; let i = $index) {
+      <li>
+        <a
+          [attr.href]="'/get-started#' + item.id"
+          class="govuk-link govuk-link--no-visited-state"
+          >{{ i + 1 }}. {{ item.heading }}</a
+        >
+        <ul class="govuk-list govuk-!-margin-left-4 govuk-!-margin-bottom-3">
+          @for (subItem of item.subheadings; track subItem.id; let i = $index) {
+            <li>
+              <a
+                [attr.href]="'/get-started#' + item.id + '-' + subItem.id"
+                class="govuk-link govuk-link--no-visited-state"
+                >{{ i + 1 }}. {{ subItem.heading }}</a
+              >
+            </li>
+          }
+        </ul>
+      </li>
+    }
+  </ul>
 </div>
 
-<div class="govuk-!-margin-bottom-8">
-  <h2 class="govuk-heading-m">2. Include GOV.UK styles</h2>
+<div id="contents" #contents>
+  <div class="govuk-!-margin-bottom-8">
+    <h2 class="govuk-heading-m">Install packages from npm</h2>
+    <p class="govuk-body">
+      You will need to install "govuk-frontend" and "ngx-govuk" packages from
+      npm.
+    </p>
+    <pre class="govuk-body" [innerText]="INSTALL_CODE"></pre>
+  </div>
 
-  <p class="govuk-body">
-    This libary does not come packaged with any additional styles or style
-    references. You will need to be include GOV.UK styles from node_modules into
-    your project.
-  </p>
+  <div class="govuk-!-margin-bottom-8">
+    <h2 class="govuk-heading-m">Setup GOV.UK styles and fonts</h2>
 
-  <p class="govuk-body">
-    There are two options for including
-    <a
-      href="https://frontend.design-system.service.gov.uk/importing-css-assets-and-javascript/#css"
-      target="_blank"
-      >GOV.UK styles</a
-    >
-    into your project.
-  </p>
+    <p class="govuk-body">
+      This libary does not come packaged with any additional styles or style
+      references. You will need to be include GOV.UK styles from node_modules
+      into your project. It is assumed your style language is set to "scss".
+    </p>
 
-  <h3 class="govuk-heading-s">2.1 Include all GOV.UK styles</h3>
+    <p class="govuk-body">
+      Please note that several sass warnings are generated in the console. These
+      warning are coming directly from GOV.UK styles and would be present in any
+      Angular GOV.UK project.
+    </p>
 
-  <p class="govuk-body">
-    To include all GOV.UK styles, in your "(angular | project).json" file, add
-    the following to the styles array:
-  </p>
+    <h3 class="govuk-heading-s">Add required class names to markup</h3>
 
-  <pre class="govuk-body" [innerText]="STYLES_CODE"></pre>
+    <p class="govuk-body">
+      You must add "govuk-template__body" and "govuk-frontend-supported" class
+      names to the body tag in your "index.html" file.
+    </p>
 
-  <h3 class="govuk-heading-s">2.2 Include specific styles</h3>
+    <pre class="govuk-body" [innerText]="BODY_CSS_CODE"></pre>
 
-  <p class="govuk-body">
-    If you are only using a subset of GOV.UK components you may prefer to import
-    specific styles. For example if are only using the header and footer
-    components you can import only the component styles you need in your
-    "styles.scss" stylesheet (you may need to update the path to node_modules).
-  </p>
+    <h3 class="govuk-heading-s">Add GOV.UK class names to body</h3>
 
-  <pre class="govuk-body" [innerText]="CHERRY_PICK_STYLES"></pre>
-</div>
+    <p class="govuk-body">
+      Some components require a class name. GDS appends with this with
+      Javascript so components without JS enabled are unstyled. Ofcourse this is
+      not relevant in an Angular app.
+    </p>
 
-<div class="govuk-!-margin-bottom-8">
-  <h2 class="govuk-heading-m">3. Components usage</h2>
+    <pre class="govuk-body" [innerText]="BODY_CSS_CODE"></pre>
 
-  <p class="govuk-body">
-    Components are exported under secondary entrypoints which enforces a
-    deterministic API and true tree-shaking capabilities.
-  </p>
+    <h3 class="govuk-heading-s">Include GOV.UK styles in your app</h3>
 
-  <h3 class="govuk-heading-s">3.1 Importing components into your app</h3>
+    <p class="govuk-body">
+      There are two options for including
+      <a
+        href="https://frontend.design-system.service.gov.uk/importing-css-assets-and-javascript/#css"
+        target="_blank"
+        >GOV.UK styles</a
+      >
+      into your project.
+    </p>
 
-  <p class="govuk-body">
-    All components are exported as standalone components and should be added to
-    the imports array of your standalone component or NgModule.
-  </p>
-  <p class="govuk-body">
-    In the following code examples, we want to use an imaginary component called
-    "NgxGovukExample" in a standalone component. The component selector is named
-    "ngx-govuk-example".
-  </p>
-  <pre class="govuk-body" [innerText]="COMPONENT_CODE"></pre>
-  <p class="govuk-body">
-    For a complete list of components, please visit the
-    <a class="govuk-link" routerLink="/components">components</a> page.
-  </p>
+    <p class="govuk-body">
+      <strong>Option 1:</strong> Include all GOV.UK styles in your project.
+    </p>
 
-  <h3 class="govuk-heading-s">
-    3.2 Component inputs, output, properties and methods.
-  </h3>
+    <p class="govuk-body">
+      To include all GOV.UK styles, in your "(angular | project).json" file, add
+      the compiled CSS to the styles array. This is the quickest setup, however
+      please note you may need (or prefer) to customise the output.
+    </p>
 
-  <p class="govuk-body">
-    Each component has a documented set of input and outputs that should be
-    consumed as standard.
-  </p>
+    <pre class="govuk-body" [innerText]="STYLES_CODE"></pre>
 
-  <pre class="govuk-body" [innerText]="COMPONENT_INPUT_CODE"></pre>
+    <p class="govuk-body">
+      <strong>Option 2:</strong> Customise GOV.UK styles in your project.
+    </p>
 
-  <p class="govuk-body">
-    If you want to work with the properties and methods, you can get the
-    component instance by using template variables.
-  </p>
+    <p class="govuk-body">
+      If you are only using a subset of GOV.UK components you may prefer to
+      import specific styles. For example if you are only using the header and
+      footer components you can import only the component styles you need in
+      your "styles.scss" stylesheet (update the path to node_modules as per your
+      structure). You will also need to customise the output if you are not
+      licensed to use GDS Transport font.
+    </p>
 
-  <pre class="govuk-body" [innerText]="COMPONENT_PROP_CODE"></pre>
+    <p class="govuk-body">
+      The advised implementation is to pre-build the GOV.UK styles to css and
+      then import the compiled css.
+    </p>
+
+    <pre class="govuk-body" [innerText]="CHERRY_PICK_STYLES"></pre>
+  </div>
+
+  <div class="govuk-!-margin-bottom-8">
+    <h2 class="govuk-heading-m">Configure fonts</h2>
+
+    <p class="govuk-body">
+      Once your styles are setup you will need to determine if you should use
+      the GDS Transport font or not. Further information can be found in the
+      <a
+        href="https://design-system.service.gov.uk/styles/typeface"
+        target="_blank"
+        >GOV.UK Typeface guide</a
+      >.
+    </p>
+
+    <h3 class="govuk-heading-s">Using an alternative font</h3>
+
+    <p class="govuk-body">
+      If you are not using the GDS Transport font, you will need to override the
+      "$govuk-font-family" sass variable by placing it before the scss imports
+      in "styles.scss". GOV.UK recommendeds to use an alternative typeface like
+      Helvetica or Arial. If you do not follow this step your browser will try
+      and load the GDS Transport font resulting in 404 console errors.
+    </p>
+
+    <pre class="govuk-body" [innerText]="CUSTOM_FONT_CODE"></pre>
+  </div>
+
+  <div class="govuk-!-margin-bottom-8">
+    <h2 class="govuk-heading-m">Consuming components</h2>
+
+    <p class="govuk-body">
+      Components are exported under secondary entrypoints which enforces a
+      deterministic API and true tree-shaking capabilities.
+    </p>
+
+    <h3 class="govuk-heading-s">Importing components into your app</h3>
+
+    <p class="govuk-body">
+      All components are exported as standalone components and should be added
+      to the imports array of your standalone component or NgModule.
+    </p>
+    <p class="govuk-body">
+      In the following code examples, we want to use an imaginary component
+      called "NgxGovukExample" in a standalone component. The component selector
+      is named "ngx-govuk-example".
+    </p>
+    <pre class="govuk-body" [innerText]="COMPONENT_CODE"></pre>
+
+    <p class="govuk-body">
+      For a complete list of components, please visit the
+      <a class="govuk-link" routerLink="/components">components</a> page.
+    </p>
+
+    <h3 class="govuk-heading-s">
+      Using inputs and outputs, properties and methods.
+    </h3>
+
+    <p class="govuk-body">
+      Each component has a documented set of inputs and outputs that are bound
+      to the compoennt in the normal Angular way.
+    </p>
+
+    <pre class="govuk-body" [innerText]="COMPONENT_INPUT_CODE"></pre>
+
+    <h3 class="govuk-heading-s">Using properties and methods.</h3>
+
+    <p class="govuk-body">
+      Some components also expose properties and methods. These can be accessed
+      by getting a handle to the component instance using template variables.
+    </p>
+
+    <pre class="govuk-body" [innerText]="COMPONENT_PROP_CODE"></pre>
+  </div>
 </div>

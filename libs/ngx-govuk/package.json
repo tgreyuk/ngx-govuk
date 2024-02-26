@@ -1,6 +1,15 @@
 {
   "name": "ngx-govuk",
   "version": "0.1.2-0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tgreyuk/ngx-govuk.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tgreyuk/ngx-govuk/issues"
+  },
+  "homepage": "https://ngx-govuk.org",
   "peerDependencies": {
     "@angular/common": "^17.2.0",
     "@angular/core": "^17.2.0"

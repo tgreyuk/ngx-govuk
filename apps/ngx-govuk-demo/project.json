@@ -8,20 +8,21 @@
 
   "targets": {
     "build": {
+      "dependsOn": ["^build"],
       "executor": "@angular-devkit/build-angular:application",
       "outputs": ["{options.outputPath}"],
       "options": {
+        "inlineStyleLanguage": "scss",
         "outputPath": "dist/apps/ngx-govuk-demo",
+        "baseHref": "/",
         "index": "apps/ngx-govuk-demo/src/index.html",
         "browser": "apps/ngx-govuk-demo/src/main.ts",
         "polyfills": ["zone.js"],
         "tsConfig": "apps/ngx-govuk-demo/tsconfig.app.json",
-        "inlineStyleLanguage": "scss",
         "styles": [
-          "node_modules/govuk-frontend/dist/govuk/all.scss",
+          "apps/ngx-govuk-demo/govuk-frontend.css",
           "apps/ngx-govuk-demo/src/styles.scss"
         ],
-
         "scripts": [],
         "assets": [
           "apps/ngx-govuk-demo/src/assets",

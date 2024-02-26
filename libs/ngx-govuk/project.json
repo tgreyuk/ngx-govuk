@@ -22,6 +22,11 @@
       },
       "defaultConfiguration": "production"
     },
+    "nx-release-publish": {
+      "options": {
+        "packageRoot": "dist/libs/ngx-govuk"
+      }
+    },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],

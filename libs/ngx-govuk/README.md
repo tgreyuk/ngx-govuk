@@ -1,7 +1,19 @@
 # ngx-govuk
 
-This library was generated with [Nx](https://nx.dev).
+![npm](https://img.shields.io/npm/v/ngx-govuk?&logo=npm)
 
-## Running unit tests
+[GOV.UK Design System](https://design-system.service.gov.uk) components for Angular projects.
 
-Run `nx test ngx-govuk` to execute the unit tests.
+## Installation
+
+```shell
+  npm install ngx-govuk --save
+```
+
+## Documentation
+
+Please visit https://ngx-govuk.org.
+
+## License
+
+Released under the [MIT License](./LICENSE).
