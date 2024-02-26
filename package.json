@@ -3,9 +3,10 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "prestart": "npm run typedoc && npm run govuk-sass",
-    "demo:start": "nx serve ngx-govuk-demo",
-    "demo:build": "nx build ngx-govuk-demo --configuration=production",
+    "ci": "npm ci --include=optional",
+    "pre": "npm run typedoc && npm run govuk-sass",
+    "demo:start": "npm run pre && nx serve ngx-govuk-demo",
+    "demo:build": "npm run pre && nx build ngx-govuk-demo --configuration=production",
     "build": "nx build ngx-govuk",
     "test": "nx test ngx-govuk",
     "storybook": "nx storybook ngx-govuk",
@@ -87,5 +88,11 @@
     "ts-node": "10.9.2",
     "typedoc": "^0.25.8",
     "typescript": "5.3.3"
+  },
+  "optionalDependencies": {
+    "@nx/nx-darwin-arm64": "18.0.4",
+    "@nx/nx-darwin-x64": "18.0.4",
+    "@nx/nx-linux-x64-gnu": "18.0.4",
+    "@nx/nx-win32-x64-msvc": "18.0.4"
   }
 }
