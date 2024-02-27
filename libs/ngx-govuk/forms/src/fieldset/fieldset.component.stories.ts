@@ -1,7 +1,6 @@
 import { moduleMetadata, type Meta } from '@storybook/angular';
-
-import { NgxGovukFormGroupComponent } from '../form-group/form-group.component';
-import { NgxGovukTextInputDirective } from '../text-input/text-input.directive';
+import { NgxGovukFormGroup } from '../../../form-group/form-group.component';
+import { NgxGovukTextInput } from '../../../text-input/text-input.directive';
 import { NgxGovukFieldsetComponent } from './fieldset.component';
 
 const meta: Meta<NgxGovukFieldsetComponent> = {
@@ -9,12 +8,11 @@ const meta: Meta<NgxGovukFieldsetComponent> = {
   title: 'Form Components/Fieldset',
   decorators: [
     moduleMetadata({
-      imports: [NgxGovukFormGroupComponent, NgxGovukTextInputDirective],
+      imports: [NgxGovukFormGroup, NgxGovukTextInput],
     }),
   ],
 };
 export default meta;
-//type Story = StoryObj<NgxGovukFieldsetComponent>;
 
 export const Fieldset = {
   args: {

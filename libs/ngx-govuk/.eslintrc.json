@@ -12,7 +12,13 @@
         "@angular-eslint/component-class-suffix": [
           "error",
           {
-            "suffixes": ["Component", "Directive", "Module", ""]
+            "suffixes": [""]
+          }
+        ],
+        "@angular-eslint/directive-class-suffix": [
+          "error",
+          {
+            "suffixes": [""]
           }
         ],
         "@angular-eslint/directive-selector": [

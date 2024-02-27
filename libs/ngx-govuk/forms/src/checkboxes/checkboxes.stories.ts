@@ -1,8 +1,8 @@
 import { moduleMetadata, type Meta } from '@storybook/angular';
 
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { NgxGovukFormGroup } from '../../../form-group/form-group.component';
 import { NgxGovukFieldsetComponent } from '../fieldset/fieldset.component';
-import { NgxGovukFormGroupComponent } from '../form-group/form-group.component';
 import { NgxGovukCheckboxComponent } from './checkbox.component';
 import { NgxGovukCheckboxesDirective } from './checkboxes.directive';
 
@@ -14,7 +14,7 @@ const meta: Meta<NgxGovukCheckboxesDirective> = {
       imports: [
         ReactiveFormsModule,
         NgxGovukFieldsetComponent,
-        NgxGovukFormGroupComponent,
+        NgxGovukFormGroup,
         NgxGovukCheckboxComponent,
       ],
     }),

@@ -38,3 +38,16 @@
   display: flex;
   align-items: center;
 }
+
+.govuk-header__link {
+  display: flex;
+  align-items: center;
+  img {
+    width: 30px;
+    margin-right: 4px;
+  }
+}
+
+.govuk-header__product-name {
+  margin-top: 0;
+}

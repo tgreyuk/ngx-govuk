@@ -1,16 +1,23 @@
 <span class="govuk-caption-xl"> Components </span>
-<h1 class="govuk-heading-xl">{{ componentId() | titlecase }}</h1>
+<h1 class="govuk-heading-xl">{{ componentId() | startcase }}</h1>
 
-<p class="govuk-body govuk-!-margin-bottom-8">
-  Please visit
-  <a
-    class="govuk-link"
-    href="https://design-system.service.gov.uk/components/{{ componentId() }}"
-    target="_blank"
-    >GOV.UK {{ componentId() | titlecase }}
-  </a>
-  for official documentation and usage.
-</p>
+@if (displayDocsLink) {
+  <p class="govuk-body govuk-!-margin-bottom-8">
+    Please visit
+    <a
+      class="govuk-link"
+      href="https://design-system.service.gov.uk/components/{{ componentId() }}"
+      target="_blank"
+      >GOV.UK {{ componentId() | startcase }}
+    </a>
+    for official documentation and usage.
+  </p>
+} @else {
+  <p class="govuk-body govuk-!-margin-bottom-8">
+    There is no direct mapping to this component in the GOV.UK Design System,
+    but the pattern is used widely across the system.
+  </p>
+}
 
 <ngx-govuk-tabs-nav>
   <a ngxGovukTabLink routerLink="./preview" routerLinkActive>Demo</a>

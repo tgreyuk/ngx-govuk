@@ -5,10 +5,13 @@ import {
   NgxGovukTabLinkDirective,
   NgxGovukTabsNavComponent,
 } from 'ngx-govuk/tabs';
+import { StartCasePipe } from '../../pipes/start-case.pipe';
 
 @Component({
   selector: 'ngx-govuk-component',
   standalone: true,
+  templateUrl: './component.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     CommonModule,
     NgxGovukTabsNavComponent,
@@ -16,10 +19,13 @@ import {
     RouterLink,
     RouterOutlet,
     RouterLinkActive,
+    StartCasePipe,
   ],
-  templateUrl: './component.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ComponentComponent {
   componentId = input<string>();
+
+  get displayDocsLink() {
+    return !['form-group'].includes(this.componentId() || '');
+  }
 }

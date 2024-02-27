@@ -21,8 +21,10 @@
       "ngx-govuk/breadcrumbs": ["libs/ngx-govuk/breadcrumbs/src/index.ts"],
       "ngx-govuk/button": ["libs/ngx-govuk/button/src/index.ts"],
       "ngx-govuk/details": ["libs/ngx-govuk/details/src/index.ts"],
+      "ngx-govuk/form-group": ["libs/ngx-govuk/form-group/index.ts"],
       "ngx-govuk/forms": ["libs/ngx-govuk/forms/src/index.ts"],
-      "ngx-govuk/tabs": ["libs/ngx-govuk/tabs/src/index.ts"]
+      "ngx-govuk/tabs": ["libs/ngx-govuk/tabs/src/index.ts"],
+      "ngx-govuk/text-input": ["libs/ngx-govuk/text-input/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

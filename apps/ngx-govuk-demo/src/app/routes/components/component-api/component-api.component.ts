@@ -28,14 +28,12 @@ export class ComponentApiComponent {
       })
       .pipe(
         map((json) => {
-          console.log(this.componentId(), json);
-
           const componentJson = json.children
             ?.filter((module) =>
-              module.name.startsWith(`${this.componentId()}/`)
+              module.name.startsWith(`${this.componentId()}/`),
             )
             .map((component) =>
-              component.children ? component.children[0] : null
+              component.children ? component.children[0] : null,
             );
 
           console.log(componentJson);
@@ -48,8 +46,13 @@ export class ComponentApiComponent {
             return {
               name: component.name,
               selector: component.comment?.blockTags?.find(
-                (tag) => tag.tag === '@selector'
+                (tag) => tag.tag === '@selector',
               )?.content[0].text,
+              tag:
+                component.sources &&
+                component.sources[0].fileName.includes('directive')
+                  ? 'Directive'
+                  : 'Component',
               comments: this.getCommentSummary(component.comment),
               inputs: this.getInputs(component),
               methods: this.getMethods(component),
@@ -57,7 +60,7 @@ export class ComponentApiComponent {
             };
           });
           return result?.sort((a, b) => a.name.localeCompare(b.name));
-        })
+        }),
       );
 
     return toSignal(observable);
@@ -68,23 +71,43 @@ export class ComponentApiComponent {
       ?.filter(
         (member) =>
           member.type?.type === 'reference' &&
-          member.type?.name === 'InputSignal'
+          member.type?.name === 'InputSignal',
       )
-      .map((member) => ({
-        name: member.name,
-        type: `InputSignal<${(
-          member.type as JSONOutput.ReferenceType
-        )?.typeArguments
-          ?.map((arg: any) => arg.name)
-          .join(', ')}>`,
-        comments: this.getCommentSummary(member.comment),
-        required: member.comment?.blockTags?.find(
-          (tag) => tag.tag === '@required'
-        )
-          ? 'True'
-          : 'False',
-      }));
+      .map((member) => {
+        return {
+          name: member.name,
+          type: this.getInputType(member),
+          comments: this.getCommentSummary(member.comment),
+          required: member.comment?.blockTags?.find(
+            (tag) => tag.tag === '@required',
+          )
+            ? 'Yes'
+            : 'No',
+          default:
+            member.comment?.blockTags?.find(
+              (tag) => tag.tag === '@initialValue',
+            )?.content[0].text || '""',
+        };
+      });
     return inputs?.length ? inputs : null;
+  }
+
+  getInputType(member: JSONOutput.DeclarationReflection) {
+    const type = (member.type as JSONOutput.ReferenceType)?.typeArguments
+      ?.map((arg: any) => {
+        if (arg.type === 'union') {
+          return arg.types
+            .filter(
+              (argType: any) =>
+                argType.name !== 'undefined' || Boolean(argType.value),
+            )
+            .map((argType: any) => argType.name || `"${argType.value}"`)
+            .join(' | ');
+        }
+        return arg.name;
+      })
+      .join(', ');
+    return type;
   }
 
   getMethods(component: JSONOutput.DeclarationReflection) {
@@ -105,7 +128,7 @@ export class ComponentApiComponent {
       ?.filter(
         (member) =>
           member.type?.type === 'reference' &&
-          member.type?.name === 'WritableSignal'
+          member.type?.name === 'WritableSignal',
       )
       .map((member) => {
         return {

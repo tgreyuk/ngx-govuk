@@ -6,5 +6,6 @@
   "exclude": ["**/*+(index|.spec|.e2e|.stories|.config|setup).ts"],
   "excludeNotDocumented": true,
   "excludeReferences": true,
-  "readme": "none"
+  "readme": "none",
+  "sort": ["source-order"]
 }

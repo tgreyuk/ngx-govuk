@@ -1,8 +1,7 @@
-import { moduleMetadata, type Meta } from '@storybook/angular';
-
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { moduleMetadata, type Meta } from '@storybook/angular';
+import { NgxGovukFormGroup } from '../../../form-group/form-group.component';
 import { NgxGovukFieldsetComponent } from '../fieldset/fieldset.component';
-import { NgxGovukFormGroupComponent } from '../form-group/form-group.component';
 import { NgxGovukDateInputComponent } from './date-input.component';
 
 const meta: Meta<NgxGovukDateInputComponent> = {
@@ -13,7 +12,7 @@ const meta: Meta<NgxGovukDateInputComponent> = {
       imports: [
         ReactiveFormsModule,
         NgxGovukFieldsetComponent,
-        NgxGovukFormGroupComponent,
+        NgxGovukFormGroup,
       ],
     }),
   ],

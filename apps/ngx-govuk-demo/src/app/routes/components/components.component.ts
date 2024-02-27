@@ -1,17 +1,18 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { StartCasePipe } from '../../pipes/start-case.pipe';
 
 @Component({
   selector: 'ngx-govuk-components',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, StartCasePipe],
   templateUrl: './components.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ComponentsComponent {
-  components: { name: string; routerLink?: string; completed?: boolean }[] = [
-    { name: 'Accordion', routerLink: 'accordion', completed: true },
+  components: { name: string; id?: string; completed?: boolean }[] = [
+    { name: 'Accordion', id: 'accordion', completed: true },
     { name: 'Back Link' },
     { name: 'Breadcrumbs' },
     { name: 'Button' },
@@ -26,6 +27,7 @@ export class ComponentsComponent {
     { name: 'Fieldset' },
     { name: 'File upload' },
     { name: 'Footer' },
+    { name: 'Form Group', id: 'form-group', completed: true },
     { name: 'Header' },
     { name: 'Inset text' },
     { name: 'Notification banner' },
@@ -40,7 +42,7 @@ export class ComponentsComponent {
     { name: 'Tabs' },
     { name: 'Tag' },
     { name: 'Task list' },
-    { name: 'Text input' },
+    { name: 'Text input', id: 'text-input', completed: true },
     { name: 'Textarea' },
     { name: 'Warning text' },
   ];

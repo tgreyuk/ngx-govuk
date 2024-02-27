@@ -1,0 +1,31 @@
+name: CI
+on:
+  push:
+    paths:
+      - 'libs/ngx-govuk/**'
+  pull_request:
+    paths:
+      - 'libs/ngx-govuk/**'
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: ['18']
+    name: Node ${{ matrix.node }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Set up Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node }}
+          cache: 'npm'
+      - name: Install
+        run: npm install
+      - name: Lint
+        run: npm run lib:lin
+      - name: Build
+        run: npm run lib:build
+      - name: Test
+        run: npm run lib:test

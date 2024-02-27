@@ -1,6 +1,6 @@
 import { moduleMetadata, type Meta } from '@storybook/angular';
 
-import { NgxGovukFormGroupComponent } from '../form-group/form-group.component';
+import { NgxGovukFormGroup } from '../../../form-group/form-group.component';
 import { NgxGovukTextareaDirective } from '../textarea/textarea.directive';
 import { NgxGovUkCharacterCountComponent } from './character-count.component';
 
@@ -9,7 +9,7 @@ const meta: Meta<NgxGovUkCharacterCountComponent> = {
   title: 'Form Components/Character Count',
   decorators: [
     moduleMetadata({
-      imports: [NgxGovukFormGroupComponent, NgxGovukTextareaDirective],
+      imports: [NgxGovukFormGroup, NgxGovukTextareaDirective],
     }),
   ],
 };

@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NgxGovukFormGroup should check markup snapshot 1`] = `
+<ngx-govuk-form-group
+  hint="Test hint"
+  label="Test label"
+>
+  <div
+    class="govuk-form-group"
+  >
+    <label
+      class="govuk-label"
+      for="field-someId"
+    >
+      Test label
+    </label>
+    
+    
+    <div
+      class="govuk-hint"
+      id="hint-someId"
+    >
+       Test hint 
+    </div>
+    
+    
+    <div
+      class="govuk-input__wrapper"
+    >
+      
+      <input
+        aria-describedby="hint-someId"
+        class="govuk-input"
+        id="field-someId"
+        ngxgovuktextinput=""
+        type="text"
+      />
+      
+    </div>
+  </div>
+</ngx-govuk-form-group>
+`;

@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { AccordionDemoComponent } from '../examples/accordion.component';
+import { FormGroupDemoComponent } from '../examples/form-group.component';
+import { TextInputDemoComponent } from '../examples/text-input.component';
 
 @Component({
   selector: 'ngx-govuk-example',
@@ -13,7 +15,9 @@ export class ComponentPreviewComponent {
   componentId = input<string>();
 
   demoComponents = {
-    accordion: AccordionDemoComponent,
+    ['accordion']: AccordionDemoComponent,
+    ['form-group']: FormGroupDemoComponent,
+    ['text-input']: TextInputDemoComponent,
   };
 
   get demoComponent() {

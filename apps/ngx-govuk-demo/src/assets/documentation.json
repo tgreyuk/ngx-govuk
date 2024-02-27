@@ -63,7 +63,7 @@
 									"fileName": "accordion/accordion-panel.component.ts",
 									"line": 28,
 									"character": 2,
-									"url": "https://github.com/tgreyuk/ngx-govuk/blob/724a27a/libs/ngx-govuk/accordion/accordion-panel.component.ts#L28"
+									"url": "https://github.com/tgreyuk/ngx-govuk/blob/0339661/libs/ngx-govuk/accordion/accordion-panel.component.ts#L28"
 								}
 							],
 							"type": {
@@ -102,7 +102,7 @@
 									"fileName": "accordion/accordion-panel.component.ts",
 									"line": 33,
 									"character": 2,
-									"url": "https://github.com/tgreyuk/ngx-govuk/blob/724a27a/libs/ngx-govuk/accordion/accordion-panel.component.ts#L33"
+									"url": "https://github.com/tgreyuk/ngx-govuk/blob/0339661/libs/ngx-govuk/accordion/accordion-panel.component.ts#L33"
 								}
 							],
 							"type": {
@@ -133,7 +133,7 @@
 									"fileName": "accordion/accordion-panel.component.ts",
 									"line": 43,
 									"character": 2,
-									"url": "https://github.com/tgreyuk/ngx-govuk/blob/724a27a/libs/ngx-govuk/accordion/accordion-panel.component.ts#L43"
+									"url": "https://github.com/tgreyuk/ngx-govuk/blob/0339661/libs/ngx-govuk/accordion/accordion-panel.component.ts#L43"
 								}
 							],
 							"signatures": [
@@ -156,7 +156,7 @@
 											"fileName": "accordion/accordion-panel.component.ts",
 											"line": 43,
 											"character": 2,
-											"url": "https://github.com/tgreyuk/ngx-govuk/blob/724a27a/libs/ngx-govuk/accordion/accordion-panel.component.ts#L43"
+											"url": "https://github.com/tgreyuk/ngx-govuk/blob/0339661/libs/ngx-govuk/accordion/accordion-panel.component.ts#L43"
 										}
 									],
 									"type": {
@@ -187,7 +187,7 @@
 							"fileName": "accordion/accordion-panel.component.ts",
 							"line": 23,
 							"character": 13,
-							"url": "https://github.com/tgreyuk/ngx-govuk/blob/724a27a/libs/ngx-govuk/accordion/accordion-panel.component.ts#L23"
+							"url": "https://github.com/tgreyuk/ngx-govuk/blob/0339661/libs/ngx-govuk/accordion/accordion-panel.component.ts#L23"
 						}
 					]
 				}
@@ -205,7 +205,7 @@
 					"fileName": "accordion/accordion-panel.component.ts",
 					"line": 1,
 					"character": 0,
-					"url": "https://github.com/tgreyuk/ngx-govuk/blob/724a27a/libs/ngx-govuk/accordion/accordion-panel.component.ts#L1"
+					"url": "https://github.com/tgreyuk/ngx-govuk/blob/0339661/libs/ngx-govuk/accordion/accordion-panel.component.ts#L1"
 				}
 			]
 		},
@@ -261,7 +261,7 @@
 									"fileName": "accordion/accordion.component.ts",
 									"line": 31,
 									"character": 2,
-									"url": "https://github.com/tgreyuk/ngx-govuk/blob/724a27a/libs/ngx-govuk/accordion/accordion.component.ts#L31"
+									"url": "https://github.com/tgreyuk/ngx-govuk/blob/0339661/libs/ngx-govuk/accordion/accordion.component.ts#L31"
 								}
 							],
 							"type": {
@@ -292,7 +292,7 @@
 									"fileName": "accordion/accordion.component.ts",
 									"line": 36,
 									"character": 2,
-									"url": "https://github.com/tgreyuk/ngx-govuk/blob/724a27a/libs/ngx-govuk/accordion/accordion.component.ts#L36"
+									"url": "https://github.com/tgreyuk/ngx-govuk/blob/0339661/libs/ngx-govuk/accordion/accordion.component.ts#L36"
 								}
 							],
 							"signatures": [
@@ -315,7 +315,7 @@
 											"fileName": "accordion/accordion.component.ts",
 											"line": 36,
 											"character": 2,
-											"url": "https://github.com/tgreyuk/ngx-govuk/blob/724a27a/libs/ngx-govuk/accordion/accordion.component.ts#L36"
+											"url": "https://github.com/tgreyuk/ngx-govuk/blob/0339661/libs/ngx-govuk/accordion/accordion.component.ts#L36"
 										}
 									],
 									"type": {
@@ -345,7 +345,7 @@
 							"fileName": "accordion/accordion.component.ts",
 							"line": 25,
 							"character": 13,
-							"url": "https://github.com/tgreyuk/ngx-govuk/blob/724a27a/libs/ngx-govuk/accordion/accordion.component.ts#L25"
+							"url": "https://github.com/tgreyuk/ngx-govuk/blob/0339661/libs/ngx-govuk/accordion/accordion.component.ts#L25"
 						}
 					]
 				}
@@ -363,7 +363,529 @@
 					"fileName": "accordion/accordion.component.ts",
 					"line": 1,
 					"character": 0,
-					"url": "https://github.com/tgreyuk/ngx-govuk/blob/724a27a/libs/ngx-govuk/accordion/accordion.component.ts#L1"
+					"url": "https://github.com/tgreyuk/ngx-govuk/blob/0339661/libs/ngx-govuk/accordion/accordion.component.ts#L1"
+				}
+			]
+		},
+		{
+			"id": 22,
+			"name": "form-group/form-group.component",
+			"variant": "declaration",
+			"kind": 2,
+			"flags": {},
+			"children": [
+				{
+					"id": 23,
+					"name": "NgxGovukFormGroup",
+					"variant": "declaration",
+					"kind": 128,
+					"flags": {},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "A commom wrapper around form controls and directives.\n\nThe content slot expects a single form component / directive with an optional associated form control.\n\nValid content children are:\n\n- NgxGovukTextInput"
+							}
+						],
+						"blockTags": [
+							{
+								"tag": "@selector",
+								"content": [
+									{
+										"kind": "text",
+										"text": "ngx-govuk-form-group"
+									}
+								]
+							}
+						]
+					},
+					"children": [
+						{
+							"id": 28,
+							"name": "label",
+							"variant": "declaration",
+							"kind": 1024,
+							"flags": {},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "The label text for the form group."
+									}
+								],
+								"blockTags": [
+									{
+										"tag": "@required",
+										"content": []
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "form-group/form-group.component.ts",
+									"line": 43,
+									"character": 2
+								}
+							],
+							"type": {
+								"type": "reference",
+								"target": {
+									"sourceFileName": "node_modules/@angular/core/index.d.ts",
+									"qualifiedName": "InputSignal"
+								},
+								"typeArguments": [
+									{
+										"type": "intrinsic",
+										"name": "string"
+									}
+								],
+								"name": "InputSignal",
+								"package": "@angular/core"
+							},
+							"defaultValue": "..."
+						},
+						{
+							"id": 29,
+							"name": "asPageHeading",
+							"variant": "declaration",
+							"kind": 1024,
+							"flags": {},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "If you're asking just one question, you can set the contents of the <label> as the page heading."
+									}
+								],
+								"blockTags": [
+									{
+										"tag": "@initialValue",
+										"content": [
+											{
+												"kind": "text",
+												"text": "false"
+											}
+										]
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "form-group/form-group.component.ts",
+									"line": 50,
+									"character": 2
+								}
+							],
+							"type": {
+								"type": "reference",
+								"target": {
+									"sourceFileName": "node_modules/@angular/core/index.d.ts",
+									"qualifiedName": "InputSignal"
+								},
+								"typeArguments": [
+									{
+										"type": "intrinsic",
+										"name": "boolean"
+									}
+								],
+								"name": "InputSignal",
+								"package": "@angular/core"
+							},
+							"defaultValue": "..."
+						},
+						{
+							"id": 30,
+							"name": "hint",
+							"variant": "declaration",
+							"kind": 1024,
+							"flags": {},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Hint text that can provide help information."
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "form-group/form-group.component.ts",
+									"line": 55,
+									"character": 2
+								}
+							],
+							"type": {
+								"type": "reference",
+								"target": {
+									"sourceFileName": "node_modules/@angular/core/index.d.ts",
+									"qualifiedName": "InputSignal"
+								},
+								"typeArguments": [
+									{
+										"type": "union",
+										"types": [
+											{
+												"type": "intrinsic",
+												"name": "undefined"
+											},
+											{
+												"type": "intrinsic",
+												"name": "string"
+											}
+										]
+									}
+								],
+								"name": "InputSignal",
+								"package": "@angular/core"
+							},
+							"defaultValue": "..."
+						},
+						{
+							"id": 31,
+							"name": "prefix",
+							"variant": "declaration",
+							"kind": 1024,
+							"flags": {},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Prefix to add before the field."
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "form-group/form-group.component.ts",
+									"line": 60,
+									"character": 2
+								}
+							],
+							"type": {
+								"type": "reference",
+								"target": {
+									"sourceFileName": "node_modules/@angular/core/index.d.ts",
+									"qualifiedName": "InputSignal"
+								},
+								"typeArguments": [
+									{
+										"type": "union",
+										"types": [
+											{
+												"type": "intrinsic",
+												"name": "undefined"
+											},
+											{
+												"type": "intrinsic",
+												"name": "string"
+											}
+										]
+									}
+								],
+								"name": "InputSignal",
+								"package": "@angular/core"
+							},
+							"defaultValue": "..."
+						},
+						{
+							"id": 32,
+							"name": "suffix",
+							"variant": "declaration",
+							"kind": 1024,
+							"flags": {},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Prefix to add before the field."
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "form-group/form-group.component.ts",
+									"line": 65,
+									"character": 2
+								}
+							],
+							"type": {
+								"type": "reference",
+								"target": {
+									"sourceFileName": "node_modules/@angular/core/index.d.ts",
+									"qualifiedName": "InputSignal"
+								},
+								"typeArguments": [
+									{
+										"type": "union",
+										"types": [
+											{
+												"type": "intrinsic",
+												"name": "undefined"
+											},
+											{
+												"type": "intrinsic",
+												"name": "string"
+											}
+										]
+									}
+								],
+								"name": "InputSignal",
+								"package": "@angular/core"
+							},
+							"defaultValue": "..."
+						},
+						{
+							"id": 33,
+							"name": "errorMessage",
+							"variant": "declaration",
+							"kind": 1024,
+							"flags": {},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Error message to display when the form contrrol is invalid."
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "form-group/form-group.component.ts",
+									"line": 70,
+									"character": 2
+								}
+							],
+							"type": {
+								"type": "reference",
+								"target": {
+									"sourceFileName": "node_modules/@angular/core/index.d.ts",
+									"qualifiedName": "InputSignal"
+								},
+								"typeArguments": [
+									{
+										"type": "union",
+										"types": [
+											{
+												"type": "intrinsic",
+												"name": "undefined"
+											},
+											{
+												"type": "intrinsic",
+												"name": "string"
+											}
+										]
+									}
+								],
+								"name": "InputSignal",
+								"package": "@angular/core"
+							},
+							"defaultValue": "..."
+						}
+					],
+					"groups": [
+						{
+							"title": "Properties",
+							"children": [
+								28,
+								29,
+								30,
+								31,
+								32,
+								33
+							]
+						}
+					],
+					"sources": [
+						{
+							"fileName": "form-group/form-group.component.ts",
+							"line": 37,
+							"character": 13
+						}
+					],
+					"implementedTypes": [
+						{
+							"type": "reference",
+							"target": {
+								"sourceFileName": "node_modules/@angular/core/index.d.ts",
+								"qualifiedName": "AfterViewInit"
+							},
+							"name": "AfterViewInit",
+							"package": "@angular/core"
+						}
+					]
+				}
+			],
+			"groups": [
+				{
+					"title": "Classes",
+					"children": [
+						23
+					]
+				}
+			],
+			"sources": [
+				{
+					"fileName": "form-group/form-group.component.ts",
+					"line": 1,
+					"character": 0
+				}
+			]
+		},
+		{
+			"id": 48,
+			"name": "text-input/text-input.directive",
+			"variant": "declaration",
+			"kind": 2,
+			"flags": {},
+			"children": [
+				{
+					"id": 49,
+					"name": "NgxGovukTextInput",
+					"variant": "declaration",
+					"kind": 128,
+					"flags": {},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "Directive to be added to native input elements."
+							}
+						],
+						"blockTags": [
+							{
+								"tag": "@selector",
+								"content": [
+									{
+										"kind": "text",
+										"text": "input[ngxGovukTextInput]"
+									}
+								]
+							}
+						]
+					},
+					"children": [
+						{
+							"id": 58,
+							"name": "inputWidth",
+							"variant": "declaration",
+							"kind": 1024,
+							"flags": {},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "The width of the input. Accepts any GOV.UK fixed or fluid width units."
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "text-input/text-input.directive.ts",
+									"line": 52,
+									"character": 2
+								}
+							],
+							"type": {
+								"type": "reference",
+								"target": {
+									"sourceFileName": "node_modules/@angular/core/index.d.ts",
+									"qualifiedName": "InputSignal"
+								},
+								"typeArguments": [
+									{
+										"type": "union",
+										"types": [
+											{
+												"type": "intrinsic",
+												"name": "undefined"
+											},
+											{
+												"type": "literal",
+												"value": "full"
+											},
+											{
+												"type": "literal",
+												"value": "three-quarters"
+											},
+											{
+												"type": "literal",
+												"value": "two-thirds"
+											},
+											{
+												"type": "literal",
+												"value": "one-half"
+											},
+											{
+												"type": "literal",
+												"value": "one-third"
+											},
+											{
+												"type": "literal",
+												"value": "one-quarter"
+											},
+											{
+												"type": "literal",
+												"value": "2"
+											},
+											{
+												"type": "literal",
+												"value": "3"
+											},
+											{
+												"type": "literal",
+												"value": "4"
+											},
+											{
+												"type": "literal",
+												"value": "5"
+											},
+											{
+												"type": "literal",
+												"value": "10"
+											},
+											{
+												"type": "literal",
+												"value": "20"
+											}
+										]
+									}
+								],
+								"name": "InputSignal",
+								"package": "@angular/core"
+							},
+							"defaultValue": "..."
+						}
+					],
+					"groups": [
+						{
+							"title": "Properties",
+							"children": [
+								58
+							]
+						}
+					],
+					"sources": [
+						{
+							"fileName": "text-input/text-input.directive.ts",
+							"line": 22,
+							"character": 13
+						}
+					]
+				}
+			],
+			"groups": [
+				{
+					"title": "Classes",
+					"children": [
+						49
+					]
+				}
+			],
+			"sources": [
+				{
+					"fileName": "text-input/text-input.directive.ts",
+					"line": 1,
+					"character": 0
 				}
 			]
 		}
@@ -373,7 +895,9 @@
 			"title": "Modules",
 			"children": [
 				1,
-				13
+				13,
+				22,
+				48
 			]
 		}
 	],
@@ -422,6 +946,50 @@
 		"20": {
 			"sourceFileName": "libs/ngx-govuk/accordion/accordion.component.ts",
 			"qualifiedName": "NgxGovukAccordion.toggle"
+		},
+		"22": {
+			"sourceFileName": "libs/ngx-govuk/form-group/form-group.component.ts",
+			"qualifiedName": ""
+		},
+		"23": {
+			"sourceFileName": "libs/ngx-govuk/form-group/form-group.component.ts",
+			"qualifiedName": "NgxGovukFormGroup"
+		},
+		"28": {
+			"sourceFileName": "libs/ngx-govuk/form-group/form-group.component.ts",
+			"qualifiedName": "NgxGovukFormGroup.label"
+		},
+		"29": {
+			"sourceFileName": "libs/ngx-govuk/form-group/form-group.component.ts",
+			"qualifiedName": "NgxGovukFormGroup.asPageHeading"
+		},
+		"30": {
+			"sourceFileName": "libs/ngx-govuk/form-group/form-group.component.ts",
+			"qualifiedName": "NgxGovukFormGroup.hint"
+		},
+		"31": {
+			"sourceFileName": "libs/ngx-govuk/form-group/form-group.component.ts",
+			"qualifiedName": "NgxGovukFormGroup.prefix"
+		},
+		"32": {
+			"sourceFileName": "libs/ngx-govuk/form-group/form-group.component.ts",
+			"qualifiedName": "NgxGovukFormGroup.suffix"
+		},
+		"33": {
+			"sourceFileName": "libs/ngx-govuk/form-group/form-group.component.ts",
+			"qualifiedName": "NgxGovukFormGroup.errorMessage"
+		},
+		"48": {
+			"sourceFileName": "libs/ngx-govuk/text-input/text-input.directive.ts",
+			"qualifiedName": ""
+		},
+		"49": {
+			"sourceFileName": "libs/ngx-govuk/text-input/text-input.directive.ts",
+			"qualifiedName": "NgxGovukTextInput"
+		},
+		"58": {
+			"sourceFileName": "libs/ngx-govuk/text-input/text-input.directive.ts",
+			"qualifiedName": "NgxGovukTextInput.inputWidth"
 		}
 	}
 }
