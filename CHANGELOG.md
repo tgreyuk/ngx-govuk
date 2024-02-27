@@ -1,3 +1,14 @@
+## 0.2.1-0 (2024-02-27)
+
+
+### 🚀 Features
+
+- Added "form-group" and "text-input" components ([91dc39a](https://github.com/tgreyuk/ngx-govuk/commit/91dc39a))
+
+### ❤️  Thank You
+
+- tgreyuk @tgreyuk
+
 ## 0.2.0-0 (2024-02-27)
 
 
