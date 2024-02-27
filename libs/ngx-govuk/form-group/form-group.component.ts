@@ -12,7 +12,7 @@ import {
 } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { NgxGovukUtilsService } from 'ngx-govuk';
-import { NgxGovukTextInput } from '../text-input/text-input.directive';
+import { NgxGovukTextInput } from 'ngx-govuk/text-input';
 
 /**
  * A commom wrapper around form controls and directives.
