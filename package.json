@@ -3,19 +3,20 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "demo:start": "npm run typedoc && nx serve ngx-govuk-demo",
-    "demo:build": "npm run typedoc && nx build ngx-govuk-demo --configuration=production",
+    "demo:start": "npm run lib:typedoc && nx serve ngx-govuk-demo",
+    "demo:build": "npm run lib:typedoc && nx build ngx-govuk-demo --configuration=production",
     "demo:govukstyles": "sass ./apps/ngx-govuk-demo/govuk-frontend.scss ./apps/ngx-govuk-demo/govuk-frontend.css --load-path=node_modules/govuk-frontend/dist --style=compressed --quiet-deps",
     "lib:build": "nx build ngx-govuk",
     "lib:lint": "nx lint ngx-govuk",
     "lib:test": "nx test ngx-govuk",
     "lib:test:update": "nx test ngx-govuk --updateSnapshot",
     "lib:storybook": "nx storybook ngx-govuk",
+    "lib:typedoc": "typedoc",
     "prerelease": "nx build ngx-govuk --configuration=production",
     "release": "nx release --dry-run",
-    "version": "nx release version 0.3.0",
-    "changelog": "nx release changelog --version 0.3.0",
-    "typedoc": "typedoc"
+    "release:version": "nx release version 0.0.0 --dry-run",
+    "release:changelog": "nx release changelog --version 0.0.0 --dry-run",
+    "release:publish": "nx release publish"
   },
   "private": true,
   "dependencies": {
