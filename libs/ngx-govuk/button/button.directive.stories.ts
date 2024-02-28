@@ -4,7 +4,7 @@ import { NgxGovukButton } from './button.directive';
 
 const meta: Meta<NgxGovukButton> = {
   component: NgxGovukButton,
-  title: 'UI Components/Button',
+  title: 'Components/Button',
   decorators: [
     moduleMetadata({
       imports: [NgxGovukButtonGroup],
