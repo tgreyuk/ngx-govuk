@@ -3,11 +3,11 @@
   "release": {
     "projects": "ngx-govuk",
     "version": {
-      "conventionalCommits": false
+      "conventionalCommits": true
     },
     "changelog": {
       "workspaceChangelog": {
-        "createRelease": false
+        "createRelease": "github"
       }
     }
   },

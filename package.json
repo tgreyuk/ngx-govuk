@@ -12,8 +12,9 @@
     "lib:test:update": "nx test ngx-govuk --updateSnapshot",
     "lib:storybook": "nx storybook ngx-govuk",
     "prerelease": "nx build ngx-govuk --configuration=production",
-    "release": "nx release",
-    "publish": "npx nx release publish --dry-run",
+    "release": "nx release --dry-run",
+    "version": "nx release version 0.3.0",
+    "changelog": "nx release changelog --version 0.3.0",
     "typedoc": "typedoc"
   },
   "private": true,
