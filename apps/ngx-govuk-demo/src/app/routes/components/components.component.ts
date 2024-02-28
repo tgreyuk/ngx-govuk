@@ -15,7 +15,7 @@ export class ComponentsComponent {
     { name: 'Accordion', id: 'accordion', completed: true },
     { name: 'Back Link' },
     { name: 'Breadcrumbs' },
-    { name: 'Button' },
+    { name: 'Button', id: 'button', completed: true },
     { name: 'Character count' },
     { name: 'Checkboxes' },
     { name: 'Cookie banner' },
