@@ -13,7 +13,7 @@ import { StartCasePipe } from '../../pipes/start-case.pipe';
 export class ComponentsComponent {
   components: { name: string; id?: string; completed?: boolean }[] = [
     { name: 'Accordion', id: 'accordion', completed: true },
-    { name: 'Back Link' },
+    { name: 'Back Link', id: 'back-link', completed: true },
     { name: 'Breadcrumbs' },
     { name: 'Button', id: 'button', completed: true },
     { name: 'Character count' },
