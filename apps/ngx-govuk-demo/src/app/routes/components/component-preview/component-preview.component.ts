@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { AccordionDemoComponent } from '../examples/accordion.component';
 import { ButtonDemoComponent } from '../examples/button.component';
+import { DetailsDemoComponent } from '../examples/details.component';
 import { FormGroupDemoComponent } from '../examples/form-group.component';
 import { TextInputDemoComponent } from '../examples/text-input.component';
 
@@ -18,6 +19,7 @@ export class ComponentPreviewComponent {
   demoComponents = {
     ['accordion']: AccordionDemoComponent,
     ['button']: ButtonDemoComponent,
+    ['details']: DetailsDemoComponent,
     ['form-group']: FormGroupDemoComponent,
     ['text-input']: TextInputDemoComponent,
   };

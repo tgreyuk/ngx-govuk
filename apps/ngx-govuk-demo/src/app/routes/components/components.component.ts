@@ -20,7 +20,7 @@ export class ComponentsComponent {
     { name: 'Checkboxes' },
     { name: 'Cookie banner' },
     { name: 'Date input' },
-    { name: 'Details' },
+    { name: 'Details', id: 'details', completed: true },
     { name: 'Error message' },
     { name: 'Error summary' },
     { name: 'Exit this page' },

@@ -28,6 +28,7 @@ export class ComponentApiComponent {
       })
       .pipe(
         map((json) => {
+          console.log('JSON', json);
           const componentJson = json.children
             ?.filter((module) =>
               module.name.startsWith(`${this.componentId()}/`),
@@ -86,7 +87,7 @@ export class ComponentApiComponent {
           default:
             member.comment?.blockTags?.find(
               (tag) => tag.tag === '@initialValue',
-            )?.content[0].text || '""',
+            )?.content[0].text || '-',
         };
       });
     return inputs?.length ? inputs : null;
