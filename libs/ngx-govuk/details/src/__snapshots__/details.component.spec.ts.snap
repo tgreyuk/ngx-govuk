@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NgxGovukDetailsComponent should render default state 1`] = `
+<ngx-govuk-details
+  summarytext="Summary text"
+>
+  <details
+    class="govuk-details"
+  >
+    <summary
+      class="govuk-details__summary"
+    >
+      <span
+        class="govuk-details__summary-text"
+      >
+        Summary text
+      </span>
+    </summary>
+    <div
+      class="govuk-details__text"
+    >
+       Summary details 
+    </div>
+  </details>
+</ngx-govuk-details>
+`;

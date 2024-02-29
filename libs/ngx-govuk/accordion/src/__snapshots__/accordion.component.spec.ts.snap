@@ -1,0 +1,169 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NgxGovukAccordion should render default state 1`] = `
+<ngx-govuk-accordion>
+  <div
+    class="govuk-accordion"
+  >
+    <div
+      class="govuk-accordion__controls"
+    >
+      <button
+        aria-expanded="false"
+        class="govuk-accordion__show-all"
+        type="button"
+      >
+        <span
+          class="govuk-accordion-nav__chevron govuk-accordion-nav__chevron--down"
+        />
+        <span
+          class="govuk-accordion__show-all-text"
+        >
+          Show all sections
+        </span>
+      </button>
+    </div>
+    <ngx-govuk-accordion-panel
+      class="govuk-accordion__section"
+      heading="Test heading"
+    >
+      <div
+        class="govuk-accordion__section-header"
+      >
+        <h2
+          class="govuk-accordion__section-heading"
+        >
+          <button
+            aria-controls="content-someId"
+            aria-expanded="false"
+            aria-label="Hide this section"
+            class="govuk-accordion__section-button"
+            type="button"
+          >
+            <span
+              class="govuk-accordion__section-heading-text"
+              id="heading-someId"
+            >
+              <span
+                class="govuk-accordion__section-heading-text-focus"
+              >
+                 Test heading 
+              </span>
+            </span>
+            <span
+              class="govuk-visually-hidden govuk-accordion__section-heading-divider"
+            >
+              , 
+            </span>
+            <span
+              class="govuk-accordion__section-toggle"
+            >
+              <span
+                class="govuk-accordion__section-toggle-focus"
+              >
+                <span
+                  class="govuk-accordion-nav__chevron govuk-accordion-nav__chevron--down"
+                />
+                <span
+                  class="govuk-accordion__section-toggle-text"
+                >
+                  Show
+                </span>
+              </span>
+            </span>
+          </button>
+        </h2>
+      </div>
+      <div
+        aria-labelledby="heading-someId"
+        class="govuk-accordion__section-content"
+        id="content-someId"
+      />
+    </ngx-govuk-accordion-panel>
+  </div>
+</ngx-govuk-accordion>
+`;
+
+exports[`NgxGovukAccordion should render expanded state 1`] = `
+<ngx-govuk-accordion>
+  <div
+    class="govuk-accordion"
+  >
+    <div
+      class="govuk-accordion__controls"
+    >
+      <button
+        aria-expanded="true"
+        class="govuk-accordion__show-all"
+        type="button"
+      >
+        <span
+          class="govuk-accordion-nav__chevron"
+        />
+        <span
+          class="govuk-accordion__show-all-text"
+        >
+          Hide all sections
+        </span>
+      </button>
+    </div>
+    <ngx-govuk-accordion-panel
+      class="govuk-accordion__section govuk-accordion__section--expanded"
+      heading="Test heading"
+    >
+      <div
+        class="govuk-accordion__section-header"
+      >
+        <h2
+          class="govuk-accordion__section-heading"
+        >
+          <button
+            aria-controls="content-someId"
+            aria-expanded="true"
+            aria-label="Hide this section"
+            class="govuk-accordion__section-button"
+            type="button"
+          >
+            <span
+              class="govuk-accordion__section-heading-text"
+              id="heading-someId"
+            >
+              <span
+                class="govuk-accordion__section-heading-text-focus"
+              >
+                 Test heading 
+              </span>
+            </span>
+            <span
+              class="govuk-visually-hidden govuk-accordion__section-heading-divider"
+            >
+              , 
+            </span>
+            <span
+              class="govuk-accordion__section-toggle"
+            >
+              <span
+                class="govuk-accordion__section-toggle-focus"
+              >
+                <span
+                  class="govuk-accordion-nav__chevron"
+                />
+                <span
+                  class="govuk-accordion__section-toggle-text"
+                >
+                  Hide
+                </span>
+              </span>
+            </span>
+          </button>
+        </h2>
+      </div>
+      <div
+        aria-labelledby="heading-someId"
+        class="govuk-accordion__section-content"
+        id="content-someId"
+      />
+    </ngx-govuk-accordion-panel>
+  </div>
+</ngx-govuk-accordion>
+`;

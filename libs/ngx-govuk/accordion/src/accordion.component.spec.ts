@@ -1,51 +1,59 @@
-import { Component } from '@angular/core';
+import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { MockProvider } from 'ng-mocks';
+import { NgxGovukUtilsService } from '../../src';
 import { NgxGovukAccordionPanel } from './accordion-panel.component';
 import { NgxGovukAccordion } from './accordion.component';
 
 @Component({
-  selector: 'ngx-govuk-host-component',
   standalone: true,
   imports: [NgxGovukAccordion, NgxGovukAccordionPanel],
+  providers: [
+    MockProvider(NgxGovukUtilsService, {
+      randomId(prefix: string): string {
+        return prefix + '-someId';
+      },
+    }),
+  ],
   template: `<ngx-govuk-accordion>
     <ngx-govuk-accordion-panel
       heading="Test heading"
     ></ngx-govuk-accordion-panel>
   </ngx-govuk-accordion>`,
 })
-class HostComponent {}
+class TestHostComponent {}
 
 describe('NgxGovukAccordion', () => {
-  let fixture: ComponentFixture<HostComponent>;
+  let fixture: ComponentFixture<TestHostComponent>;
   let component: NgxGovukAccordion;
+  let debugElement: DebugElement;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HostComponent, NgxGovukAccordion, NgxGovukAccordionPanel],
+      imports: [TestHostComponent, NgxGovukAccordion, NgxGovukAccordionPanel],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(HostComponent);
+    fixture = TestBed.createComponent(TestHostComponent);
     fixture.detectChanges();
-    const debugElement = fixture.debugElement.query(
-      By.directive(NgxGovukAccordion)
-    );
+    debugElement = fixture.debugElement.query(By.directive(NgxGovukAccordion));
     component = debugElement.componentInstance;
+    component.isExpanded.set(false);
   });
 
   it('should create accordion component', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should assign the panels', () => {
-    expect(component.panels().length).toBe(1);
+  it('should render default state', () => {
+    expect(debugElement.nativeNode).toMatchSnapshot();
   });
 
-  it('should toggle the state when toggle is called', () => {
-    const initialState = component.isExpanded();
+  it('should render expanded state', () => {
     component.toggle();
-    expect(component.isExpanded()).toBe(!initialState);
+    fixture.detectChanges();
+    expect(debugElement.nativeNode).toMatchSnapshot();
   });
 });

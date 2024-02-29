@@ -20,7 +20,8 @@ export const Details = {
   render: (args: NgxGovukDetails) => ({
     props: args,
     template: `
-      <ngx-govuk-details [summaryText]="summaryText" [text]="text">
+      <ngx-govuk-details [summaryText]="summaryText">
+      {{text}}
       </ngx-govuk-details>`,
   }),
 };

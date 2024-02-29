@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
+  HostBinding,
   input,
   signal,
 } from '@angular/core';
@@ -21,6 +22,14 @@ import { NgxGovukUtilsService } from 'ngx-govuk';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NgxGovukAccordionPanel {
+  @HostBinding('class') get className() {
+    const classes = ['govuk-accordion__section'];
+    if (this.isExpanded()) {
+      classes.push('govuk-accordion__section--expanded');
+    }
+    return classes.join(' ');
+  }
+
   /**
    * The heading of the panel
    * @required
