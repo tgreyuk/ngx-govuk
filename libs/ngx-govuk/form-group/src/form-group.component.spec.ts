@@ -2,8 +2,8 @@ import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { MockProvider } from 'ng-mocks';
-import { NgxGovukUtilsService } from '../src';
-import { NgxGovukTextInput } from '../text-input';
+import { NgxGovukUtilsService } from '../../src';
+import { NgxGovukTextInput } from '../../text-input/src';
 import { NgxGovukFormGroup } from './form-group.component';
 
 @Component({

@@ -1,6 +1,6 @@
 import { moduleMetadata, type Meta } from '@storybook/angular';
-import { NgxGovukFormGroup } from '../../../form-group/form-group.component';
-import { NgxGovukTextInput } from '../../../text-input/text-input.directive';
+import { NgxGovukFormGroup } from '../../../form-group/src/form-group.component';
+import { NgxGovukTextInput } from '../../../text-input/src/text-input.directive';
 import { NgxGovukFieldsetComponent } from './fieldset.component';
 
 const meta: Meta<NgxGovukFieldsetComponent> = {

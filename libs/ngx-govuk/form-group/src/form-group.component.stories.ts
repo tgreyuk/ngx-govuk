@@ -6,8 +6,8 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { NgxGovukTextareaDirective } from '../forms/src/textarea/textarea.directive';
-import { NgxGovukTextInput } from '../text-input/text-input.directive';
+import { NgxGovukTextareaDirective } from '../../forms/src/textarea/textarea.directive';
+import { NgxGovukTextInput } from '../../text-input/src/text-input.directive';
 import { NgxGovukFormGroup } from './form-group.component';
 
 const meta: Meta<NgxGovukFormGroup> = {
