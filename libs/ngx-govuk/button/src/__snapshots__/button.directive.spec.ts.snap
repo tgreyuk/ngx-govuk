@@ -1,12 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`NgxGovukButton should check markup snapshot 1`] = `
+exports[`NgxGovukButton should render markup 1`] = `
 <ng-component>
   <button
     class="govuk-button"
     ngxgovukbutton=""
   >
     Default
+  </button><button
+    class="govuk-button govuk-button--inverse"
+    ngxgovukbutton=""
+  >
+    Inversed
   </button><button
     buttontype="warning"
     class="govuk-button govuk-button--warning"

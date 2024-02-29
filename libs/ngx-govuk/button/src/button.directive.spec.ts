@@ -6,6 +6,7 @@ import { NgxGovukButton } from './button.directive';
   standalone: true,
   imports: [NgxGovukButton],
   template: `<button ngxGovukButton>Default</button>
+    <button ngxGovukButton [inversed]="true">Inversed</button>
     <button ngxGovukButton buttonType="warning">Warning</button>
     <button ngxGovukButton buttonType="start">Start</button> `,
 })
@@ -28,7 +29,7 @@ describe('NgxGovukButton', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should check markup snapshot', () => {
+  it('should render markup', () => {
     expect(fixture).toMatchSnapshot();
   });
 });
