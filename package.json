@@ -14,8 +14,8 @@
     "lib:typedoc": "typedoc",
     "prerelease": "nx build ngx-govuk --configuration=production",
     "release": "nx release --dry-run",
-    "release:version": "nx release version 0.0.0 --dry-run",
-    "release:changelog": "nx release changelog --version 0.0.0 --dry-run",
+    "release:version": "nx release version 0.4.0 --dry-run",
+    "release:changelog": "nx release changelog --version 0.4.0 --dry-run",
     "release:publish": "nx release publish --dry-run"
   },
   "private": true,
