@@ -7,7 +7,7 @@
     },
     "changelog": {
       "workspaceChangelog": {
-        "createRelease": "github"
+        "createRelease": false
       }
     }
   },
