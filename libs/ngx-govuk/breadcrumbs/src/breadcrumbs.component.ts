@@ -1,12 +1,18 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
 
+/**
+ * The breadcrumbs wrapping component.
+ *
+ * Expects x number of anchor elements with the directive ngxGovukBreadcrumbItem in the content slot.
+ *
+ * @selector ngx-govuk-breadcrumbs
+ *
+ */
 @Component({
   selector: 'ngx-govuk-breadcrumbs',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule],
   templateUrl: './breadcrumbs.component.html',
-  styleUrl: './breadcrumbs.component.scss',
 })
-export class NgxGovukBreadcrumbsComponent {}
+export class NgxGovukBreadcrumbs {}

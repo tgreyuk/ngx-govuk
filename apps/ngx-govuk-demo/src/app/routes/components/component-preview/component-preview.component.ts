@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { AccordionDemoComponent } from '../examples/accordion.component';
 import { BackLinkDemoComponent } from '../examples/back-link.component';
+import { BreadcrumbsDemoComponent } from '../examples/breadcrumbs.component';
 import { ButtonDemoComponent } from '../examples/button.component';
 import { DetailsDemoComponent } from '../examples/details.component';
 import { FormGroupDemoComponent } from '../examples/form-group.component';
@@ -20,6 +21,7 @@ export class ComponentPreviewComponent {
   demoComponents = {
     ['accordion']: AccordionDemoComponent,
     ['back-link']: BackLinkDemoComponent,
+    ['breadcrumbs']: BreadcrumbsDemoComponent,
     ['button']: ButtonDemoComponent,
     ['details']: DetailsDemoComponent,
     ['form-group']: FormGroupDemoComponent,

@@ -6,40 +6,38 @@ import {
   type StoryObj,
 } from '@storybook/angular';
 
-import { NgxGovukBreadcrumbItemDirective } from './breadcrumb-item.directive';
-import { NgxGovukBreadcrumbsComponent } from './breadcrumbs.component';
+import { NgxGovukBreadcrumbsItem } from './breadcrumbs-item.directive';
+import { NgxGovukBreadcrumbs } from './breadcrumbs.component';
 
-const meta: Meta<NgxGovukBreadcrumbsComponent> = {
-  component: NgxGovukBreadcrumbsComponent,
-  title: 'UI Components/Breadcrumbs',
+const meta: Meta<NgxGovukBreadcrumbs> = {
+  component: NgxGovukBreadcrumbs,
+  title: 'Components/Breadcrumbs',
   decorators: [
     moduleMetadata({
-      imports: [RouterModule, NgxGovukBreadcrumbItemDirective],
+      imports: [RouterModule, NgxGovukBreadcrumbsItem],
     }),
     applicationConfig({
       providers: [
         provideRouter([
-          { path: 'iframe.html', component: NgxGovukBreadcrumbsComponent },
+          { path: 'iframe.html', component: NgxGovukBreadcrumbs },
         ]),
       ],
     }),
   ],
 };
 export default meta;
-type Story = StoryObj<NgxGovukBreadcrumbsComponent>;
+type Story = StoryObj<NgxGovukBreadcrumbs>;
 
 export const Breadcrumbs: Story = {
   args: {},
   render: (args) => ({
     props: args,
     template: `
-      <div class="govuk-frontend-supported">
-        <ngx-govuk-breadcrumbs>
-          <a ngxGovukBreadcrumbItem [routerLink]="['/']">Home</a>
-          <a ngxGovukBreadcrumbItem [routerLink]="['/']">Passports, travel and living abroad</a>
-          <a ngxGovukBreadcrumbItem [routerLink]="['/']">Travel abroad</a>
-        </ngx-govuk-breadcrumbs>
-      </div>
+      <ngx-govuk-breadcrumbs>
+          <a ngxGovukBreadcrumbsItem [routerLink]="['/']">Home</a>
+          <a ngxGovukBreadcrumbsItem [routerLink]="['/']">Passports, travel and living abroad</a>
+          <a ngxGovukBreadcrumbsItem [routerLink]="['/']">Travel abroad</a>
+      </ngx-govuk-breadcrumbs>
     `,
   }),
 };

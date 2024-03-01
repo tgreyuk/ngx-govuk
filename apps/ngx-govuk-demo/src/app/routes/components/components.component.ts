@@ -14,7 +14,7 @@ export class ComponentsComponent {
   components: { name: string; id?: string; completed?: boolean }[] = [
     { name: 'Accordion', id: 'accordion', completed: true },
     { name: 'Back Link', id: 'back-link', completed: true },
-    { name: 'Breadcrumbs' },
+    { name: 'Breadcrumbs', id: 'breadcrumbs', completed: true },
     { name: 'Button', id: 'button', completed: true },
     { name: 'Character count' },
     { name: 'Checkboxes' },

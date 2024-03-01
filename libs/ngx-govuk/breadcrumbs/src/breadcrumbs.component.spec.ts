@@ -1,21 +1,45 @@
+import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { NgxGovukBreadcrumbsComponent } from './breadcrumbs.component';
+import { By } from '@angular/platform-browser';
+import { RouterModule } from '@angular/router';
+import { NgxGovukBreadcrumbsItem } from './breadcrumbs-item.directive';
+import { NgxGovukBreadcrumbs } from './breadcrumbs.component';
 
-describe('NgxGovukBreadcrumbsComponent', () => {
-  let component: NgxGovukBreadcrumbsComponent;
-  let fixture: ComponentFixture<NgxGovukBreadcrumbsComponent>;
+@Component({
+  standalone: true,
+  imports: [NgxGovukBreadcrumbs, NgxGovukBreadcrumbsItem, RouterModule],
+  template: `<ngx-govuk-breadcrumbs>
+    <a ngxGovukBreadcrumbsItem href="#">Home</a>
+    <a ngxGovukBreadcrumbsItem href="#">Travel abroad</a>
+  </ngx-govuk-breadcrumbs>`,
+})
+class TestHostComponent {}
+
+describe('NgxGovukBreadcrumbs', () => {
+  let fixture: ComponentFixture<TestHostComponent>;
+  let component: NgxGovukBreadcrumbs;
+  let debugElement: DebugElement;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [NgxGovukBreadcrumbsComponent],
+      imports: [NgxGovukBreadcrumbs],
     }).compileComponents();
+  });
 
-    fixture = TestBed.createComponent(NgxGovukBreadcrumbsComponent);
-    component = fixture.componentInstance;
+  beforeEach(() => {
+    fixture = TestBed.createComponent(TestHostComponent);
     fixture.detectChanges();
+    debugElement = fixture.debugElement.query(
+      By.directive(NgxGovukBreadcrumbs),
+    );
+    component = debugElement.componentInstance;
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should render default state', () => {
+    expect(debugElement.nativeNode).toMatchSnapshot();
   });
 });

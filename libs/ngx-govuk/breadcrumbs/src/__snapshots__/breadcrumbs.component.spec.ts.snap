@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NgxGovukBreadcrumbs should render default state 1`] = `
+<ngx-govuk-breadcrumbs>
+  <div
+    class="govuk-breadcrumbs"
+  >
+    <ol
+      class="govuk-breadcrumbs__list"
+    >
+      <li
+        class="govuk-breadcrumbs__list-item"
+      >
+        <a
+          href="#"
+          ngxgovukbreadcrumbitem=""
+        >
+          Home
+        </a>
+      </li>
+      <li
+        class="govuk-breadcrumbs__list-item"
+      >
+        <a
+          href="#"
+          ngxgovukbreadcrumbitem=""
+        >
+          Travel abroad
+        </a>
+      </li>
+    </ol>
+  </div>
+</ngx-govuk-breadcrumbs>
+`;
