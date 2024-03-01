@@ -13,7 +13,6 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './details.component.html',
-  styleUrl: './details.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NgxGovukDetails {
