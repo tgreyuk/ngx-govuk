@@ -16,7 +16,7 @@
     "release": "nx release --dry-run",
     "release:version": "nx release version 0.0.0 --dry-run",
     "release:changelog": "nx release changelog --version 0.0.0 --dry-run",
-    "release:publish": "nx release publish"
+    "release:publish": "nx release publish --dry-run"
   },
   "private": true,
   "dependencies": {

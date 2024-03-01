@@ -13,7 +13,7 @@ exports[`NgxGovukBreadcrumbs should render default state 1`] = `
       >
         <a
           href="#"
-          ngxgovukbreadcrumbitem=""
+          ngxgovukbreadcrumbsitem=""
         >
           Home
         </a>
@@ -23,7 +23,7 @@ exports[`NgxGovukBreadcrumbs should render default state 1`] = `
       >
         <a
           href="#"
-          ngxgovukbreadcrumbitem=""
+          ngxgovukbreadcrumbsitem=""
         >
           Travel abroad
         </a>
