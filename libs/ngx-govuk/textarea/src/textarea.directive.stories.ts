@@ -1,9 +1,9 @@
 import { moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';
-import { NgxGovukTextareaDirective } from './textarea.directive';
+import { NgxGovukTextarea } from './textarea.directive';
 
-const meta: Meta<NgxGovukTextareaDirective> = {
-  component: NgxGovukTextareaDirective,
-  title: 'Form Components/Textarea',
+const meta: Meta<NgxGovukTextarea> = {
+  component: NgxGovukTextarea,
+  title: 'Components/Textarea',
   decorators: [
     moduleMetadata({
       imports: [],
@@ -11,7 +11,7 @@ const meta: Meta<NgxGovukTextareaDirective> = {
   ],
 };
 export default meta;
-type Story = StoryObj<NgxGovukTextareaDirective>;
+type Story = StoryObj<NgxGovukTextarea>;
 
 export const Textarea: Story = {
   render: (args) => ({

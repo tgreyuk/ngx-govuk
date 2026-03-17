@@ -1,26 +1,25 @@
 import { moduleMetadata, type Meta } from '@storybook/angular';
+import { NgxGovukFormGroup } from 'ngx-govuk/form-group';
+import { NgxGovukTextarea } from 'ngx-govuk/textarea';
+import { NgxGovUkCharacterCount } from './character-count.component';
 
-import { NgxGovukFormGroup } from '../../../form-group/src/form-group.component';
-import { NgxGovukTextareaDirective } from '../textarea/textarea.directive';
-import { NgxGovUkCharacterCountComponent } from './character-count.component';
-
-const meta: Meta<NgxGovUkCharacterCountComponent> = {
-  component: NgxGovUkCharacterCountComponent,
-  title: 'Form Components/Character Count',
+const meta: Meta<NgxGovUkCharacterCount> = {
+  component: NgxGovUkCharacterCount,
+  title: 'Components/Character Count',
   decorators: [
     moduleMetadata({
-      imports: [NgxGovukFormGroup, NgxGovukTextareaDirective],
+      imports: [NgxGovukFormGroup, NgxGovukTextarea],
     }),
   ],
 };
 export default meta;
-//type Story = StoryObj<NgxGovUkCharacterCountComponent>
+
 // Currently unable to type Preview: Story - See https://github.com/storybookjs/storybook/issues/25784
 export const CharacterCount = {
   args: {
     limit: 10,
   },
-  render: (args: NgxGovUkCharacterCountComponent) => ({
+  render: (args: NgxGovUkCharacterCount) => ({
     props: {
       limit: args.limit,
     },

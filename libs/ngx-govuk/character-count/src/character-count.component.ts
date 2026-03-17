@@ -10,19 +10,18 @@ import {
   input,
   signal,
 } from '@angular/core';
-import { NgxGovukTextareaDirective } from '../textarea/textarea.directive';
+import { NgxGovukTextarea } from 'ngx-govuk/textarea';
 
 @Component({
   selector: 'ngx-govuk-character-count',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './character-count.component.html',
-  styleUrl: './character-count.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NgxGovUkCharacterCountComponent implements AfterViewInit {
-  @ContentChild(NgxGovukTextareaDirective)
-  textarea!: NgxGovukTextareaDirective;
+export class NgxGovUkCharacterCount implements AfterViewInit {
+  @ContentChild(NgxGovukTextarea)
+  textarea!: NgxGovukTextarea;
 
   limit = input(200);
   count = signal(0);
@@ -39,7 +38,7 @@ export class NgxGovUkCharacterCountComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.renderer.listen(this.textarea?.field, 'input', () => {
+    this.renderer?.listen(this.textarea?.field, 'input', () => {
       this.count.set(this.textarea?.field.value.length);
     });
   }
@@ -49,14 +48,14 @@ export class NgxGovUkCharacterCountComponent implements AfterViewInit {
       if (this.textarea?.field.value) {
         this.textarea.field.value = this.textarea?.field.value.substring(
           0,
-          this.limit()
+          this.limit(),
         );
       }
 
-      this.renderer.setAttribute(
+      this.renderer?.setAttribute(
         this.textarea.field,
         'maxLength',
-        this.limit().toString()
+        this.limit().toString(),
       );
     }
   }

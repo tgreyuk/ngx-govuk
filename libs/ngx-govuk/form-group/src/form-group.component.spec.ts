@@ -38,6 +38,7 @@ describe('NgxGovukFormGroup', () => {
     fixture = TestBed.createComponent(HostComponent);
     fixture.detectChanges();
     debugElement = fixture.debugElement.query(By.directive(NgxGovukFormGroup));
+
     component = debugElement.componentInstance;
   });
 

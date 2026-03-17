@@ -1,3 +1,4 @@
+/* eslint-disable @nx/enforce-module-boundaries */
 import { moduleMetadata, type Meta } from '@storybook/angular';
 
 import {
@@ -6,7 +7,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { NgxGovukTextareaDirective } from '../../forms/src/textarea/textarea.directive';
+import { NgxGovukTextarea } from 'ngx-govuk/textarea';
 import { NgxGovukTextInput } from '../../text-input/src/text-input.directive';
 import { NgxGovukFormGroup } from './form-group.component';
 
@@ -15,11 +16,7 @@ const meta: Meta<NgxGovukFormGroup> = {
   title: 'Components/Form Group',
   decorators: [
     moduleMetadata({
-      imports: [
-        ReactiveFormsModule,
-        NgxGovukTextInput,
-        NgxGovukTextareaDirective,
-      ],
+      imports: [ReactiveFormsModule, NgxGovukTextInput, NgxGovukTextarea],
     }),
   ],
 };
