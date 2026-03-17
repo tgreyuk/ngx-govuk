@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component, forwardRef } from '@angular/core';
 import {
   ControlValueAccessor,
@@ -13,7 +13,7 @@ import { NgxGovukFieldsetComponent } from '../fieldset/fieldset.component';
 @Component({
   selector: 'ngx-govuk-date-input',
   standalone: true,
-  imports: [CommonModule, NgxGovukFieldsetComponent, FormsModule],
+  imports: [NgxGovukFieldsetComponent, FormsModule],
   templateUrl: './date-input.component.html',
   styleUrl: './date-input.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -14,9 +14,11 @@
     <label [attr.for]="fieldId" class="govuk-label">{{ label() }}</label>
   }
 
-  <div *ngIf="hint" [attr.id]="hintId" class="govuk-hint">
-    {{ hint() }}
-  </div>
+  @if (hint()) {
+    <div [attr.id]="hintId" class="govuk-hint">
+      {{ hint() }}
+    </div>
+  }
 
   @if (isInvalid()) {
     <p [attr.id]="errorId" class="govuk-error-message">

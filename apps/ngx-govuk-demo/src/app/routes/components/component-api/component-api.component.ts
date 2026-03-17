@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { CommonModule } from '@angular/common';
+
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -11,7 +11,7 @@ import { ImportCodePipe } from './import-code.pipe';
 @Component({
   selector: 'ngx-govuk-api',
   standalone: true,
-  imports: [CommonModule, HttpClientModule, RouterLink, ImportCodePipe],
+  imports: [HttpClientModule, RouterLink, ImportCodePipe],
   templateUrl: './component-api.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

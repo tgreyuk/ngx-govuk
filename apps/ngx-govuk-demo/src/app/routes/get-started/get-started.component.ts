@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -12,7 +12,7 @@ import {
 @Component({
   selector: 'ngx-govuk-get-started',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './get-started.component.html',
   styleUrl: './get-started.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -1,11 +1,11 @@
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 import { NgxGovukAccordion, NgxGovukAccordionPanel } from 'ngx-govuk/accordion';
 
 @Component({
   selector: 'app-accordion-demo',
   standalone: true,
-  imports: [CommonModule, NgxGovukAccordion, NgxGovukAccordionPanel],
+  imports: [NgxGovukAccordion, NgxGovukAccordionPanel],
   template: `
     <ngx-govuk-accordion #accordion>
       <ngx-govuk-accordion-panel heading="Writing well for the web">

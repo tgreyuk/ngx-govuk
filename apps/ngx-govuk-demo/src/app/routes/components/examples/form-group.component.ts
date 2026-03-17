@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 import {
   FormControl,
@@ -13,11 +13,10 @@ import { NgxGovukTextInput } from 'ngx-govuk/text-input';
   selector: 'app-form-group-demo',
   standalone: true,
   imports: [
-    CommonModule,
     ReactiveFormsModule,
     NgxGovukFormGroup,
-    NgxGovukTextInput,
-  ],
+    NgxGovukTextInput
+],
   template: `<ngx-govuk-form-group
       label="What is the name of the event?"
       [asPageHeading]="true"

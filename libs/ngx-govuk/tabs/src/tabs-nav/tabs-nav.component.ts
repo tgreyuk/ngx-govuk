@@ -1,10 +1,10 @@
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component, HostBinding } from '@angular/core';
 
 @Component({
   selector: 'ngx-govuk-tabs-nav',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './tabs-nav.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-empty-function */
 
-import { CommonModule } from '@angular/common';
+
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -18,7 +18,7 @@ import { NgxGovukRadioComponent } from './radio.component';
 @Component({
   selector: 'ngx-govuk-radio-group',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './radio-group.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [

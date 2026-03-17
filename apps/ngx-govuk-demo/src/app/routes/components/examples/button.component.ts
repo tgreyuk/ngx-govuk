@@ -1,11 +1,11 @@
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 import { NgxGovukButton, NgxGovukButtonGroup } from 'ngx-govuk/button';
 
 @Component({
   selector: 'app-button-demo',
   standalone: true,
-  imports: [CommonModule, NgxGovukButtonGroup, NgxGovukButton],
+  imports: [NgxGovukButtonGroup, NgxGovukButton],
   template: `<ngx-govuk-button-group>
     <button ngxGovukButton>Default</button>
 

@@ -3,6 +3,7 @@ import {
   AfterViewInit,
   ChangeDetectionStrategy,
   Component,
+  ElementRef,
   Renderer2,
   computed,
   contentChild,
@@ -13,6 +14,7 @@ import {
 import { NgControl } from '@angular/forms';
 import { NgxGovukUtilsService } from 'ngx-govuk';
 import { NgxGovukTextInput } from 'ngx-govuk/text-input';
+import { NgxGovukTextarea } from 'ngx-govuk/textarea';
 
 /**
  * A commom wrapper around form controls and directives.
@@ -33,6 +35,9 @@ import { NgxGovukTextInput } from 'ngx-govuk/text-input';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NgxGovukFormGroup implements AfterViewInit {
+  private textInput = contentChild(NgxGovukTextInput);
+  private textarea = contentChild(NgxGovukTextarea);
+
   /**
    * The label text for the form group.
    *
@@ -69,7 +74,7 @@ export class NgxGovukFormGroup implements AfterViewInit {
 
   isInvalid = signal<boolean>(false);
   control = contentChild(NgControl);
-  fieldEl = contentChild(NgxGovukTextInput);
+  fieldEl = computed(() => this.textInput() ?? this.textarea());
 
   ariaDescribedBy = computed(() => {
     const describedbyIds = [];
@@ -91,20 +96,18 @@ export class NgxGovukFormGroup implements AfterViewInit {
     private utilsService: NgxGovukUtilsService,
   ) {
     effect(() => {
-      this.renderer.setAttribute(
-        this.fieldEl()?.elementRef.nativeElement,
-        'aria-describedby',
-        this.ariaDescribedBy(),
-      );
+      const field = this.getNativeField();
+      if (field) {
+        this.renderer.setAttribute(field, 'aria-describedby', this.ariaDescribedBy());
+      }
     });
   }
 
   ngAfterViewInit(): void {
-    this.renderer.setAttribute(
-      this.fieldEl()?.elementRef.nativeElement,
-      'id',
-      this.fieldId,
-    );
+    const field = this.getNativeField();
+    if (field) {
+      this.renderer.setAttribute(field, 'id', this.fieldId);
+    }
 
     if (this.control()) {
       this.isInvalid.set(this.control()?.status === 'INVALID');
@@ -112,5 +115,9 @@ export class NgxGovukFormGroup implements AfterViewInit {
         this.isInvalid.set(status === 'INVALID');
       });
     }
+  }
+
+  private getNativeField(): ElementRef['nativeElement'] | undefined {
+    return this.fieldEl()?.elementRef.nativeElement;
   }
 }

@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import {
@@ -13,14 +13,13 @@ import { StartCasePipe } from '../../pipes/start-case.pipe';
   templateUrl: './component.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    CommonModule,
     NgxGovukTabsNavComponent,
     NgxGovukTabLinkDirective,
     RouterLink,
     RouterOutlet,
     RouterLinkActive,
-    StartCasePipe,
-  ],
+    StartCasePipe
+],
 })
 export class ComponentComponent {
   componentId = input<string>();

@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import {
@@ -10,11 +10,10 @@ import {
   selector: 'app-breadcrumbs-demo',
   standalone: true,
   imports: [
-    CommonModule,
     RouterModule,
     NgxGovukBreadcrumbs,
-    NgxGovukBreadcrumbsItem,
-  ],
+    NgxGovukBreadcrumbsItem
+],
   template: `
     <ngx-govuk-breadcrumbs>
       <a ngxGovukBreadcrumbsItem [routerLink]="['.']">Home</a>

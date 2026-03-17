@@ -1,11 +1,11 @@
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { NgxGovukUtilsService } from 'ngx-govuk';
 
 @Component({
   selector: 'ngx-govuk-fieldset',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './fieldset.component.html',
   styleUrl: './fieldset.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
