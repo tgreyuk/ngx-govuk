@@ -7,7 +7,6 @@ import {
 
 @Component({
   selector: 'app-breadcrumbs-demo',
-  standalone: true,
   imports: [RouterModule, NgxGovukBreadcrumbs, NgxGovukBreadcrumbsItem],
   template: `
     <ngx-govuk-breadcrumbs>

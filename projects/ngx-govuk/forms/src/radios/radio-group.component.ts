@@ -16,7 +16,6 @@ import { NgxGovukRadioComponent } from './radio.component';
 
 @Component({
   selector: 'ngx-govuk-radio-group',
-  standalone: true,
   imports: [],
   templateUrl: './radio-group.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,

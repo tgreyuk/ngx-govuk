@@ -3,7 +3,6 @@ import { NgxGovukDetails } from 'ngx-govuk/details';
 
 @Component({
   selector: 'app-details-demo',
-  standalone: true,
   imports: [NgxGovukDetails],
   template: `<ngx-govuk-details summaryText="Help with nationality">
     We need to know your nationality so we can work out which elections you're

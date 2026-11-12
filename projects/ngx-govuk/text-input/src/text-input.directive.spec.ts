@@ -5,7 +5,6 @@ import { By } from '@angular/platform-browser';
 import { NgxGovukTextInput } from './text-input.directive';
 
 @Component({
-  standalone: true,
   imports: [NgxGovukTextInput],
   template: `<input
     type="text"

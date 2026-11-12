@@ -4,7 +4,6 @@ import { By } from '@angular/platform-browser';
 import { NgxGovukDetails } from './details.component';
 
 @Component({
-  standalone: true,
   imports: [NgxGovukDetails],
   template: `<ngx-govuk-details summaryText="Summary text">
     Summary details

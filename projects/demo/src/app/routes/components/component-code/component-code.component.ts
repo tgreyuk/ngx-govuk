@@ -12,7 +12,6 @@ import { Observable } from 'rxjs';
 
 @Component({
   selector: 'ngx-govuk-example',
-  standalone: true,
   imports: [
     CommonModule,
     HttpClientModule,

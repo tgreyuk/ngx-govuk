@@ -3,7 +3,6 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NgxGovukBackLink } from './back-link.directive';
 
 @Component({
-  standalone: true,
   imports: [NgxGovukBackLink],
   template: `<a ngxGovukBackLink>Default</a>
     <a ngxGovukBackLink [inversed]="true">Inversed</a>`,

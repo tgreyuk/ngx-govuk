@@ -14,7 +14,6 @@ import { NgxGovukUtilsService } from 'ngx-govuk';
 
 @Component({
   selector: 'ngx-govuk-checkbox',
-  standalone: true,
   imports: [],
   templateUrl: './checkbox.component.html',
   styleUrl: './checkbox.component.scss',

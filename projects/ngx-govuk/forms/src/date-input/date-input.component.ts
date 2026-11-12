@@ -14,7 +14,6 @@ import { NgxGovukFieldsetComponent } from '../fieldset/fieldset.component';
 
 @Component({
   selector: 'ngx-govuk-date-input',
-  standalone: true,
   imports: [NgxGovukFieldsetComponent, FormsModule],
   templateUrl: './date-input.component.html',
   styleUrl: './date-input.component.scss',

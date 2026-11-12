@@ -16,7 +16,6 @@ import { InputWidth } from 'ngx-govuk';
  */
 @Directive({
   selector: 'input[ngxGovukTextInput]',
-  standalone: true,
 })
 export class NgxGovukTextInput {
   control = inject(NgControl, { optional: true, self: true });

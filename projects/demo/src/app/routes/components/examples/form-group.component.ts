@@ -10,7 +10,6 @@ import { NgxGovukTextInput } from 'ngx-govuk/text-input';
 
 @Component({
   selector: 'app-form-group-demo',
-  standalone: true,
   imports: [ReactiveFormsModule, NgxGovukFormGroup, NgxGovukTextInput],
   template: `<ngx-govuk-form-group
       label="What is the name of the event?"

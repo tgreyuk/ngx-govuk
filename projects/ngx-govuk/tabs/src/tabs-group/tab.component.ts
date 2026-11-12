@@ -1,4 +1,3 @@
-
 import {
   ChangeDetectionStrategy,
   Component,
@@ -8,7 +7,6 @@ import {
 
 @Component({
   selector: 'ngx-govuk-tab',
-  standalone: true,
   imports: [],
   templateUrl: './tab.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,

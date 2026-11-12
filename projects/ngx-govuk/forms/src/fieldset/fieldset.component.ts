@@ -8,7 +8,6 @@ import { NgxGovukUtilsService } from 'ngx-govuk';
 
 @Component({
   selector: 'ngx-govuk-fieldset',
-  standalone: true,
   imports: [],
   templateUrl: './fieldset.component.html',
   styleUrl: './fieldset.component.scss',

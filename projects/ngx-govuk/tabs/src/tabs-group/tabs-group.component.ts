@@ -9,7 +9,6 @@ import { NgxGovukTabComponent } from '..';
 
 @Component({
   selector: 'ngx-govuk-tabs-group',
-  standalone: true,
   imports: [CommonModule],
   templateUrl: './tabs-group.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,

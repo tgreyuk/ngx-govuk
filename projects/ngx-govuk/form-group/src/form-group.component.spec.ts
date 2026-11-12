@@ -8,7 +8,6 @@ import { NgxGovukFormGroup } from './form-group.component';
 
 @Component({
   selector: 'ngx-govuk-host-component',
-  standalone: true,
   providers: [
     MockProvider(NgxGovukUtilsService, {
       randomId(prefix: string): string {

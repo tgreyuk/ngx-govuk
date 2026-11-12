@@ -2,7 +2,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
   name: 'startcase',
-  standalone: true,
 })
 export class StartCasePipe implements PipeTransform {
   transform(str?: string) {

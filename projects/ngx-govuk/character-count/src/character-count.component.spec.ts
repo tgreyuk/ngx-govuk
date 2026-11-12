@@ -9,7 +9,6 @@ import { NgxGovukCharacterCount } from './character-count.component';
 
 @Component({
   selector: 'ngx-govuk-host-component',
-  standalone: true,
   providers: [
     MockProvider(NgxGovukUtilsService, {
       randomId(prefix: string): string {

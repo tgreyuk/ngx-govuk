@@ -13,7 +13,6 @@ import {
  */
 @Directive({
   selector: 'a[ngxGovukBreadcrumbsItem]',
-  standalone: true,
   host: { class: 'govuk-breadcrumbs__link' },
 })
 export class NgxGovukBreadcrumbsItem implements AfterViewInit {

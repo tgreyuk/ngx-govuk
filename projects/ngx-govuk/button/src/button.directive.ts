@@ -14,7 +14,6 @@ import {
  */
 @Directive({
   selector: 'a[ngxGovukButton], button[ngxGovukButton]',
-  standalone: true,
 })
 export class NgxGovukButton {
   private elementRef = inject(ElementRef);

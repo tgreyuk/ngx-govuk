@@ -5,7 +5,6 @@ import { By } from '@angular/platform-browser';
 import { NgxGovukTextarea } from './textarea.directive';
 
 @Component({
-  standalone: true,
   imports: [NgxGovukTextarea],
   template: `
     <textarea ngxGovukTextarea formControlName="testControl"></textarea>

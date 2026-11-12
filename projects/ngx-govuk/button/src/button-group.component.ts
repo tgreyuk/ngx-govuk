@@ -1,4 +1,3 @@
-
 import { ChangeDetectionStrategy, Component, HostBinding } from '@angular/core';
 /**
  * Component that wraps a group of buttons. The content slot expects x number of buttons.
@@ -7,7 +6,6 @@ import { ChangeDetectionStrategy, Component, HostBinding } from '@angular/core';
  */
 @Component({
   selector: 'ngx-govuk-button-group',
-  standalone: true,
   imports: [],
   templateUrl: './button-group.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,

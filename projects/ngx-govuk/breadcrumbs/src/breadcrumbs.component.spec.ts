@@ -6,7 +6,6 @@ import { NgxGovukBreadcrumbsItem } from './breadcrumbs-item.directive';
 import { NgxGovukBreadcrumbs } from './breadcrumbs.component';
 
 @Component({
-  standalone: true,
   imports: [NgxGovukBreadcrumbs, NgxGovukBreadcrumbsItem, RouterModule],
   template: `<ngx-govuk-breadcrumbs>
     <a ngxGovukBreadcrumbsItem href="#">Home</a>

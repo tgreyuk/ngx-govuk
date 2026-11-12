@@ -10,7 +10,6 @@ import { NgControl } from '@angular/forms';
 
 @Directive({
   selector: 'textarea[ngxGovukTextarea]',
-  standalone: true,
 })
 export class NgxGovukTextarea implements AfterViewInit {
   control = inject(NgControl, { optional: true, self: true });

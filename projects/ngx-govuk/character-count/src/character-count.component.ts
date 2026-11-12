@@ -14,7 +14,6 @@ import { NgxGovukTextarea } from 'ngx-govuk/textarea';
 
 @Component({
   selector: 'ngx-govuk-character-count',
-  standalone: true,
   imports: [],
   templateUrl: './character-count.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,

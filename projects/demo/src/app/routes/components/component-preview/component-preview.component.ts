@@ -10,7 +10,6 @@ import { TextInputDemoComponent } from '../examples/text-input.component';
 
 @Component({
   selector: 'ngx-govuk-example',
-  standalone: true,
   imports: [CommonModule, AccordionDemoComponent],
   templateUrl: './component-preview.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,

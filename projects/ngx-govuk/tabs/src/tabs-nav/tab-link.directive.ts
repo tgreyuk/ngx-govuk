@@ -9,7 +9,6 @@ import { RouterLinkActive } from '@angular/router';
 
 @Directive({
   selector: '[ngxGovukTabLink]',
-  standalone: true,
 })
 export class NgxGovukTabLinkDirective implements AfterViewInit {
   private el = inject(ElementRef);

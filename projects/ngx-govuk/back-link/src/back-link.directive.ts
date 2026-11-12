@@ -7,7 +7,6 @@ import { Directive, HostBinding, input } from '@angular/core';
  */
 @Directive({
   selector: 'a[ngxGovukBackLink]',
-  standalone: true,
 })
 export class NgxGovukBackLink {
   @HostBinding('class') get className() {

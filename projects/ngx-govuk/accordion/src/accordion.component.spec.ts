@@ -7,7 +7,6 @@ import { NgxGovukAccordionPanel } from './accordion-panel.component';
 import { NgxGovukAccordion } from './accordion.component';
 
 @Component({
-  standalone: true,
   imports: [NgxGovukAccordion, NgxGovukAccordionPanel],
   providers: [
     MockProvider(NgxGovukUtilsService, {

@@ -10,7 +10,6 @@ import { Component } from '@angular/core';
  */
 @Component({
   selector: 'ngx-govuk-breadcrumbs',
-  standalone: true,
   imports: [],
   templateUrl: './breadcrumbs.component.html',
 })

@@ -30,7 +30,6 @@ import { NgxGovukTextarea } from 'ngx-govuk/textarea';
 
 @Component({
   selector: 'ngx-govuk-form-group',
-  standalone: true,
   imports: [CommonModule],
   templateUrl: './form-group.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,

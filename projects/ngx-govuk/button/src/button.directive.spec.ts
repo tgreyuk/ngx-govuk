@@ -3,7 +3,6 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NgxGovukButton } from './button.directive';
 
 @Component({
-  standalone: true,
   imports: [NgxGovukButton],
   template: `<button ngxGovukButton>Default</button>
     <button ngxGovukButton [inversed]="true">Inversed</button>

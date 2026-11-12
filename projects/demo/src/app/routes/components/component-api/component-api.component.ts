@@ -15,7 +15,6 @@ import { ImportCodePipe } from './import-code.pipe';
 
 @Component({
   selector: 'ngx-govuk-api',
-  standalone: true,
   imports: [HttpClientModule, RouterLink, ImportCodePipe],
   templateUrl: './component-api.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,

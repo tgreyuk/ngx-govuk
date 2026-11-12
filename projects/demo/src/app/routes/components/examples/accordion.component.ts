@@ -3,7 +3,6 @@ import { NgxGovukAccordion, NgxGovukAccordionPanel } from 'ngx-govuk/accordion';
 
 @Component({
   selector: 'app-accordion-demo',
-  standalone: true,
   imports: [NgxGovukAccordion, NgxGovukAccordionPanel],
   template: `
     <ngx-govuk-accordion #accordion>

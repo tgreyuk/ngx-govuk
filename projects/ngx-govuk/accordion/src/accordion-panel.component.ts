@@ -17,7 +17,6 @@ import { NgxGovukUtilsService } from 'ngx-govuk';
  */
 @Component({
   selector: 'ngx-govuk-accordion-panel',
-  standalone: true,
   imports: [CommonModule],
   templateUrl: './accordion-panel.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
