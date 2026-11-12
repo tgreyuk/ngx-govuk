@@ -6,9 +6,9 @@
       [attr.aria-controls]="contentId"
       [attr.aria-expanded]="isExpanded()"
       [attr.aria-label]="
-        heading + ', ' + isExpanded()
-          ? 'Hide this section'
-          : 'Show this section'
+        heading() +
+        ' , ' +
+        (isExpanded() ? 'Hide this section' : 'Show this section')
       "
       (click)="toggle()"
     >
@@ -24,7 +24,7 @@
           ><span
             class="govuk-accordion-nav__chevron"
             [ngClass]="{
-              'govuk-accordion-nav__chevron--down': !isExpanded()
+              'govuk-accordion-nav__chevron--down': !isExpanded(),
             }"
           ></span
           ><span class="govuk-accordion__section-toggle-text">{{

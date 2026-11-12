@@ -36,7 +36,7 @@ exports[`NgxGovukAccordion > should render default state 1`] = `
           <button
             aria-controls="content-someId"
             aria-expanded="false"
-            aria-label="Hide this section"
+            aria-label="Test heading , Show this section"
             class="govuk-accordion__section-button"
             type="button"
           >
@@ -120,7 +120,7 @@ exports[`NgxGovukAccordion > should render expanded state 1`] = `
           <button
             aria-controls="content-someId"
             aria-expanded="true"
-            aria-label="Hide this section"
+            aria-label="Test heading , Hide this section"
             class="govuk-accordion__section-button"
             type="button"
           >
