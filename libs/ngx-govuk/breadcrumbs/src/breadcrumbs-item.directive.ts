@@ -1,4 +1,10 @@
-import { AfterViewInit, Directive, ElementRef, Renderer2 } from '@angular/core';
+import {
+  AfterViewInit,
+  Directive,
+  ElementRef,
+  Renderer2,
+  inject,
+} from '@angular/core';
 
 /**
  * Directive to be added to native "a" elements to render as GOV.UK breadcrumb items.
@@ -10,10 +16,8 @@ import { AfterViewInit, Directive, ElementRef, Renderer2 } from '@angular/core';
   standalone: true,
 })
 export class NgxGovukBreadcrumbsItem implements AfterViewInit {
-  constructor(
-    private renderer: Renderer2,
-    private elementRef: ElementRef,
-  ) {}
+  private renderer = inject(Renderer2);
+  private elementRef = inject(ElementRef);
 
   ngAfterViewInit(): void {
     const el = this.elementRef.nativeElement;

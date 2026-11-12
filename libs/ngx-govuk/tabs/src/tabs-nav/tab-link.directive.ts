@@ -1,4 +1,10 @@
-import { AfterViewInit, Directive, ElementRef, Renderer2 } from '@angular/core';
+import {
+  AfterViewInit,
+  Directive,
+  ElementRef,
+  Renderer2,
+  inject,
+} from '@angular/core';
 import { RouterLinkActive } from '@angular/router';
 
 @Directive({
@@ -6,11 +12,9 @@ import { RouterLinkActive } from '@angular/router';
   standalone: true,
 })
 export class NgxGovukTabLinkDirective implements AfterViewInit {
-  constructor(
-    private el: ElementRef,
-    private routerLinkActive: RouterLinkActive,
-    private renderer: Renderer2
-  ) {}
+  private el = inject(ElementRef);
+  private routerLinkActive = inject(RouterLinkActive);
+  private renderer = inject(Renderer2);
 
   ngAfterViewInit(): void {
     const nativeLinkEl = this.el.nativeElement;

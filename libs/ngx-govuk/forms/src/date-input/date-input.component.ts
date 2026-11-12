@@ -1,7 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-empty-function */
 
-import { ChangeDetectionStrategy, Component, forwardRef } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  forwardRef,
+  inject,
+} from '@angular/core';
 import {
   ControlValueAccessor,
   FormsModule,
@@ -26,6 +31,8 @@ import { NgxGovukFieldsetComponent } from '../fieldset/fieldset.component';
   ],
 })
 export class NgxGovukDateInputComponent implements ControlValueAccessor {
+  private utilsService = inject(NgxGovukUtilsService);
+
   dayId = this.utilsService.randomId('day');
   monthId = this.utilsService.randomId('month');
   yearId = this.utilsService.randomId('year');
@@ -35,8 +42,6 @@ export class NgxGovukDateInputComponent implements ControlValueAccessor {
   year!: number;
 
   value!: string;
-
-  constructor(private utilsService: NgxGovukUtilsService) {}
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   onChange = (value: string) => {};

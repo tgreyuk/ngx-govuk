@@ -64,8 +64,8 @@ describe('NgxGovukCharacterCount', () => {
       Renderer2 as Type<Renderer2>,
     );
     fixture.detectChanges();
-    jest.spyOn(renderer1, 'setAttribute').mockImplementation(() => {});
-    jest.spyOn(renderer2, 'setAttribute').mockImplementation(() => {});
+    jest.spyOn(renderer1, 'setAttribute').mockImplementation(() => undefined);
+    jest.spyOn(renderer2, 'setAttribute').mockImplementation(() => undefined);
   });
 
   it('should create', () => {

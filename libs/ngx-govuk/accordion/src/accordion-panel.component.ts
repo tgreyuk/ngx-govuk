@@ -5,6 +5,7 @@ import {
   HostBinding,
   input,
   signal,
+  inject,
 } from '@angular/core';
 import { NgxGovukUtilsService } from 'ngx-govuk';
 /**
@@ -22,6 +23,8 @@ import { NgxGovukUtilsService } from 'ngx-govuk';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NgxGovukAccordionPanel {
+  private utilsService = inject(NgxGovukUtilsService);
+
   @HostBinding('class') get className() {
     const classes = ['govuk-accordion__section'];
     if (this.isExpanded()) {
@@ -43,8 +46,6 @@ export class NgxGovukAccordionPanel {
 
   headingId = this.utilsService.randomId('heading');
   contentId = this.utilsService.randomId('content');
-
-  constructor(private utilsService: NgxGovukUtilsService) {}
 
   /**
    * Toggles the accordion panel visibility.

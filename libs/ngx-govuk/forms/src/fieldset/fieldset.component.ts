@@ -1,5 +1,9 @@
-
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  input,
+  inject,
+} from '@angular/core';
 import { NgxGovukUtilsService } from 'ngx-govuk';
 
 @Component({
@@ -11,10 +15,10 @@ import { NgxGovukUtilsService } from 'ngx-govuk';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NgxGovukFieldsetComponent {
+  private utilsService = inject(NgxGovukUtilsService);
+
   legend = input.required<string>();
   hint = input<string>();
   asPageHeading = input<boolean>(false);
   hintId = this.utilsService.randomId('hint');
-
-  constructor(private utilsService: NgxGovukUtilsService) {}
 }

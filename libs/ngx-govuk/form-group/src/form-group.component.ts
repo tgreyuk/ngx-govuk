@@ -10,6 +10,7 @@ import {
   effect,
   input,
   signal,
+  inject,
 } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { NgxGovukUtilsService } from 'ngx-govuk';
@@ -35,6 +36,9 @@ import { NgxGovukTextarea } from 'ngx-govuk/textarea';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NgxGovukFormGroup implements AfterViewInit {
+  private renderer = inject(Renderer2);
+  private utilsService = inject(NgxGovukUtilsService);
+
   private textInput = contentChild(NgxGovukTextInput);
   private textarea = contentChild(NgxGovukTextarea);
 
@@ -91,14 +95,15 @@ export class NgxGovukFormGroup implements AfterViewInit {
   hintId = this.utilsService.randomId('hint');
   errorId = this.utilsService.randomId('error');
 
-  constructor(
-    private renderer: Renderer2,
-    private utilsService: NgxGovukUtilsService,
-  ) {
+  constructor() {
     effect(() => {
       const field = this.getNativeField();
       if (field) {
-        this.renderer.setAttribute(field, 'aria-describedby', this.ariaDescribedBy());
+        this.renderer.setAttribute(
+          field,
+          'aria-describedby',
+          this.ariaDescribedBy(),
+        );
       }
     });
   }

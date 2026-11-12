@@ -2,9 +2,8 @@ import {
   Directive,
   ElementRef,
   HostBinding,
-  Optional,
-  Self,
   input,
+  inject,
 } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { InputWidth } from 'ngx-govuk';
@@ -20,6 +19,9 @@ import { InputWidth } from 'ngx-govuk';
   standalone: true,
 })
 export class NgxGovukTextInput {
+  control = inject(NgControl, { optional: true, self: true });
+  elementRef = inject(ElementRef);
+
   @HostBinding('class') get className() {
     const classes = ['govuk-input'];
     if (this.inputWidth()) {
@@ -63,9 +65,4 @@ export class NgxGovukTextInput {
     | '10'
     | '20'
   >();
-
-  constructor(
-    @Optional() @Self() public control: NgControl,
-    public elementRef: ElementRef,
-  ) {}
 }

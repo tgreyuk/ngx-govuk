@@ -5,6 +5,7 @@ import {
   Renderer2,
   effect,
   input,
+  inject,
 } from '@angular/core';
 /**
  * Directive to be added to native "a" or "button" elements
@@ -16,6 +17,9 @@ import {
   standalone: true,
 })
 export class NgxGovukButton {
+  private elementRef = inject(ElementRef);
+  private renderer = inject(Renderer2);
+
   @HostBinding('class') get className() {
     const classes = ['govuk-button'];
     if (this.buttonType()) {
@@ -39,10 +43,7 @@ export class NgxGovukButton {
    */
   inversed = input<boolean>(false);
 
-  constructor(
-    private elementRef: ElementRef,
-    private renderer: Renderer2,
-  ) {
+  constructor() {
     effect(() => {
       if (this.buttonType() === 'start') {
         const svgContainer = this.renderer.createElement('div');

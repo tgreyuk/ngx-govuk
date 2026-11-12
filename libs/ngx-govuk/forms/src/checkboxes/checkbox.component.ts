@@ -8,6 +8,7 @@ import {
   forwardRef,
   input,
   model,
+  inject,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgxGovukUtilsService } from 'ngx-govuk';
@@ -28,6 +29,8 @@ import { NgxGovukUtilsService } from 'ngx-govuk';
   ],
 })
 export class NgxGovukCheckboxComponent implements ControlValueAccessor {
+  private utilsService = inject(NgxGovukUtilsService);
+
   @HostBinding('class') get className() {
     return 'govuk-checkboxes__item';
   }
@@ -36,8 +39,6 @@ export class NgxGovukCheckboxComponent implements ControlValueAccessor {
   value = model(false);
 
   fieldId = this.utilsService.randomId('field');
-
-  constructor(private utilsService: NgxGovukUtilsService) {}
 
   onChecked(event: Event) {
     const target = event.target as HTMLInputElement;

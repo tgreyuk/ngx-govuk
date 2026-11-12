@@ -1,4 +1,3 @@
-
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -9,6 +8,7 @@ import {
   effect,
   input,
   signal,
+  inject,
 } from '@angular/core';
 import { NgxGovukTextarea } from 'ngx-govuk/textarea';
 
@@ -20,6 +20,8 @@ import { NgxGovukTextarea } from 'ngx-govuk/textarea';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NgxGovUkCharacterCount implements AfterViewInit {
+  private renderer = inject(Renderer2);
+
   @ContentChild(NgxGovukTextarea)
   textarea!: NgxGovukTextarea;
 
@@ -31,7 +33,7 @@ export class NgxGovUkCharacterCount implements AfterViewInit {
     return remaining < 0 ? 0 : remaining;
   });
 
-  constructor(private renderer: Renderer2) {
+  constructor() {
     effect(() => {
       this.setMaxLength();
     });

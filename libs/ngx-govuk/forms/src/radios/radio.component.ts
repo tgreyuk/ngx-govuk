@@ -9,6 +9,7 @@ import {
   HostBinding,
   input,
   viewChild,
+  inject,
 } from '@angular/core';
 import { NgxGovukUtilsService } from 'ngx-govuk';
 
@@ -21,6 +22,8 @@ import { NgxGovukUtilsService } from 'ngx-govuk';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NgxGovukRadioComponent {
+  private utilsService = inject(NgxGovukUtilsService);
+
   @HostBinding('class') get className() {
     return 'govuk-radios__item';
   }
@@ -31,8 +34,6 @@ export class NgxGovukRadioComponent {
   value = input.required<string>();
   inputEl = viewChild<ElementRef<HTMLInputElement>>('inputEl');
   elId = this.utilsService.randomId('radio');
-
-  constructor(private utilsService: NgxGovukUtilsService) {}
 
   onSelected() {
     this.selected.emit(this.value());

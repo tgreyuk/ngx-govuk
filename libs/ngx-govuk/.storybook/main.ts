@@ -1,11 +1,11 @@
-import { fileURLToPath } from "node:url";
-import { dirname } from "node:path";
+import { fileURLToPath } from 'node:url';
+import { dirname } from 'node:path';
 import type { StorybookConfig } from '@storybook/angular';
 
 const config: StorybookConfig = {
   stories: ['../**/*.mdx', '../**/*.stories.@(js|jsx|ts|tsx|mdx)'],
   framework: {
-    name: getAbsolutePath("@storybook/angular"),
+    name: getAbsolutePath('@storybook/angular'),
     options: {},
   },
   docs: {
@@ -19,6 +19,6 @@ export default config;
 // Check https://storybook.js.org/docs/react/builders/webpack#extending-storybooks-webpack-config
 // and https://nx.dev/recipes/storybook/custom-builder-configs
 
-function getAbsolutePath(value: string): any {
+function getAbsolutePath(value: string): string {
   return dirname(fileURLToPath(import.meta.resolve(`${value}/package.json`)));
 }

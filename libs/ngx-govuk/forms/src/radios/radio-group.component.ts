@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-empty-function */
 
-
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -10,6 +9,7 @@ import {
   Renderer2,
   contentChildren,
   forwardRef,
+  inject,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgxGovukUtilsService } from 'ngx-govuk';
@@ -32,6 +32,9 @@ import { NgxGovukRadioComponent } from './radio.component';
 export class NgxGovukRadioGroupComponent
   implements AfterViewInit, ControlValueAccessor
 {
+  private renderer = inject(Renderer2);
+  private utilsService = inject(NgxGovukUtilsService);
+
   @HostBinding('class') get className() {
     return 'govuk-radios';
   }
@@ -42,17 +45,12 @@ export class NgxGovukRadioGroupComponent
 
   value!: string;
 
-  constructor(
-    private renderer: Renderer2,
-    private utilsService: NgxGovukUtilsService
-  ) {}
-
   ngAfterViewInit(): void {
     this.radios().forEach((radio) => {
       this.renderer.setAttribute(
         radio.inputEl()?.nativeElement,
         'name',
-        this.groupName
+        this.groupName,
       );
       radio.selected.subscribe((value) => {
         this.onChange(value);
