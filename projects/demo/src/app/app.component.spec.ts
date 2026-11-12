@@ -14,8 +14,8 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(
-      compiled.querySelector('.govuk-header__product-name')?.textContent,
-    ).toContain('ngx-govuk');
+    expect(compiled.querySelector('.app-header__name')?.textContent).toContain(
+      'ngx-govuk',
+    );
   });
 });

@@ -1,53 +1,43 @@
-<header class="govuk-header" role="banner">
-  <div class="govuk-header__container govuk-width-container app-header">
-    <div class="govuk-header__logo">
-      <a routerLink="/" class="govuk-header__homepage-link app-header__homepage">
-        <img src="/assets/angular_whiteTransparent.svg" alt="Angular" />
-        <span class="govuk-header__product-name"
-          ><strong>ngx-govuk</strong></span
-        >
-      </a>
-    </div>
-    <span class="app-header__service-name">GOV.UK for Angular</span>
-    <a
-      class="app-header__github"
-      href="https://github.com/tgreyuk/ngx-govuk"
-      target="_blank"
+<a href="#main-content" class="app-skip-link">Skip to main content</a>
+<header class="app-header">
+  <div class="govuk-width-container app-header__inner">
+    <a routerLink="/" class="app-header__home">
+      <img src="/assets/angular_whiteTransparent.svg" alt="" />
+      <span class="app-header__name">ngx-govuk</span>
+    </a>
+    <span class="app-header__tagline"
+      >Angular components for the GOV.UK Design System</span
+    >
+    <a class="app-header__github" href="https://github.com/tgreyuk/ngx-govuk"
       ><img src="/assets/github-mark-white.png" alt="" />GitHub</a
     >
   </div>
 </header>
-<div class="nav">
+<nav class="app-nav" aria-label="Main">
   <div class="govuk-width-container">
-    <div class="app-navigation">
-      <ul>
-        <li
-          class="govuk-body-m govuk-!-margin-bottom-0"
-          routerLinkActive="active"
+    <ul class="app-nav__list">
+      <li>
+        <a
+          class="app-nav__link"
+          routerLink="/get-started"
+          routerLinkActive="app-nav__link--active"
+          ariaCurrentWhenActive="page"
+          >Get started</a
         >
-          <a
-            class="govuk-link govuk-link--no-visited-state govuk-link--no-underline"
-            routerLink="/get-started"
-          >
-            Get started
-          </a>
-        </li>
-        <li
-          class="govuk-body-m govuk-!-margin-bottom-0"
-          routerLinkActive="active"
+      </li>
+      <li>
+        <a
+          class="app-nav__link"
+          routerLink="/components"
+          routerLinkActive="app-nav__link--active"
+          ariaCurrentWhenActive="page"
+          >Components</a
         >
-          <a
-            class="govuk-link govuk-link--no-visited-state govuk-link--no-underline"
-            routerLink="/components"
-          >
-            Components
-          </a>
-        </li>
-      </ul>
-    </div>
+      </li>
+    </ul>
   </div>
-</div>
-<div class="govuk-width-container app-width-container">
+</nav>
+<div class="govuk-width-container">
   <div class="govuk-phase-banner">
     <p class="govuk-phase-banner__content">
       <strong class="govuk-tag govuk-phase-banner__content__tag">
@@ -58,28 +48,31 @@
       </span>
     </p>
   </div>
-  <main class="govuk-main-wrapper" role="main">
+  <main class="govuk-main-wrapper" id="main-content">
     <router-outlet></router-outlet>
   </main>
 </div>
-<footer class="govuk-footer" role="contentinfo">
+<footer class="app-footer">
   <div class="govuk-width-container">
-    <div class="govuk-footer__meta">
-      <div class="govuk-footer__meta-item govuk-footer__meta-item--grow">
-        <span>
-          This library is indepenently written and has no official connection
-          with GOV.UK.
-          <br /><br />
-          Please note that GOV.UK Design System is licensed under the
-          <a
-            class="govuk-footer__link"
-            href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
-            rel="license"
-            >Open Government Licence v3.0</a
-          >
-          and your are free to consume this library in a Government project.
-        </span>
-      </div>
-    </div>
+    <p class="app-footer__disclaimer">
+      ngx-govuk is a community resource of the GOV.UK Design System. The Design
+      System team is not responsible for it and cannot support you with using
+      it. Contact the ngx-govuk maintainers through
+      <a href="https://github.com/tgreyuk/ngx-govuk/issues">GitHub issues</a>
+      if you need help.
+    </p>
+    <p>
+      ngx-govuk is released under the
+      <a href="https://github.com/tgreyuk/ngx-govuk/blob/main/LICENSE"
+        >MIT License</a
+      >. It renders markup and styles from
+      <a href="https://github.com/alphagov/govuk-frontend">GOV.UK Frontend</a>,
+      which is available under the
+      <a
+        href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
+        rel="license"
+        >Open Government Licence v3.0</a
+      >.
+    </p>
   </div>
 </footer>

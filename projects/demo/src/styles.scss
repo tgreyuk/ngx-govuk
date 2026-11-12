@@ -4,3 +4,200 @@ pre {
   border: 1px solid #bfc1c3;
   font-family: monospace !important;
 }
+
+// Site chrome (header, navigation, footer). It deliberately uses its own font
+// and colours so the docs site can't be mistaken for GOV.UK. Component
+// previews keep GOV.UK Frontend's styles.
+:root {
+  --app-font: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --app-slate: #1e293b;
+  --app-slate-light: #f1f5f9;
+  --app-border: #cbd5e1;
+  --app-accent: #2563eb;
+  --app-text: #0f172a;
+  --app-muted: #475569;
+  --app-focus: #ffdd00;
+}
+
+.app-header,
+.app-nav,
+.app-footer,
+.app-skip-link {
+  font-family: var(--app-font);
+  -webkit-font-smoothing: antialiased;
+}
+
+.app-skip-link {
+  position: absolute;
+  left: -9999px;
+  &:focus {
+    left: 0;
+    z-index: 10;
+    padding: 10px 15px;
+    color: var(--app-text);
+    background: var(--app-focus);
+  }
+}
+
+// Shared focus style: a yellow background with a dark underline bar, readable
+// on both the dark header and the light navigation and footer.
+%app-focus {
+  outline: 3px solid transparent;
+  color: var(--app-text);
+  background-color: var(--app-focus);
+  box-shadow:
+    0 -2px var(--app-focus),
+    0 4px var(--app-text);
+  text-decoration: none;
+}
+
+.app-header {
+  color: #fff;
+  background: var(--app-slate);
+
+  a {
+    color: #fff;
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    &:focus-visible {
+      @extend %app-focus;
+    }
+  }
+}
+
+.app-header__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: 24px;
+  row-gap: 8px;
+  padding-top: 14px;
+  padding-bottom: 14px;
+}
+
+.app-header__home {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  img {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+.app-header__name {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.app-header__tagline {
+  color: #cbd5e1;
+  font-size: 1rem;
+}
+
+.app-header__github {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+  font-weight: 600;
+  img {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+.app-nav {
+  border-bottom: 1px solid var(--app-border);
+  background: var(--app-slate-light);
+}
+
+.app-nav__list {
+  display: flex;
+  gap: 28px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.app-nav__link {
+  display: block;
+  padding: 14px 0 10px;
+  border-bottom: 4px solid transparent;
+  color: var(--app-text);
+  font-size: 1.0625rem;
+  font-weight: 600;
+  text-decoration: none;
+  &:hover {
+    color: var(--app-accent);
+  }
+  &:focus-visible {
+    outline: 3px solid transparent;
+    color: var(--app-text);
+    background-color: var(--app-focus);
+    border-bottom-color: var(--app-text);
+  }
+}
+
+.app-nav__link--active {
+  border-bottom-color: var(--app-accent);
+}
+
+// The site's own call-to-action button, so the home page doesn't use GOV.UK's
+// start button.
+.app-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+  padding: 12px 22px;
+  border-radius: 6px;
+  color: #fff;
+  background: var(--app-slate);
+  font-family: var(--app-font);
+  font-size: 1.125rem;
+  font-weight: 600;
+  text-decoration: none;
+  &:link,
+  &:visited {
+    color: #fff;
+  }
+  &:hover {
+    background: #334155;
+  }
+  &:focus-visible {
+    outline: 3px solid var(--app-focus);
+    outline-offset: 0;
+    box-shadow: 0 0 0 6px var(--app-text);
+  }
+}
+
+.app-footer {
+  margin-top: 40px;
+  padding: 30px 0 40px;
+  border-top: 1px solid var(--app-border);
+  color: var(--app-muted);
+  background: var(--app-slate-light);
+  font-size: 0.9375rem;
+  line-height: 1.6;
+
+  p {
+    max-width: 48em;
+    margin: 0 0 12px;
+  }
+  a {
+    color: var(--app-text);
+    &:focus-visible {
+      @extend %app-focus;
+    }
+  }
+}
+
+.app-footer__disclaimer {
+  color: var(--app-text);
+  font-weight: 600;
+}
