@@ -20,17 +20,13 @@ exports[`NgxGovukFormGroup > should check markup snapshot 1`] = `
     >
        Test hint 
     </div>
-    <div
-      class="govuk-input__wrapper"
-    >
-      <input
-        aria-describedby="hint-someId"
-        class="govuk-input"
-        id="field-someId"
-        ngxgovuktextinput=""
-        type="text"
-      />
-    </div>
+    <input
+      aria-describedby="hint-someId"
+      class="govuk-input"
+      id="field-someId"
+      ngxgovuktextinput=""
+      type="text"
+    />
   </div>
 </ngx-govuk-form-group>
 `;
