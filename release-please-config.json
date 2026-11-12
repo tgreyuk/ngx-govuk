@@ -1,0 +1,12 @@
+{
+  "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
+  "bootstrap-sha": "b13a486472bb480475f1b57fa5802b8efdd19336",
+  "include-component-in-tag": false,
+  "packages": {
+    "projects/ngx-govuk": {
+      "release-type": "node",
+      "package-name": "ngx-govuk",
+      "bump-minor-pre-major": true
+    }
+  }
+}
