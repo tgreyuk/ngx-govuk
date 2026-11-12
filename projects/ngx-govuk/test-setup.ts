@@ -10,7 +10,11 @@ import { expect } from 'vitest';
 
 const ANGULAR_ATTRIBUTE =
   /^(ng-version|ng-reflect-.*|_ngcontent-.*|_nghost-.*)$/;
-const CLEANED = Symbol('ngx-govuk-cleaned');
+// Angular's runner sets `isolate: false`, so this file runs once per test file
+// that shares a worker and registers the serializer again each time. A shared
+// registry symbol lets every copy recognise an already-cleaned node; a plain
+// Symbol() would make the copies re-clean each other until the stack overflows.
+const CLEANED = Symbol.for('ngx-govuk-cleaned');
 
 function clean(node: Node): Node {
   const copy = node.cloneNode(true);
