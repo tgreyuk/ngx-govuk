@@ -124,11 +124,6 @@
                 "output": "."
               },
               {
-                "input": "node_modules/govuk-frontend/dist/govuk/assets",
-                "glob": "**/*",
-                "output": "assets"
-              },
-              {
                 "input": "projects/demo/src/app/routes/components/examples",
                 "glob": "**/*",
                 "output": "examples"
