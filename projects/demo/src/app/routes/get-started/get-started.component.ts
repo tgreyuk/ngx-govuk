@@ -68,19 +68,17 @@ export class GetStartedComponent implements AfterViewInit {
   "node_modules/govuk-frontend/dist/govuk/govuk-frontend.min.css"
 ]`;
 
-  CSS_ALL_CODE = "@import '../../node_modules/govuk-frontend/dist/govuk/all';";
+  CUSTOM_FONT_CODE = `@use 'govuk-frontend' with (
+  $govuk-font-family: (arial, sans-serif)
+);`;
 
-  CUSTOM_FONT_CODE = `$govuk-font-family: arial, sans-serif;
-
-@import '../../node_modules/govuk-frontend/dist/govuk/all';`;
-
-  CHERRY_PICK_STYLES = `@import "../node_modules/govuk-frontend/dist/govuk/base";
-@import "../node_modules/govuk-frontend/dist/govuk/core/all";
-@import "../node_modules/govuk-frontend/dist/govuk/objects/all";
-@import "../node_modules/govuk-frontend/dist/govuk/components/footer/index";
-@import "../node_modules/govuk-frontend/dist/govuk/components/header/index";
-@import "../node_modules/govuk-frontend/dist/govuk/utilities/all";
-@import "../node_modules/govuk-frontend/dist/govuk/overrides/all";`;
+  CHERRY_PICK_STYLES = `@use 'govuk-frontend/dist/govuk/base';
+@use 'govuk-frontend/dist/govuk/core';
+@use 'govuk-frontend/dist/govuk/objects';
+@use 'govuk-frontend/dist/govuk/components/footer';
+@use 'govuk-frontend/dist/govuk/components/header';
+@use 'govuk-frontend/dist/govuk/utilities';
+@use 'govuk-frontend/dist/govuk/overrides';`;
 
   COMPONENT_CODE = `import { NgxGovukExample } from 'ngx-govuk/example';
 

@@ -100,10 +100,10 @@
     <p class="govuk-body">
       If you are only using a subset of GOV.UK components you may prefer to
       import specific styles. For example if you are only using the header and
-      footer components you can import only the component styles you need in
-      your "styles.scss" stylesheet (update the path to node_modules as per your
-      structure). You will also need to customise the output if you are not
-      licensed to use GDS Transport font.
+      footer components you can load only the component styles you need in your
+      "styles.scss" stylesheet. govuk-frontend 6 uses Sass modules, so load
+      styles with "&#64;use" rather than "&#64;import". You will also need to
+      customise the output if you are not licensed to use GDS Transport font.
     </p>
 
     <p class="govuk-body">
@@ -130,11 +130,13 @@
     <h3 class="govuk-heading-s">Using an alternative font</h3>
 
     <p class="govuk-body">
-      If you are not using the GDS Transport font, you will need to override the
-      "$govuk-font-family" sass variable by placing it before the scss imports
-      in "styles.scss". GOV.UK recommendeds to use an alternative typeface like
-      Helvetica or Arial. If you do not follow this step your browser will try
-      and load the GDS Transport font resulting in 404 console errors.
+      If you are not using the GDS Transport font, you will need to set the
+      "$govuk-font-family" Sass setting when you load govuk-frontend in
+      "styles.scss", using "with". When cherry-picking styles, add the same
+      "with" to the "base" line, as it is the first one loaded. GOV.UK
+      recommends an alternative typeface like Helvetica or Arial. If you skip
+      this step your browser will try to load the GDS Transport font, resulting
+      in 404 console errors.
     </p>
 
     <pre class="govuk-body" [innerText]="CUSTOM_FONT_CODE"></pre>
