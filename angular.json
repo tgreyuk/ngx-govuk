@@ -120,7 +120,7 @@
               },
               {
                 "input": "projects/demo/src",
-                "glob": "favicon.ico",
+                "glob": "favicon.svg",
                 "output": "."
               },
               {
