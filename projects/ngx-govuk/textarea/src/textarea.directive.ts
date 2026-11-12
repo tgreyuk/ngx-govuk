@@ -21,7 +21,7 @@ export class NgxGovukTextarea implements AfterViewInit {
     return `govuk-textarea`;
   }
 
-  @HostBinding('class.govuk-input--error') get isInvalidClass() {
+  @HostBinding('class.govuk-textarea--error') get isInvalidClass() {
     return this.control?.status === 'INVALID';
   }
 
