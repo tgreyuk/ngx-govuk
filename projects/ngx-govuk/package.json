@@ -1,6 +1,16 @@
 {
   "name": "ngx-govuk",
   "version": "0.4.0",
+  "description": "Angular components for the GOV.UK Design System",
+  "keywords": [
+    "angular",
+    "govuk",
+    "gov.uk",
+    "govuk-frontend",
+    "design-system",
+    "components",
+    "accessibility"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/tgreyuk/ngx-govuk.git"
