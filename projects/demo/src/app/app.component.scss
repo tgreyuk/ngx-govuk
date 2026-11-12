@@ -19,27 +19,16 @@
   }
 }
 
-.logo {
-  margin-left: auto;
+// govuk-frontend 6's header holds only a logo, so the service name and
+// GitHub link are laid out and styled here.
+.app-header {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  color: #fff;
-  text-decoration: none;
-  font-weight: bold;
-  margin-top: -8px;
-  img {
-    margin-right: 12px;
-    width: 26px;
-    height: 26px;
-  }
+  column-gap: 30px;
 }
 
-.flex {
-  display: flex;
-  align-items: center;
-}
-
-.govuk-header__link {
+.app-header__homepage {
   display: inline-flex;
   align-items: center;
   img {
@@ -50,4 +39,33 @@
 
 .govuk-header__product-name {
   margin-top: 0;
+}
+
+.app-header__service-name {
+  font-size: 1.5rem;
+  font-weight: bold;
+  line-height: 1.25;
+}
+
+.app-header__github {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  img {
+    margin-right: 12px;
+    width: 26px;
+    height: 26px;
+  }
+  &:hover {
+    text-decoration: underline;
+  }
+  &:focus {
+    outline: 3px solid transparent;
+    color: #0b0c0c;
+    background-color: #ffdd00;
+    box-shadow: 0 -2px #ffdd00, 0 4px #0b0c0c;
+  }
 }
