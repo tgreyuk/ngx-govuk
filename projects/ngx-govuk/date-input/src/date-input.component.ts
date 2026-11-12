@@ -10,11 +10,10 @@ import {
   NG_VALUE_ACCESSOR,
 } from '@angular/forms';
 import { NgxGovukUtilsService } from 'ngx-govuk';
-import { NgxGovukFieldsetComponent } from '../fieldset/fieldset.component';
 
 @Component({
   selector: 'ngx-govuk-date-input',
-  imports: [NgxGovukFieldsetComponent, FormsModule],
+  imports: [FormsModule],
   templateUrl: './date-input.component.html',
   styleUrl: './date-input.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -1,8 +1,8 @@
 import { moduleMetadata, type Meta } from '@storybook/angular';
 
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { NgxGovukFormGroup } from '../../../form-group/src/form-group.component';
-import { NgxGovukFieldsetComponent } from '../fieldset/fieldset.component';
+import { NgxGovukFormGroup } from 'ngx-govuk/form-group';
+import { NgxGovukFieldsetComponent } from 'ngx-govuk/fieldset';
 import { NgxGovukCheckboxComponent } from './checkbox.component';
 import { NgxGovukCheckboxesDirective } from './checkboxes.directive';
 

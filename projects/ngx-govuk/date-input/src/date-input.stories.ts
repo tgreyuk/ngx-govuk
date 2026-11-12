@@ -1,7 +1,7 @@
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { moduleMetadata, type Meta } from '@storybook/angular';
-import { NgxGovukFormGroup } from '../../../form-group/src/form-group.component';
-import { NgxGovukFieldsetComponent } from '../fieldset/fieldset.component';
+import { NgxGovukFormGroup } from 'ngx-govuk/form-group';
+import { NgxGovukFieldsetComponent } from 'ngx-govuk/fieldset';
 import { NgxGovukDateInputComponent } from './date-input.component';
 
 const meta: Meta<NgxGovukDateInputComponent> = {
