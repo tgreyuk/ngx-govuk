@@ -45,3 +45,6 @@ Thumbs.db
 # Docs
 /docs
 documentation.json
+
+# Storybook build output
+storybook-static
