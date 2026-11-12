@@ -1,47 +1,58 @@
 <h1 class="govuk-heading-xl">Components</h1>
 
 <p class="govuk-body">
-  This component list essentiually maps those listed at
+  This list follows the
   <a
     class="govuk-link"
-    href="https://design-system.service.gov.uk/components"
+    href="https://design-system.service.gov.uk/components/"
     target="_blank"
-    >https://design-system.service.gov.uk/components</a
-  >.
-</p>
-<p class="govuk-body">
-  When it has made sense, some components (for example "form-group") have been
-  extracted and created as their own component for the purpose of this library.
+    >GOV.UK Design System components</a
+  >. Select a component for a demo, code examples and API documentation.
 </p>
 
-<p class="govuk-body">
-  Please navigate through to each component for demo, code examples and API
-  documentation.
-</p>
-
-<ul class="govuk-task-list">
-  @for (component of components; track component.name) {
-    @if (component.completed) {
-      <li class="govuk-task-list__item govuk-task-list__item--with-link">
+<ng-template #list let-items>
+  <ul class="govuk-task-list">
+    @for (component of items; track component.id) {
+      <li
+        class="govuk-task-list__item"
+        [class.govuk-task-list__item--with-link]="
+          component.status === 'documented'
+        "
+      >
         <div class="govuk-task-list__name-and-hint">
-          <a
-            class="govuk-link govuk-task-list__link"
-            [routerLink]="'/components/' + component.id"
-            aria-describedby="company-details-1-status"
-            >{{ component.name }}</a
-          >
+          @if (component.status === 'documented') {
+            <a
+              class="govuk-link govuk-task-list__link"
+              [routerLink]="'/components/' + component.id"
+              [attr.aria-describedby]="component.id + '-status'"
+              >{{ component.name }}</a
+            >
+          } @else {
+            {{ component.name }}
+          }
         </div>
-        <div class="govuk-task-list__status" id="company-details-1-status">
-          <strong class="govuk-tag govuk-tag--green"> Completed</strong>
-        </div>
-      </li>
-    } @else {
-      <li class="govuk-task-list__item">
-        <div class="govuk-task-list__name-and-hint">{{ component.name }}</div>
-        <div class="govuk-task-list__status" id="company-details-2-status">
-          <p class="govuk-tag govuk-tag--orange">To do</p>
+        <div class="govuk-task-list__status" [id]="component.id + '-status'">
+          <strong class="govuk-tag" [class]="statusClass(component.status)">{{
+            statusLabel(component.status)
+          }}</strong>
         </div>
       </li>
     }
-  }
-</ul>
+  </ul>
+</ng-template>
+
+<ng-container
+  [ngTemplateOutlet]="list"
+  [ngTemplateOutletContext]="{ $implicit: components }"
+></ng-container>
+
+<h2 class="govuk-heading-m govuk-!-margin-top-8">Additional components</h2>
+<p class="govuk-body">
+  ngx-govuk adds these to make GOV.UK Frontend easier to use in Angular. They
+  are not GOV.UK Design System components.
+</p>
+
+<ng-container
+  [ngTemplateOutlet]="list"
+  [ngTemplateOutletContext]="{ $implicit: additionalComponents }"
+></ng-container>
