@@ -1,0 +1,34 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`NgxGovukBreadcrumbs > should render default state 1`] = `
+<ngx-govuk-breadcrumbs>
+  <div
+    class="govuk-breadcrumbs"
+  >
+    <ol
+      class="govuk-breadcrumbs__list"
+    >
+      <li
+        class="govuk-breadcrumbs__list-item"
+      >
+        <a
+          href="#"
+          ngxgovukbreadcrumbsitem=""
+        >
+          Home
+        </a>
+      </li>
+      <li
+        class="govuk-breadcrumbs__list-item"
+      >
+        <a
+          href="#"
+          ngxgovukbreadcrumbsitem=""
+        >
+          Travel abroad
+        </a>
+      </li>
+    </ol>
+  </div>
+</ngx-govuk-breadcrumbs>
+`;

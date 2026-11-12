@@ -1,0 +1,18 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`NgxGovukBackLink > should render markup 1`] = `
+<div>
+  <a
+    class="govuk-back-link"
+    ngxgovukbacklink=""
+  >
+    Default
+  </a>
+  <a
+    class="govuk-back-link govuk-back-link--inverse"
+    ngxgovukbacklink=""
+  >
+    Inversed
+  </a>
+</div>
+`;

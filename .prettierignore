@@ -1,7 +1,7 @@
 # Add files here to ignore them from prettier formatting
 /dist
 /coverage
-/.nx/cache
+/docs
+/storybook-static
+/out-tsc
 .angular
-
-/.nx/workspace-data

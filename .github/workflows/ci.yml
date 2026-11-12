@@ -2,27 +2,39 @@ name: CI
 on:
   push:
     paths:
-      - 'libs/ngx-govuk/**'
+      - 'projects/ngx-govuk/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'angular.json'
+      - 'tsconfig.json'
+      - 'eslint.config.mjs'
+      - '.github/workflows/ci.yml'
   pull_request:
     paths:
-      - 'libs/ngx-govuk/**'
+      - 'projects/ngx-govuk/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'angular.json'
+      - 'tsconfig.json'
+      - 'eslint.config.mjs'
+      - '.github/workflows/ci.yml'
 jobs:
   lint-and-test:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: ['18']
+        node: ['22']
     name: Node ${{ matrix.node }}
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Set up Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
           cache: 'npm'
       - name: Install
-        run: npm install
+        run: npm ci
       - name: Lint
         run: npm run lib:lint
       - name: Build
