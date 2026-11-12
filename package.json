@@ -31,7 +31,7 @@
     "react-dom": "^18.2.0",
     "rxjs": "~7.8.2",
     "shiki": "^1.1.6",
-    "storybook": "10.2.19",
+    "storybook": "10.6.7",
     "tslib": "^2.6.2",
     "zone.js": "0.16.1"
   },
@@ -45,13 +45,13 @@
     "@angular/language-service": "21.2.4",
     "@eslint/js": "^10.0.1",
     "@schematics/angular": "21.2.2",
-    "@storybook/angular": "10.2.19",
+    "@storybook/angular": "10.6.7",
     "@types/node": "^20.11.19",
     "angular-eslint": "21.3.1",
     "autoprefixer": "^10.4.17",
     "eslint": "^10.14.0",
     "eslint-config-prettier": "10.1.8",
-    "eslint-plugin-storybook": "10.2.19",
+    "eslint-plugin-storybook": "10.6.7",
     "govuk-frontend": "^6.1.0",
     "jsdom": "^26.1.0",
     "ng-mocks": "^14.12.1",
@@ -61,7 +61,7 @@
     "sass": "^1.71.1",
     "typedoc": "^0.28.17",
     "typescript": "5.9.3",
-    "typescript-eslint": "8.57.1",
+    "typescript-eslint": "8.72.2",
     "vitest": "4.0.18"
   }
 }
