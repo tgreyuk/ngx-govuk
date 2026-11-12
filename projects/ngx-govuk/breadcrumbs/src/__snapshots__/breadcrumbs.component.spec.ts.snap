@@ -2,7 +2,8 @@
 
 exports[`NgxGovukBreadcrumbs > should render default state 1`] = `
 <ngx-govuk-breadcrumbs>
-  <div
+  <nav
+    aria-label="Breadcrumb"
     class="govuk-breadcrumbs"
   >
     <ol
@@ -12,6 +13,7 @@ exports[`NgxGovukBreadcrumbs > should render default state 1`] = `
         class="govuk-breadcrumbs__list-item"
       >
         <a
+          class="govuk-breadcrumbs__link"
           href="#"
           ngxgovukbreadcrumbsitem=""
         >
@@ -22,6 +24,7 @@ exports[`NgxGovukBreadcrumbs > should render default state 1`] = `
         class="govuk-breadcrumbs__list-item"
       >
         <a
+          class="govuk-breadcrumbs__link"
           href="#"
           ngxgovukbreadcrumbsitem=""
         >
@@ -29,6 +32,6 @@ exports[`NgxGovukBreadcrumbs > should render default state 1`] = `
         </a>
       </li>
     </ol>
-  </div>
+  </nav>
 </ngx-govuk-breadcrumbs>
 `;

@@ -9,11 +9,12 @@ import {
 /**
  * Directive to be added to native "a" elements to render as GOV.UK breadcrumb items.
  *
- * @selector a[ngxGovukBreadcrumbItem]
+ * @selector a[ngxGovukBreadcrumbsItem]
  */
 @Directive({
   selector: 'a[ngxGovukBreadcrumbsItem]',
   standalone: true,
+  host: { class: 'govuk-breadcrumbs__link' },
 })
 export class NgxGovukBreadcrumbsItem implements AfterViewInit {
   private renderer = inject(Renderer2);
