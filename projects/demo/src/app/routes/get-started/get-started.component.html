@@ -33,16 +33,18 @@
   </div>
 
   <div class="govuk-!-margin-bottom-8">
-    <h2 class="govuk-heading-m">Add GOV.UK classes to the body</h2>
+    <h2 class="govuk-heading-m">Add GOV.UK classes to the page</h2>
     <p class="govuk-body">
-      Add the "govuk-template__body" and "govuk-frontend-supported" classes to
-      the body tag in your "index.html" file.
+      In your "index.html" file, add "govuk-template" to the html tag, and
+      "govuk-template__body" and "govuk-frontend-supported" to the body tag.
+      GOV.UK Frontend's page template uses these classes to set the page
+      background and text sizing.
     </p>
     <p class="govuk-body">
-      On a GOV.UK service, GOV.UK Frontend's JavaScript adds
-      "govuk-frontend-supported" when it loads, and some component styles depend
-      on it. ngx-govuk does not use GOV.UK Frontend's JavaScript, so you add the
-      class yourself.
+      GOV.UK's page template adds "govuk-frontend-supported" with a small inline
+      script. The accordion and tabs styles depend on it, and without it they
+      show their no-JavaScript fallback. ngx-govuk components do not need that
+      script, so add the class directly.
     </p>
     <pre class="govuk-body" [innerText]="BODY_CSS_CODE"></pre>
   </div>
@@ -80,8 +82,8 @@
     <h3 class="govuk-heading-s">GOV.UK services: use the precompiled CSS</h3>
     <p class="govuk-body">
       GOV.UK Frontend also ships a precompiled stylesheet. It is the quickest
-      setup, but it always uses the GDS Transport font, which only GOV.UK
-      services may use. Add it to the "styles" array in "angular.json", and copy
+      setup, but it always uses the GDS Transport font, which is for services on
+      service.gov.uk. Add it to the "styles" array in "angular.json", and copy
       GOV.UK Frontend's fonts and images with an "assets" entry so the font
       files load.
     </p>
@@ -96,8 +98,9 @@
   <div class="govuk-!-margin-bottom-8">
     <h2 class="govuk-heading-m">Choose a font</h2>
     <p class="govuk-body">
-      GOV.UK Frontend uses the GDS Transport font by default, but only GOV.UK
-      services may use it. See the
+      GOV.UK Frontend uses the GDS Transport font by default. Services on
+      service.gov.uk must use it. Services publicly available on other domains
+      should use an alternative typeface. See the
       <a
         class="govuk-link"
         href="https://design-system.service.gov.uk/styles/typeface/"
@@ -106,15 +109,25 @@
       >.
     </p>
     <p class="govuk-body">
-      Other services should set "$govuk-font-family" when loading GOV.UK
-      Frontend with Sass. GOV.UK recommends Helvetica or Arial. When GDS
-      Transport is not in the font list, GOV.UK Frontend leaves out its font
-      files entirely, so there is nothing to copy and no missing-font errors.
+      To use an alternative, set "$govuk-font-family" when loading GOV.UK
+      Frontend with Sass. GOV.UK recommends the font stack shown below, or your
+      own brand's font. When GDS Transport is not in the font list, GOV.UK
+      Frontend leaves out its font files entirely, so there is nothing to copy
+      and no missing-font errors.
     </p>
     <pre class="govuk-body" [innerText]="SASS_ALL_CODE"></pre>
     <p class="govuk-body">
       When loading only some styles, add the same "with" to the "base" line, as
       shown above.
+    </p>
+    <p class="govuk-body">
+      If your service is not on GOV.UK, also read
+      <a
+        class="govuk-link"
+        href="https://frontend.design-system.service.gov.uk/using-govuk-frontend-without-govuk-branding/"
+        target="_blank"
+        >Using GOV.UK Frontend without GOV.UK branding</a
+      >, which covers changing the brand colour in the same "with".
     </p>
   </div>
 

@@ -61,17 +61,17 @@ export class GetStartedComponent implements AfterViewInit {
 
   INSTALL_CODE = `npm install ngx-govuk govuk-frontend`;
 
-  BODY_CSS_CODE =
-    '<body class="govuk-template__body govuk-frontend-supported">';
+  BODY_CSS_CODE = `<html lang="en" class="govuk-template">
+  <body class="govuk-template__body govuk-frontend-supported">`;
 
   SASS_ALL_CODE = `// styles.scss
 @use 'govuk-frontend' with (
-  $govuk-font-family: (arial, sans-serif)
+  $govuk-font-family: ("Helvetica Neue", Helvetica, Arial, sans-serif)
 );`;
 
   SASS_CHERRY_PICK_CODE = `// styles.scss
 @use 'govuk-frontend/dist/govuk/base' with (
-  $govuk-font-family: (arial, sans-serif)
+  $govuk-font-family: ("Helvetica Neue", Helvetica, Arial, sans-serif)
 );
 @use 'govuk-frontend/dist/govuk/core';
 @use 'govuk-frontend/dist/govuk/objects';
