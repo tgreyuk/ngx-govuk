@@ -19,7 +19,7 @@ import { NgxGovukTextarea } from 'ngx-govuk/textarea';
   templateUrl: './character-count.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NgxGovUkCharacterCount implements AfterViewInit {
+export class NgxGovukCharacterCount implements AfterViewInit {
   private renderer = inject(Renderer2);
 
   @ContentChild(NgxGovukTextarea)

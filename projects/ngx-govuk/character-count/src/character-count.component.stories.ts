@@ -1,10 +1,10 @@
 import { moduleMetadata, type Meta } from '@storybook/angular';
 import { NgxGovukFormGroup } from 'ngx-govuk/form-group';
 import { NgxGovukTextarea } from 'ngx-govuk/textarea';
-import { NgxGovUkCharacterCount } from './character-count.component';
+import { NgxGovukCharacterCount } from './character-count.component';
 
-const meta: Meta<NgxGovUkCharacterCount> = {
-  component: NgxGovUkCharacterCount,
+const meta: Meta<NgxGovukCharacterCount> = {
+  component: NgxGovukCharacterCount,
   title: 'Components/Character Count',
   decorators: [
     moduleMetadata({
@@ -19,7 +19,7 @@ export const CharacterCount = {
   args: {
     limit: 10,
   },
-  render: (args: NgxGovUkCharacterCount) => ({
+  render: (args: NgxGovukCharacterCount) => ({
     props: {
       limit: args.limit,
     },

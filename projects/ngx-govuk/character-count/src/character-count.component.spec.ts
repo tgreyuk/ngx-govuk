@@ -5,7 +5,7 @@ import { MockProvider } from 'ng-mocks';
 import { NgxGovukFormGroup } from '../../form-group/src';
 import { NgxGovukUtilsService } from '../../src';
 import { NgxGovukTextarea } from '../../textarea/src';
-import { NgxGovUkCharacterCount } from './character-count.component';
+import { NgxGovukCharacterCount } from './character-count.component';
 
 @Component({
   selector: 'ngx-govuk-host-component',
@@ -17,7 +17,7 @@ import { NgxGovUkCharacterCount } from './character-count.component';
       },
     }),
   ],
-  imports: [NgxGovUkCharacterCount, NgxGovukFormGroup, NgxGovukTextarea],
+  imports: [NgxGovukCharacterCount, NgxGovukFormGroup, NgxGovukTextarea],
   template: `<ngx-govuk-character-count [limit]="20">
     <ngx-govuk-form-group
       [asPageHeading]="true"
@@ -31,7 +31,7 @@ import { NgxGovUkCharacterCount } from './character-count.component';
 class HostComponent {}
 
 describe('NgxGovukCharacterCount', () => {
-  let component: NgxGovUkCharacterCount;
+  let component: NgxGovukCharacterCount;
   let fixture: ComponentFixture<HostComponent>;
   let debugElement: DebugElement;
   let renderer1: Renderer2;
@@ -40,7 +40,7 @@ describe('NgxGovukCharacterCount', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [NgxGovUkCharacterCount],
+      imports: [NgxGovukCharacterCount],
       providers: [Renderer2],
     }).compileComponents();
   });
@@ -49,7 +49,7 @@ describe('NgxGovukCharacterCount', () => {
     fixture = TestBed.createComponent(HostComponent);
     fixture.detectChanges();
     debugElement = fixture.debugElement.query(
-      By.directive(NgxGovUkCharacterCount),
+      By.directive(NgxGovukCharacterCount),
     );
     fgdebugElement = fixture.debugElement.query(
       By.directive(NgxGovukFormGroup),
