@@ -1,4 +1,3 @@
-
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import {
@@ -9,11 +8,7 @@ import {
 @Component({
   selector: 'app-breadcrumbs-demo',
   standalone: true,
-  imports: [
-    RouterModule,
-    NgxGovukBreadcrumbs,
-    NgxGovukBreadcrumbsItem
-],
+  imports: [RouterModule, NgxGovukBreadcrumbs, NgxGovukBreadcrumbsItem],
   template: `
     <ngx-govuk-breadcrumbs>
       <a ngxGovukBreadcrumbsItem [routerLink]="['.']">Home</a>

@@ -1,16 +1,10 @@
-
 import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { NgxGovukAccordion } from 'ngx-govuk/accordion';
 
 @Component({
   standalone: true,
-  imports: [
-    NgxGovukAccordion,
-    RouterOutlet,
-    RouterLink,
-    RouterLinkActive
-],
+  imports: [NgxGovukAccordion, RouterOutlet, RouterLink, RouterLinkActive],
   selector: 'ngx-govuk-root',
   styleUrls: ['./app.component.scss'],
   templateUrl: './app.component.html',
