@@ -9,6 +9,7 @@ import { ButtonSecondaryDemoComponent } from './examples/button/secondary.compon
 import { ButtonStartDemoComponent } from './examples/button/start.component';
 import { ButtonWarningDemoComponent } from './examples/button/warning.component';
 import { CheckboxesDemoComponent } from './examples/checkboxes/default.component';
+import { DateInputDemoComponent } from './examples/date-input/default.component';
 import { DetailsDemoComponent } from './examples/details/default.component';
 import { FieldsetDemoComponent } from './examples/fieldset/default.component';
 import { RadiosDemoComponent } from './examples/radios/default.component';
@@ -80,6 +81,9 @@ export const EXAMPLES: Record<string, Example[]> = {
   ],
   checkboxes: [
     { path: 'checkboxes/default', component: CheckboxesDemoComponent },
+  ],
+  'date-input': [
+    { path: 'date-input/default', component: DateInputDemoComponent },
   ],
   details: [{ path: 'details/default', component: DetailsDemoComponent }],
   fieldset: [{ path: 'fieldset/default', component: FieldsetDemoComponent }],

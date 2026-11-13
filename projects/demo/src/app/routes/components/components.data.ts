@@ -69,7 +69,7 @@ export const COMPONENTS: ComponentEntry[] = [
   {
     name: 'Date input',
     id: 'date-input',
-    status: 'in-progress',
+    status: 'documented',
     description: 'Helps users enter a date they know or can find easily.',
   },
   {
