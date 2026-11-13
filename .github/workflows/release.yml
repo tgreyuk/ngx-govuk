@@ -2,7 +2,7 @@ name: Release
 
 # On every push to main, release-please opens or updates a release PR that
 # bumps the version and changelog. Merging that PR tags the release, creates
-# the GitHub Release and stages the library on npm for approval.
+# the GitHub Release and publishes the library to npm.
 on:
   push:
     branches: [main]
@@ -39,9 +39,8 @@ jobs:
         run: npm ci
       - name: Build
         run: npm run lib:build
-      # Stages the release rather than publishing it: it only goes live once a
-      # maintainer approves it with 2FA on npmjs.com or via `npm stage approve`.
-      # Trusted publishing needs npm 11.5.1 or later; Node 22 ships npm 10.
-      # Only this step uses it, so installs stay on npm 10.
-      - name: Stage for publishing
-        run: npx -y npm@11 stage publish ./dist/ngx-govuk --access public
+      # Publishes as soon as the release PR is merged, with provenance. Trusted
+      # publishing needs npm 11.5.1 or later; Node 22 ships npm 10. Only this
+      # step uses it, so installs stay on npm 10.
+      - name: Publish
+        run: npx -y npm@11 publish ./dist/ngx-govuk --access public
