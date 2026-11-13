@@ -1,6 +1,5 @@
 import {
   AfterViewInit,
-  ChangeDetectionStrategy,
   Component,
   ContentChild,
   Renderer2,
@@ -16,7 +15,6 @@ import { NgxGovukTextarea } from 'ngx-govuk/textarea';
   selector: 'ngx-govuk-character-count',
   imports: [],
   templateUrl: './character-count.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NgxGovukCharacterCount implements AfterViewInit {
   private renderer = inject(Renderer2);

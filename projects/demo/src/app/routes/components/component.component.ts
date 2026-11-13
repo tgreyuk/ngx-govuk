@@ -1,9 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  input,
-} from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 import { NgComponentOutlet } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { StartCasePipe } from '../../pipes/start-case.pipe';
@@ -15,7 +10,6 @@ import { EXAMPLES } from './examples';
 @Component({
   selector: 'ngx-govuk-component',
   templateUrl: './component.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     RouterLink,
     StartCasePipe,

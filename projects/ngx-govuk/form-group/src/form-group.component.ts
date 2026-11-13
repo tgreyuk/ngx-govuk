@@ -1,7 +1,6 @@
 import { NgTemplateOutlet } from '@angular/common';
 import {
   AfterContentInit,
-  ChangeDetectionStrategy,
   Component,
   Renderer2,
   computed,
@@ -30,7 +29,6 @@ import { NGX_GOVUK_FIELD, NgxGovukUtilsService } from 'ngx-govuk';
   selector: 'ngx-govuk-form-group',
   imports: [NgTemplateOutlet],
   templateUrl: './form-group.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NgxGovukFormGroup implements AfterContentInit {
   private renderer = inject(Renderer2);

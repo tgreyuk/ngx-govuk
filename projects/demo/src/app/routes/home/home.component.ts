@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NgxGovukButton } from 'ngx-govuk/button';
 
@@ -7,6 +7,5 @@ import { NgxGovukButton } from 'ngx-govuk/button';
   imports: [RouterLink, NgxGovukButton],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeComponent {}

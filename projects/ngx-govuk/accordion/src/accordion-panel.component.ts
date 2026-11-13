@@ -1,12 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  HostBinding,
-  input,
-  signal,
-  inject,
-} from '@angular/core';
+import { Component, HostBinding, input, signal, inject } from '@angular/core';
 import { NgxGovukUtilsService } from 'ngx-govuk';
 /**
  * Component to be used to define the accordion panels.
@@ -19,7 +12,6 @@ import { NgxGovukUtilsService } from 'ngx-govuk';
   selector: 'ngx-govuk-accordion-panel',
   imports: [CommonModule],
   templateUrl: './accordion-panel.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NgxGovukAccordionPanel {
   private utilsService = inject(NgxGovukUtilsService);

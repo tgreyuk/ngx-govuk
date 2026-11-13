@@ -1,17 +1,11 @@
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  HostBinding,
-  contentChildren,
-} from '@angular/core';
+import { Component, HostBinding, contentChildren } from '@angular/core';
 import { NgxGovukTabComponent } from '..';
 
 @Component({
   selector: 'ngx-govuk-tabs-group',
   imports: [CommonModule],
   templateUrl: './tabs-group.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NgxGovukTabsComponent {
   @HostBinding('class') get className() {

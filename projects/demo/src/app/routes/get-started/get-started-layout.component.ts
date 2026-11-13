@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { GUIDES } from './get-started.data';
 
@@ -7,7 +7,6 @@ import { GUIDES } from './get-started.data';
   selector: 'ngx-govuk-get-started-layout',
   imports: [RouterLink, RouterLinkActive, RouterOutlet],
   templateUrl: './get-started-layout.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GetStartedLayoutComponent {
   guides = GUIDES;

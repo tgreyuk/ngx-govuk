@@ -2,7 +2,6 @@
 
 import {
   AfterViewInit,
-  ChangeDetectionStrategy,
   Component,
   HostBinding,
   Renderer2,
@@ -18,7 +17,6 @@ import { NgxGovukRadioComponent } from './radio.component';
   selector: 'ngx-govuk-radio-group',
   imports: [],
   templateUrl: './radio-group.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

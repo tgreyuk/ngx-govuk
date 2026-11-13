@@ -1,6 +1,5 @@
 import {
   AfterViewInit,
-  ChangeDetectionStrategy,
   Component,
   ElementRef,
   Renderer2,
@@ -21,7 +20,6 @@ interface TocEntry {
   imports: [RouterLink],
   templateUrl: './get-started.component.html',
   styleUrl: './get-started.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GetStartedComponent implements AfterViewInit {
   contents = viewChild<ElementRef<HTMLDivElement>>('contents');

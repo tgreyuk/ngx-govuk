@@ -1,10 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  contentChildren,
-  signal,
-} from '@angular/core';
+import { Component, contentChildren, signal } from '@angular/core';
 import { NgxGovukAccordionPanel } from './accordion-panel.component';
 
 /**
@@ -19,7 +14,6 @@ import { NgxGovukAccordionPanel } from './accordion-panel.component';
   selector: 'ngx-govuk-accordion',
   imports: [CommonModule, NgxGovukAccordionPanel],
   templateUrl: './accordion.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NgxGovukAccordion {
   panels = contentChildren(NgxGovukAccordionPanel);

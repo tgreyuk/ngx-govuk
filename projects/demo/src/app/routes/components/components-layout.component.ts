@@ -1,5 +1,5 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { COMPONENTS } from './components.data';
 
@@ -12,7 +12,6 @@ import { COMPONENTS } from './components.data';
   selector: 'ngx-govuk-components-layout',
   imports: [NgTemplateOutlet, RouterLink, RouterLinkActive, RouterOutlet],
   templateUrl: './components-layout.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ComponentsLayoutComponent {
   components = COMPONENTS;

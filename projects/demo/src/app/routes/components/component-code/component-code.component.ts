@@ -1,11 +1,5 @@
 import { httpResource } from '@angular/common/http';
-import {
-  booleanAttribute,
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  input,
-} from '@angular/core';
+import { booleanAttribute, Component, computed, input } from '@angular/core';
 import { CodeBlockComponent } from './code-block.component';
 
 /**
@@ -17,7 +11,6 @@ import { CodeBlockComponent } from './code-block.component';
   selector: 'ngx-govuk-example-code',
   imports: [CodeBlockComponent],
   templateUrl: './component-code.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ComponentCodeComponent {
   /** The demo's path under `examples/`, such as "button/secondary". */

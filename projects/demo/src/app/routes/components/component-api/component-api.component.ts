@@ -1,12 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { httpResource } from '@angular/common/http';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  input,
-} from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 import { JSONOutput } from 'typedoc';
 import { CodeBlockComponent } from '../component-code/code-block.component';
 
@@ -14,7 +9,6 @@ import { CodeBlockComponent } from '../component-code/code-block.component';
   selector: 'ngx-govuk-api',
   imports: [CodeBlockComponent],
   templateUrl: './component-api.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ComponentApiComponent {
   componentId = input<string>('');

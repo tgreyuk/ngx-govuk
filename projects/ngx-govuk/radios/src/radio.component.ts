@@ -1,5 +1,4 @@
 import {
-  ChangeDetectionStrategy,
   Component,
   ElementRef,
   EventEmitter,
@@ -15,7 +14,6 @@ import { NgxGovukUtilsService } from 'ngx-govuk';
   imports: [],
   templateUrl: './radio.component.html',
   styleUrl: './radio.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NgxGovukRadioComponent {
   private utilsService = inject(NgxGovukUtilsService);

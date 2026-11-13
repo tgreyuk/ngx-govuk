@@ -1,9 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  input,
-  inject,
-} from '@angular/core';
+import { Component, input, inject } from '@angular/core';
 import { NgxGovukUtilsService } from 'ngx-govuk';
 
 @Component({
@@ -11,7 +6,6 @@ import { NgxGovukUtilsService } from 'ngx-govuk';
   imports: [],
   templateUrl: './fieldset.component.html',
   styleUrl: './fieldset.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NgxGovukFieldsetComponent {
   private utilsService = inject(NgxGovukUtilsService);

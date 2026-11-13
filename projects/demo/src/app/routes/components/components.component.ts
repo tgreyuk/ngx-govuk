@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { COMPONENTS } from './components.data';
 
@@ -10,7 +10,6 @@ import { COMPONENTS } from './components.data';
   selector: 'ngx-govuk-components',
   imports: [RouterLink],
   templateUrl: './components.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ComponentsComponent {
   components = COMPONENTS.filter((c) => c.status === 'documented');

@@ -1,9 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  forwardRef,
-  inject,
-} from '@angular/core';
+import { Component, forwardRef, inject } from '@angular/core';
 import {
   ControlValueAccessor,
   FormsModule,
@@ -16,7 +11,6 @@ import { NgxGovukUtilsService } from 'ngx-govuk';
   imports: [FormsModule],
   templateUrl: './date-input.component.html',
   styleUrl: './date-input.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, HostBinding } from '@angular/core';
+import { Component, HostBinding } from '@angular/core';
 /**
  * Component that wraps a group of buttons. The content slot expects x number of buttons.
  *
@@ -8,7 +8,6 @@ import { ChangeDetectionStrategy, Component, HostBinding } from '@angular/core';
   selector: 'ngx-govuk-button-group',
   imports: [],
   templateUrl: './button-group.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NgxGovukButtonGroup {
   @HostBinding('class') get className() {

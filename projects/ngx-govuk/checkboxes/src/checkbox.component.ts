@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import {
-  ChangeDetectionStrategy,
   Component,
   HostBinding,
   forwardRef,
@@ -17,7 +16,6 @@ import { NgxGovukUtilsService } from 'ngx-govuk';
   imports: [],
   templateUrl: './checkbox.component.html',
   styleUrl: './checkbox.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

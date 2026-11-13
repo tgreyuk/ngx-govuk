@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CodeBlockComponent } from '../components/component-code/code-block.component';
 
@@ -7,7 +7,6 @@ import { CodeBlockComponent } from '../components/component-code/code-block.comp
   selector: 'ngx-govuk-using-components',
   imports: [RouterLink, CodeBlockComponent],
   templateUrl: './using-components.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UsingComponentsComponent {
   IMPORT_CODE = `import { Component } from '@angular/core';

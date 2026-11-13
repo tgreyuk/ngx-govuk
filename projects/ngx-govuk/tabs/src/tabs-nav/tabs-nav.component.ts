@@ -1,10 +1,9 @@
-import { ChangeDetectionStrategy, Component, HostBinding } from '@angular/core';
+import { Component, HostBinding } from '@angular/core';
 
 @Component({
   selector: 'ngx-govuk-tabs-nav',
   imports: [],
   templateUrl: './tabs-nav.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NgxGovukTabsNavComponent {
   @HostBinding('class') get className() {

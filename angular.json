@@ -15,7 +15,6 @@
       "prefix": "ngx-govuk",
       "schematics": {
         "@schematics/angular:component": {
-          "changeDetection": "OnPush",
           "style": "scss"
         }
       },

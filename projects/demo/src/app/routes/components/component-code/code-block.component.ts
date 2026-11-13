@@ -1,11 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-  input,
-  resource,
-  signal,
-} from '@angular/core';
+import { Component, inject, input, resource, signal } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { CodeLanguage, highlight } from './highlight';
 
@@ -13,7 +6,6 @@ import { CodeLanguage, highlight } from './highlight';
 @Component({
   selector: 'app-code-block',
   templateUrl: './code-block.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CodeBlockComponent {
   code = input.required<string>();

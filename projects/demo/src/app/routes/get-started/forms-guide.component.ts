@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ComponentApiComponent } from '../components/component-api/component-api.component';
 import { ComponentCodeComponent } from '../components/component-code/component-code.component';
@@ -14,7 +14,6 @@ import { FormGroupDemoComponent } from '../components/examples/form-group/defaul
     FormGroupDemoComponent,
   ],
   templateUrl: './forms-guide.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FormsGuideComponent {
   FIELD_CODE = `<ngx-govuk-form-group

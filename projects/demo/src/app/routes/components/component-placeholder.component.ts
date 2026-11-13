@@ -1,9 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  input,
-} from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { findComponent } from './components.data';
 
@@ -14,7 +9,6 @@ import { findComponent } from './components.data';
   selector: 'ngx-govuk-component-placeholder',
   imports: [RouterLink],
   templateUrl: './component-placeholder.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ComponentPlaceholderComponent {
   componentId = input<string>();
