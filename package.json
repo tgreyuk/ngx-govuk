@@ -25,6 +25,7 @@
     "@angular/platform-browser": "22.2.6",
     "@angular/platform-browser-dynamic": "22.2.6",
     "@angular/router": "22.2.6",
+    "@vercel/analytics": "2.0.1",
     "rxjs": "~7.8.2",
     "shiki": "^1.1.6",
     "tslib": "^2.6.2",
