@@ -5,7 +5,6 @@ import { BackLinkDemoComponent } from '../examples/back-link.component';
 import { BreadcrumbsDemoComponent } from '../examples/breadcrumbs.component';
 import { ButtonDemoComponent } from '../examples/button.component';
 import { DetailsDemoComponent } from '../examples/details.component';
-import { FormGroupDemoComponent } from '../examples/form-group.component';
 import { TextInputDemoComponent } from '../examples/text-input.component';
 
 @Component({
@@ -23,7 +22,6 @@ export class ComponentPreviewComponent {
     ['breadcrumbs']: BreadcrumbsDemoComponent,
     ['button']: ButtonDemoComponent,
     ['details']: DetailsDemoComponent,
-    ['form-group']: FormGroupDemoComponent,
     ['text-input']: TextInputDemoComponent,
   };
 

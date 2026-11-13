@@ -21,9 +21,11 @@ import { ImportCodePipe } from './import-code.pipe';
 })
 export class ComponentApiComponent {
   componentId = input<string>('');
-  docs = this.getJson();
 
+  // Must be assigned before docs, which uses it.
   private http = inject(HttpClient);
+
+  docs = this.getJson();
 
   getJson() {
     const observable = this.http

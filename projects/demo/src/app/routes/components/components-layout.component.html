@@ -1,0 +1,34 @@
+<div class="app-section-layout">
+  <nav class="app-subnav" aria-label="Components">
+    <ng-template #item let-component>
+      <a
+        class="app-subnav__link"
+        [class.app-subnav__link--planned]="component.status !== 'documented'"
+        [routerLink]="['/components', component.id]"
+        routerLinkActive="app-subnav__link--active"
+        ariaCurrentWhenActive="page"
+        >{{ component.name }}
+        @if (component.status === 'to-do') {
+          (todo)
+        } @else if (component.status === 'in-progress') {
+          (in progress)
+        }
+      </a>
+    </ng-template>
+
+    <ul class="app-subnav__list">
+      @for (component of components; track component.id) {
+        <li>
+          <ng-container
+            [ngTemplateOutlet]="item"
+            [ngTemplateOutletContext]="{ $implicit: component }"
+          ></ng-container>
+        </li>
+      }
+    </ul>
+  </nav>
+
+  <div class="app-section-layout__content">
+    <router-outlet></router-outlet>
+  </div>
+</div>

@@ -1,7 +1,7 @@
 <h1 class="govuk-heading-xl">Components</h1>
 
-<p class="govuk-body">
-  This list follows the
+<p class="govuk-body-l">
+  Angular components for the
   <a
     class="govuk-link"
     href="https://design-system.service.gov.uk/components/"
@@ -10,49 +10,27 @@
   >. Select a component for a demo, code examples and API documentation.
 </p>
 
-<ng-template #list let-items>
-  <ul class="govuk-task-list">
-    @for (component of items; track component.id) {
-      <li
-        class="govuk-task-list__item"
-        [class.govuk-task-list__item--with-link]="
-          component.status === 'documented'
-        "
-      >
-        <div class="govuk-task-list__name-and-hint">
-          @if (component.status === 'documented') {
-            <a
-              class="govuk-link govuk-task-list__link"
-              [routerLink]="'/components/' + component.id"
-              [attr.aria-describedby]="component.id + '-status'"
-              >{{ component.name }}</a
-            >
-          } @else {
-            {{ component.name }}
-          }
-        </div>
-        <div class="govuk-task-list__status" [id]="component.id + '-status'">
-          <strong class="govuk-tag" [class]="statusClass(component.status)">{{
-            statusLabel(component.status)
-          }}</strong>
-        </div>
-      </li>
-    }
-  </ul>
-</ng-template>
+<h2 class="govuk-heading-m govuk-!-margin-top-6">Available components</h2>
 
-<ng-container
-  [ngTemplateOutlet]="list"
-  [ngTemplateOutletContext]="{ $implicit: components }"
-></ng-container>
+<ul class="govuk-list">
+  @for (component of components; track component.id) {
+    <li>
+      <h3 class="govuk-heading-s govuk-!-margin-bottom-1">
+        <a class="govuk-link" [routerLink]="['/components', component.id]">{{
+          component.name
+        }}</a>
+      </h3>
+      <p class="govuk-body">{{ component.description }}</p>
+    </li>
+  }
+</ul>
 
-<h2 class="govuk-heading-m govuk-!-margin-top-8">Additional components</h2>
-<p class="govuk-body">
-  ngx-govuk adds these to make GOV.UK Frontend easier to use in Angular. They
-  are not GOV.UK Design System components.
+<p class="govuk-body govuk-!-margin-top-6">
+  Components marked "todo" or "in progress" in the menu are not documented yet.
+  <a
+    class="govuk-link"
+    href="https://github.com/tgreyuk/ngx-govuk/issues"
+    target="_blank"
+    >Request a component on GitHub</a
+  >.
 </p>
-
-<ng-container
-  [ngTemplateOutlet]="list"
-  [ngTemplateOutletContext]="{ $implicit: additionalComponents }"
-></ng-container>

@@ -1,22 +1,26 @@
-<span class="govuk-caption-xl"> Components </span>
-<h1 class="govuk-heading-xl">{{ componentId() | startcase }}</h1>
+<span class="govuk-caption-xl">Components</span>
+<h1 class="govuk-heading-xl">
+  {{ component()?.name ?? (componentId() | startcase) }}
+</h1>
 
-@if (displayDocsLink) {
-  <p class="govuk-body govuk-!-margin-bottom-8">
-    Please visit
-    <a
-      class="govuk-link"
-      href="https://design-system.service.gov.uk/components/{{ componentId() }}"
-      target="_blank"
-      >GOV.UK {{ componentId() | startcase }}
-    </a>
-    for official documentation and usage.
-  </p>
-} @else {
-  <p class="govuk-body govuk-!-margin-bottom-8">
-    There is no direct mapping to this component in the GOV.UK Design System,
-    but the pattern is used widely across the system.
-  </p>
+<p class="govuk-body govuk-!-margin-bottom-8">
+  See the
+  <a
+    class="govuk-link"
+    href="https://design-system.service.gov.uk/components/{{ componentId() }}/"
+    target="_blank"
+    >GOV.UK Design System guidance</a
+  >
+  for when and how to use this component.
+</p>
+
+@if (component()?.isField) {
+  <div class="govuk-inset-text">
+    This is a form field. Use it inside a form group to add a label, hint and
+    error message. See
+    <a class="govuk-link" routerLink="/get-started/forms">Working with forms</a
+    >.
+  </div>
 }
 
 <ngx-govuk-tabs-nav>

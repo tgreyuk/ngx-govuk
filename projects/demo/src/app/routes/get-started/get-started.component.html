@@ -1,11 +1,12 @@
-<h1 class="govuk-heading-l">Get started</h1>
+<span class="govuk-caption-xl">Get started</span>
+<h1 class="govuk-heading-xl">Installing ngx-govuk</h1>
 <div class="govuk-!-margin-bottom-8">
   <h2 class="govuk-heading-m">Contents</h2>
   <ul class="govuk-list">
     @for (item of toc(); track item.id; let i = $index) {
       <li>
         <a
-          [attr.href]="'/get-started#' + item.id"
+          [attr.href]="'/get-started/installation#' + item.id"
           class="govuk-link govuk-link--no-visited-state"
           >{{ i + 1 }}. {{ item.heading }}</a
         >
@@ -67,7 +68,9 @@
       Load GOV.UK Frontend in your global "styles.scss" stylesheet. GOV.UK
       Frontend 6 uses Sass modules, so use "&#64;use" rather than "&#64;import".
       Loading it with Sass lets you choose the font (see
-      <a class="govuk-link" href="/get-started#heading-4">Choose a font</a>).
+      <a class="govuk-link" href="/get-started/installation#heading-4"
+        >Choose a font</a
+      >).
     </p>
     <pre class="govuk-body" [innerText]="SASS_ALL_CODE"></pre>
 

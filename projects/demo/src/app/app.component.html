@@ -1,10 +1,13 @@
 <a href="#main-content" class="app-skip-link">Skip to main content</a>
 <header class="app-header">
   <div class="govuk-width-container app-header__inner">
-    <a routerLink="/" class="app-header__home">
-      <img src="/assets/angular_whiteTransparent.svg" alt="" />
-      <span class="app-header__name">ngx-govuk</span>
-    </a>
+    <div class="app-header__brand">
+      <a routerLink="/" class="app-header__home">
+        <img src="/assets/ngx-govuk-logo.svg" alt="" />
+        <span class="app-header__name">ngx-govuk</span>
+      </a>
+      <span class="app-header__version">v{{ version }}</span>
+    </div>
     <span class="app-header__tagline"
       >Angular components for the GOV.UK Design System</span
     >
@@ -22,7 +25,7 @@
           routerLink="/get-started"
           routerLinkActive="app-nav__link--active"
           ariaCurrentWhenActive="page"
-          >Get started</a
+          ><span class="app-nav__label">Get started</span></a
         >
       </li>
       <li>
@@ -31,48 +34,40 @@
           routerLink="/components"
           routerLinkActive="app-nav__link--active"
           ariaCurrentWhenActive="page"
-          >Components</a
+          ><span class="app-nav__label">Components</span></a
+        >
+      </li>
+      <li>
+        <a
+          class="app-nav__link"
+          routerLink="/support"
+          routerLinkActive="app-nav__link--active"
+          ariaCurrentWhenActive="page"
+          ><span class="app-nav__label">Help and support</span></a
         >
       </li>
     </ul>
   </div>
 </nav>
 <div class="govuk-width-container">
-  <div class="govuk-phase-banner">
-    <p class="govuk-phase-banner__content">
-      <strong class="govuk-tag govuk-phase-banner__content__tag">
-        Alpha
-      </strong>
-      <span class="govuk-phase-banner__text">
-        This library is under active development. Stay tuned for more updates.
-      </span>
-    </p>
-  </div>
   <main class="govuk-main-wrapper" id="main-content">
     <router-outlet></router-outlet>
   </main>
 </div>
 <footer class="app-footer">
   <div class="govuk-width-container">
-    <p class="app-footer__disclaimer">
-      ngx-govuk is a community resource of the GOV.UK Design System. The Design
-      System team is not responsible for it and cannot support you with using
-      it. Contact the ngx-govuk maintainers directly through
-      <a href="https://github.com/tgreyuk/ngx-govuk/issues">GitHub issues</a>
-      if you need help or you want to request a feature.
+    <p class="app-footer__text">
+      ngx-govuk is a community resource and is not part of the GOV.UK Design
+      System.
     </p>
-    <p>
-      ngx-govuk is released under the
-      <a href="https://github.com/tgreyuk/ngx-govuk/blob/main/LICENSE"
-        >MIT License</a
-      >. It renders markup and styles from
-      <a href="https://github.com/alphagov/govuk-frontend">GOV.UK Frontend</a>,
-      which is available under the
-      <a
-        href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
-        rel="license"
-        >Open Government Licence v3.0</a
-      >.
-    </p>
+    <ul class="app-footer__links">
+      <li><a routerLink="/support">Help and support</a></li>
+      <li><a href="https://github.com/tgreyuk/ngx-govuk">GitHub</a></li>
+      <li>
+        <a href="https://github.com/tgreyuk/ngx-govuk/blob/main/LICENSE"
+          >MIT licence</a
+        >
+      </li>
+    </ul>
   </div>
 </footer>

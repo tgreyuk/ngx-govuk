@@ -11,7 +11,7 @@ import { NgxGovukAccordion, NgxGovukAccordionPanel } from 'ngx-govuk/accordion';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'ngx-govuk-example',
+  selector: 'ngx-govuk-example-code',
   imports: [
     CommonModule,
     HttpClientModule,

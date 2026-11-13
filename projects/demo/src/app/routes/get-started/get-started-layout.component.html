@@ -1,0 +1,21 @@
+<div class="app-section-layout">
+  <nav class="app-subnav" aria-label="Get started">
+    <ul class="app-subnav__list">
+      @for (guide of guides; track guide.path) {
+        <li>
+          <a
+            class="app-subnav__link"
+            [routerLink]="guide.path"
+            routerLinkActive="app-subnav__link--active"
+            ariaCurrentWhenActive="page"
+            >{{ guide.name }}</a
+          >
+        </li>
+      }
+    </ul>
+  </nav>
+
+  <div class="app-section-layout__content">
+    <router-outlet></router-outlet>
+  </div>
+</div>

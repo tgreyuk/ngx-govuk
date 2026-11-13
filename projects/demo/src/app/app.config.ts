@@ -15,7 +15,7 @@ export const appConfig: ApplicationConfig = {
         paramsInheritanceStrategy: 'always',
       }),
 
-      withComponentInputBinding()
+      withComponentInputBinding(),
     ),
   ],
 };

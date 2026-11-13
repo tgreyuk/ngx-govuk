@@ -1,0 +1,24 @@
+<h1 class="govuk-heading-xl">Get started</h1>
+
+<p class="govuk-body-l">
+  ngx-govuk is a set of Angular components that render GOV.UK Frontend's markup
+  and use its styles. You need Angular 22 and GOV.UK Frontend 6.
+</p>
+
+<h2 class="govuk-heading-m govuk-!-margin-top-6">Guides</h2>
+
+<ul class="govuk-list">
+  @for (guide of guides; track guide.path) {
+    <li>
+      <h3 class="govuk-heading-s govuk-!-margin-bottom-1">
+        <a class="govuk-link" [routerLink]="guide.path">{{ guide.name }}</a>
+      </h3>
+      <p class="govuk-body">{{ guide.description }}</p>
+    </li>
+  }
+</ul>
+
+<p class="govuk-body govuk-!-margin-top-6">
+  Once you're set up, browse the
+  <a class="govuk-link" routerLink="/components">components</a>.
+</p>

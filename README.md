@@ -12,7 +12,7 @@ ngx-govuk is a community resource of the GOV.UK Design System. The Design System
 npm install ngx-govuk govuk-frontend
 ```
 
-ngx-govuk renders GOV.UK Frontend markup and uses its styles, so `govuk-frontend` is a peer dependency. See [Get started](https://ngx-govuk.org/get-started) for setting up the styles.
+ngx-govuk renders GOV.UK Frontend markup and uses its styles, so `govuk-frontend` is a peer dependency. See [Installing ngx-govuk](https://ngx-govuk.org/get-started/installation) for setting up the styles.
 
 ## Compatibility
 
@@ -25,6 +25,10 @@ Each release supports the current major versions of Angular and govuk-frontend. 
 ## Documentation
 
 Please visit https://ngx-govuk.org.
+
+## Acknowledgements
+
+The structure of the [documentation site](https://ngx-govuk.org) is inspired by [GOV.UK Vue](https://govukvue.org/).
 
 ## License
 

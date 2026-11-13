@@ -1,10 +1,16 @@
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  input,
+} from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import {
   NgxGovukTabLinkDirective,
   NgxGovukTabsNavComponent,
 } from 'ngx-govuk/tabs';
 import { StartCasePipe } from '../../pipes/start-case.pipe';
+import { findComponent } from './components.data';
 
 @Component({
   selector: 'ngx-govuk-component',
@@ -22,7 +28,5 @@ import { StartCasePipe } from '../../pipes/start-case.pipe';
 export class ComponentComponent {
   componentId = input<string>();
 
-  get displayDocsLink() {
-    return !['form-group'].includes(this.componentId() || '');
-  }
+  component = computed(() => findComponent(this.componentId()));
 }

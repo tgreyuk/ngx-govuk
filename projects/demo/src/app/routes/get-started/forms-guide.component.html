@@ -1,0 +1,83 @@
+<span class="govuk-caption-xl">Get started</span>
+<h1 class="govuk-heading-xl">Working with forms</h1>
+
+<p class="govuk-body-l">
+  Every form field in ngx-govuk is a native element, such as an input or
+  textarea, inside a form group. The form group adds the label, hint and error
+  message, and connects them to the field.
+</p>
+
+<h2 class="govuk-heading-m">How a field is built</h2>
+<p class="govuk-body">
+  Add a field directive, such as "ngxGovukTextInput", to a native element and
+  put it inside "ngx-govuk-form-group". The element stays yours: every native
+  attribute and Angular forms directive works as usual.
+</p>
+<pre class="govuk-body" [innerText]="FIELD_CODE"></pre>
+<p class="govuk-body">These fields work inside a form group:</p>
+<ul class="govuk-list govuk-list--bullet">
+  <li>
+    <a class="govuk-link" routerLink="/components/text-input">Text input</a>
+    ("input[ngxGovukTextInput]")
+  </li>
+  <li>
+    <a class="govuk-link" routerLink="/components/textarea">Textarea</a>
+    ("textarea[ngxGovukTextarea]")
+  </li>
+</ul>
+
+<h2 class="govuk-heading-m">Example</h2>
+<div class="app-example">
+  <app-form-group-demo />
+</div>
+<ngx-govuk-example-code componentId="form-group" />
+
+<h2 class="govuk-heading-m">Showing errors</h2>
+<p class="govuk-body">
+  Set "errorMessage" when your validation fails. The form group then shows the
+  message and adds the error styles to itself and the field. Leave it unset, or
+  set it to null, when there is no error.
+</p>
+<p class="govuk-body">
+  GOV.UK's
+  <a
+    class="govuk-link"
+    href="https://design-system.service.gov.uk/patterns/validation/"
+    target="_blank"
+    >validation guidance</a
+  >
+  says not to validate when the user moves away from a field. Wait until they
+  try to continue, usually by selecting a "Continue" button, as in the example
+  above.
+</p>
+<pre class="govuk-body" [innerText]="ERROR_CODE"></pre>
+
+<h2 class="govuk-heading-m">Labels</h2>
+<p class="govuk-body">
+  Use "labelSize" ("s", "m", "l" or "xl") for a bigger label. If a page asks
+  just one question, make the label the page heading with "asPageHeading"; it is
+  large by default.
+</p>
+<pre class="govuk-body" [innerText]="LABEL_CODE"></pre>
+
+<h2 class="govuk-heading-m">Prefixes and suffixes</h2>
+<p class="govuk-body">
+  Use "prefix" and "suffix" for units, such as currency. Screen readers do not
+  read them, so the label must make the unit clear.
+</p>
+<pre class="govuk-body" [innerText]="AFFIX_CODE"></pre>
+
+<h2 class="govuk-heading-m">Ids and screen readers</h2>
+<p class="govuk-body">
+  Give each field an "id", so error summaries and labels can link to it. If a
+  field has none, the form group generates one.
+</p>
+<p class="govuk-body">
+  The hint and error message get ids based on the field's id, such as
+  "email-hint" and "email-error", and the field's "aria-describedby" points to
+  them, as in GOV.UK Frontend. Any "aria-describedby" you set on the field is
+  kept.
+</p>
+
+<h2 class="govuk-heading-m">API</h2>
+<ngx-govuk-api componentId="form-group" />

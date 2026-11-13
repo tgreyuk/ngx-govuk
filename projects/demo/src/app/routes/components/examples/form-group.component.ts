@@ -1,31 +1,28 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import {
   FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { NgxGovukButton } from 'ngx-govuk/button';
 import { NgxGovukFormGroup } from 'ngx-govuk/form-group';
 import { NgxGovukTextInput } from 'ngx-govuk/text-input';
 
 @Component({
   selector: 'app-form-group-demo',
-  imports: [ReactiveFormsModule, NgxGovukFormGroup, NgxGovukTextInput],
-  template: `<ngx-govuk-form-group
-      label="What is the name of the event?"
-      hint="The name you'll use on promotional material"
-      [asPageHeading]="true"
-    >
-      <input id="event-name" type="text" ngxGovukTextInput />
-    </ngx-govuk-form-group>
-
-    <form [formGroup]="form">
+  imports: [
+    ReactiveFormsModule,
+    NgxGovukButton,
+    NgxGovukFormGroup,
+    NgxGovukTextInput,
+  ],
+  template: `
+    <form [formGroup]="form" (ngSubmit)="continue()" novalidate>
       <ngx-govuk-form-group
         label="What is the cost per item, in pounds?"
-        hint="Type a letter, then leave the field, to see an error"
-        [errorMessage]="
-          cost.invalid && cost.touched ? 'Enter the cost as a number' : null
-        "
+        hint="Leave it blank or type a letter, then select Continue"
+        [errorMessage]="submitted() ? costError() : null"
         labelSize="m"
         prefix="£"
         suffix="per item"
@@ -40,14 +37,35 @@ import { NgxGovukTextInput } from 'ngx-govuk/text-input';
           inputWidth="5"
         />
       </ngx-govuk-form-group>
-    </form>`,
+
+      <button type="submit" ngxGovukButton>Continue</button>
+    </form>
+  `,
 })
 export class FormGroupDemoComponent {
   form = new FormGroup({
-    cost: new FormControl('', [Validators.pattern(/^[0-9.]+$/)]),
+    cost: new FormControl('', [
+      Validators.required,
+      Validators.pattern(/^[0-9]+(\.[0-9]{1,2})?$/),
+    ]),
   });
 
-  get cost() {
-    return this.form.controls.cost;
+  // GOV.UK: validate when the user tries to continue, not when they leave a
+  // field.
+  submitted = signal(false);
+
+  continue() {
+    this.submitted.set(true);
+  }
+
+  costError() {
+    const errors = this.form.controls.cost.errors;
+    if (errors?.['required']) {
+      return 'Enter the cost per item';
+    }
+    if (errors?.['pattern']) {
+      return 'Cost per item must be an amount of money, like 4 or 4.50';
+    }
+    return null;
   }
 }
