@@ -192,7 +192,8 @@ export const COMPONENTS: ComponentEntry[] = [
   {
     name: 'Select',
     id: 'select',
-    status: 'to-do',
+    status: 'documented',
+    isField: true,
     description:
       'Lets users choose an option from a long list when radios are not practical.',
   },

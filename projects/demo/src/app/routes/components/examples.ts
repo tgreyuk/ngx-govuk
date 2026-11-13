@@ -205,6 +205,15 @@ export const EXAMPLES: Record<string, Example[]> = {
         ),
     },
   ],
+  select: [
+    {
+      path: 'select/default',
+      load: () =>
+        import('./examples/select/default.component').then(
+          (m) => m.SelectDemoComponent,
+        ),
+    },
+  ],
   'skip-link': [
     {
       path: 'skip-link/default',
