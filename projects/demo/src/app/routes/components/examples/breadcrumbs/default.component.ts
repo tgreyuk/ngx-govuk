@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import {
   NgxGovukBreadcrumbs,
   NgxGovukBreadcrumbsItem,
@@ -7,7 +7,7 @@ import {
 
 @Component({
   selector: 'app-breadcrumbs-demo',
-  imports: [RouterModule, NgxGovukBreadcrumbs, NgxGovukBreadcrumbsItem],
+  imports: [RouterLink, NgxGovukBreadcrumbs, NgxGovukBreadcrumbsItem],
   templateUrl: './default.component.html',
 })
 export class BreadcrumbsDemoComponent {}
