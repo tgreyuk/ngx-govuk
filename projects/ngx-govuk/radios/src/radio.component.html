@@ -1,11 +1,18 @@
 <input
-  #inputEl
   class="govuk-radios__input"
-  [attr.id]="elId"
+  [id]="inputId()"
+  [name]="group.groupName()"
   type="radio"
-  [attr.value]="value()"
-  (click)="onSelected()"
+  [value]="value()"
+  [checked]="checked()"
+  [disabled]="isDisabled()"
+  [attr.aria-describedby]="hint() ? hintId() : null"
+  (change)="group.select(value())"
+  (blur)="group.touch()"
 />
-<label class="govuk-label govuk-radios__label" [attr.for]="elId">
-  {{ label() }}
+<label class="govuk-label govuk-radios__label" [for]="inputId()">
+  <ng-content></ng-content>
 </label>
+@if (hint()) {
+  <div [id]="hintId()" class="govuk-hint govuk-radios__hint">{{ hint() }}</div>
+}
