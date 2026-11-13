@@ -1,0 +1,65 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`NgxGovukCharacterCount > matches the GOV.UK markup snapshot 1`] = `
+<ngx-govuk-character-count
+  id="detail-count"
+  label="Can you provide more detail?"
+>
+  <div
+    class="govuk-form-group govuk-character-count govuk-form-group--error"
+  >
+    <h1
+      class="govuk-label-wrapper"
+    >
+      <label
+        class="govuk-label govuk-label--l"
+        for="detail"
+      >
+        Can you provide more detail?
+      </label>
+    </h1>
+    <div
+      class="govuk-hint"
+      id="detail-hint"
+    >
+      Do not include personal information.
+    </div>
+    <p
+      class="govuk-error-message"
+      id="detail-error"
+    >
+      <span
+        class="govuk-visually-hidden"
+      >
+        Error:
+      </span>
+       Enter more detail 
+    </p>
+    <textarea
+      aria-describedby="own-help detail-info detail-hint detail-error"
+      class="govuk-textarea ng-untouched ng-pristine ng-valid govuk-textarea--error"
+      id="detail"
+      ngxgovuktextarea=""
+      rows="5"
+    />
+    <div
+      class="govuk-hint govuk-character-count__message govuk-visually-hidden"
+      id="detail-info"
+    >
+       You can enter up to 10 characters 
+    </div>
+    <div
+      aria-hidden="true"
+      class="govuk-character-count__message govuk-character-count__status govuk-hint"
+    >
+       You have 10 characters remaining 
+    </div>
+    <div
+      aria-live="polite"
+      class="govuk-character-count__sr-status govuk-visually-hidden"
+    >
+       You have 10 characters remaining 
+    </div>
+  </div>
+</ngx-govuk-character-count>
+`;
