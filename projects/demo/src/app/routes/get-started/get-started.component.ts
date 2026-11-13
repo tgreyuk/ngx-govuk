@@ -95,34 +95,4 @@ export class GetStartedComponent implements AfterViewInit {
     "output": "assets"
   }
 ]`;
-
-  COMPONENT_CODE = `import { Component } from '@angular/core';
-import { NgxGovukButton } from 'ngx-govuk/button';
-import { NgxGovukDetails } from 'ngx-govuk/details';
-
-@Component({
-  selector: 'app-example',
-  imports: [NgxGovukButton, NgxGovukDetails],
-  template: \`
-    <ngx-govuk-details summaryText="Help with this page">
-      Contact us if you need help.
-    </ngx-govuk-details>
-    <button ngxGovukButton>Save and continue</button>
-  \`,
-})
-export class ExampleComponent {}`;
-
-  COMPONENT_INPUT_CODE = `<button ngxGovukButton buttonType="secondary" (click)="save()">
-  Save as draft
-</button>`;
-
-  COMPONENT_METHOD_CODE = `<ngx-govuk-accordion #accordion>
-  <ngx-govuk-accordion-panel heading="Section 1">
-    Content
-  </ngx-govuk-accordion-panel>
-</ngx-govuk-accordion>
-
-<button ngxGovukButton (click)="accordion.toggle()">
-  Show or hide all sections
-</button>`;
 }

@@ -8,14 +8,6 @@ import {
 @Component({
   selector: 'app-breadcrumbs-demo',
   imports: [RouterModule, NgxGovukBreadcrumbs, NgxGovukBreadcrumbsItem],
-  template: `
-    <ngx-govuk-breadcrumbs>
-      <a ngxGovukBreadcrumbsItem [routerLink]="['.']">Home</a>
-      <a ngxGovukBreadcrumbsItem [routerLink]="['.']"
-        >Passports, travel and living abroad</a
-      >
-      <a ngxGovukBreadcrumbsItem [routerLink]="['.']">Travel abroad</a>
-    </ngx-govuk-breadcrumbs>
-  `,
+  templateUrl: './default.component.html',
 })
 export class BreadcrumbsDemoComponent {}

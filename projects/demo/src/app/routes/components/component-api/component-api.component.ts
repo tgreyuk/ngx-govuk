@@ -1,77 +1,81 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { httpResource } from '@angular/common/http';
 import {
   ChangeDetectionStrategy,
   Component,
-  inject,
+  computed,
   input,
 } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { RouterLink } from '@angular/router';
-import { map } from 'rxjs';
 import { JSONOutput } from 'typedoc';
-import { ImportCodePipe } from './import-code.pipe';
+import { CodeBlockComponent } from '../component-code/code-block.component';
 
 @Component({
   selector: 'ngx-govuk-api',
-  imports: [HttpClientModule, RouterLink, ImportCodePipe],
+  imports: [CodeBlockComponent],
   templateUrl: './component-api.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ComponentApiComponent {
   componentId = input<string>('');
 
-  // Must be assigned before docs, which uses it.
-  private http = inject(HttpClient);
+  private documentation = httpResource<JSONOutput.ProjectReflection>(
+    () => './assets/documentation.json',
+  );
 
-  docs = this.getJson();
+  // Recomputed when componentId changes: the router reuses the page when
+  // moving from one component to another.
+  docs = computed(() => {
+    const json = this.documentation.value();
+    if (!json) {
+      return undefined;
+    }
+    const componentJson = json.children
+      ?.filter((module) => module.name.startsWith(`${this.componentId()}/`))
+      .map((component) => (component.children ? component.children[0] : null));
 
-  getJson() {
-    const observable = this.http
-      .get<JSONOutput.ProjectReflection>(`./assets/documentation.json`, {
-        responseType: 'json',
-      })
-      .pipe(
-        map((json) => {
-          console.log('JSON', json);
-          const componentJson = json.children
-            ?.filter((module) =>
-              module.name.startsWith(`${this.componentId()}/`),
-            )
-            .map((component) =>
-              component.children ? component.children[0] : null,
-            );
+    const result = componentJson?.map((component) => {
+      if (!component) {
+        return { name: '' };
+      }
 
-          console.log(componentJson);
+      return {
+        name: component.name,
+        selector: component.comment?.blockTags?.find(
+          (tag) => tag.tag === '@selector',
+        )?.content[0].text,
+        tag:
+          component.sources &&
+          component.sources[0].fileName.includes('directive')
+            ? 'Directive'
+            : 'Component',
+        comments: this.getCommentSummary(component.comment),
+        inputs: this.getInputs(component),
+        methods: this.getMethods(component),
+        properties: this.getProperties(component),
+      };
+    });
+    return result?.sort((a, b) => a.name.localeCompare(b.name));
+  });
 
-          const result = componentJson?.map((component) => {
-            if (!component) {
-              return { name: '' };
-            }
-
-            return {
-              name: component.name,
-              selector: component.comment?.blockTags?.find(
-                (tag) => tag.tag === '@selector',
-              )?.content[0].text,
-              tag:
-                component.sources &&
-                component.sources[0].fileName.includes('directive')
-                  ? 'Directive'
-                  : 'Component',
-              comments: this.getCommentSummary(component.comment),
-              inputs: this.getInputs(component),
-              methods: this.getMethods(component),
-              properties: this.getProperties(component),
-            };
-          });
-          return result?.sort((a, b) => a.name.localeCompare(b.name));
-        }),
-      );
-
-    return toSignal(observable);
-  }
+  /**
+   * One import for everything in this entry point, to paste alongside the
+   * example's template. Wrapped one name per line when too long for one line,
+   * as Prettier would.
+   */
+  importCode = computed(() => {
+    const names = this.docs()
+      ?.map((component) => component.name)
+      .filter(Boolean);
+    if (!names?.length) {
+      return undefined;
+    }
+    const from = `from 'ngx-govuk/${this.componentId()}';`;
+    const oneLine = `import { ${names.join(', ')} } ${from}`;
+    return oneLine.length <= 80
+      ? oneLine
+      : `import {\n${names.map((name) => `  ${name},`).join('\n')}\n} ${from}`;
+  });
 
   getInputs(component: JSONOutput.DeclarationReflection) {
     const inputs = component.children

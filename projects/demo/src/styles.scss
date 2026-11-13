@@ -1,8 +1,58 @@
 pre {
   padding: 15px;
+  overflow-x: auto;
   background-color: #f9f9f8;
   border: 1px solid #bfc1c3;
   font-family: monospace !important;
+}
+
+// Example code, highlighted by Shiki.
+.app-code {
+  position: relative;
+}
+
+.app-code pre {
+  margin: 0 0 20px;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  // Shiki sets its theme's background inline; keep the site's grey box.
+  background-color: #f9f9f8 !important;
+}
+
+// Sits over the code's top-right corner. The site's own style, not a GOV.UK
+// button, since it is part of the docs rather than a component.
+.app-code__copy {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 0;
+  border-radius: 4px;
+  color: var(--app-muted);
+  background: transparent;
+  cursor: pointer;
+
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  &:hover {
+    color: var(--app-text);
+    background: var(--app-slate-light);
+  }
+
+  &:focus-visible {
+    outline: 3px solid var(--app-focus);
+    outline-offset: 0;
+    box-shadow: 0 0 0 5px var(--app-text);
+  }
 }
 
 // Site chrome (header, navigation, footer). It deliberately uses its own font
@@ -39,7 +89,6 @@ pre {
 // Setting a custom property to `initial` makes var() fall back to the value in
 // GOV.UK Frontend's own stylesheet, so demos show true GOV.UK colours without
 // this file having to repeat them.
-ngx-govuk-example,
 .app-example {
   --govuk-link-colour: initial;
   --govuk-link-visited-colour: initial;
@@ -318,6 +367,23 @@ ngx-govuk-example,
   margin-bottom: 20px;
   padding: 20px 20px 0;
   border: 1px solid var(--app-border);
+}
+
+// An example with its template attached underneath, so each demo is pinned to
+// its own code.
+.app-example-group {
+  margin-bottom: 30px;
+
+  .app-example {
+    margin-bottom: 0;
+  }
+
+  // Only the template right under the frame, not code in a toggle below it.
+  ngx-govuk-example-code > app-code-block:first-of-type pre {
+    margin: 0;
+    border-color: var(--app-border);
+    border-top: 0;
+  }
 }
 
 .app-footer {

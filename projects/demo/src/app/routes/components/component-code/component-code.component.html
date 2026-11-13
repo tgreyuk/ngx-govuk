@@ -1,1 +1,14 @@
-<pre class="govuk-body" [innerText]="codeSnippet$ | async"></pre>
+@if (templateCode(); as code) {
+  <app-code-block [code]="code" lang="angular-html" />
+}
+
+@if (componentCode(); as code) {
+  <details class="govuk-details" open>
+    <summary class="govuk-details__summary">
+      <span class="govuk-details__summary-text">Show the component code</span>
+    </summary>
+    <div class="govuk-details__text">
+      <app-code-block [code]="code" lang="angular-ts" />
+    </div>
+  </details>
+}

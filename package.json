@@ -27,7 +27,7 @@
     "@angular/router": "22.2.6",
     "@vercel/analytics": "2.0.1",
     "rxjs": "~7.8.2",
-    "shiki": "^1.1.6",
+    "shiki": "^4.6.0",
     "tslib": "^2.6.2",
     "zone.js": "0.16.1"
   },

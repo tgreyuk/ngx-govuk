@@ -3,15 +3,15 @@
   {{ component()?.name ?? (componentId() | startcase) }}
 </h1>
 
-<p class="govuk-body govuk-!-margin-bottom-8">
+<p class="govuk-body">
   See the
   <a
     class="govuk-link"
     href="https://design-system.service.gov.uk/components/{{ componentId() }}/"
     target="_blank"
-    >GOV.UK Design System guidance</a
+    >GOV.UK Design System documentation on {{ pluralName() }}</a
   >
-  for when and how to use this component.
+  for more information on when to use this component.
 </p>
 
 @if (component()?.isField) {
@@ -23,9 +23,20 @@
   </div>
 }
 
-<ngx-govuk-tabs-nav>
-  <a ngxGovukTabLink routerLink="./preview" routerLinkActive>Demo</a>
-  <a ngxGovukTabLink routerLink="./code" routerLinkActive>Code</a>
-  <a ngxGovukTabLink routerLink="./api" routerLinkActive>API</a>
-  <router-outlet></router-outlet>
-</ngx-govuk-tabs-nav>
+@for (example of examples(); track example.path) {
+  @if (example.title) {
+    <h2 class="govuk-heading-m govuk-!-margin-top-8">{{ example.title }}</h2>
+  }
+  @if (example.description) {
+    <p class="govuk-body">{{ example.description }}</p>
+  }
+  <div class="app-example-group">
+    <div class="app-example">
+      <ng-container *ngComponentOutlet="example.component" />
+    </div>
+    <ngx-govuk-example-code [path]="example.path" />
+  </div>
+}
+
+<h2 class="govuk-heading-l govuk-!-margin-top-8">API</h2>
+<ngx-govuk-api [componentId]="componentId()" />

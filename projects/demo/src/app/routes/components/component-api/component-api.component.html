@@ -1,35 +1,28 @@
-<p class="govuk-body">
-  For how to use inputs, outputs, properties and methods, see "Use components"
-  in
-  <a class="govuk-link" routerLink="/get-started/installation"
-    >Installing ngx-govuk</a
-  >.
-</p>
+@if (importCode(); as code) {
+  <app-code-block [code]="code" lang="angular-ts" />
+  <hr
+    class="govuk-section-break govuk-section-break--m govuk-section-break--visible"
+  />
+}
 
 @for (component of docs(); track component.name) {
-  <h2 class="govuk-heading-l">{{ component.name }}</h2>
-
-  <p class="govuk-body">
-    <strong class="govuk-tag"> {{ component.tag }} </strong>
-  </p>
-
-  <pre
-    class="govuk-body"
-    [innerText]="component.name | importCode: componentId()"
-  ></pre>
+  <h3 class="govuk-heading-m">
+    {{ component.name }}
+    <strong class="govuk-tag govuk-!-margin-left-2">{{ component.tag }}</strong>
+  </h3>
 
   @for (comments of component.comments; track comments) {
     <p class="govuk-body">{{ comments }}</p>
   }
 
-  <h4 class="govuk-heading-m">Selector</h4>
+  <h4 class="govuk-heading-s">Selector</h4>
 
   <p class="govuk-body">{{ component.selector }}</p>
 
-  <h4 class="govuk-heading-m">Inputs</h4>
+  <h4 class="govuk-heading-s">Inputs</h4>
 
   @if (component.inputs) {
-    <table class="govuk-table">
+    <table class="govuk-table govuk-!-font-size-16">
       <thead class="govuk-table__head">
         <tr class="govuk-table__row">
           <th scope="col" class="govuk-table__header">Name</th>
@@ -45,7 +38,7 @@
             <td class="govuk-table__cell">{{ input.name }}</td>
             <td class="govuk-table__cell">
               @for (comments of input.comments; track comments) {
-                <p class="govuk-body">{{ comments }}</p>
+                <p class="govuk-body-s">{{ comments }}</p>
               }
             </td>
             <td class="govuk-table__cell">{{ input.type }}</td>
@@ -59,10 +52,10 @@
     <p class="govuk-body">None</p>
   }
 
-  <h4 class="govuk-heading-m">Properties</h4>
+  <h4 class="govuk-heading-s">Properties</h4>
 
   @if (component.properties) {
-    <table class="govuk-table">
+    <table class="govuk-table govuk-!-font-size-16">
       <thead class="govuk-table__head">
         <tr class="govuk-table__row">
           <th scope="col" class="govuk-table__header">Name</th>
@@ -76,7 +69,7 @@
             <td class="govuk-table__cell">{{ property.name }}</td>
             <td class="govuk-table__cell">
               @for (comments of property.comments; track comments) {
-                <p class="govuk-body">{{ comments }}</p>
+                <p class="govuk-body-s">{{ comments }}</p>
               }
             </td>
             <td class="govuk-table__cell">{{ property.type }}</td>
@@ -88,10 +81,10 @@
     <p class="govuk-body">None</p>
   }
 
-  <h4 class="govuk-heading-m">Methods</h4>
+  <h4 class="govuk-heading-s">Methods</h4>
 
   @if (component.methods) {
-    <table class="govuk-table">
+    <table class="govuk-table govuk-!-font-size-16">
       <thead class="govuk-table__head">
         <tr class="govuk-table__row">
           <th scope="col" class="govuk-table__header">Name</th>
@@ -104,7 +97,7 @@
             <td class="govuk-table__cell">{{ method.name }}()</td>
             <td class="govuk-table__cell">
               @for (comments of method.comments; track comments) {
-                <p class="govuk-body">{{ comments }}</p>
+                <p class="govuk-body-s">{{ comments }}</p>
               }
             </td>
           </tr>

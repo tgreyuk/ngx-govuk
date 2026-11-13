@@ -11,7 +11,13 @@ export const GUIDES: Guide[] = [
     name: 'Installing ngx-govuk',
     path: '/get-started/installation',
     description:
-      'Install ngx-govuk and GOV.UK Frontend, include the styles, choose a font and use your first component.',
+      'Install ngx-govuk and GOV.UK Frontend, include the styles and choose a font.',
+  },
+  {
+    name: 'Using components',
+    path: '/get-started/components',
+    description:
+      'Import components into your own, set their inputs and outputs, and use their properties and methods.',
   },
   {
     name: 'Working with forms',

@@ -1,0 +1,40 @@
+<span class="govuk-caption-xl">Get started</span>
+<h1 class="govuk-heading-xl">Using components</h1>
+
+<p class="govuk-body-l">
+  ngx-govuk components are standalone Angular components and directives. Import
+  the ones you need into your own components, then use them in your templates.
+</p>
+
+<h2 class="govuk-heading-m">Import components</h2>
+<p class="govuk-body">
+  Each component has its own entry point, such as "ngx-govuk/button", so your
+  app only bundles the components it imports. Import them where you use them,
+  and add them to your component's "imports" array.
+</p>
+<app-code-block [code]="IMPORT_CODE" lang="angular-ts" />
+<p class="govuk-body">
+  Each component's page shows what to import, in its API section. See the
+  <a class="govuk-link" routerLink="/components">components</a> page for every
+  component.
+</p>
+
+<h2 class="govuk-heading-m">Inputs and outputs</h2>
+<p class="govuk-body">
+  Set inputs and listen to outputs in the usual Angular way.
+</p>
+<app-code-block [code]="INPUT_CODE" lang="angular-html" />
+
+<h2 class="govuk-heading-m">Properties and methods</h2>
+<p class="govuk-body">
+  Some components expose properties and methods. Use a template reference
+  variable to reach the component instance.
+</p>
+<app-code-block [code]="METHOD_CODE" lang="angular-html" />
+
+<h2 class="govuk-heading-m">Form fields</h2>
+<p class="govuk-body">
+  Form fields, such as text inputs, go inside a form group, which adds the
+  label, hint and error message. See
+  <a class="govuk-link" routerLink="/get-started/forms">Working with forms</a>.
+</p>

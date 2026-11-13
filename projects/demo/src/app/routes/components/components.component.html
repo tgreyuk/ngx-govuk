@@ -10,16 +10,22 @@
   >. Select a component for a demo, code examples and API documentation.
 </p>
 
-<h2 class="govuk-heading-m govuk-!-margin-top-6">Available components</h2>
+<p class="govuk-body">
+  New to ngx-govuk? Read
+  <a class="govuk-link" routerLink="/get-started/components"
+    >Using components</a
+  >
+  to learn how to import and use them.
+</p>
 
-<ul class="govuk-list">
+<ul class="govuk-list govuk-!-margin-top-6">
   @for (component of components; track component.id) {
     <li>
-      <h3 class="govuk-heading-s govuk-!-margin-bottom-1">
+      <h2 class="govuk-heading-s govuk-!-margin-bottom-1">
         <a class="govuk-link" [routerLink]="['/components', component.id]">{{
           component.name
         }}</a>
-      </h3>
+      </h2>
       <p class="govuk-body">{{ component.description }}</p>
     </li>
   }

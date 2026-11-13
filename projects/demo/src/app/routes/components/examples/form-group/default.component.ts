@@ -17,30 +17,7 @@ import { NgxGovukTextInput } from 'ngx-govuk/text-input';
     NgxGovukFormGroup,
     NgxGovukTextInput,
   ],
-  template: `
-    <form [formGroup]="form" (ngSubmit)="continue()" novalidate>
-      <ngx-govuk-form-group
-        label="What is the cost per item, in pounds?"
-        hint="Leave it blank or type a letter, then select Continue"
-        [errorMessage]="submitted() ? costError() : null"
-        labelSize="m"
-        prefix="£"
-        suffix="per item"
-      >
-        <input
-          id="cost"
-          type="text"
-          inputmode="decimal"
-          spellcheck="false"
-          formControlName="cost"
-          ngxGovukTextInput
-          inputWidth="5"
-        />
-      </ngx-govuk-form-group>
-
-      <button type="submit" ngxGovukButton>Continue</button>
-    </form>
-  `,
+  templateUrl: './default.component.html',
 })
 export class FormGroupDemoComponent {
   form = new FormGroup({

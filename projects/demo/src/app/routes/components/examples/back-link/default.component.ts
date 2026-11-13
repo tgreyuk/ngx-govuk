@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { NgxGovukBackLink } from 'ngx-govuk/back-link';
 
 @Component({
-  selector: 'app-button-demo',
+  selector: 'app-back-link-demo',
   imports: [NgxGovukBackLink],
-  template: `<a ngxGovukBackLink>Back</a>`,
+  templateUrl: './default.component.html',
 })
 export class BackLinkDemoComponent {}

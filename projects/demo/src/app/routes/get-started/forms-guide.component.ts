@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ComponentApiComponent } from '../components/component-api/component-api.component';
 import { ComponentCodeComponent } from '../components/component-code/component-code.component';
-import { FormGroupDemoComponent } from '../components/examples/form-group.component';
+import { FormGroupDemoComponent } from '../components/examples/form-group/default.component';
 
 /** Guide to building form fields with `ngx-govuk-form-group`. */
 @Component({
