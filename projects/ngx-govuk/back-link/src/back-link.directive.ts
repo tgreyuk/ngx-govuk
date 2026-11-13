@@ -2,8 +2,6 @@ import { Directive, HostBinding, input } from '@angular/core';
 
 /**
  * Directive to be added to native "a" elements to style them as GOV.UK back links.
- *
- * @selector a[ngxGovukBackLink]
  */
 @Directive({
   selector: 'a[ngxGovukBackLink]',
@@ -19,8 +17,6 @@ export class NgxGovukBackLink {
 
   /**
    * Inverse the button colour scheme for use when placed on dark backgrounds.
-   *
-   * @initialValue false
    */
   inversed = input<boolean>(false);
 }

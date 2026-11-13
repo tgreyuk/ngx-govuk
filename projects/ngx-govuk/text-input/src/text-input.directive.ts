@@ -29,8 +29,6 @@ const WIDTH_CLASSES: Record<InputWidth, string> = {
  * Directive to be added to native input elements.
  *
  * Use it inside `ngx-govuk-form-group` to add a label, hint and error message.
- *
- * @selector input[ngxGovukTextInput]
  */
 @Directive({
   selector: 'input[ngxGovukTextInput]',
@@ -49,7 +47,11 @@ const WIDTH_CLASSES: Record<InputWidth, string> = {
 export class NgxGovukTextInput implements NgxGovukField {
   elementRef = inject<ElementRef<HTMLInputElement>>(ElementRef);
 
-  /** Set by `ngx-govuk-form-group` when it has an error message. */
+  /**
+   * Set by `ngx-govuk-form-group` when it has an error message.
+   *
+   * @internal
+   */
   hasError = signal(false);
 
   /**

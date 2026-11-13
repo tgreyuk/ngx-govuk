@@ -6,9 +6,6 @@ import { NgxGovukAccordionPanel } from './accordion-panel.component';
  * The main accordion wrapping component.
  *
  * The template expects x number of NgxGovukAccordionPanel components in the content slot.
- *
- * @selector ngx-govuk-accordion
- *
  */
 @Component({
   selector: 'ngx-govuk-accordion',

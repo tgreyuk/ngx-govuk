@@ -7,7 +7,7 @@ import prettier from 'eslint-config-prettier';
 
 export default defineConfig(
   {
-    ignores: ['dist/', 'out-tsc/', 'coverage/', 'docs/', '.angular/', 'tmp/'],
+    ignores: ['dist/', 'out-tsc/', 'coverage/', '.angular/', 'tmp/'],
   },
 
   // TypeScript, shared by every project

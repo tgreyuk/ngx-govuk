@@ -22,8 +22,6 @@ import { NGX_GOVUK_FIELD, NgxGovukUtilsService } from 'ngx-govuk';
  *
  * The hint and error message get ids based on the field's id (`<id>-hint`,
  * `<id>-error`), and the field's `aria-describedby` points to them.
- *
- * @selector ngx-govuk-form-group
  */
 @Component({
   selector: 'ngx-govuk-form-group',
@@ -37,8 +35,6 @@ export class NgxGovukFormGroup implements AfterContentInit {
 
   /**
    * The label text.
-   *
-   * @required
    */
   label = input.required<string>();
 
@@ -49,8 +45,6 @@ export class NgxGovukFormGroup implements AfterContentInit {
 
   /**
    * If you're asking just one question, set the label as the page heading.
-   *
-   * @initialValue false
    */
   asPageHeading = input<boolean>(false);
 
@@ -76,7 +70,11 @@ export class NgxGovukFormGroup implements AfterContentInit {
    */
   suffix = input<string>();
 
-  /** The field's id: its own, or a generated one if it has none. */
+  /**
+   * The field's id: its own, or a generated one if it has none.
+   *
+   * @internal
+   */
   fieldId = signal('');
 
   hintId = computed(() => `${this.fieldId()}-hint`);

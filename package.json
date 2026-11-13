@@ -3,17 +3,18 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "demo:start": "npm run lib:typedoc && ng serve demo",
-    "demo:build": "npm run lib:typedoc && ng build demo",
+    "demo:start": "npm run demo:api && ng serve demo",
+    "demo:build": "npm run demo:api && ng build demo",
     "demo:test": "ng test demo --watch=false",
     "demo:lint": "ng lint demo",
+    "demo:api": "node scripts/extract-api.mts",
+    "demo:api:test": "node --test scripts/extract-api.test.mts",
     "demo:govukstyles": "sass ./projects/demo/govuk-frontend.scss ./projects/demo/govuk-frontend.css --load-path=node_modules/govuk-frontend/dist --style=compressed --quiet-deps",
     "lib:build": "ng build ngx-govuk",
     "lib:test": "ng test ngx-govuk --watch=false",
     "lib:test:watch": "ng test ngx-govuk",
     "lib:test:update": "ng test ngx-govuk --watch=false --runner-config=projects/ngx-govuk/vitest.update.config.mts",
-    "lib:lint": "ng lint ngx-govuk",
-    "lib:typedoc": "typedoc"
+    "lib:lint": "ng lint ngx-govuk"
   },
   "private": true,
   "dependencies": {
@@ -53,7 +54,6 @@
     "postcss": "^8.4.35",
     "prettier": "^3.2.5",
     "sass": "^1.71.1",
-    "typedoc": "^0.28.17",
     "typescript": "6.0.3",
     "typescript-eslint": "8.72.2",
     "vitest": "5.1.0"

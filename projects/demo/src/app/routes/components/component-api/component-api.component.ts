@@ -1,10 +1,35 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { httpResource } from '@angular/common/http';
 import { Component, computed, input } from '@angular/core';
-import { JSONOutput } from 'typedoc';
 import { CodeBlockComponent } from '../component-code/code-block.component';
+import { ApiClass, ApiEntryPoint } from './api-docs';
 
+/**
+ * A description paragraph as HTML: the text escaped, and `backticked` parts
+ * wrapped in code, as JSDoc writes them.
+ */
+type Paragraph = string;
+
+/**
+ * One entry of a section: a member's name and type, or a method's name and
+ * call signature, such as `(): void`.
+ */
+interface ApiEntry {
+  name: string;
+  type: string;
+  description: Paragraph[];
+  default?: string;
+  required?: boolean;
+}
+
+interface ApiSection {
+  title: string;
+  entries: ApiEntry[];
+}
+
+/**
+ * The API reference for one library entry point, from
+ * `assets/api/<componentId>.json` (written by `npm run demo:api`).
+ */
 @Component({
   selector: 'ngx-govuk-api',
   imports: [CodeBlockComponent],
@@ -13,44 +38,22 @@ import { CodeBlockComponent } from '../component-code/code-block.component';
 export class ComponentApiComponent {
   componentId = input<string>('');
 
-  private documentation = httpResource<JSONOutput.ProjectReflection>(
-    () => './assets/documentation.json',
+  // Reloads when componentId changes: the router reuses the page when moving
+  // from one component to another.
+  private api = httpResource<ApiEntryPoint>(() =>
+    this.componentId() ? `./assets/api/${this.componentId()}.json` : undefined,
   );
 
-  // Recomputed when componentId changes: the router reuses the page when
-  // moving from one component to another.
-  docs = computed(() => {
-    const json = this.documentation.value();
-    if (!json) {
-      return undefined;
-    }
-    const componentJson = json.children
-      ?.filter((module) => module.name.startsWith(`${this.componentId()}/`))
-      .map((component) => (component.children ? component.children[0] : null));
-
-    const result = componentJson?.map((component) => {
-      if (!component) {
-        return { name: '' };
-      }
-
-      return {
-        name: component.name,
-        selector: component.comment?.blockTags?.find(
-          (tag) => tag.tag === '@selector',
-        )?.content[0].text,
-        tag:
-          component.sources &&
-          component.sources[0].fileName.includes('directive')
-            ? 'Directive'
-            : 'Component',
-        comments: this.getCommentSummary(component.comment),
-        inputs: this.getInputs(component),
-        methods: this.getMethods(component),
-        properties: this.getProperties(component),
-      };
-    });
-    return result?.sort((a, b) => a.name.localeCompare(b.name));
-  });
+  /** Each class with its inputs, outputs and methods as lists. */
+  classes = computed(() =>
+    this.api.hasValue()
+      ? this.api.value().classes.map((apiClass) => ({
+          ...apiClass,
+          description: paragraphs(apiClass.description),
+          sections: sections(apiClass),
+        }))
+      : [],
+  );
 
   /**
    * One import for everything in this entry point, to paste alongside the
@@ -58,101 +61,73 @@ export class ComponentApiComponent {
    * as Prettier would.
    */
   importCode = computed(() => {
-    const names = this.docs()
-      ?.map((component) => component.name)
-      .filter(Boolean);
-    if (!names?.length) {
+    if (!this.api.hasValue()) {
       return undefined;
     }
-    const from = `from 'ngx-govuk/${this.componentId()}';`;
+    const { classes, importPath } = this.api.value();
+    const names = classes.map((apiClass) => apiClass.name);
+    if (!names.length) {
+      return undefined;
+    }
+    const from = `from '${importPath}';`;
     const oneLine = `import { ${names.join(', ')} } ${from}`;
     return oneLine.length <= 80
       ? oneLine
       : `import {\n${names.map((name) => `  ${name},`).join('\n')}\n} ${from}`;
   });
+}
 
-  getInputs(component: JSONOutput.DeclarationReflection) {
-    const inputs = component.children
-      ?.filter(
-        (member) =>
-          member.type?.type === 'reference' &&
-          member.type?.name === 'InputSignal',
+function sections(apiClass: ApiClass): ApiSection[] {
+  return [
+    {
+      title: 'Inputs',
+      // An optional input with no initial value starts as undefined; a
+      // required one has no default.
+      entries: apiClass.inputs.map((input) => ({
+        ...input,
+        description: paragraphs(input.description),
+        default: input.default ?? (input.required ? undefined : 'undefined'),
+      })),
+    },
+    {
+      title: 'Outputs',
+      entries: apiClass.outputs.map((output) => ({
+        ...output,
+        description: paragraphs(output.description),
+      })),
+    },
+    {
+      title: 'Methods',
+      entries: apiClass.methods.map((method) => ({
+        ...method,
+        description: paragraphs(method.description),
+        type: method.signature.slice(method.name.length),
+      })),
+    },
+  ];
+}
+
+/**
+ * Turns each paragraph into HTML, with `backticked` parts as code. Built here
+ * rather than in the template so that no whitespace creeps in around the code,
+ * as before a full stop.
+ */
+function paragraphs(description: string[]): Paragraph[] {
+  return description.map((paragraph) =>
+    paragraph
+      .split('`')
+      .map((text, index) =>
+        index % 2 === 1
+          ? `<code class="app-api-code">${escapeHtml(text)}</code>`
+          : escapeHtml(text),
       )
-      .map((member) => {
-        return {
-          name: member.name,
-          type: this.getInputType(member),
-          comments: this.getCommentSummary(member.comment),
-          required: member.comment?.blockTags?.find(
-            (tag) => tag.tag === '@required',
-          )
-            ? 'Yes'
-            : 'No',
-          default:
-            member.comment?.blockTags?.find(
-              (tag) => tag.tag === '@initialValue',
-            )?.content[0].text || '-',
-        };
-      });
-    return inputs?.length ? inputs : null;
-  }
+      .join(''),
+  );
+}
 
-  getInputType(member: JSONOutput.DeclarationReflection) {
-    const type = (member.type as JSONOutput.ReferenceType)?.typeArguments
-      ?.map((arg: any) => {
-        if (arg.type === 'union') {
-          return arg.types
-            .filter(
-              (argType: any) =>
-                argType.name !== 'undefined' || Boolean(argType.value),
-            )
-            .map((argType: any) => argType.name || `"${argType.value}"`)
-            .join(' | ');
-        }
-        return arg.name;
-      })
-      .join(', ');
-    return type;
-  }
-
-  getMethods(component: JSONOutput.DeclarationReflection) {
-    const methods = component.children
-      ?.filter((member) => member.kind === 2048)
-      .map((member) => {
-        const signature = member.signatures ? member.signatures[0] : null;
-        return {
-          name: signature?.name,
-          comments: this.getCommentSummary(signature?.comment),
-        };
-      });
-    return methods?.length ? methods : null;
-  }
-
-  getProperties(component: JSONOutput.DeclarationReflection) {
-    const properties = component.children
-      ?.filter(
-        (member) =>
-          member.type?.type === 'reference' &&
-          member.type?.name === 'WritableSignal',
-      )
-      .map((member) => {
-        return {
-          name: member?.name,
-          comments: this.getCommentSummary(member.comment),
-          type: `WritableSignal<${(
-            member.type as JSONOutput.ReferenceType
-          )?.typeArguments
-            ?.map((arg: any) => arg.name)
-            .join(', ')}>`,
-        };
-      });
-    return properties?.length ? properties : null;
-  }
-
-  getCommentSummary(comment?: JSONOutput.Comment) {
-    if (!comment) {
-      return [];
-    }
-    return comment?.summary[0].text.split('\n\n');
-  }
+function escapeHtml(text: string): string {
+  return text
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;');
 }

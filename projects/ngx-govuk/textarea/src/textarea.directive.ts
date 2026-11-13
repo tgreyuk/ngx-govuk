@@ -13,8 +13,6 @@ import { NGX_GOVUK_FIELD, NgxGovukField } from 'ngx-govuk';
  * Directive to be added to native textarea elements.
  *
  * Use it inside `ngx-govuk-form-group` to add a label, hint and error message.
- *
- * @selector textarea[ngxGovukTextarea]
  */
 @Directive({
   selector: 'textarea[ngxGovukTextarea]',
@@ -33,7 +31,11 @@ export class NgxGovukTextarea implements NgxGovukField, OnInit {
   elementRef = inject<ElementRef<HTMLTextAreaElement>>(ElementRef);
   private renderer = inject(Renderer2);
 
-  /** Set by `ngx-govuk-form-group` when it has an error message. */
+  /**
+   * Set by `ngx-govuk-form-group` when it has an error message.
+   *
+   * @internal
+   */
   hasError = signal(false);
 
   get field(): HTMLTextAreaElement {

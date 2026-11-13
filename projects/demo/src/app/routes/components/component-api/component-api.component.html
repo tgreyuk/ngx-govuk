@@ -1,114 +1,56 @@
 @if (importCode(); as code) {
   <app-code-block [code]="code" lang="angular-ts" />
-  <hr
-    class="govuk-section-break govuk-section-break--m govuk-section-break--visible"
-  />
 }
 
-@for (component of docs(); track component.name) {
+@for (apiClass of classes(); track apiClass.name) {
+  <!-- A heavy line starts each class, the first one included. -->
+  <hr
+    class="govuk-section-break govuk-section-break--l govuk-section-break--visible app-api-class-break"
+  />
   <h3 class="govuk-heading-m">
-    {{ component.name }}
-    <strong class="govuk-tag govuk-!-margin-left-2">{{ component.tag }}</strong>
+    {{ apiClass.name }}
+    <strong class="govuk-tag app-api-kind">{{ apiClass.kind }}</strong>
   </h3>
 
-  @for (comments of component.comments; track comments) {
-    <p class="govuk-body">{{ comments }}</p>
+  @for (paragraph of apiClass.description; track $index) {
+    <p class="govuk-body" [innerHTML]="paragraph"></p>
   }
 
-  <h4 class="govuk-heading-s">Selector</h4>
+  <h4 class="govuk-heading-s app-api-heading">Selector</h4>
 
-  <p class="govuk-body">{{ component.selector }}</p>
+  <p class="govuk-body app-api-under-heading">
+    <code class="app-api-code">{{ apiClass.selector }}</code>
+  </p>
 
-  <h4 class="govuk-heading-s">Inputs</h4>
+  @for (section of apiClass.sections; track section.title) {
+    <h4 class="govuk-heading-s app-api-heading">{{ section.title }}</h4>
 
-  @if (component.inputs) {
-    <table class="govuk-table govuk-!-font-size-16">
-      <thead class="govuk-table__head">
-        <tr class="govuk-table__row">
-          <th scope="col" class="govuk-table__header">Name</th>
-          <th scope="col" class="govuk-table__header">Description</th>
-          <th scope="col" class="govuk-table__header">Type</th>
-          <th scope="col" class="govuk-table__header">Default</th>
-          <th scope="col" class="govuk-table__header">Required</th>
-        </tr>
-      </thead>
-      <tbody class="govuk-table__body">
-        @for (input of component.inputs; track input.name) {
-          <tr class="govuk-table__row">
-            <td class="govuk-table__cell">{{ input.name }}</td>
-            <td class="govuk-table__cell">
-              @for (comments of input.comments; track comments) {
-                <p class="govuk-body-s">{{ comments }}</p>
+    @if (section.entries.length) {
+      <dl class="app-api-list govuk-body">
+        @for (entry of section.entries; track entry.name) {
+          <div class="app-api-list__item">
+            <dt>
+              <span class="app-api-name">{{ entry.name }}</span>
+              <code class="app-api-code">{{ entry.type }}</code>
+              @if (entry.required) {
+                <strong class="app-api-required">Required</strong>
               }
-            </td>
-            <td class="govuk-table__cell">{{ input.type }}</td>
-            <td class="govuk-table__cell">{{ input.default }}</td>
-            <td class="govuk-table__cell">{{ input.required }}</td>
-          </tr>
-        }
-      </tbody>
-    </table>
-  } @else {
-    <p class="govuk-body">None</p>
-  }
-
-  <h4 class="govuk-heading-s">Properties</h4>
-
-  @if (component.properties) {
-    <table class="govuk-table govuk-!-font-size-16">
-      <thead class="govuk-table__head">
-        <tr class="govuk-table__row">
-          <th scope="col" class="govuk-table__header">Name</th>
-          <th scope="col" class="govuk-table__header">Description</th>
-          <th scope="col" class="govuk-table__header">Type</th>
-        </tr>
-      </thead>
-      <tbody class="govuk-table__body">
-        @for (property of component.properties; track property.name) {
-          <tr class="govuk-table__row">
-            <td class="govuk-table__cell">{{ property.name }}</td>
-            <td class="govuk-table__cell">
-              @for (comments of property.comments; track comments) {
-                <p class="govuk-body-s">{{ comments }}</p>
+            </dt>
+            <dd>
+              @for (paragraph of entry.description; track $index) {
+                <p class="govuk-body" [innerHTML]="paragraph"></p>
               }
-            </td>
-            <td class="govuk-table__cell">{{ property.type }}</td>
-          </tr>
-        }
-      </tbody>
-    </table>
-  } @else {
-    <p class="govuk-body">None</p>
-  }
-
-  <h4 class="govuk-heading-s">Methods</h4>
-
-  @if (component.methods) {
-    <table class="govuk-table govuk-!-font-size-16">
-      <thead class="govuk-table__head">
-        <tr class="govuk-table__row">
-          <th scope="col" class="govuk-table__header">Name</th>
-          <th scope="col" class="govuk-table__header">Description</th>
-        </tr>
-      </thead>
-      <tbody class="govuk-table__body">
-        @for (method of component.methods; track method.name) {
-          <tr class="govuk-table__row">
-            <td class="govuk-table__cell">{{ method.name }}()</td>
-            <td class="govuk-table__cell">
-              @for (comments of method.comments; track comments) {
-                <p class="govuk-body-s">{{ comments }}</p>
+              @if (entry.default !== undefined) {
+                <p class="govuk-body app-api-default">
+                  Default <code class="app-api-code">{{ entry.default }}</code>
+                </p>
               }
-            </td>
-          </tr>
+            </dd>
+          </div>
         }
-      </tbody>
-    </table>
-  } @else {
-    <p class="govuk-body">None</p>
+      </dl>
+    } @else {
+      <p class="govuk-body app-api-under-heading">None</p>
+    }
   }
 }
-
-<!--
-{{ docs() | json }}
--->

@@ -422,3 +422,109 @@ pre {
   padding: 0;
   list-style: none;
 }
+
+// API reference section headings (Selector, Inputs, Outputs, Methods): on a
+// light strip, so they can't be mistaken for the bold member names below.
+// Element and both classes, to win over GOV.UK's padding for a heading that
+// follows body text.
+h4.govuk-heading-s.app-api-heading {
+  margin: 30px 0 20px;
+  padding: 4px 10px;
+  background-color: var(--app-slate-light);
+}
+
+// Between classes on one page: heavier than the lines between entries, as the
+// bigger break. Element and both classes, to win over GOV.UK's section break.
+hr.govuk-section-break--visible.app-api-class-break {
+  border-bottom: 3px solid #94a3b8;
+}
+
+// What sits under a strip: inset to line up with the heading text on the left
+// and the strip's edge padding on the right.
+.app-api-under-heading {
+  padding: 0 10px;
+}
+
+// API reference: names, types and signatures, set apart from the prose. Neutral
+// grey like the site's code blocks, so code is grey everywhere and slate is
+// left for structure, such as the section strips.
+.app-api-code {
+  padding: 1px 5px;
+  border-radius: 4px;
+  background-color: #f3f2f1;
+  color: var(--app-text);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.875em;
+}
+
+// Component or Directive, after the class name: smaller than a GOV.UK tag.
+.app-api-kind {
+  margin-left: 8px;
+  padding: 1px 6px 2px;
+  font-size: 14px;
+  vertical-align: 3px;
+}
+
+// A member's name, ahead of its type. Bold, so the names stand out when
+// skimming a list.
+.app-api-name {
+  margin-right: 4px;
+  font-weight: 700;
+}
+
+// Marks a required input, after its name.
+.app-api-required {
+  display: inline-block;
+  margin-left: 4px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background-color: #eeefef;
+  color: #282d30;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
+  vertical-align: 2px;
+}
+
+// Inputs, outputs and methods: each name and type, or signature, with its
+// description underneath. Lines between the entries; the next section's strip
+// ends the list, so there's no line under the last one.
+.app-api-list {
+  margin: 0 0 20px;
+}
+
+.app-api-list__item {
+  // The same space above and below each line. Inset at the sides to line up
+  // with the strip's heading, while the lines run the full width.
+  padding: 20px 10px;
+
+  & + & {
+    border-top: 1px solid var(--app-border);
+  }
+
+  // Right under the heading, which has its own margin.
+  &:first-child {
+    padding-top: 0;
+  }
+
+  &:last-child {
+    padding-bottom: 0;
+  }
+
+  dd {
+    margin: 10px 0 0;
+
+    > :last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+// The default value, just under an input's description.
+.app-api-default {
+  color: var(--app-muted);
+}
+
+.app-api-list__item dd p:has(+ .app-api-default) {
+  margin-bottom: 6px;
+}

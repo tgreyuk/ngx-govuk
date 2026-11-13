@@ -9,8 +9,6 @@ import {
 } from '@angular/core';
 /**
  * Directive to be added to native "a" or "button" elements
- *
- * @selector a[ngxGovukButton],button[ngxGovukButton]
  */
 @Directive({
   selector: 'a[ngxGovukButton], button[ngxGovukButton]',
@@ -37,8 +35,6 @@ export class NgxGovukButton {
 
   /**
    * Inverse the button colour scheme for use when placed on dark backgrounds.
-   *
-   * @initialValue false
    */
   inversed = input<boolean>(false);
 

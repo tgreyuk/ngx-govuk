@@ -8,8 +8,6 @@ import {
 
 /**
  * Directive to be added to native "a" elements to render as GOV.UK breadcrumb items.
- *
- * @selector a[ngxGovukBreadcrumbsItem]
  */
 @Directive({
   selector: 'a[ngxGovukBreadcrumbsItem]',

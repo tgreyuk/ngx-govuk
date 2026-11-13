@@ -5,8 +5,6 @@ import { NgxGovukUtilsService } from 'ngx-govuk';
  * Component to be used to define the accordion panels.
  *
  * The content slot should contain the content of the accordion panel.
- *
- * @selector ngx-govuk-accordion-panel
  */
 @Component({
   selector: 'ngx-govuk-accordion-panel',
@@ -26,7 +24,6 @@ export class NgxGovukAccordionPanel {
 
   /**
    * The heading of the panel
-   * @required
    */
   heading = input.required<string>();
 

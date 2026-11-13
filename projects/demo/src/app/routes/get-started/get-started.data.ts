@@ -17,7 +17,7 @@ export const GUIDES: Guide[] = [
     name: 'Using components',
     path: '/get-started/components',
     description:
-      'Import components into your own, set their inputs and outputs, and use their properties and methods.',
+      'Import components into your own, set their inputs and outputs, and call their methods.',
   },
   {
     name: 'Working with forms',
