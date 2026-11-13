@@ -3,7 +3,7 @@
   "tsconfig": "./projects/ngx-govuk/tsconfig.json",
   "out": "./docs",
   "json": "./projects/demo/src/assets/documentation.json",
-  "exclude": ["**/*+(index|.spec|.e2e|.stories|.config|setup).ts"],
+  "exclude": ["**/*+(index|.spec|.e2e|.config|setup).ts"],
   "excludeNotDocumented": true,
   "excludeReferences": true,
   "readme": "none",

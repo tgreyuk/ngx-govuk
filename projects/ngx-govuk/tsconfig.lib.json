@@ -8,12 +8,7 @@
     "types": []
   },
   "include": ["**/*.ts"],
-  "exclude": [
-    "**/*.spec.ts",
-    "**/*.stories.ts",
-    ".storybook/**",
-    "test-setup.ts"
-  ],
+  "exclude": ["**/*.spec.ts", "test-setup.ts"],
   "angularCompilerOptions": {
     "extendedDiagnostics": {
       "checks": {

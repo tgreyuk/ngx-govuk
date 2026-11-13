@@ -3,20 +3,11 @@ import eslint from '@eslint/js';
 import { defineConfig } from 'eslint/config';
 import tseslint from 'typescript-eslint';
 import angular from 'angular-eslint';
-import storybook from 'eslint-plugin-storybook';
 import prettier from 'eslint-config-prettier';
 
 export default defineConfig(
   {
-    ignores: [
-      'dist/',
-      'out-tsc/',
-      'coverage/',
-      'docs/',
-      'storybook-static/',
-      '.angular/',
-      'tmp/',
-    ],
+    ignores: ['dist/', 'out-tsc/', 'coverage/', 'docs/', '.angular/', 'tmp/'],
   },
 
   // TypeScript, shared by every project
@@ -70,9 +61,6 @@ export default defineConfig(
       ],
     },
   },
-
-  // Storybook stories
-  storybook.configs['flat/recommended'],
 
   // Turn off rules that conflict with Prettier (must be last)
   prettier,
