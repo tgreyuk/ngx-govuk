@@ -1,9 +1,10 @@
 import { Component, input } from '@angular/core';
 
 /**
- * Component to render the GOV.UK details component.
+ * Lets users reveal more information under a short summary, which is always
+ * shown.
  *
- * The content slot should contain the content of the details content.
+ * Put the content to reveal inside it.
  */
 @Component({
   selector: 'ngx-govuk-details',
@@ -12,7 +13,7 @@ import { Component, input } from '@angular/core';
 })
 export class NgxGovukDetails {
   /**
-   * The main summary label.
+   * The summary, which users select to show or hide the content.
    */
   summaryText = input.required<string>();
 }

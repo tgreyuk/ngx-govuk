@@ -13,14 +13,14 @@ import {
 import { NGX_GOVUK_FIELD, NgxGovukUtilsService } from 'ngx-govuk';
 
 /**
- * Wraps a form field with its label, hint and error message, and connects
- * them for assistive technology, as GOV.UK Frontend's macros do.
+ * Adds a label, hint and error message to a form field, and connects them for
+ * assistive technology, as GOV.UK Frontend's macros do.
  *
- * Place a single field directive inside it, such as an `input` with
- * `ngxGovukTextInput` or a `textarea` with `ngxGovukTextarea`. The field keeps
- * all its native attributes. Give it an `id`; one is generated if missing.
+ * Put one field inside it, such as an `input` with `ngxGovukTextInput` or a
+ * `textarea` with `ngxGovukTextarea`. The field keeps its own attributes. Give
+ * it an `id`, or one is generated.
  *
- * The hint and error message get ids based on the field's id (`<id>-hint`,
+ * The hint and error message get ids based on the field's id (`<id>-hint` and
  * `<id>-error`), and the field's `aria-describedby` points to them.
  */
 @Component({
@@ -34,28 +34,30 @@ export class NgxGovukFormGroup implements AfterContentInit {
   private field = contentChild(NGX_GOVUK_FIELD);
 
   /**
-   * The label text.
+   * The field's label.
    */
   label = input.required<string>();
 
   /**
-   * The label size. Defaults to `l` when the label is the page heading.
+   * The label's size. When unset, the label is `l` if it's the page heading,
+   * and body size otherwise.
    */
   labelSize = input<'s' | 'm' | 'l' | 'xl'>();
 
   /**
-   * If you're asking just one question, set the label as the page heading.
+   * Makes the label the page heading. Use it when the page asks just one
+   * question.
    */
   asPageHeading = input<boolean>(false);
 
   /**
-   * Hint text that gives help with the question.
+   * Hint text, to help users answer the question.
    */
   hint = input<string>();
 
   /**
-   * The error message. When set, the form group and field show their error
-   * styles. Set it when your validation fails, for example after the form is
+   * The error message. When it's set, the form group and its field show their
+   * error styles. Set it when validation fails, such as after the form is
    * submitted, as GOV.UK recommends.
    */
   errorMessage = input<string | null>();

@@ -7,7 +7,10 @@ import {
 } from '@angular/core';
 
 /**
- * Directive to be added to native "a" elements to render as GOV.UK breadcrumb items.
+ * One link in the breadcrumbs, inside `ngx-govuk-breadcrumbs`.
+ *
+ * Add it to an `a` element. It wraps the link in the list item the
+ * breadcrumbs need.
  */
 @Directive({
   selector: 'a[ngxGovukBreadcrumbsItem]',

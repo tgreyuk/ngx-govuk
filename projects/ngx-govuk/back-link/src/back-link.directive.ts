@@ -1,7 +1,10 @@
 import { Directive, HostBinding, input } from '@angular/core';
 
 /**
- * Directive to be added to native "a" elements to style them as GOV.UK back links.
+ * A link back to the previous page, for multi-page transactions.
+ *
+ * Add it to an `a` element, and set its `href` or `routerLink` to the previous
+ * page.
  */
 @Directive({
   selector: 'a[ngxGovukBackLink]',
@@ -16,7 +19,7 @@ export class NgxGovukBackLink {
   }
 
   /**
-   * Inverse the button colour scheme for use when placed on dark backgrounds.
+   * Shows the link in white, for use on a dark background.
    */
   inversed = input<boolean>(false);
 }

@@ -8,7 +8,10 @@ import {
   inject,
 } from '@angular/core';
 /**
- * Directive to be added to native "a" or "button" elements
+ * Styles a `button` or `a` element as a GOV.UK button.
+ *
+ * Use a `button` for actions, such as saving answers, and an `a` for links
+ * that look like buttons, such as a start button.
  */
 @Directive({
   selector: 'a[ngxGovukButton], button[ngxGovukButton]',
@@ -29,12 +32,15 @@ export class NgxGovukButton {
   }
 
   /**
-   * The type / purpose of the button.
+   * The kind of button: `secondary` for less important actions, `warning` for
+   * actions that delete something or can't be undone, and `start` for the
+   * button that starts a service. Leave it unset for the main action on a
+   * page.
    */
   buttonType = input<'secondary' | 'warning' | 'start'>();
 
   /**
-   * Inverse the button colour scheme for use when placed on dark backgrounds.
+   * Shows the button in white, for use on a dark background.
    */
   inversed = input<boolean>(false);
 

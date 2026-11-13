@@ -10,9 +10,10 @@ import {
 import { NGX_GOVUK_FIELD, NgxGovukField } from 'ngx-govuk';
 
 /**
- * Directive to be added to native textarea elements.
+ * Styles a `textarea` element as a GOV.UK textarea.
  *
- * Use it inside `ngx-govuk-form-group` to add a label, hint and error message.
+ * Put it inside `ngx-govuk-form-group`, which adds its label, hint and error
+ * message. It's 5 rows high unless you set `rows`.
  */
 @Directive({
   selector: 'textarea[ngxGovukTextarea]',

@@ -5,9 +5,8 @@ import { Injectable } from '@angular/core';
 })
 export class NgxGovukUtilsService {
   /**
-   * Create a random id for use with components
-   *
-   * This is an alternative to having an external library as a dependency.
+   * Creates a random id with the given prefix, such as `field-a1B2c3D4e5`, for
+   * linking elements on a page, such as a label to its field.
    */
   randomId(prefix = '') {
     let result = '';

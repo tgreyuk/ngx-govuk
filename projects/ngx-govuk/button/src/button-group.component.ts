@@ -1,6 +1,9 @@
 import { Component, HostBinding } from '@angular/core';
 /**
- * Component that wraps a group of buttons. The content slot expects x number of buttons.
+ * Lays out buttons, and any links that go with them, side by side with the
+ * right spacing.
+ *
+ * Put the buttons and links inside it.
  */
 @Component({
   selector: 'ngx-govuk-button-group',

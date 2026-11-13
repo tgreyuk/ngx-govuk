@@ -26,9 +26,10 @@ const WIDTH_CLASSES: Record<InputWidth, string> = {
 };
 
 /**
- * Directive to be added to native input elements.
+ * Styles an `input` element as a GOV.UK text input.
  *
- * Use it inside `ngx-govuk-form-group` to add a label, hint and error message.
+ * Put it inside `ngx-govuk-form-group`, which adds its label, hint and error
+ * message.
  */
 @Directive({
   selector: 'input[ngxGovukTextInput]',
@@ -55,7 +56,9 @@ export class NgxGovukTextInput implements NgxGovukField {
   hasError = signal(false);
 
   /**
-   * The width of the input. Accepts any GOV.UK fixed or fluid width units.
+   * The input's width. Use a number of characters, such as `10`, when you know
+   * how long the answer will be, or a fraction, such as `one-half`, for a width
+   * relative to the input's container.
    */
   inputWidth = input<InputWidth>();
 

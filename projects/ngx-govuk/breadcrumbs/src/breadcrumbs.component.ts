@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 
 /**
- * The breadcrumbs wrapping component.
+ * Shows users where they are in a website and lets them move up its structure.
  *
- * Expects x number of anchor elements with the directive ngxGovukBreadcrumbItem in the content slot.
+ * Put an `a` with `ngxGovukBreadcrumbsItem` inside it for each level, starting
+ * from the top.
  */
 @Component({
   selector: 'ngx-govuk-breadcrumbs',
