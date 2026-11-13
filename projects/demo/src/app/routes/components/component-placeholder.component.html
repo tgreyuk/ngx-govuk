@@ -1,0 +1,43 @@
+@if (component(); as component) {
+  <span class="govuk-caption-xl">Components</span>
+  <h1 class="govuk-heading-xl">{{ component.name }}</h1>
+
+  <p class="govuk-body-l">{{ component.description }}</p>
+
+  <div class="govuk-inset-text">
+    @if (component.status === 'in-progress') {
+      ngx-govuk includes an early version of this component, but it is not
+      documented here yet and may change.
+    } @else {
+      This component is not available in ngx-govuk yet.
+    }
+  </div>
+
+  <ul class="govuk-list">
+    <li>
+      <a
+        class="govuk-link"
+        href="https://design-system.service.gov.uk/components/{{
+          component.id
+        }}/"
+        target="_blank"
+        >Read the GOV.UK Design System guidance</a
+      >
+      for when and how to use it.
+    </li>
+    <li>
+      <a
+        class="govuk-link"
+        href="https://github.com/tgreyuk/ngx-govuk/issues"
+        target="_blank"
+        >Request it or follow progress on GitHub</a
+      >.
+    </li>
+  </ul>
+} @else {
+  <h1 class="govuk-heading-xl">Component not found</h1>
+  <p class="govuk-body">
+    There is no component with that name. See
+    <a class="govuk-link" routerLink="/components">all components</a>.
+  </p>
+}

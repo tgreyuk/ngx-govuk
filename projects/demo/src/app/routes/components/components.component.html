@@ -1,0 +1,42 @@
+<h1 class="govuk-heading-xl">Components</h1>
+
+<p class="govuk-body-l">
+  Angular components for the
+  <a
+    class="govuk-link"
+    href="https://design-system.service.gov.uk/components/"
+    target="_blank"
+    >GOV.UK Design System components</a
+  >. Select a component for a demo, code examples and API documentation.
+</p>
+
+<p class="govuk-body">
+  New to ngx-govuk? Read
+  <a class="govuk-link" routerLink="/get-started/components"
+    >Using components</a
+  >
+  to learn how to import and use them.
+</p>
+
+<ul class="govuk-list govuk-!-margin-top-6">
+  @for (component of components; track component.id) {
+    <li>
+      <h2 class="govuk-heading-s govuk-!-margin-bottom-1">
+        <a class="govuk-link" [routerLink]="['/components', component.id]">{{
+          component.name
+        }}</a>
+      </h2>
+      <p class="govuk-body">{{ component.description }}</p>
+    </li>
+  }
+</ul>
+
+<p class="govuk-body govuk-!-margin-top-6">
+  Components marked "todo" or "in progress" in the menu are not documented yet.
+  <a
+    class="govuk-link"
+    href="https://github.com/tgreyuk/ngx-govuk/issues"
+    target="_blank"
+    >Request a component on GitHub</a
+  >.
+</p>

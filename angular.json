@@ -1,0 +1,150 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "cli": {
+    "packageManager": "npm",
+    "analytics": false,
+    "schematicCollections": ["angular-eslint"]
+  },
+  "projects": {
+    "ngx-govuk": {
+      "projectType": "library",
+      "root": "projects/ngx-govuk",
+      "sourceRoot": "projects/ngx-govuk",
+      "prefix": "ngx-govuk",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "options": {
+            "project": "projects/ngx-govuk/ng-package.json",
+            "tsConfig": "projects/ngx-govuk/tsconfig.lib.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ngx-govuk/tsconfig.lib.prod.json"
+            },
+            "development": {}
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "projects/ngx-govuk/tsconfig.spec.json",
+            "setupFiles": ["projects/ngx-govuk/test-setup.ts"]
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/ngx-govuk/**/*.ts",
+              "projects/ngx-govuk/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "demo": {
+      "projectType": "application",
+      "root": "projects/demo",
+      "sourceRoot": "projects/demo/src",
+      "prefix": "app",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "architect": {
+        "build": {
+          "builder": "@angular/build:application",
+          "options": {
+            "outputPath": "dist/demo",
+            "index": "projects/demo/src/index.html",
+            "browser": "projects/demo/src/main.ts",
+            "polyfills": ["zone.js"],
+            "tsConfig": "projects/demo/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "styles": [
+              "projects/demo/govuk-frontend.css",
+              "projects/demo/src/styles.scss"
+            ],
+            "assets": [
+              {
+                "input": "projects/demo/src/assets",
+                "glob": "**/*",
+                "output": "assets"
+              },
+              {
+                "input": "projects/demo/src",
+                "glob": "favicon.svg",
+                "output": "."
+              },
+              {
+                "input": "projects/demo/src/app/routes/components/examples",
+                "glob": "**/*",
+                "output": "examples"
+              }
+            ]
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "600kB",
+                  "maximumError": "1MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kB",
+                  "maximumError": "4kB"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular/build:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "demo:build:production"
+            },
+            "development": {
+              "buildTarget": "demo:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "projects/demo/tsconfig.spec.json"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/demo/**/*.ts",
+              "projects/demo/**/*.html"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

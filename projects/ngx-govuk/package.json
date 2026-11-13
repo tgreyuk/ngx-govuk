@@ -1,0 +1,31 @@
+{
+  "name": "ngx-govuk",
+  "version": "0.4.0",
+  "description": "Angular components for the GOV.UK Design System",
+  "keywords": [
+    "angular",
+    "govuk",
+    "gov.uk",
+    "govuk-frontend",
+    "design-system",
+    "components",
+    "accessibility"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tgreyuk/ngx-govuk.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tgreyuk/ngx-govuk/issues"
+  },
+  "homepage": "https://ngx-govuk.org",
+  "peerDependencies": {
+    "@angular/common": "^22.0.0",
+    "@angular/core": "^22.0.0",
+    "@angular/router": "^22.0.0",
+    "@angular/forms": "^22.0.0",
+    "govuk-frontend": "^6.0.0"
+  },
+  "sideEffects": false
+}

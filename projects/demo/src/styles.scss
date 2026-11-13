@@ -1,0 +1,530 @@
+pre {
+  padding: 15px;
+  overflow-x: auto;
+  background-color: #f9f9f8;
+  border: 1px solid #bfc1c3;
+  font-family: monospace !important;
+}
+
+// Example code, highlighted by Shiki.
+.app-code {
+  position: relative;
+}
+
+.app-code pre {
+  margin: 0 0 20px;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  // Shiki sets its theme's background inline; keep the site's grey box.
+  background-color: #f9f9f8 !important;
+}
+
+// Sits over the code's top-right corner. The site's own style, not a GOV.UK
+// button, since it is part of the docs rather than a component.
+.app-code__copy {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 0;
+  border-radius: 4px;
+  color: var(--app-muted);
+  background: transparent;
+  cursor: pointer;
+
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  &:hover {
+    color: var(--app-text);
+    background: var(--app-slate-light);
+  }
+
+  &:focus-visible {
+    outline: 3px solid var(--app-focus);
+    outline-offset: 0;
+    box-shadow: 0 0 0 5px var(--app-text);
+  }
+}
+
+// Site chrome (header, navigation, footer). It deliberately uses its own font
+// and colours so the docs site can't be mistaken for GOV.UK. Component
+// previews keep GOV.UK Frontend's styles.
+:root {
+  --app-font: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --app-slate: #1e293b;
+  // Angular's brand gradient, for thin accents (lines and bars).
+  --app-gradient: linear-gradient(90deg, #f0060b, #cc26d5 55%, #7702ff);
+  // A deeper version behind white text, for at least 6:1 contrast.
+  --app-gradient-deep: linear-gradient(90deg, #c4004a, #a8007a 55%, #6a00d6);
+  --app-slate-light: #f1f5f9;
+  --app-border: #cbd5e1;
+  --app-accent: #1e293b;
+  // Marks the current page in the navigation and the side menu. Angular's
+  // "bright blue", which is vivid enough not to be read as GOV.UK's muted blue.
+  --app-marker: #0546ff;
+  --app-text: #0f172a;
+  --app-muted: #475569;
+  --app-focus: #ffdd00;
+
+  // The site's own links are the header's slate rather than GOV.UK's blue, so
+  // this site is not coloured like a GOV.UK service. GOV.UK Frontend underlines
+  // links and thickens the underline on hover, which is what marks them as
+  // links here. Component demos restore GOV.UK's own colours below. No visited
+  // state: on documentation, a separate colour for pages you have read is more
+  // noise than help.
+  --govuk-link-colour: #1e293b;
+  --govuk-link-visited-colour: #1e293b;
+  --govuk-link-hover-colour: #0b0c0c;
+}
+
+// Setting a custom property to `initial` makes var() fall back to the value in
+// GOV.UK Frontend's own stylesheet, so demos show true GOV.UK colours without
+// this file having to repeat them.
+.app-example {
+  --govuk-link-colour: initial;
+  --govuk-link-visited-colour: initial;
+  --govuk-link-hover-colour: initial;
+}
+
+.app-header,
+.app-nav,
+.app-footer,
+.app-skip-link {
+  font-family: var(--app-font);
+  -webkit-font-smoothing: antialiased;
+}
+
+.app-skip-link {
+  position: absolute;
+  left: -9999px;
+  &:focus {
+    left: 0;
+    z-index: 10;
+    padding: 10px 15px;
+    color: var(--app-text);
+    background: var(--app-focus);
+  }
+}
+
+// Shared focus style: a yellow background with a dark underline bar, readable
+// on both the dark header and the light navigation and footer.
+%app-focus {
+  outline: 3px solid transparent;
+  color: var(--app-text);
+  background-color: var(--app-focus);
+  box-shadow:
+    0 -2px var(--app-focus),
+    0 4px var(--app-text);
+  text-decoration: none;
+}
+
+.app-header {
+  border-top: 4px solid;
+  border-image: var(--app-gradient) 1;
+  color: #fff;
+  background: var(--app-slate);
+
+  a {
+    color: #fff;
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    &:focus-visible {
+      @extend %app-focus;
+    }
+  }
+}
+
+.app-header__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: 24px;
+  row-gap: 8px;
+  padding-top: 14px;
+  padding-bottom: 14px;
+}
+
+.app-header__brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.app-header__version {
+  padding: 1px 8px;
+  border: 1px solid #64748b;
+  border-radius: 999px;
+  color: #cbd5e1;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1.5;
+  white-space: nowrap;
+}
+
+.app-header__home {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  img {
+    // The logo is 223 x 236; keep its proportions.
+    width: 30px;
+    height: 32px;
+  }
+}
+
+.app-header__name {
+  // line-height 1 keeps the text box tight to the glyphs, so the name centres
+  // against the logo rather than against the font's leading. The nudge is for
+  // the descenders in "ngx-govuk", which drag its optical centre down.
+  position: relative;
+  top: -1px;
+  line-height: 1;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.app-header__tagline {
+  color: #cbd5e1;
+  font-size: 1rem;
+}
+
+.app-header__github {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+  font-weight: 600;
+  img {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+.app-nav {
+  border-bottom: 1px solid var(--app-border);
+  background: var(--app-slate-light);
+}
+
+.app-nav__list {
+  display: flex;
+  gap: 28px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.app-nav__link {
+  display: block;
+  padding: 14px 0 10px;
+  border-bottom: 4px solid transparent;
+  color: var(--app-text);
+  font-size: 1.0625rem;
+  font-weight: 600;
+  text-decoration: none;
+  &:hover {
+    color: var(--app-marker);
+  }
+  // GOV.UK's focus style hugs the text rather than filling the item, so the
+  // yellow and the dark bar beneath it read as one marker. The bar is what
+  // gives the indicator its contrast: yellow alone is far too close to the
+  // navigation's own background to be seen.
+  &:focus-visible {
+    outline: 3px solid transparent;
+  }
+  &:focus-visible .app-nav__label {
+    color: var(--app-text);
+    background-color: var(--app-focus);
+    box-shadow:
+      0 -2px var(--app-focus),
+      0 4px var(--app-text);
+  }
+}
+
+.app-nav__link--active {
+  border-bottom-color: var(--app-marker);
+}
+
+// The site's own call-to-action button, so the home page doesn't use GOV.UK's
+// start button.
+.app-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+  padding: 12px 22px;
+  border-radius: 6px;
+  color: #fff;
+  background: var(--app-gradient-deep);
+  font-family: var(--app-font);
+  font-size: 1.125rem;
+  font-weight: 600;
+  text-decoration: none;
+  &:link,
+  &:visited {
+    color: #fff;
+  }
+  &:hover {
+    background: var(--app-slate);
+  }
+  &:focus-visible {
+    outline: 3px solid var(--app-focus);
+    outline-offset: 0;
+    box-shadow: 0 0 0 6px var(--app-text);
+  }
+}
+
+// Sections with a menu (components, get started): beside the page on desktop,
+// above it on mobile.
+.app-section-layout {
+  @media (min-width: 48.0625em) {
+    display: grid;
+    grid-template-columns: minmax(200px, 1fr) 3fr;
+    column-gap: 40px;
+  }
+}
+
+.app-section-layout__content {
+  min-width: 0;
+}
+
+.app-subnav {
+  font-family: var(--app-font);
+  padding-top: 30px;
+  @media (max-width: 48.0525em) {
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--app-border);
+  }
+}
+
+.app-subnav__list {
+  margin: 0 0 20px;
+  padding: 0;
+  list-style: none;
+}
+
+.app-subnav__heading {
+  margin: 0 0 8px;
+  padding-left: 14px;
+  color: var(--app-muted);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.app-subnav__link {
+  display: block;
+  padding: 6px 10px;
+  border-left: 4px solid transparent;
+  color: var(--app-accent);
+  font-size: 1rem;
+  font-weight: 500;
+  text-decoration: none;
+  &:hover {
+    color: var(--app-text);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  &:focus-visible {
+    outline: 3px solid transparent;
+    color: var(--app-text);
+    background-color: var(--app-focus);
+    border-left-color: var(--app-text);
+  }
+}
+
+// Components without documentation yet. NOTE: 3.2:1 against white, under the
+// 4.5:1 WCAG AA minimum for text this size. A deliberate choice for the muted
+// look. If the site is audited, either darken this or make these items plain
+// text rather than links, which exempts them.
+.app-subnav__link--planned {
+  color: #8192a8;
+  font-weight: 400;
+}
+
+.app-subnav__link--active {
+  border-left-color: var(--app-marker);
+  color: var(--app-text);
+  font-weight: 600;
+}
+
+// A frame around live examples in guides.
+.app-example {
+  margin-bottom: 20px;
+  padding: 20px 20px 0;
+  border: 1px solid var(--app-border);
+}
+
+// An example with its template attached underneath, so each demo is pinned to
+// its own code.
+.app-example-group {
+  margin-bottom: 30px;
+
+  .app-example {
+    margin-bottom: 0;
+  }
+
+  // Only the template right under the frame, not code in a toggle below it.
+  ngx-govuk-example-code > app-code-block:first-of-type pre {
+    margin: 0;
+    border-color: var(--app-border);
+    border-top: 0;
+  }
+}
+
+.app-footer {
+  margin-top: 40px;
+  padding: 20px 0;
+  border-top: 1px solid var(--app-border);
+  color: var(--app-muted);
+  background: var(--app-slate-light);
+  font-size: 0.9375rem;
+  line-height: 1.6;
+
+  .govuk-width-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px 24px;
+  }
+  a {
+    color: var(--app-text);
+    &:focus-visible {
+      @extend %app-focus;
+    }
+  }
+}
+
+.app-footer__text {
+  margin: 0;
+}
+
+.app-footer__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 20px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+// API reference section headings (Selector, Inputs, Outputs, Methods): on a
+// light strip, so they can't be mistaken for the bold member names below.
+// Element and both classes, to win over GOV.UK's padding for a heading that
+// follows body text.
+h4.govuk-heading-s.app-api-heading {
+  margin: 30px 0 20px;
+  padding: 4px 10px;
+  background-color: var(--app-slate-light);
+}
+
+// Between classes on one page: heavier than the lines between entries, as the
+// bigger break. Element and both classes, to win over GOV.UK's section break.
+hr.govuk-section-break--visible.app-api-class-break {
+  border-bottom: 3px solid #94a3b8;
+}
+
+// What sits under a strip: inset to line up with the heading text on the left
+// and the strip's edge padding on the right.
+.app-api-under-heading {
+  padding: 0 10px;
+}
+
+// API reference: names, types and signatures, set apart from the prose. Neutral
+// grey like the site's code blocks, so code is grey everywhere and slate is
+// left for structure, such as the section strips.
+.app-api-code {
+  padding: 1px 5px;
+  border-radius: 4px;
+  background-color: #f3f2f1;
+  color: var(--app-text);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.875em;
+}
+
+// Component or Directive, after the class name: smaller than a GOV.UK tag.
+.app-api-kind {
+  margin-left: 8px;
+  padding: 1px 6px 2px;
+  font-size: 14px;
+  vertical-align: 3px;
+}
+
+// A member's name, ahead of its type. Bold, so the names stand out when
+// skimming a list.
+.app-api-name {
+  margin-right: 4px;
+  font-weight: 700;
+}
+
+// Marks a required input, after its name.
+.app-api-required {
+  display: inline-block;
+  margin-left: 4px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background-color: #eeefef;
+  color: #282d30;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
+  vertical-align: 2px;
+}
+
+// Inputs, outputs and methods: each name and type, or signature, with its
+// description underneath. Lines between the entries; the next section's strip
+// ends the list, so there's no line under the last one.
+.app-api-list {
+  margin: 0 0 20px;
+}
+
+.app-api-list__item {
+  // The same space above and below each line. Inset at the sides to line up
+  // with the strip's heading, while the lines run the full width.
+  padding: 20px 10px;
+
+  & + & {
+    border-top: 1px solid var(--app-border);
+  }
+
+  // Right under the heading, which has its own margin.
+  &:first-child {
+    padding-top: 0;
+  }
+
+  &:last-child {
+    padding-bottom: 0;
+  }
+
+  dd {
+    margin: 10px 0 0;
+
+    > :last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+// The default value, just under an input's description.
+.app-api-default {
+  color: var(--app-muted);
+}
+
+.app-api-list__item dd p:has(+ .app-api-default) {
+  margin-bottom: 6px;
+}

@@ -1,0 +1,11 @@
+// govuk-frontend 6 uses Sass modules: configure settings with `with (...)`.
+// Arial replaces GDS Transport, which only GOV.UK services may use.
+// The docs site is wider than GOV.UK's 960px default, to fit the components
+// menu beside the content (GOV.UK Vue's site uses 1100px too).
+@use 'govuk' with (
+  $govuk-font-family: (
+    arial,
+    sans-serif,
+  ),
+  $govuk-page-width: 1100px
+);

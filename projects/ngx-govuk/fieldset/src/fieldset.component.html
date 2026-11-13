@@ -1,0 +1,18 @@
+<div class="govuk-form-group">
+  <fieldset
+    class="govuk-fieldset"
+    [attr.aria-describedby]="hint() ? hintId : null"
+  >
+    @if (asPageHeading()) {
+      <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+        <h1 class="govuk-fieldset__heading">{{ legend() }}</h1>
+      </legend>
+    } @else {
+      <legend class="govuk-fieldset__legend">{{ legend() }}</legend>
+    }
+    @if (hint()) {
+      <div [attr.id]="hintId" class="govuk-hint">{{ hint() }}</div>
+    }
+    <ng-content></ng-content>
+  </fieldset>
+</div>

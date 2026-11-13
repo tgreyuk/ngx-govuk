@@ -1,0 +1,73 @@
+<a href="#main-content" class="app-skip-link">Skip to main content</a>
+<header class="app-header">
+  <div class="govuk-width-container app-header__inner">
+    <div class="app-header__brand">
+      <a routerLink="/" class="app-header__home">
+        <img src="/assets/ngx-govuk-logo.svg" alt="" />
+        <span class="app-header__name">ngx-govuk</span>
+      </a>
+      <span class="app-header__version">v{{ version }}</span>
+    </div>
+    <span class="app-header__tagline"
+      >Angular components for the GOV.UK Design System</span
+    >
+    <a class="app-header__github" href="https://github.com/tgreyuk/ngx-govuk"
+      ><img src="/assets/github-mark-white.png" alt="" />GitHub</a
+    >
+  </div>
+</header>
+<nav class="app-nav" aria-label="Main">
+  <div class="govuk-width-container">
+    <ul class="app-nav__list">
+      <li>
+        <a
+          class="app-nav__link"
+          routerLink="/get-started"
+          routerLinkActive="app-nav__link--active"
+          ariaCurrentWhenActive="page"
+          ><span class="app-nav__label">Get started</span></a
+        >
+      </li>
+      <li>
+        <a
+          class="app-nav__link"
+          routerLink="/components"
+          routerLinkActive="app-nav__link--active"
+          ariaCurrentWhenActive="page"
+          ><span class="app-nav__label">Components</span></a
+        >
+      </li>
+      <li>
+        <a
+          class="app-nav__link"
+          routerLink="/support"
+          routerLinkActive="app-nav__link--active"
+          ariaCurrentWhenActive="page"
+          ><span class="app-nav__label">Help and support</span></a
+        >
+      </li>
+    </ul>
+  </div>
+</nav>
+<div class="govuk-width-container">
+  <main class="govuk-main-wrapper" id="main-content">
+    <router-outlet></router-outlet>
+  </main>
+</div>
+<footer class="app-footer">
+  <div class="govuk-width-container">
+    <p class="app-footer__text">
+      ngx-govuk is a community resource and is not part of the GOV.UK Design
+      System.
+    </p>
+    <ul class="app-footer__links">
+      <li><a routerLink="/support">Help and support</a></li>
+      <li><a href="https://github.com/tgreyuk/ngx-govuk">GitHub</a></li>
+      <li>
+        <a href="https://github.com/tgreyuk/ngx-govuk/blob/main/LICENSE"
+          >MIT licence</a
+        >
+      </li>
+    </ul>
+  </div>
+</footer>

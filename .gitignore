@@ -38,9 +38,8 @@ testem.log
 .DS_Store
 Thumbs.db
 
-.nx/cache
 .angular
 
-# Docs
-/docs
-documentation.json
+# API reference for the docs site, written by `npm run demo:api`
+/projects/demo/src/assets/api/
+

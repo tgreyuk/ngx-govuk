@@ -1,0 +1,144 @@
+<span class="govuk-caption-xl">Get started</span>
+<h1 class="govuk-heading-xl">Installing ngx-govuk</h1>
+<div class="govuk-!-margin-bottom-8">
+  <h2 class="govuk-heading-m">Contents</h2>
+  <ul class="govuk-list">
+    @for (item of toc(); track item.id; let i = $index) {
+      <li>
+        <a
+          [attr.href]="'/get-started/installation#' + item.id"
+          class="govuk-link govuk-link--no-visited-state"
+          >{{ i + 1 }}. {{ item.heading }}</a
+        >
+      </li>
+    }
+  </ul>
+</div>
+
+<div id="contents" #contents>
+  <div class="govuk-!-margin-bottom-8">
+    <h2 class="govuk-heading-m">Requirements</h2>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>Angular 22</li>
+      <li>GOV.UK Frontend (the "govuk-frontend" package) 6</li>
+    </ul>
+  </div>
+
+  <div class="govuk-!-margin-bottom-8">
+    <h2 class="govuk-heading-m">Install packages from npm</h2>
+    <p class="govuk-body">
+      Install ngx-govuk together with GOV.UK Frontend. ngx-govuk renders GOV.UK
+      Frontend's markup, and GOV.UK Frontend provides the styles.
+    </p>
+    <pre class="govuk-body" [innerText]="INSTALL_CODE"></pre>
+  </div>
+
+  <div class="govuk-!-margin-bottom-8">
+    <h2 class="govuk-heading-m">Add GOV.UK classes to the page</h2>
+    <p class="govuk-body">
+      In your "index.html" file, add "govuk-template" to the html tag, and
+      "govuk-template__body" and "govuk-frontend-supported" to the body tag.
+      GOV.UK Frontend's page template uses these classes to set the page
+      background and text sizing.
+    </p>
+    <p class="govuk-body">
+      GOV.UK's page template adds "govuk-frontend-supported" with a small inline
+      script. The accordion and tabs styles depend on it, and without it they
+      show their no-JavaScript fallback. ngx-govuk components do not need that
+      script, so add the class directly.
+    </p>
+    <pre class="govuk-body" [innerText]="BODY_CSS_CODE"></pre>
+  </div>
+
+  <div class="govuk-!-margin-bottom-8">
+    <h2 class="govuk-heading-m">Include GOV.UK styles</h2>
+    <p class="govuk-body">
+      ngx-govuk does not ship any styles of its own. Include
+      <a
+        class="govuk-link"
+        href="https://frontend.design-system.service.gov.uk/include-css/"
+        target="_blank"
+        >GOV.UK Frontend's styles</a
+      >
+      in one of these ways.
+    </p>
+
+    <h3 class="govuk-heading-s">Recommended: load all styles with Sass</h3>
+    <p class="govuk-body">
+      Load GOV.UK Frontend in your global "styles.scss" stylesheet. GOV.UK
+      Frontend 6 uses Sass modules, so use "&#64;use" rather than "&#64;import".
+      Loading it with Sass lets you choose the font (see
+      <a class="govuk-link" href="/get-started/installation#heading-4"
+        >Choose a font</a
+      >).
+    </p>
+    <pre class="govuk-body" [innerText]="SASS_ALL_CODE"></pre>
+
+    <h3 class="govuk-heading-s">Load only the styles you use</h3>
+    <p class="govuk-body">
+      To keep your CSS smaller, load the base styles once and then only the
+      components you use. This example loads the styles for buttons, details and
+      text inputs.
+    </p>
+    <pre class="govuk-body" [innerText]="SASS_CHERRY_PICK_CODE"></pre>
+
+    <h3 class="govuk-heading-s">GOV.UK services: use the precompiled CSS</h3>
+    <p class="govuk-body">
+      GOV.UK Frontend also ships a precompiled stylesheet. It is the quickest
+      setup, but it always uses the GDS Transport font, which is for services on
+      service.gov.uk. Add it to the "styles" array in "angular.json", and copy
+      GOV.UK Frontend's fonts and images with an "assets" entry so the font
+      files load.
+    </p>
+    <pre class="govuk-body" [innerText]="PRECOMPILED_CODE"></pre>
+    <p class="govuk-body">
+      Angular's build may warn about a CSS syntax error in this file. It comes
+      from an old Internet Explorer workaround in GOV.UK Frontend's stylesheet
+      and is harmless.
+    </p>
+  </div>
+
+  <div class="govuk-!-margin-bottom-8">
+    <h2 class="govuk-heading-m">Choose a font</h2>
+    <p class="govuk-body">
+      GOV.UK Frontend uses the GDS Transport font by default. Services on
+      service.gov.uk must use it. Services publicly available on other domains
+      should use an alternative typeface. See the
+      <a
+        class="govuk-link"
+        href="https://design-system.service.gov.uk/styles/typeface/"
+        target="_blank"
+        >GOV.UK typeface guidance</a
+      >.
+    </p>
+    <p class="govuk-body">
+      To use an alternative, set "$govuk-font-family" when loading GOV.UK
+      Frontend with Sass. GOV.UK recommends the font stack shown below, or your
+      own brand's font. When GDS Transport is not in the font list, GOV.UK
+      Frontend leaves out its font files entirely, so there is nothing to copy
+      and no missing-font errors.
+    </p>
+    <pre class="govuk-body" [innerText]="SASS_ALL_CODE"></pre>
+    <p class="govuk-body">
+      When loading only some styles, add the same "with" to the "base" line, as
+      shown above.
+    </p>
+    <p class="govuk-body">
+      If your service is not on GOV.UK, also read
+      <a
+        class="govuk-link"
+        href="https://frontend.design-system.service.gov.uk/using-govuk-frontend-without-govuk-branding/"
+        target="_blank"
+        >Using GOV.UK Frontend without GOV.UK branding</a
+      >, which covers changing the brand colour in the same "with".
+    </p>
+  </div>
+</div>
+
+<p class="govuk-body">
+  Next, read
+  <a class="govuk-link" routerLink="/get-started/components"
+    >Using components</a
+  >
+  to import components and use them in your templates.
+</p>
