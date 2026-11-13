@@ -56,7 +56,7 @@ export const COMPONENTS: ComponentEntry[] = [
   {
     name: 'Checkboxes',
     id: 'checkboxes',
-    status: 'in-progress',
+    status: 'documented',
     description: 'Lets users select one or more options from a list.',
   },
   {
@@ -109,7 +109,7 @@ export const COMPONENTS: ComponentEntry[] = [
   {
     name: 'Fieldset',
     id: 'fieldset',
-    status: 'in-progress',
+    status: 'documented',
     description:
       'Groups related form inputs together, such as the parts of an address.',
   },
@@ -187,7 +187,7 @@ export const COMPONENTS: ComponentEntry[] = [
   {
     name: 'Radios',
     id: 'radios',
-    status: 'to-do',
+    status: 'documented',
     description: 'Lets users select a single option from a list.',
   },
   {

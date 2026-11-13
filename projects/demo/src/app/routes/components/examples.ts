@@ -8,7 +8,10 @@ import { ButtonGroupDemoComponent } from './examples/button/group.component';
 import { ButtonSecondaryDemoComponent } from './examples/button/secondary.component';
 import { ButtonStartDemoComponent } from './examples/button/start.component';
 import { ButtonWarningDemoComponent } from './examples/button/warning.component';
+import { CheckboxesDemoComponent } from './examples/checkboxes/default.component';
 import { DetailsDemoComponent } from './examples/details/default.component';
+import { FieldsetDemoComponent } from './examples/fieldset/default.component';
+import { RadiosDemoComponent } from './examples/radios/default.component';
 import { TextInputDemoComponent } from './examples/text-input/default.component';
 import { TextInputFixedWidthDemoComponent } from './examples/text-input/fixed-width.component';
 import { TextInputFluidWidthDemoComponent } from './examples/text-input/fluid-width.component';
@@ -75,7 +78,12 @@ export const EXAMPLES: Record<string, Example[]> = {
         'Wrap buttons, and any links, in "ngx-govuk-button-group" to lay them out together.',
     },
   ],
+  checkboxes: [
+    { path: 'checkboxes/default', component: CheckboxesDemoComponent },
+  ],
   details: [{ path: 'details/default', component: DetailsDemoComponent }],
+  fieldset: [{ path: 'fieldset/default', component: FieldsetDemoComponent }],
+  radios: [{ path: 'radios/default', component: RadiosDemoComponent }],
   'text-input': [
     { path: 'text-input/default', component: TextInputDemoComponent },
     {
