@@ -3,17 +3,17 @@
     <button
       type="button"
       class="govuk-accordion__show-all"
-      [attr.aria-expanded]="isExpanded()"
+      [attr.aria-expanded]="allExpanded()"
       (click)="toggle()"
     >
       <span
         class="govuk-accordion-nav__chevron"
         [ngClass]="{
-          'govuk-accordion-nav__chevron--down': !isExpanded()
+          'govuk-accordion-nav__chevron--down': !allExpanded(),
         }"
       ></span
       ><span class="govuk-accordion__show-all-text">{{
-        isExpanded() ? 'Hide all sections' : 'Show all sections'
+        allExpanded() ? 'Hide all sections' : 'Show all sections'
       }}</span>
     </button>
   </div>

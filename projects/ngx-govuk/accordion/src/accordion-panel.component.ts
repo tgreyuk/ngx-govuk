@@ -1,10 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostBinding, input, signal, inject } from '@angular/core';
+import { Component, HostBinding, inject, input, model } from '@angular/core';
 import { NgxGovukUtilsService } from 'ngx-govuk';
+
 /**
- * Component to be used to define the accordion panels.
+ * One section of an accordion, inside `ngx-govuk-accordion`.
  *
- * The content slot should contain the content of the accordion panel.
+ * Put the section's content inside it. The heading is always shown; the
+ * content shows when the section is open.
  */
 @Component({
   selector: 'ngx-govuk-accordion-panel',
@@ -16,29 +18,28 @@ export class NgxGovukAccordionPanel {
 
   @HostBinding('class') get className() {
     const classes = ['govuk-accordion__section'];
-    if (this.isExpanded()) {
+    if (this.expanded()) {
       classes.push('govuk-accordion__section--expanded');
     }
     return classes.join(' ');
   }
 
   /**
-   * The heading of the panel
+   * The section's heading, which users select to open or close it.
    */
   heading = input.required<string>();
 
   /**
-   * Flag to determine if the accordion panel is expanded.
+   * Whether the section is open. Set it to open the section from the start, or
+   * bind it with `[(expanded)]` to keep it in step with your own state.
    */
-  isExpanded = signal(false);
+  expanded = model(false);
 
-  headingId = this.utilsService.randomId('heading');
-  contentId = this.utilsService.randomId('content');
+  protected headingId = this.utilsService.randomId('heading');
+  protected contentId = this.utilsService.randomId('content');
 
-  /**
-   * Toggles the accordion panel visibility.
-   */
-  toggle() {
-    this.isExpanded.set(!this.isExpanded());
+  /** For the section's own button; set `expanded` to open or close it. */
+  protected toggle() {
+    this.expanded.update((expanded) => !expanded);
   }
 }
