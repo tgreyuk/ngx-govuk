@@ -11,11 +11,6 @@ export interface ComponentEntry {
   status: ComponentStatus;
   /** A one-line summary of what the component is for. */
   description: string;
-  /**
-   * How the GOV.UK Design System link names the component in "documentation
-   * on …", when adding an "s" to the name doesn't work.
-   */
-  plural?: string;
   /** A form field used inside `ngx-govuk-form-group`. */
   isField?: boolean;
 }
@@ -99,7 +94,6 @@ export const COMPONENTS: ComponentEntry[] = [
   },
   {
     name: 'Exit this page',
-    plural: 'the exit this page component',
     id: 'exit-this-page',
     status: 'to-do',
     description:
@@ -107,7 +101,6 @@ export const COMPONENTS: ComponentEntry[] = [
   },
   {
     name: 'Feedback',
-    plural: 'feedback',
     id: 'feedback',
     status: 'to-do',
     description:
@@ -147,14 +140,12 @@ export const COMPONENTS: ComponentEntry[] = [
   },
   {
     name: 'Inset text',
-    plural: 'inset text',
     id: 'inset-text',
     status: 'to-do',
     description: 'Sets a block of text apart from the content around it.',
   },
   {
     name: 'Language navigation',
-    plural: 'language navigation',
     id: 'language-navigation',
     status: 'to-do',
     description: 'Lets users switch the language a page is shown in.',
@@ -168,7 +159,6 @@ export const COMPONENTS: ComponentEntry[] = [
   },
   {
     name: 'Pagination',
-    plural: 'pagination',
     id: 'pagination',
     status: 'to-do',
     description:
@@ -209,7 +199,6 @@ export const COMPONENTS: ComponentEntry[] = [
   },
   {
     name: 'Service navigation',
-    plural: 'service navigation',
     id: 'service-navigation',
     status: 'to-do',
     description:
@@ -271,7 +260,6 @@ export const COMPONENTS: ComponentEntry[] = [
   },
   {
     name: 'Warning text',
-    plural: 'warning text',
     id: 'warning-text',
     status: 'to-do',
     description:

@@ -1,17 +1,18 @@
 <span class="govuk-caption-xl">Components</span>
-<h1 class="govuk-heading-xl">
+<h1 class="govuk-heading-xl govuk-!-margin-bottom-6">
   {{ component()?.name ?? (componentId() | startcase) }}
 </h1>
 
-<p class="govuk-body">
-  See the
+<p class="govuk-body govuk-!-margin-bottom-8">
+  For design guidance, including when to use the "{{ component()?.name }}"
+  component, see the official
   <a
     class="govuk-link"
     href="https://design-system.service.gov.uk/components/{{ componentId() }}/"
     target="_blank"
-    >GOV.UK Design System documentation on {{ pluralName() }}</a
-  >
-  for more information on when to use this component.
+    rel="noreferrer noopener"
+    >GOV.UK Design System documentation (opens in new tab)</a
+  >.
 </p>
 
 @if (component()?.isField) {

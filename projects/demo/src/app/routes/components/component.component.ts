@@ -24,22 +24,4 @@ export class ComponentComponent {
   component = computed(() => findComponent(this.componentId()));
 
   examples = computed(() => EXAMPLES[this.componentId()] ?? []);
-
-  /** The name mid-sentence: "accordion", but "GOV.UK header" keeps its case. */
-  lowerName = computed(() => {
-    const name = this.component()?.name ?? '';
-    return /^[A-Z][a-z]/.test(name)
-      ? name[0].toLowerCase() + name.slice(1)
-      : name;
-  });
-
-  /** For "documentation on accordions": breadcrumbs and details stay as they are. */
-  pluralName = computed(() => {
-    const plural = this.component()?.plural;
-    if (plural) {
-      return plural;
-    }
-    const name = this.lowerName();
-    return name.endsWith('s') ? name : `${name}s`;
-  });
 }
