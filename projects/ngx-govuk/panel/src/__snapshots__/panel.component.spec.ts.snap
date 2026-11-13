@@ -1,0 +1,80 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`NgxGovukPanel > matches the GOV.UK markup snapshot for a confirmation 1`] = `
+<div>
+  <ngx-govuk-panel
+    titletext="Application complete"
+  >
+    <div
+      class="govuk-panel govuk-panel--confirmation"
+    >
+      <h1
+        class="govuk-panel__title"
+      >
+        Application complete
+      </h1>
+      <div
+        class="govuk-panel__body"
+      >
+         Your reference number
+        <br />
+        <strong>
+          HDJ2123F
+        </strong>
+      </div>
+    </div>
+  </ngx-govuk-panel>
+</div>
+`;
+
+exports[`NgxGovukPanel > matches the GOV.UK markup snapshot for an interruption 1`] = `
+<div>
+  <ngx-govuk-panel
+    paneltype="interruption"
+    titletext="Is your age correct?"
+  >
+    <div
+      class="govuk-panel govuk-panel--interruption"
+    >
+      <h2
+        class="govuk-panel__title"
+      >
+        Is your age correct?
+      </h2>
+      <div
+        class="govuk-panel__body"
+      >
+        <p
+          class="govuk-body"
+        >
+          You entered your age as 
+          <strong>
+            109
+          </strong>
+          .
+        </p>
+      </div>
+      <div
+        class="govuk-panel__actions"
+      >
+        <ngx-govuk-button-group
+          class="govuk-button-group"
+        >
+          <button
+            class="govuk-button govuk-button--inverse"
+            ngxgovukbutton=""
+          >
+            Yes, this is correct
+          </button>
+          <a
+            class="govuk-link govuk-link--inverse"
+            href="/age"
+          >
+            No, change my age
+          </a>
+        </ngx-govuk-button-group>
+      </div>
+    </div>
+  </ngx-govuk-panel>
+</div>
+`;
