@@ -87,7 +87,7 @@ export const COMPONENTS: ComponentEntry[] = [
   {
     name: 'Error summary',
     id: 'error-summary',
-    status: 'to-do',
+    status: 'documented',
     description:
       'Lists the errors on a page when validation fails, linking to each one.',
   },
