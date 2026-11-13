@@ -1,35 +1,48 @@
 import {
-  AfterViewInit,
   Directive,
   ElementRef,
-  HostBinding,
+  OnInit,
   Renderer2,
+  forwardRef,
   inject,
+  signal,
 } from '@angular/core';
-import { NgControl } from '@angular/forms';
+import { NGX_GOVUK_FIELD, NgxGovukField } from 'ngx-govuk';
 
+/**
+ * Directive to be added to native textarea elements.
+ *
+ * Use it inside `ngx-govuk-form-group` to add a label, hint and error message.
+ *
+ * @selector textarea[ngxGovukTextarea]
+ */
 @Directive({
   selector: 'textarea[ngxGovukTextarea]',
+  host: {
+    class: 'govuk-textarea',
+    '[class.govuk-textarea--error]': 'hasError()',
+  },
+  providers: [
+    {
+      provide: NGX_GOVUK_FIELD,
+      useExisting: forwardRef(() => NgxGovukTextarea),
+    },
+  ],
 })
-export class NgxGovukTextarea implements AfterViewInit {
-  control = inject(NgControl, { optional: true, self: true });
-  elementRef = inject(ElementRef);
+export class NgxGovukTextarea implements NgxGovukField, OnInit {
+  elementRef = inject<ElementRef<HTMLTextAreaElement>>(ElementRef);
   private renderer = inject(Renderer2);
 
-  @HostBinding('class') get className() {
-    return `govuk-textarea`;
-  }
+  /** Set by `ngx-govuk-form-group` when it has an error message. */
+  hasError = signal(false);
 
-  @HostBinding('class.govuk-textarea--error') get isInvalidClass() {
-    return this.control?.status === 'INVALID';
-  }
-
-  get field() {
+  get field(): HTMLTextAreaElement {
     return this.elementRef.nativeElement;
   }
 
-  ngAfterViewInit(): void {
-    if (this.field) {
+  ngOnInit(): void {
+    // GOV.UK Frontend's default; a rows attribute you set is kept.
+    if (!this.field.hasAttribute('rows')) {
       this.renderer.setAttribute(this.field, 'rows', '5');
     }
   }

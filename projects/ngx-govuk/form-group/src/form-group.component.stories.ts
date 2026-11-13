@@ -7,7 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { NgxGovukTextarea } from 'ngx-govuk/textarea';
-import { NgxGovukTextInput } from '../../text-input/src/text-input.directive';
+import { NgxGovukTextInput } from 'ngx-govuk/text-input';
 import { NgxGovukFormGroup } from './form-group.component';
 
 const meta: Meta<NgxGovukFormGroup> = {
@@ -36,7 +36,7 @@ export const Basic = {
     template: `
 <div style="max-width: 500px;">
   <ngx-govuk-form-group [label]="label" [hint]="hint" [asPageHeading]="asPageHeading" [prefix]="prefix" [suffix]="suffix">
-    <input type="text" ngxGovukTextInput />
+    <input id="event-name" type="text" ngxGovukTextInput />
   </ngx-govuk-form-group>
 </div>
 `,
@@ -55,9 +55,25 @@ export const Error = {
     template: `
 <form [formGroup]="form">
   <ngx-govuk-form-group [label]="label" [hint]="hint" [asPageHeading]="asPageHeading" [errorMessage]="errorMessage">
-    <input type="text" ngxGovukTextInput formControlName="inputTest" />
+    <input id="event-name" type="text" ngxGovukTextInput formControlName="inputTest" />
   </ngx-govuk-form-group>
 </form>
+`,
+  }),
+};
+
+export const Textarea = {
+  args: {
+    label: 'Can you provide more detail?',
+    hint: 'Do not include personal or financial information',
+    labelSize: 'l',
+  },
+  render: (args: NgxGovukFormGroup) => ({
+    props: { ...args },
+    template: `
+<ngx-govuk-form-group [label]="label" [hint]="hint" [labelSize]="labelSize">
+  <textarea id="more-detail" name="moreDetail" ngxGovukTextarea></textarea>
+</ngx-govuk-form-group>
 `,
   }),
 };

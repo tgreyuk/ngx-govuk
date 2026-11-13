@@ -1,27 +1,23 @@
 <div
   class="govuk-form-group"
-  [ngClass]="{
-    'govuk-form-group--error': isInvalid(),
-  }"
+  [class.govuk-form-group--error]="!!errorMessage()"
 >
   @if (asPageHeading()) {
     <h1 class="govuk-label-wrapper">
-      <label [attr.for]="fieldId" class="govuk-label govuk-label--l">{{
+      <label [attr.for]="fieldId()" [class]="labelClasses()">{{
         label()
       }}</label>
     </h1>
   } @else {
-    <label [attr.for]="fieldId" class="govuk-label">{{ label() }}</label>
+    <label [attr.for]="fieldId()" [class]="labelClasses()">{{ label() }}</label>
   }
 
   @if (hint()) {
-    <div [attr.id]="hintId" class="govuk-hint">
-      {{ hint() }}
-    </div>
+    <div [attr.id]="hintId()" class="govuk-hint">{{ hint() }}</div>
   }
 
-  @if (isInvalid()) {
-    <p [attr.id]="errorId" class="govuk-error-message">
+  @if (errorMessage()) {
+    <p [attr.id]="errorId()" class="govuk-error-message">
       <span class="govuk-visually-hidden">Error:</span> {{ errorMessage() }}
     </p>
   }

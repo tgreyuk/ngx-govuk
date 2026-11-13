@@ -1,52 +1,60 @@
 import { Component } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormControl, FormGroup } from '@angular/forms';
+import { TestBed } from '@angular/core/testing';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { NgxGovukTextInput } from './text-input.directive';
 
 @Component({
-  imports: [NgxGovukTextInput],
+  imports: [NgxGovukTextInput, ReactiveFormsModule],
   template: `<input
     type="text"
+    class="app-own-class"
+    autocomplete="email"
     ngxGovukTextInput
-    formControlName="testControl"
+    [formControl]="control"
     inputWidth="three-quarters"
   />`,
 })
 class TestHostComponent {
-  form = new FormGroup({
-    testContol: new FormControl(),
-  });
+  control = new FormControl('hello');
+}
+
+function setup() {
+  const fixture = TestBed.createComponent(TestHostComponent);
+  fixture.detectChanges();
+  const debugElement = fixture.debugElement.query(
+    By.directive(NgxGovukTextInput),
+  );
+  return {
+    fixture,
+    input: debugElement.nativeElement as HTMLInputElement,
+    directive: debugElement.injector.get(NgxGovukTextInput),
+  };
 }
 
 describe('NgxGovukTextInput', () => {
-  let component: TestHostComponent;
-  let fixture: ComponentFixture<TestHostComponent>;
-
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [NgxGovukTextInput, TestHostComponent],
-    });
-
-    fixture = TestBed.createComponent(TestHostComponent);
-    component = fixture.componentInstance;
+  it('adds GOV.UK classes and keeps your own classes and attributes', () => {
+    const { input } = setup();
+    expect([...input.classList]).toEqual(
+      expect.arrayContaining([
+        'govuk-input',
+        'govuk-!-width-three-quarters',
+        'app-own-class',
+      ]),
+    );
+    expect(input.getAttribute('autocomplete')).toBe('email');
   });
 
-  it('should accept a FormControl as an input', () => {
-    fixture.detectChanges();
-    const directive = fixture.debugElement
-      .query(By.directive(NgxGovukTextInput))
-      .injector.get(NgxGovukTextInput);
-    expect(directive.control).toBe(component.form.get('testControl'));
+  it('works with reactive forms', () => {
+    const { input } = setup();
+    expect(input.value).toBe('hello');
   });
 
-  it('should accept a width as an input and apply it to the host element', () => {
+  it('shows the error class only when told to by its form group', () => {
+    const { fixture, input, directive } = setup();
+    expect(input.classList).not.toContain('govuk-input--error');
+    directive.hasError.set(true);
     fixture.detectChanges();
-    const inputElement = fixture.debugElement.query(
-      By.css('input'),
-    ).nativeElement;
-    expect(
-      inputElement.classList.contains('govuk-!-width-three-quarters'),
-    ).toBeTruthy();
+    expect(input.classList).toContain('govuk-input--error');
   });
 });

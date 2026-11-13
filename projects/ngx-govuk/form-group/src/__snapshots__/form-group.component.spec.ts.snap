@@ -1,31 +1,41 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`NgxGovukFormGroup > should check markup snapshot 1`] = `
+exports[`NgxGovukFormGroup > matches the GOV.UK markup snapshot 1`] = `
 <ngx-govuk-form-group
-  hint="Test hint"
-  label="Test label"
+  label="Email address"
 >
   <div
-    class="govuk-form-group"
+    class="govuk-form-group govuk-form-group--error"
   >
     <label
       class="govuk-label"
-      for="field-someId"
+      for="email"
     >
-      Test label
+      Email address
     </label>
     <div
       class="govuk-hint"
-      id="hint-someId"
+      id="email-hint"
     >
-       Test hint 
+      Use your work email
     </div>
+    <p
+      class="govuk-error-message"
+      id="email-error"
+    >
+      <span
+        class="govuk-visually-hidden"
+      >
+        Error:
+      </span>
+       Enter an email address 
+    </p>
     <input
-      aria-describedby="hint-someId"
-      class="govuk-input"
-      id="field-someId"
+      aria-describedby="email-hint email-error"
+      autocomplete="email"
+      class="govuk-input govuk-input--error"
+      id="email"
       ngxgovuktextinput=""
-      type="text"
     />
   </div>
 </ngx-govuk-form-group>

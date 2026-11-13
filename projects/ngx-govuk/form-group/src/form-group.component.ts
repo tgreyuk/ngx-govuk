@@ -1,127 +1,137 @@
-import { CommonModule } from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
 import {
-  AfterViewInit,
+  AfterContentInit,
   ChangeDetectionStrategy,
   Component,
-  ElementRef,
   Renderer2,
   computed,
   contentChild,
   effect,
+  inject,
   input,
   signal,
-  inject,
 } from '@angular/core';
-import { NgControl } from '@angular/forms';
-import { NgxGovukUtilsService } from 'ngx-govuk';
-import { NgxGovukTextInput } from 'ngx-govuk/text-input';
-import { NgxGovukTextarea } from 'ngx-govuk/textarea';
+import { NGX_GOVUK_FIELD, NgxGovukUtilsService } from 'ngx-govuk';
 
 /**
- * A commom wrapper around form controls and directives.
+ * Wraps a form field with its label, hint and error message, and connects
+ * them for assistive technology, as GOV.UK Frontend's macros do.
  *
- * The content slot expects a single form component / directive with an optional associated form control.
+ * Place a single field directive inside it, such as an `input` with
+ * `ngxGovukTextInput` or a `textarea` with `ngxGovukTextarea`. The field keeps
+ * all its native attributes. Give it an `id`; one is generated if missing.
  *
- * Valid content children are NgxGovukTextInput.
+ * The hint and error message get ids based on the field's id (`<id>-hint`,
+ * `<id>-error`), and the field's `aria-describedby` points to them.
  *
  * @selector ngx-govuk-form-group
- *
  */
-
 @Component({
   selector: 'ngx-govuk-form-group',
-  imports: [CommonModule],
+  imports: [NgTemplateOutlet],
   templateUrl: './form-group.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NgxGovukFormGroup implements AfterViewInit {
+export class NgxGovukFormGroup implements AfterContentInit {
   private renderer = inject(Renderer2);
   private utilsService = inject(NgxGovukUtilsService);
-
-  private textInput = contentChild(NgxGovukTextInput);
-  private textarea = contentChild(NgxGovukTextarea);
+  private field = contentChild(NGX_GOVUK_FIELD);
 
   /**
-   * The label text for the form group.
+   * The label text.
    *
    * @required
    */
   label = input.required<string>();
 
   /**
-   * If you're asking just one question, you can set the contents of the <label> as the page heading.
+   * The label size. Defaults to `l` when the label is the page heading.
+   */
+  labelSize = input<'s' | 'm' | 'l' | 'xl'>();
+
+  /**
+   * If you're asking just one question, set the label as the page heading.
    *
    * @initialValue false
    */
   asPageHeading = input<boolean>(false);
 
   /**
-   * Hint text that can provide help information.
+   * Hint text that gives help with the question.
    */
   hint = input<string>();
 
   /**
-   * Prefix to add before the field.
+   * The error message. When set, the form group and field show their error
+   * styles. Set it when your validation fails, for example after the form is
+   * submitted, as GOV.UK recommends.
+   */
+  errorMessage = input<string | null>();
+
+  /**
+   * Text shown before the field, such as `£`.
    */
   prefix = input<string>();
 
   /**
-   * Prefix to add before the field.
+   * Text shown after the field, such as `per item`.
    */
   suffix = input<string>();
 
-  /**
-   * Error message to display when the form contrrol is invalid.
-   */
-  errorMessage = input<string>();
+  /** The field's id: its own, or a generated one if it has none. */
+  fieldId = signal('');
 
-  isInvalid = signal<boolean>(false);
-  control = contentChild(NgControl);
-  fieldEl = computed(() => this.textInput() ?? this.textarea());
+  hintId = computed(() => `${this.fieldId()}-hint`);
+  errorId = computed(() => `${this.fieldId()}-error`);
 
-  ariaDescribedBy = computed(() => {
-    const describedbyIds = [];
-    if (this.hint()) {
-      describedbyIds.push(this.hintId);
-    }
-    if (this.isInvalid()) {
-      describedbyIds.push(this.errorId);
-    }
-    return describedbyIds.join(' ');
+  labelClasses = computed(() => {
+    const size = this.labelSize() ?? (this.asPageHeading() ? 'l' : undefined);
+    return size ? `govuk-label govuk-label--${size}` : 'govuk-label';
   });
 
-  fieldId = this.utilsService.randomId('field');
-  hintId = this.utilsService.randomId('hint');
-  errorId = this.utilsService.randomId('error');
+  /** Any aria-describedby the field already had, kept first as GOV.UK does. */
+  private initialDescribedBy = signal('');
+
+  private describedBy = computed(() =>
+    [
+      this.initialDescribedBy(),
+      this.hint() ? this.hintId() : '',
+      this.errorMessage() ? this.errorId() : '',
+    ]
+      .filter(Boolean)
+      .join(' '),
+  );
 
   constructor() {
     effect(() => {
-      const field = this.getNativeField();
-      if (field) {
-        this.renderer.setAttribute(
-          field,
-          'aria-describedby',
-          this.ariaDescribedBy(),
-        );
+      const field = this.field();
+      const element = field?.elementRef.nativeElement;
+      if (!field || !element || !this.fieldId()) {
+        return;
+      }
+      field.hasError.set(!!this.errorMessage());
+      const describedBy = this.describedBy();
+      if (describedBy) {
+        this.renderer.setAttribute(element, 'aria-describedby', describedBy);
+      } else {
+        this.renderer.removeAttribute(element, 'aria-describedby');
       }
     });
   }
 
-  ngAfterViewInit(): void {
-    const field = this.getNativeField();
-    if (field) {
-      this.renderer.setAttribute(field, 'id', this.fieldId);
+  ngAfterContentInit(): void {
+    const element = this.field()?.elementRef.nativeElement;
+    if (!element) {
+      return;
     }
-
-    if (this.control()) {
-      this.isInvalid.set(this.control()?.status === 'INVALID');
-      this.control()?.statusChanges?.subscribe((status) => {
-        this.isInvalid.set(status === 'INVALID');
-      });
+    this.initialDescribedBy.set(element.getAttribute('aria-describedby') ?? '');
+    if (!element.id) {
+      this.renderer.setAttribute(
+        element,
+        'id',
+        this.utilsService.randomId('field'),
+      );
     }
-  }
-
-  private getNativeField(): ElementRef['nativeElement'] | undefined {
-    return this.fieldEl()?.elementRef.nativeElement;
+    this.fieldId.set(element.id);
   }
 }
