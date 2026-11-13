@@ -140,7 +140,7 @@ export const COMPONENTS: ComponentEntry[] = [
   {
     name: 'Inset text',
     id: 'inset-text',
-    status: 'to-do',
+    status: 'documented',
     description: 'Sets a block of text apart from the content around it.',
   },
   {
@@ -166,7 +166,7 @@ export const COMPONENTS: ComponentEntry[] = [
   {
     name: 'Panel',
     id: 'panel',
-    status: 'to-do',
+    status: 'documented',
     description:
       'A highlighted container used on confirmation and results pages.',
   },
@@ -206,7 +206,7 @@ export const COMPONENTS: ComponentEntry[] = [
   {
     name: 'Skip link',
     id: 'skip-link',
-    status: 'to-do',
+    status: 'documented',
     description:
       'Helps keyboard users skip straight to the main content on a page.',
   },
@@ -233,7 +233,7 @@ export const COMPONENTS: ComponentEntry[] = [
   {
     name: 'Tag',
     id: 'tag',
-    status: 'to-do',
+    status: 'documented',
     description: 'Shows users the status of something.',
   },
   {
@@ -260,7 +260,7 @@ export const COMPONENTS: ComponentEntry[] = [
   {
     name: 'Warning text',
     id: 'warning-text',
-    status: 'to-do',
+    status: 'documented',
     description:
       'Warns users about something important, such as the consequences of an action.',
   },

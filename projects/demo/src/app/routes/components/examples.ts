@@ -13,11 +13,16 @@ import { CheckboxesDemoComponent } from './examples/checkboxes/default.component
 import { DateInputDemoComponent } from './examples/date-input/default.component';
 import { DetailsDemoComponent } from './examples/details/default.component';
 import { FieldsetDemoComponent } from './examples/fieldset/default.component';
+import { InsetTextDemoComponent } from './examples/inset-text/default.component';
+import { PanelDemoComponent } from './examples/panel/default.component';
 import { RadiosDemoComponent } from './examples/radios/default.component';
+import { SkipLinkDemoComponent } from './examples/skip-link/default.component';
+import { TagDemoComponent } from './examples/tag/default.component';
 import { TextInputDemoComponent } from './examples/text-input/default.component';
 import { TextInputFixedWidthDemoComponent } from './examples/text-input/fixed-width.component';
 import { TextInputFluidWidthDemoComponent } from './examples/text-input/fluid-width.component';
 import { TextareaDemoComponent } from './examples/textarea/default.component';
+import { WarningTextDemoComponent } from './examples/warning-text/default.component';
 
 /** One demo on a component's page, shown with its own code. */
 export interface Example {
@@ -91,7 +96,15 @@ export const EXAMPLES: Record<string, Example[]> = {
   ],
   details: [{ path: 'details/default', component: DetailsDemoComponent }],
   fieldset: [{ path: 'fieldset/default', component: FieldsetDemoComponent }],
+  'inset-text': [
+    { path: 'inset-text/default', component: InsetTextDemoComponent },
+  ],
+  panel: [{ path: 'panel/default', component: PanelDemoComponent }],
   radios: [{ path: 'radios/default', component: RadiosDemoComponent }],
+  'skip-link': [
+    { path: 'skip-link/default', component: SkipLinkDemoComponent },
+  ],
+  tag: [{ path: 'tag/default', component: TagDemoComponent }],
   'text-input': [
     { path: 'text-input/default', component: TextInputDemoComponent },
     {
@@ -110,4 +123,7 @@ export const EXAMPLES: Record<string, Example[]> = {
     },
   ],
   textarea: [{ path: 'textarea/default', component: TextareaDemoComponent }],
+  'warning-text': [
+    { path: 'warning-text/default', component: WarningTextDemoComponent },
+  ],
 };
