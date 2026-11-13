@@ -1,11 +1,19 @@
 <input
   class="govuk-checkboxes__input"
-  [attr.id]="fieldId"
+  [id]="inputId()"
+  [name]="group.groupName()"
   type="checkbox"
-  [checked]="value()"
-  (change)="onChecked($event)"
+  [checked]="checked()"
+  [disabled]="isDisabled()"
+  [attr.aria-describedby]="hint() ? hintId() : null"
+  (change)="toggle($event)"
   (blur)="onTouched()"
 />
-<label class="govuk-label govuk-checkboxes__label" [attr.for]="fieldId">
-  {{ label() }}
+<label class="govuk-label govuk-checkboxes__label" [for]="inputId()">
+  <ng-content></ng-content>
 </label>
+@if (hint()) {
+  <div [id]="hintId()" class="govuk-hint govuk-checkboxes__hint">
+    {{ hint() }}
+  </div>
+}
