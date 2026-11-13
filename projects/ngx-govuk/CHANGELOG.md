@@ -1,15 +1,4 @@
-## 0.4.0 (2024-03-01)
-
-
-### 🚀 Features
-
-- Added details component ([040da41](https://github.com/tgreyuk/ngx-govuk/commit/040da41))
-- Added "Back link" component. ([f2451ee](https://github.com/tgreyuk/ngx-govuk/commit/f2451ee))
-- Added "breadcrumbs" component ([d79b4aa](https://github.com/tgreyuk/ngx-govuk/commit/d79b4aa))
-
-### ❤️  Thank You
-
-- tgreyuk @tgreyuk
+# Changelog
 
 ## [0.5.0](https://github.com/tgreyuk/ngx-govuk/compare/v0.4.0...v0.5.0) (2026-11-13)
 
@@ -17,6 +6,7 @@
 ### ⚠ BREAKING CHANGES
 
 * **accordion:** NgxGovukAccordionPanel's `isExpanded` signal is replaced by the `expanded` model, and its toggle() is no longer public: set `expanded` instead. NgxGovukAccordion's `isExpanded` signal is removed, and `panels` is no longer public.
+* **character-count:** NgxGovUkCharacterCount is renamed NgxGovukCharacterCount. Update your imports.
 * **form-group:** the form group no longer shows errors from the control's validity. Pass errorMessage when your validation fails, for example [errorMessage]="control.invalid && submitted ? 'Enter ...' : null". The text input and textarea directives no longer expose `control`.
 * ngx-govuk/forms is removed. Import from ngx-govuk/checkboxes, ngx-govuk/fieldset or ngx-govuk/date-input.
 * ngx-govuk now requires Angular 22 (`@angular/core` ^22.0.0 and the matching common, forms and router).
@@ -37,8 +27,20 @@
 * **form-group:** only wrap the control when there is a prefix or suffix ([8c5feef](https://github.com/tgreyuk/ngx-govuk/commit/8c5feefe21184a0c7dfa79048840d0373f8e7009))
 * include the licence, description and keywords in the npm package ([a5dbcc4](https://github.com/tgreyuk/ngx-govuk/commit/a5dbcc43840ebe3a7ddf63a8bda941300a84914e))
 * rename NgxGovUkCharacterCount to NgxGovukCharacterCount ([b20c15b](https://github.com/tgreyuk/ngx-govuk/commit/b20c15b6d202df7967972c6a1ea0269ccade7cc9))
-* stop snapshot serializer recursing when test files share a worker ([dba4b7b](https://github.com/tgreyuk/ngx-govuk/commit/dba4b7b854dd8be09e4e785ed3cfaffb7d30737b))
 * **textarea:** use govuk-textarea--error for the error state ([cdd981a](https://github.com/tgreyuk/ngx-govuk/commit/cdd981a5b65043749503e729afee6d11e5c23a0c))
+
+## 0.4.0 (2024-03-01)
+
+
+### 🚀 Features
+
+- Added details component ([040da41](https://github.com/tgreyuk/ngx-govuk/commit/040da41))
+- Added "Back link" component. ([f2451ee](https://github.com/tgreyuk/ngx-govuk/commit/f2451ee))
+- Added "breadcrumbs" component ([d79b4aa](https://github.com/tgreyuk/ngx-govuk/commit/d79b4aa))
+
+### ❤️  Thank You
+
+- tgreyuk @tgreyuk
 
 ## 0.3.0 (2024-02-28)
 
