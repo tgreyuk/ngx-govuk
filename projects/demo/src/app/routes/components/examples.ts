@@ -205,6 +205,15 @@ export const EXAMPLES: Record<string, Example[]> = {
         ),
     },
   ],
+  tabs: [
+    {
+      path: 'tabs/default',
+      load: () =>
+        import('./examples/tabs/default.component').then(
+          (m) => m.TabsDemoComponent,
+        ),
+    },
+  ],
   tag: [
     {
       path: 'tag/default',

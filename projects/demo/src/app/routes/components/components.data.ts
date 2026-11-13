@@ -226,7 +226,7 @@ export const COMPONENTS: ComponentEntry[] = [
   {
     name: 'Tabs',
     id: 'tabs',
-    status: 'in-progress',
+    status: 'documented',
     description:
       'Lets users move between related sections of content, one at a time.',
   },
