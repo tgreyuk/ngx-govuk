@@ -53,7 +53,7 @@ export default defineConfig(
     rules: {
       '@angular-eslint/directive-selector': [
         'error',
-        { type: 'attribute', prefix: 'ngxGovUk', style: 'camelCase' },
+        { type: 'attribute', prefix: 'ngxGovuk', style: 'camelCase' },
       ],
       '@angular-eslint/component-selector': [
         'error',
