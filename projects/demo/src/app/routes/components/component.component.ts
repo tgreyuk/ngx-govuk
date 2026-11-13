@@ -1,4 +1,4 @@
-import { Component, computed, input } from '@angular/core';
+import { Component, computed, input, resource } from '@angular/core';
 import { NgComponentOutlet } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { StartCasePipe } from '../../pipes/start-case.pipe';
@@ -27,5 +27,21 @@ export class ComponentComponent {
 
   component = computed(() => findComponent(this.componentId()));
 
-  examples = computed(() => EXAMPLES[this.componentId()] ?? []);
+  /**
+   * The examples with their demo components, once loaded. Only loads on the
+   * Examples tab.
+   */
+  private loadedExamples = resource({
+    params: () =>
+      this.tab() === 'examples' ? EXAMPLES[this.componentId()] : undefined,
+    loader: ({ params }) =>
+      Promise.all(
+        params.map(async (example) => ({
+          ...example,
+          component: await example.load(),
+        })),
+      ),
+  });
+
+  examples = computed(() => this.loadedExamples.value() ?? []);
 }

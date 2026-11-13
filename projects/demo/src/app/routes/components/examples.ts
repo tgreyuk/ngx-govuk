@@ -1,28 +1,4 @@
 import { Type } from '@angular/core';
-import { AccordionDemoComponent } from './examples/accordion/default.component';
-import { BackLinkDemoComponent } from './examples/back-link/default.component';
-import { BreadcrumbsDemoComponent } from './examples/breadcrumbs/default.component';
-import { ButtonDefaultDemoComponent } from './examples/button/default.component';
-import { ButtonDisabledDemoComponent } from './examples/button/disabled.component';
-import { ButtonGroupDemoComponent } from './examples/button/group.component';
-import { ButtonSecondaryDemoComponent } from './examples/button/secondary.component';
-import { ButtonStartDemoComponent } from './examples/button/start.component';
-import { ButtonWarningDemoComponent } from './examples/button/warning.component';
-import { CharacterCountDemoComponent } from './examples/character-count/default.component';
-import { CheckboxesDemoComponent } from './examples/checkboxes/default.component';
-import { DateInputDemoComponent } from './examples/date-input/default.component';
-import { DetailsDemoComponent } from './examples/details/default.component';
-import { FieldsetDemoComponent } from './examples/fieldset/default.component';
-import { InsetTextDemoComponent } from './examples/inset-text/default.component';
-import { PanelDemoComponent } from './examples/panel/default.component';
-import { RadiosDemoComponent } from './examples/radios/default.component';
-import { SkipLinkDemoComponent } from './examples/skip-link/default.component';
-import { TagDemoComponent } from './examples/tag/default.component';
-import { TextInputDemoComponent } from './examples/text-input/default.component';
-import { TextInputFixedWidthDemoComponent } from './examples/text-input/fixed-width.component';
-import { TextInputFluidWidthDemoComponent } from './examples/text-input/fluid-width.component';
-import { TextareaDemoComponent } from './examples/textarea/default.component';
-import { WarningTextDemoComponent } from './examples/warning-text/default.component';
 
 /** One demo on a component's page, shown with its own code. */
 export interface Example {
@@ -31,7 +7,11 @@ export interface Example {
    * copies the folder to the site, so its template can be shown as code.
    */
   path: string;
-  component: Type<unknown>;
+  /**
+   * Loads the demo component. Each loads only when its page opens, so the
+   * site's first download doesn't hold every example and library component.
+   */
+  load: () => Promise<Type<unknown>>;
   /** Not needed for the first example, which shows the default. */
   title?: string;
   /**
@@ -43,87 +23,242 @@ export interface Example {
 
 /** Each documented component's examples, in page order. */
 export const EXAMPLES: Record<string, Example[]> = {
-  accordion: [{ path: 'accordion/default', component: AccordionDemoComponent }],
+  accordion: [
+    {
+      path: 'accordion/default',
+      load: () =>
+        import('./examples/accordion/default.component').then(
+          (m) => m.AccordionDemoComponent,
+        ),
+    },
+  ],
   'back-link': [
-    { path: 'back-link/default', component: BackLinkDemoComponent },
+    {
+      path: 'back-link/default',
+      load: () =>
+        import('./examples/back-link/default.component').then(
+          (m) => m.BackLinkDemoComponent,
+        ),
+    },
   ],
   breadcrumbs: [
-    { path: 'breadcrumbs/default', component: BreadcrumbsDemoComponent },
+    {
+      path: 'breadcrumbs/default',
+      load: () =>
+        import('./examples/breadcrumbs/default.component').then(
+          (m) => m.BreadcrumbsDemoComponent,
+        ),
+    },
   ],
   button: [
-    { path: 'button/default', component: ButtonDefaultDemoComponent },
+    {
+      path: 'button/default',
+      load: () =>
+        import('./examples/button/default.component').then(
+          (m) => m.ButtonDefaultDemoComponent,
+        ),
+    },
     {
       path: 'button/secondary',
-      component: ButtonSecondaryDemoComponent,
+      load: () =>
+        import('./examples/button/secondary.component').then(
+          (m) => m.ButtonSecondaryDemoComponent,
+        ),
       title: 'Secondary button',
       description: 'Set "buttonType" to "secondary".',
     },
     {
       path: 'button/warning',
-      component: ButtonWarningDemoComponent,
+      load: () =>
+        import('./examples/button/warning.component').then(
+          (m) => m.ButtonWarningDemoComponent,
+        ),
       title: 'Warning button',
       description: 'Set "buttonType" to "warning".',
     },
     {
       path: 'button/start',
-      component: ButtonStartDemoComponent,
+      load: () =>
+        import('./examples/button/start.component').then(
+          (m) => m.ButtonStartDemoComponent,
+        ),
       title: 'Start button',
       description:
         'Set "buttonType" to "start" on a link. The button adds the arrow icon.',
     },
     {
       path: 'button/disabled',
-      component: ButtonDisabledDemoComponent,
+      load: () =>
+        import('./examples/button/disabled.component').then(
+          (m) => m.ButtonDisabledDemoComponent,
+        ),
       title: 'Disabled button',
       description: 'Add the native "disabled" attribute.',
     },
     {
       path: 'button/group',
-      component: ButtonGroupDemoComponent,
+      load: () =>
+        import('./examples/button/group.component').then(
+          (m) => m.ButtonGroupDemoComponent,
+        ),
       title: 'Grouping buttons',
       description:
         'Wrap buttons, and any links, in "ngx-govuk-button-group" to lay them out together.',
     },
   ],
   'character-count': [
-    { path: 'character-count/default', component: CharacterCountDemoComponent },
+    {
+      path: 'character-count/default',
+      load: () =>
+        import('./examples/character-count/default.component').then(
+          (m) => m.CharacterCountDemoComponent,
+        ),
+    },
   ],
   checkboxes: [
-    { path: 'checkboxes/default', component: CheckboxesDemoComponent },
+    {
+      path: 'checkboxes/default',
+      load: () =>
+        import('./examples/checkboxes/default.component').then(
+          (m) => m.CheckboxesDemoComponent,
+        ),
+    },
   ],
   'date-input': [
-    { path: 'date-input/default', component: DateInputDemoComponent },
+    {
+      path: 'date-input/default',
+      load: () =>
+        import('./examples/date-input/default.component').then(
+          (m) => m.DateInputDemoComponent,
+        ),
+    },
   ],
-  details: [{ path: 'details/default', component: DetailsDemoComponent }],
-  fieldset: [{ path: 'fieldset/default', component: FieldsetDemoComponent }],
+  details: [
+    {
+      path: 'details/default',
+      load: () =>
+        import('./examples/details/default.component').then(
+          (m) => m.DetailsDemoComponent,
+        ),
+    },
+  ],
+  fieldset: [
+    {
+      path: 'fieldset/default',
+      load: () =>
+        import('./examples/fieldset/default.component').then(
+          (m) => m.FieldsetDemoComponent,
+        ),
+    },
+  ],
   'inset-text': [
-    { path: 'inset-text/default', component: InsetTextDemoComponent },
+    {
+      path: 'inset-text/default',
+      load: () =>
+        import('./examples/inset-text/default.component').then(
+          (m) => m.InsetTextDemoComponent,
+        ),
+    },
   ],
-  panel: [{ path: 'panel/default', component: PanelDemoComponent }],
-  radios: [{ path: 'radios/default', component: RadiosDemoComponent }],
+  'notification-banner': [
+    {
+      path: 'notification-banner/default',
+      load: () =>
+        import('./examples/notification-banner/default.component').then(
+          (m) => m.NotificationBannerDemoComponent,
+        ),
+    },
+  ],
+  panel: [
+    {
+      path: 'panel/default',
+      load: () =>
+        import('./examples/panel/default.component').then(
+          (m) => m.PanelDemoComponent,
+        ),
+    },
+  ],
+  'phase-banner': [
+    {
+      path: 'phase-banner/default',
+      load: () =>
+        import('./examples/phase-banner/default.component').then(
+          (m) => m.PhaseBannerDemoComponent,
+        ),
+    },
+  ],
+  radios: [
+    {
+      path: 'radios/default',
+      load: () =>
+        import('./examples/radios/default.component').then(
+          (m) => m.RadiosDemoComponent,
+        ),
+    },
+  ],
   'skip-link': [
-    { path: 'skip-link/default', component: SkipLinkDemoComponent },
+    {
+      path: 'skip-link/default',
+      load: () =>
+        import('./examples/skip-link/default.component').then(
+          (m) => m.SkipLinkDemoComponent,
+        ),
+    },
   ],
-  tag: [{ path: 'tag/default', component: TagDemoComponent }],
+  tag: [
+    {
+      path: 'tag/default',
+      load: () =>
+        import('./examples/tag/default.component').then(
+          (m) => m.TagDemoComponent,
+        ),
+    },
+  ],
   'text-input': [
-    { path: 'text-input/default', component: TextInputDemoComponent },
+    {
+      path: 'text-input/default',
+      load: () =>
+        import('./examples/text-input/default.component').then(
+          (m) => m.TextInputDemoComponent,
+        ),
+    },
     {
       path: 'text-input/fixed-width',
-      component: TextInputFixedWidthDemoComponent,
+      load: () =>
+        import('./examples/text-input/fixed-width.component').then(
+          (m) => m.TextInputFixedWidthDemoComponent,
+        ),
       title: 'Fixed width inputs',
       description:
         'Set "inputWidth" to a number of characters: "30", "20", "10", "5", "4", "3" or "2".',
     },
     {
       path: 'text-input/fluid-width',
-      component: TextInputFluidWidthDemoComponent,
+      load: () =>
+        import('./examples/text-input/fluid-width.component').then(
+          (m) => m.TextInputFluidWidthDemoComponent,
+        ),
       title: 'Fluid width inputs',
       description:
         'Set "inputWidth" to a fraction of its container: "full", "three-quarters", "two-thirds", "one-half", "one-third" or "one-quarter".',
     },
   ],
-  textarea: [{ path: 'textarea/default', component: TextareaDemoComponent }],
+  textarea: [
+    {
+      path: 'textarea/default',
+      load: () =>
+        import('./examples/textarea/default.component').then(
+          (m) => m.TextareaDemoComponent,
+        ),
+    },
+  ],
   'warning-text': [
-    { path: 'warning-text/default', component: WarningTextDemoComponent },
+    {
+      path: 'warning-text/default',
+      load: () =>
+        import('./examples/warning-text/default.component').then(
+          (m) => m.WarningTextDemoComponent,
+        ),
+    },
   ],
 };

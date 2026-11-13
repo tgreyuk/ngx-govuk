@@ -152,7 +152,7 @@ export const COMPONENTS: ComponentEntry[] = [
   {
     name: 'Notification banner',
     id: 'notification-banner',
-    status: 'to-do',
+    status: 'documented',
     description:
       'Tells users about something important, such as the result of an action.',
   },
@@ -179,7 +179,7 @@ export const COMPONENTS: ComponentEntry[] = [
   {
     name: 'Phase banner',
     id: 'phase-banner',
-    status: 'to-do',
+    status: 'documented',
     description:
       'Shows that a service is still being worked on, such as in alpha or beta.',
   },
