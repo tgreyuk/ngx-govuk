@@ -8,6 +8,7 @@ import { ButtonGroupDemoComponent } from './examples/button/group.component';
 import { ButtonSecondaryDemoComponent } from './examples/button/secondary.component';
 import { ButtonStartDemoComponent } from './examples/button/start.component';
 import { ButtonWarningDemoComponent } from './examples/button/warning.component';
+import { CharacterCountDemoComponent } from './examples/character-count/default.component';
 import { CheckboxesDemoComponent } from './examples/checkboxes/default.component';
 import { DateInputDemoComponent } from './examples/date-input/default.component';
 import { DetailsDemoComponent } from './examples/details/default.component';
@@ -78,6 +79,9 @@ export const EXAMPLES: Record<string, Example[]> = {
       description:
         'Wrap buttons, and any links, in "ngx-govuk-button-group" to lay them out together.',
     },
+  ],
+  'character-count': [
+    { path: 'character-count/default', component: CharacterCountDemoComponent },
   ],
   checkboxes: [
     { path: 'checkboxes/default', component: CheckboxesDemoComponent },

@@ -48,10 +48,9 @@ export const COMPONENTS: ComponentEntry[] = [
   {
     name: 'Character count',
     id: 'character-count',
-    status: 'in-progress',
+    status: 'documented',
     description:
       'Tells users how many characters or words they can still enter.',
-    isField: true,
   },
   {
     name: 'Checkboxes',
