@@ -328,7 +328,7 @@ pre {
 
 .app-subnav__link {
   display: block;
-  padding: 6px 10px;
+  padding: 9px 10px;
   border-left: 4px solid transparent;
   color: var(--app-accent);
   font-size: 1rem;
@@ -362,11 +362,62 @@ pre {
   font-weight: 600;
 }
 
+// The Examples and API tabs on a component's page. The site's own look, not
+// GOV.UK's tabs, so they don't read as part of the example below.
+.app-tabs {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 30px;
+  border-bottom: 1px solid var(--app-border);
+  font-family: var(--app-font);
+}
+
+.app-tabs__link {
+  margin-bottom: -1px;
+  padding: 8px 2px 10px;
+  border-bottom: 4px solid transparent;
+  color: var(--app-muted);
+  font-size: 1.125rem;
+  font-weight: 600;
+  text-decoration: none;
+  &:hover {
+    color: var(--app-text);
+    border-bottom-color: var(--app-border);
+  }
+  &:focus-visible {
+    outline: 3px solid transparent;
+    color: var(--app-text);
+    background-color: var(--app-focus);
+    border-bottom-color: var(--app-text);
+  }
+}
+
+.app-tabs__link--current {
+  color: var(--app-text);
+  border-bottom-color: var(--app-marker);
+}
+
 // A frame around live examples in guides.
 .app-example {
   margin-bottom: 20px;
-  padding: 20px 20px 0;
+  padding: 30px 20px;
   border: 1px solid var(--app-border);
+
+  // The same space above and below every demo: drop the outer margins of
+  // whatever comes first and last. Several levels down, since a component
+  // sits inside the demo's host and often its own host element.
+  > :first-child,
+  > :first-child > :first-child,
+  > :first-child > :first-child > :first-child,
+  > :first-child > :first-child > :first-child > :first-child {
+    margin-top: 0;
+  }
+  > :last-child,
+  > :last-child > :last-child,
+  > :last-child > :last-child > :last-child,
+  > :last-child > :last-child > :last-child > :last-child {
+    margin-bottom: 0;
+  }
 }
 
 // An example with its template attached underneath, so each demo is pinned to
@@ -427,7 +478,8 @@ pre {
 // light strip, so they can't be mistaken for the bold member names below.
 // Element and both classes, to win over GOV.UK's padding for a heading that
 // follows body text.
-h4.govuk-heading-s.app-api-heading {
+// Either level: h3 on a component's API tab, h4 under a guide's "API" heading.
+:is(h3, h4).govuk-heading-s.app-api-heading {
   margin: 30px 0 20px;
   padding: 4px 10px;
   background-color: var(--app-slate-light);

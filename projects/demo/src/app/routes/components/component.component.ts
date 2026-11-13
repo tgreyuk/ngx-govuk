@@ -1,6 +1,6 @@
 import { Component, computed, input } from '@angular/core';
 import { NgComponentOutlet } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import { StartCasePipe } from '../../pipes/start-case.pipe';
 import { ComponentApiComponent } from './component-api/component-api.component';
 import { ComponentCodeComponent } from './component-code/component-code.component';
@@ -12,6 +12,7 @@ import { EXAMPLES } from './examples';
   templateUrl: './component.component.html',
   imports: [
     RouterLink,
+    RouterLinkActive,
     StartCasePipe,
     NgComponentOutlet,
     ComponentCodeComponent,
@@ -20,6 +21,9 @@ import { EXAMPLES } from './examples';
 })
 export class ComponentComponent {
   componentId = input<string>('');
+
+  /** Which tab to show, from the route's data. */
+  tab = input<'examples' | 'api'>('examples');
 
   component = computed(() => findComponent(this.componentId()));
 

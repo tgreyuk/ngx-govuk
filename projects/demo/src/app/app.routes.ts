@@ -12,6 +12,10 @@ import { UsingComponentsComponent } from './routes/get-started/using-components.
 import { HomeComponent } from './routes/home/home.component';
 import { SupportComponent } from './routes/support/support.component';
 
+/** Matches only components that have documentation. */
+const documented = (_route: Route, segments: UrlSegment[]) =>
+  isDocumented(segments[0]?.path);
+
 export const appRoutes: Route[] = [
   { path: '', component: HomeComponent },
   {
@@ -29,18 +33,18 @@ export const appRoutes: Route[] = [
     component: ComponentsLayoutComponent,
     children: [
       { path: '', component: ComponentsComponent },
-      // The form group is documented in the forms guide.
-      { path: 'form-group', redirectTo: '/get-started/forms' },
-      // The demo, code and API used to be separate tabs with their own URLs.
-      { path: ':componentId/:tab', redirectTo: '/components/:componentId' },
+      // Documented components get two tabs: examples, and the API.
       {
         path: ':componentId',
-        // Documented components get the page with the demo, code and API.
-        canMatch: [
-          (_route: Route, segments: UrlSegment[]) =>
-            isDocumented(segments[0]?.path),
-        ],
+        canMatch: [documented],
         component: ComponentComponent,
+        data: { tab: 'examples' },
+      },
+      {
+        path: ':componentId/api',
+        canMatch: [documented],
+        component: ComponentComponent,
+        data: { tab: 'api' },
       },
       // Everything else: a placeholder for components not documented yet.
       { path: ':componentId', component: ComponentPlaceholderComponent },

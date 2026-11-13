@@ -1,3 +1,4 @@
+import { NgTemplateOutlet } from '@angular/common';
 import { httpResource } from '@angular/common/http';
 import { Component, computed, input } from '@angular/core';
 import { CodeBlockComponent } from '../component-code/code-block.component';
@@ -32,11 +33,17 @@ interface ApiSection {
  */
 @Component({
   selector: 'ngx-govuk-api',
-  imports: [CodeBlockComponent],
+  imports: [CodeBlockComponent, NgTemplateOutlet],
   templateUrl: './component-api.component.html',
 })
 export class ComponentApiComponent {
   componentId = input<string>('');
+
+  /**
+   * The level for each class's heading: 2 on the API tab, right under the
+   * page's `h1`, and 3 in a guide, under its own "API" `h2`.
+   */
+  headingLevel = input<2 | 3>(3);
 
   // Reloads when componentId changes: the router reuses the page when moving
   // from one component to another.

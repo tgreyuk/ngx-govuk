@@ -107,7 +107,8 @@ setup code can run more than once: use `Symbol.for` for any marker it keeps.
 - `projects/demo/src/app/routes/components/components.data.ts` lists every
   GOV.UK component with its status: `documented` (has a page), `in-progress`
   or `to-do`.
-- A component's page shows its examples, then its API.
+- A component's page has two tabs, each its own route: Examples at
+  `/components/<id>` and API at `/components/<id>/api`.
 - The API section reads `assets/api/<entry-point>.json`, which
   `npm run demo:api` writes from the library source. It is gitignored. It
   lists the selector, inputs (including models), outputs and documented
