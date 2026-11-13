@@ -1,5 +1,11 @@
 {
   "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    // The site imports the library from source (see "paths" in the root
+    // tsconfig), so the root must hold both. TypeScript 6 otherwise uses this
+    // folder.
+    "rootDir": "../.."
+  },
   "files": [],
   "include": [],
   "references": [
