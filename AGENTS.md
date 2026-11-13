@@ -102,6 +102,9 @@ snapshot with `npm run lib:test:update` and check its diff.
 Angular's runner shares a worker between test files (`isolate: false`), so
 setup code can run more than once: use `Symbol.for` for any marker it keeps.
 
+[docs/testing.md](docs/testing.md) explains how markup is checked against
+GOV.UK Frontend today, and ideas for testing it automatically.
+
 ## Docs site
 
 - `projects/demo/src/app/routes/components/components.data.ts` lists every
