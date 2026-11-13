@@ -254,7 +254,7 @@ export const COMPONENTS: ComponentEntry[] = [
   {
     name: 'Textarea',
     id: 'textarea',
-    status: 'in-progress',
+    status: 'documented',
     description: 'Lets users enter more than a single line of text.',
     isField: true,
   },

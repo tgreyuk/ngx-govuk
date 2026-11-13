@@ -12,6 +12,7 @@ import { DetailsDemoComponent } from './examples/details/default.component';
 import { TextInputDemoComponent } from './examples/text-input/default.component';
 import { TextInputFixedWidthDemoComponent } from './examples/text-input/fixed-width.component';
 import { TextInputFluidWidthDemoComponent } from './examples/text-input/fluid-width.component';
+import { TextareaDemoComponent } from './examples/textarea/default.component';
 
 /** One demo on a component's page, shown with its own code. */
 export interface Example {
@@ -92,4 +93,5 @@ export const EXAMPLES: Record<string, Example[]> = {
         'Set "inputWidth" to a fraction of its container: "full", "three-quarters", "two-thirds", "one-half", "one-third" or "one-quarter".',
     },
   ],
+  textarea: [{ path: 'textarea/default', component: TextareaDemoComponent }],
 };
