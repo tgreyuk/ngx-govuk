@@ -164,8 +164,7 @@ its template underneath as code.
   with `routerLink="."`, not `href="#"`.
 - The `.ts` file isn't shown on component pages, since the API section gives
   the import. It only needs to import what the template uses. A guide can
-  show it too with `showComponentCode`, when the class does real work, as in
-  the forms guide.
+  show it too with `showComponentCode`, when the class does real work.
 - The first example shows the default and has no title. Each later one has a
   `title` and a `description`: a short, factual line on how to get that
   variant, such as which input to set. Guidance on when to use it belongs to

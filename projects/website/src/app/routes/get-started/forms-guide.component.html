@@ -2,21 +2,28 @@
 <h1 class="govuk-heading-xl">Working with forms</h1>
 
 <p class="govuk-body-l">
-  Every form field in ngx-govuk is a native element, such as an input or
-  textarea, inside a form group. The form group adds the label, hint and error
-  message, and connects them to the field.
+  Most fields in ngx-govuk are a native element, such as an input or textarea,
+  inside a form group. The form group adds the label, hint and error message,
+  and connects them to the field.
 </p>
 
 <h2 class="govuk-heading-m">How a field is built</h2>
 <p class="govuk-body">
   Add a field directive, such as
   <code class="app-inline-code">ngxGovukTextInput</code>, to a native element
-  and put it inside <code class="app-inline-code">ngx-govuk-form-group</code>.
-  The element stays yours: every native attribute and Angular forms directive
-  works as usual.
+  and put it inside a
+  <a class="govuk-link" routerLink="/components/form-group">form group</a>
+  (<code class="app-inline-code">ngx-govuk-form-group</code>). The element stays
+  yours: every native attribute and Angular forms directive works as usual.
 </p>
-<pre class="govuk-body" [innerText]="FIELD_CODE"></pre>
-<p class="govuk-body">These fields work inside a form group:</p>
+<p class="govuk-body">
+  Reactive and template-driven forms both work. The examples here use
+  <code class="app-inline-code">formControlName</code>; with template-driven
+  forms, use <code class="app-inline-code">ngModel</code> on the same element
+  instead.
+</p>
+<app-code-block [code]="FIELD_CODE" lang="angular-html" />
+<p class="govuk-body">These fields go inside a form group:</p>
 <ul class="govuk-list govuk-list--bullet">
   <li>
     <a class="govuk-link" routerLink="/components/text-input">Text input</a>
@@ -36,13 +43,44 @@
   </li>
 </ul>
 
-<h2 class="govuk-heading-m">Example</h2>
-<div class="app-example-group">
-  <div class="app-example">
-    <app-form-group-demo />
-  </div>
-  <ngx-govuk-example-code path="form-group/default" showComponentCode />
-</div>
+<h2 class="govuk-heading-m">Other fields</h2>
+<p class="govuk-body">
+  The
+  <a class="govuk-link" routerLink="/components/character-count"
+    >character count</a
+  >
+  and
+  <a class="govuk-link" routerLink="/components/password-input"
+    >password input</a
+  >
+  take the form group's place: put a textarea or input with its field directive
+  inside them, and they add the label, hint and error message as well as their
+  own count or "Show" button.
+</p>
+<p class="govuk-body">
+  <a class="govuk-link" routerLink="/components/checkboxes">Checkboxes</a>,
+  <a class="govuk-link" routerLink="/components/radios">radios</a> and the
+  <a class="govuk-link" routerLink="/components/date-input">date input</a> are
+  components of their own. They add their own legend, hint and error message, so
+  they don't go in a form group. Bind them with
+  <code class="app-inline-code">formControlName</code> or
+  <code class="app-inline-code">ngModel</code>, as in
+  <a
+    class="govuk-link"
+    routerLink="/get-started/components"
+    fragment="form-fields"
+    >Using components</a
+  >.
+</p>
+
+<h2 class="govuk-heading-m">Groups of fields</h2>
+<p class="govuk-body">
+  To group related fields under one question, such as the lines of an address,
+  put them in a
+  <a class="govuk-link" routerLink="/components/fieldset">fieldset</a>, with
+  each field in its own form group. Checkboxes, radios and the date input add
+  their own fieldset, so they don't need one.
+</p>
 
 <h2 class="govuk-heading-m">Showing errors</h2>
 <p class="govuk-body">
@@ -59,10 +97,36 @@
     >validation guidance</a
   >
   says not to validate when the user moves away from a field. Wait until they
-  try to continue, usually by selecting a "Continue" button, as in the example
-  above.
+  try to continue, usually by selecting a "Continue" button, as in the
+  <a class="govuk-link" routerLink="/components/form-group"
+    >form group example</a
+  >.
 </p>
-<pre class="govuk-body" [innerText]="ERROR_CODE"></pre>
+<app-code-block [code]="ERROR_CODE" lang="angular-html" />
+
+<h2 class="govuk-heading-m">Error summary</h2>
+<p class="govuk-body">
+  When a form has errors, GOV.UK also shows an
+  <a class="govuk-link" routerLink="/components/error-summary">error summary</a>
+  at the top of the main content, with a link to each field that has an error.
+  Show <code class="app-inline-code">ngx-govuk-error-summary</code> only when
+  there are errors, and give it the same messages as the fields. Each link's
+  <code class="app-inline-code">href</code> is
+  <code class="app-inline-code">#</code> and the field's
+  <code class="app-inline-code">id</code>.
+</p>
+<p class="govuk-body">
+  The summary takes focus when it appears, so screen reader users hear it.
+  Selecting a link moves focus to the field.
+</p>
+<app-code-block [code]="SUMMARY_HTML_CODE" lang="angular-html" />
+<p class="govuk-body">
+  GOV.UK also asks you to add "Error:" to the start of the page title, so users
+  hear straight away that something is wrong. Set it with Angular's
+  <code class="app-inline-code">Title</code> service when the user tries to
+  continue.
+</p>
+<app-code-block [code]="SUMMARY_TS_CODE" lang="angular-ts" />
 
 <h2 class="govuk-heading-m">Labels</h2>
 <p class="govuk-body">
@@ -75,7 +139,7 @@
   just one question, make the label the page heading with
   <code class="app-inline-code">asPageHeading</code>; it is large by default.
 </p>
-<pre class="govuk-body" [innerText]="LABEL_CODE"></pre>
+<app-code-block [code]="LABEL_CODE" lang="angular-html" />
 
 <h2 class="govuk-heading-m">Prefixes and suffixes</h2>
 <p class="govuk-body">
@@ -83,7 +147,7 @@
   <code class="app-inline-code">suffix</code> for units, such as currency.
   Screen readers do not read them, so the label must make the unit clear.
 </p>
-<pre class="govuk-body" [innerText]="AFFIX_CODE"></pre>
+<app-code-block [code]="AFFIX_CODE" lang="angular-html" />
 
 <h2 class="govuk-heading-m">Ids and screen readers</h2>
 <p class="govuk-body">
@@ -98,6 +162,3 @@
   GOV.UK Frontend. Any <code class="app-inline-code">aria-describedby</code> you
   set on the field is kept.
 </p>
-
-<h2 class="govuk-heading-m">API</h2>
-<ngx-govuk-api componentId="form-group" />
