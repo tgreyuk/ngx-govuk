@@ -5,14 +5,12 @@
   and use its styles. You need Angular 22 and GOV.UK Frontend 6.
 </p>
 
-<h2 class="govuk-heading-m govuk-!-margin-top-6">Guides</h2>
-
-<ul class="govuk-list">
+<ul class="govuk-list govuk-!-margin-top-6">
   @for (guide of guides; track guide.path) {
     <li>
-      <h3 class="govuk-heading-s govuk-!-margin-bottom-1">
+      <h2 class="govuk-heading-s govuk-!-margin-bottom-1">
         <a class="govuk-link" [routerLink]="guide.path">{{ guide.name }}</a>
-      </h3>
+      </h2>
       <p class="govuk-body">{{ guide.description }}</p>
     </li>
   }
@@ -21,4 +19,9 @@
 <p class="govuk-body govuk-!-margin-top-6">
   Once you're set up, browse the
   <a class="govuk-link" routerLink="/components">components</a>.
+</p>
+
+<p class="govuk-body">
+  You can <a class="govuk-link" routerLink="/support">get help</a> if you need
+  support getting started.
 </p>

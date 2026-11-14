@@ -1,13 +1,18 @@
 import type { HighlighterCore } from 'shiki/core';
 
-/** `angular-html` for templates; `angular-ts` for components. */
-export type CodeLanguage = 'angular-html' | 'angular-ts';
+/**
+ * `angular-html` for templates and `angular-ts` for components. The guides
+ * also show shell commands, Sass and `angular.json` snippets (`jsonc`, since
+ * they carry comments).
+ */
+export type CodeLanguage =
+  'angular-html' | 'angular-ts' | 'shellscript' | 'scss' | 'jsonc';
 
 let highlighter: Promise<HighlighterCore> | undefined;
 
 /**
- * Loads Shiki the first time it is needed, with only the Angular grammars and
- * one theme, so it stays out of the main bundle. `angular-ts` also highlights
+ * Loads Shiki the first time it is needed, with only the grammars the site
+ * uses and one theme, so it stays out of the main bundle. `angular-ts` also highlights
  * the HTML inside a component's inline `template`.
  */
 function getHighlighter() {
@@ -20,6 +25,9 @@ function getHighlighter() {
       langs: [
         import('shiki/langs/angular-html.mjs'),
         import('shiki/langs/angular-ts.mjs'),
+        import('shiki/langs/shellscript.mjs'),
+        import('shiki/langs/scss.mjs'),
+        import('shiki/langs/jsonc.mjs'),
       ],
       engine: createJavaScriptRegexEngine(),
     }),

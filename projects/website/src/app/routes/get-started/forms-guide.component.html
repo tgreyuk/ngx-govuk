@@ -9,28 +9,30 @@
 
 <h2 class="govuk-heading-m">How a field is built</h2>
 <p class="govuk-body">
-  Add a field directive, such as "ngxGovukTextInput", to a native element and
-  put it inside "ngx-govuk-form-group". The element stays yours: every native
-  attribute and Angular forms directive works as usual.
+  Add a field directive, such as
+  <code class="app-inline-code">ngxGovukTextInput</code>, to a native element
+  and put it inside <code class="app-inline-code">ngx-govuk-form-group</code>.
+  The element stays yours: every native attribute and Angular forms directive
+  works as usual.
 </p>
 <pre class="govuk-body" [innerText]="FIELD_CODE"></pre>
 <p class="govuk-body">These fields work inside a form group:</p>
 <ul class="govuk-list govuk-list--bullet">
   <li>
     <a class="govuk-link" routerLink="/components/text-input">Text input</a>
-    ("input[ngxGovukTextInput]")
+    (<code class="app-inline-code">input[ngxGovukTextInput]</code>)
   </li>
   <li>
     <a class="govuk-link" routerLink="/components/textarea">Textarea</a>
-    ("textarea[ngxGovukTextarea]")
+    (<code class="app-inline-code">textarea[ngxGovukTextarea]</code>)
   </li>
   <li>
     <a class="govuk-link" routerLink="/components/file-upload">File upload</a>
-    ("input[type=file][ngxGovukFileUpload]")
+    (<code class="app-inline-code">input[type=file][ngxGovukFileUpload]</code>)
   </li>
   <li>
     <a class="govuk-link" routerLink="/components/select">Select</a>
-    ("select[ngxGovukSelect]")
+    (<code class="app-inline-code">select[ngxGovukSelect]</code>)
   </li>
 </ul>
 
@@ -44,16 +46,16 @@
 
 <h2 class="govuk-heading-m">Showing errors</h2>
 <p class="govuk-body">
-  Set "errorMessage" when your validation fails. The form group then shows the
-  message and adds the error styles to itself and the field. Leave it unset, or
-  set it to null, when there is no error.
+  Set <code class="app-inline-code">errorMessage</code> when your validation
+  fails. The form group then shows the message and adds the error styles to
+  itself and the field. Leave it unset, or set it to null, when there is no
+  error.
 </p>
 <p class="govuk-body">
   GOV.UK's
   <a
     class="govuk-link"
     href="https://design-system.service.gov.uk/patterns/validation/"
-    target="_blank"
     >validation guidance</a
   >
   says not to validate when the user moves away from a field. Wait until they
@@ -64,29 +66,37 @@
 
 <h2 class="govuk-heading-m">Labels</h2>
 <p class="govuk-body">
-  Use "labelSize" ("s", "m", "l" or "xl") for a bigger label. If a page asks
-  just one question, make the label the page heading with "asPageHeading"; it is
-  large by default.
+  Use <code class="app-inline-code">labelSize</code> (<code
+    class="app-inline-code"
+    >s</code
+  >, <code class="app-inline-code">m</code>,
+  <code class="app-inline-code">l</code> or
+  <code class="app-inline-code">xl</code>) for a bigger label. If a page asks
+  just one question, make the label the page heading with
+  <code class="app-inline-code">asPageHeading</code>; it is large by default.
 </p>
 <pre class="govuk-body" [innerText]="LABEL_CODE"></pre>
 
 <h2 class="govuk-heading-m">Prefixes and suffixes</h2>
 <p class="govuk-body">
-  Use "prefix" and "suffix" for units, such as currency. Screen readers do not
-  read them, so the label must make the unit clear.
+  Use <code class="app-inline-code">prefix</code> and
+  <code class="app-inline-code">suffix</code> for units, such as currency.
+  Screen readers do not read them, so the label must make the unit clear.
 </p>
 <pre class="govuk-body" [innerText]="AFFIX_CODE"></pre>
 
 <h2 class="govuk-heading-m">Ids and screen readers</h2>
 <p class="govuk-body">
-  Give each field an "id", so error summaries and labels can link to it. If a
-  field has none, the form group generates one.
+  Give each field an <code class="app-inline-code">id</code>, so error summaries
+  and labels can link to it. If a field has none, the form group generates one.
 </p>
 <p class="govuk-body">
   The hint and error message get ids based on the field's id, such as
-  "email-hint" and "email-error", and the field's "aria-describedby" points to
-  them, as in GOV.UK Frontend. Any "aria-describedby" you set on the field is
-  kept.
+  <code class="app-inline-code">email-hint</code> and
+  <code class="app-inline-code">email-error</code>, and the field's
+  <code class="app-inline-code">aria-describedby</code> points to them, as in
+  GOV.UK Frontend. Any <code class="app-inline-code">aria-describedby</code> you
+  set on the field is kept.
 </p>
 
 <h2 class="govuk-heading-m">API</h2>

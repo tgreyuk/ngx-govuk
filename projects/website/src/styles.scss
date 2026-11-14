@@ -378,6 +378,12 @@ pre {
 .app-subnav {
   font-family: var(--app-font);
   padding-top: 30px;
+  // On desktop, start level with the page heading, and pull the menu left by
+  // its links' padding and marker so its text lines up with the header's.
+  @media (min-width: 48.0625em) {
+    margin-left: -14px;
+    padding-top: 0;
+  }
   @media (max-width: 48.0525em) {
     margin-bottom: 10px;
     padding-bottom: 10px;
@@ -574,10 +580,12 @@ hr.govuk-section-break--visible.app-api-class-break {
   padding: 0 10px;
 }
 
-// API reference: names, types and signatures, set apart from the prose. Neutral
-// grey like the site's code blocks, so code is grey everywhere and slate is
-// left for structure, such as the section strips.
-.app-api-code {
+// Code in running text: names, types and signatures in the API reference, and
+// file names, selectors and inputs in the guides. Neutral grey like the site's
+// code blocks, so code is grey everywhere and slate is left for structure, such
+// as the section strips.
+.app-api-code,
+.app-inline-code {
   padding: 1px 5px;
   border-radius: 4px;
   background-color: #f3f2f1;
