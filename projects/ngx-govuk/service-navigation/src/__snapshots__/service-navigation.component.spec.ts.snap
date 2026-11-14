@@ -1,0 +1,88 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`NgxGovukServiceNavigation > matches the GOV.UK markup snapshot 1`] = `
+<div>
+  <ngx-govuk-service-navigation
+    navigationid="navigation"
+    servicelink="/"
+  >
+    <section
+      aria-label="Service information"
+      class="govuk-service-navigation"
+    >
+      <div
+        class="govuk-width-container"
+      >
+        <div
+          class="govuk-service-navigation__container"
+        >
+          <span
+            class="govuk-service-navigation__service-name"
+          >
+            <a
+              class="govuk-service-navigation__link"
+              href="/"
+            >
+              Apply for a juggling licence
+            </a>
+          </span>
+          <nav
+            aria-label="Menu"
+            class="govuk-service-navigation__wrapper"
+          >
+            <button
+              aria-controls="navigation"
+              aria-hidden="true"
+              class="govuk-service-navigation__toggle"
+              hidden=""
+              type="button"
+            >
+               Menu 
+            </button>
+            <ul
+              class="govuk-service-navigation__list"
+              id="navigation"
+            >
+              <li
+                class="govuk-service-navigation__item"
+              >
+                <a
+                  class="govuk-service-navigation__link"
+                  href="/"
+                >
+                   Home 
+                </a>
+              </li>
+              <li
+                class="govuk-service-navigation__item govuk-service-navigation__item--active"
+              >
+                <a
+                  aria-current="page"
+                  class="govuk-service-navigation__link"
+                  href="/licences"
+                >
+                  <strong
+                    class="govuk-service-navigation__active-fallback"
+                  >
+                    Your licences
+                  </strong>
+                </a>
+              </li>
+              <li
+                class="govuk-service-navigation__item"
+              >
+                <a
+                  class="govuk-service-navigation__link"
+                  href="/account"
+                >
+                   Your account 
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </section>
+  </ngx-govuk-service-navigation>
+</div>
+`;

@@ -1,0 +1,100 @@
+<!-- As GOV.UK Frontend does: with a service name, a section is the landmark
+     around it; without one, the nav inside is landmark enough. -->
+@if (serviceName()) {
+  <section class="govuk-service-navigation" [attr.aria-label]="ariaLabel()">
+    <ng-container *ngTemplateOutlet="content" />
+  </section>
+} @else {
+  <div class="govuk-service-navigation">
+    <ng-container *ngTemplateOutlet="content" />
+  </div>
+}
+
+<ng-template #content>
+  <div class="govuk-width-container">
+    <div class="govuk-service-navigation__container">
+      @if (serviceName()) {
+        <span class="govuk-service-navigation__service-name">
+          @if (serviceLink(); as link) {
+            <a [routerLink]="link" class="govuk-service-navigation__link">{{
+              serviceName()
+            }}</a>
+          } @else {
+            <span class="govuk-service-navigation__text">{{
+              serviceName()
+            }}</span>
+          }
+        </span>
+      }
+
+      @if (items().length) {
+        <nav
+          [attr.aria-label]="navigationLabel() ?? menuButtonText()"
+          class="govuk-service-navigation__wrapper"
+        >
+          @if (collapses()) {
+            <button
+              type="button"
+              class="govuk-service-navigation__toggle"
+              [attr.aria-controls]="navigationId()"
+              [attr.aria-label]="
+                menuButtonLabel() && menuButtonLabel() !== menuButtonText()
+                  ? menuButtonLabel()
+                  : null
+              "
+              [attr.hidden]="isWide() ? '' : null"
+              [attr.aria-hidden]="isWide() ? 'true' : null"
+              [attr.aria-expanded]="isWide() ? null : menuIsOpen()"
+              (click)="toggleMenu()"
+            >
+              {{ menuButtonText() }}
+            </button>
+          }
+
+          <ul
+            class="govuk-service-navigation__list"
+            [id]="navigationId()"
+            [attr.hidden]="menuHidden() ? '' : null"
+          >
+            @for (item of items(); track $index) {
+              <li
+                class="govuk-service-navigation__item"
+                [class.govuk-service-navigation__item--active]="item.active"
+              >
+                @if (item.routerLink !== undefined) {
+                  <a
+                    class="govuk-service-navigation__link"
+                    [routerLink]="item.routerLink"
+                    [attr.aria-current]="
+                      item.current ? 'page' : item.active ? 'true' : null
+                    "
+                  >
+                    <ng-container
+                      *ngTemplateOutlet="text; context: { $implicit: item }"
+                    />
+                  </a>
+                } @else {
+                  <span class="govuk-service-navigation__text">{{
+                    item.text
+                  }}</span>
+                }
+              </li>
+            }
+          </ul>
+        </nav>
+      }
+    </div>
+  </div>
+</ng-template>
+
+<!-- Active items are wrapped in strong, so users who override colours or
+     styles can still tell which item is active. -->
+<ng-template #text let-item>
+  @if (item.active) {
+    <strong class="govuk-service-navigation__active-fallback">{{
+      item.text
+    }}</strong>
+  } @else {
+    {{ item.text }}
+  }
+</ng-template>
