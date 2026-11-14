@@ -514,6 +514,21 @@ pre {
 
 // The same gradient stripe as the header, so the two bookend the page. Just
 // the disclaimer and licence: the header already links to support and GitHub.
+// Keeps the footer at the bottom of the window on short pages. Otherwise
+// GOV.UK's page background, close to the footer's colour, shows below it and
+// reads as extra footer space.
+ngx-govuk-root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+// A plain wrapper takes the spare height, since the width container centres
+// itself with auto margins, which would shrink it inside a flex column.
+.app-main {
+  flex-grow: 1;
+}
+
 .app-footer {
   margin-top: 40px;
   padding: 25px 0;
