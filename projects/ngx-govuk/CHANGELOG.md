@@ -1,5 +1,26 @@
 # Changelog
 
+## [0.6.0](https://github.com/tgreyuk/ngx-govuk/compare/v0.5.0...v0.6.0) (2026-11-14)
+
+
+### ⚠ BREAKING CHANGES
+
+* **tabs:** ngx-govuk-tabs-group is now ngx-govuk-tabs, and the classes NgxGovukTabsComponent and NgxGovukTabComponent are now NgxGovukTabs and NgxGovukTab. Set the open tab with selectedIndex on ngx-govuk-tabs instead of selected on each tab. ngx-govuk-tabs-nav and ngxGovukTabLink are removed; GOV.UK tabs are for content on one page, so use links or service navigation to move between pages.
+* **character-count:** `limit` is now `maxLength` and is required. Put the `textarea` directly inside `ngx-govuk-character-count` and move the `label`, `hint` and `errorMessage` inputs to it, instead of wrapping an `ngx-govuk-form-group`.
+* **date-input:** `NgxGovukDateInputComponent` is now `NgxGovukDateInput` and needs a `legend`. Its value is a `DateInputValue` object with `day`, `month` and `year` strings, not a `"day/month/year"` string.
+* **checkboxes:** the `ngxGovukCheckboxes` directive is replaced by the `ngx-govuk-checkboxes` component, which needs a `legend`. `NgxGovukCheckboxComponent` is now `NgxGovukCheckbox`: put its label in its content instead of the `label` input, and bind `checked` instead of `value`.
+* **fieldset:** `NgxGovukFieldsetComponent` is now `NgxGovukFieldset`, and its `hint` input is removed. For a question with radios or checkboxes, use `ngx-govuk-radios` or `ngx-govuk-checkboxes`, which add their own fieldset, hint and error message.
+
+### Features
+
+* Adds every remaining GOV.UK Frontend 6.6 component:
+  * **Navigation and layout:** header, generic header, service navigation, footer, skip link, phase banner, language navigation, pagination and exit this page
+  * **Content:** inset text, warning text, tag, panel, notification banner, table, summary list and summary cards, task list, cookie banner and feedback
+  * **Forms:** radios, select, password input, file upload, enhanced file upload and error summary
+* **radios, checkboxes:** add conditional reveal and a divider, and a "none" option for checkboxes
+* **character-count:** count words or characters, match GOV.UK's count and let users go over the limit
+* **tabs, date-input, fieldset, checkboxes:** rework to follow GOV.UK Frontend (see breaking changes)
+
 ## [0.5.0](https://github.com/tgreyuk/ngx-govuk/compare/v0.4.0...v0.5.0) (2026-11-13)
 
 
