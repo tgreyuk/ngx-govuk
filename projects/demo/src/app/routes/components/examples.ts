@@ -143,6 +143,16 @@ export const EXAMPLES: Record<string, Example[]> = {
       description:
         'Add content inside "ngx-govuk-checkbox" with "*ngxGovukCheckboxConditional" to show it only while that checkbox is checked.',
     },
+    {
+      path: 'checkboxes/none',
+      load: () =>
+        import('./examples/checkboxes/none.component').then(
+          (m) => m.CheckboxesNoneDemoComponent,
+        ),
+      title: 'Add an option for "none"',
+      description:
+        'Add "exclusive" to the last checkbox, after a "div" with "ngxGovukCheckboxesDivider". Checking it unchecks the others, and checking another unchecks it.',
+    },
   ],
   'cookie-banner': [
     {
