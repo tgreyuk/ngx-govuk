@@ -321,6 +321,41 @@ pre {
   }
 }
 
+// The home page's heading, intro and call to action, on a dark band in the header's slate. The
+// band runs the full width of the window: the border image paints the slate
+// out past the sides without widening the page, so nothing scrolls sideways.
+// The negative top margin cancels the main wrapper's padding, so the band
+// meets the navigation.
+.app-hero {
+  --govuk-link-colour: #fff;
+  --govuk-link-visited-colour: #fff;
+  --govuk-link-hover-colour: #fff;
+  margin-top: -20px;
+  margin-bottom: 40px;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  color: #fff;
+  border-image-source: linear-gradient(var(--app-slate), var(--app-slate));
+  border-image-slice: 0 fill;
+  border-image-outset: 0 100vw;
+
+  @media (min-width: 40.0625em) {
+    margin-top: -40px;
+    padding-top: 60px;
+  }
+
+  // GOV.UK's type classes set their own dark colour.
+  :is(h1, p) {
+    color: inherit;
+  }
+
+  // The button's usual hover is the slate itself, so flip it to white here.
+  .app-cta:hover {
+    color: var(--app-slate);
+    background: #fff;
+  }
+}
+
 // Sections with a menu (components, get started): beside the page on desktop,
 // above it on mobile.
 .app-section-layout {
