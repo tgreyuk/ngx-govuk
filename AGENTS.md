@@ -174,9 +174,8 @@ its template underneath as code.
 
 Work on a feature branch created from `main`, one per change, with a short
 name that says what it's for, such as `fix-tabs-focus`. Open a pull request
-against `main`. If it's squash-merged, its title becomes the commit message,
-so write the title as a Conventional Commit too (see Commit messages). If
-you're told to work on another branch, such as `dev`, do that instead.
+against `main`. If you're told to work on another branch, such as `dev`, do
+that instead.
 
 The repository owner reviews and merges pull requests.
 
