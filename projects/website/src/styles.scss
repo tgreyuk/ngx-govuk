@@ -341,12 +341,17 @@ pre {
 
   @media (min-width: 40.0625em) {
     margin-top: -40px;
-    padding-top: 60px;
   }
 
   // GOV.UK's type classes set their own dark colour.
   :is(h1, p) {
     color: inherit;
+  }
+
+  // Full width, so the heading takes two lines rather than three, and closer
+  // to the intro than GOV.UK's 50px.
+  .govuk-heading-xl {
+    margin-bottom: 30px;
   }
 
   // The button's usual hover is the slate itself, so flip it to white here.
