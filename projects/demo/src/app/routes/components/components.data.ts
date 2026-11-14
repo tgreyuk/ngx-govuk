@@ -210,7 +210,7 @@ export const COMPONENTS: ComponentEntry[] = [
   {
     name: 'Service navigation',
     id: 'service-navigation',
-    status: 'to-do',
+    status: 'documented',
     description:
       'Shows users which service they are using and helps them move around it.',
   },

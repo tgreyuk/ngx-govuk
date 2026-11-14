@@ -260,6 +260,15 @@ export const EXAMPLES: Record<string, Example[]> = {
         ),
     },
   ],
+  'service-navigation': [
+    {
+      path: 'service-navigation/default',
+      load: () =>
+        import('./examples/service-navigation/default.component').then(
+          (m) => m.ServiceNavigationDemoComponent,
+        ),
+    },
+  ],
   'skip-link': [
     {
       path: 'skip-link/default',
