@@ -7,6 +7,8 @@
   [checked]="checked()"
   [disabled]="isDisabled()"
   [attr.aria-describedby]="hint() ? hintId() : null"
+  [attr.aria-controls]="conditional() ? conditionalId() : null"
+  [attr.aria-expanded]="conditional() ? checked() : null"
   (change)="group.select(value())"
   (blur)="group.touch()"
 />
@@ -16,3 +18,13 @@
 @if (hint()) {
   <div [id]="hintId()" class="govuk-hint govuk-radios__hint">{{ hint() }}</div>
 }
+
+<ng-template #reveal>
+  <div
+    class="govuk-radios__conditional"
+    [class.govuk-radios__conditional--hidden]="!checked()"
+    [id]="conditionalId()"
+  >
+    <ng-container [ngTemplateOutlet]="conditional()?.template ?? null" />
+  </div>
+</ng-template>
