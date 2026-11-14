@@ -7,7 +7,15 @@ import prettier from 'eslint-config-prettier';
 
 export default defineConfig(
   {
-    ignores: ['dist/', 'out-tsc/', 'coverage/', '.angular/', 'tmp/'],
+    // scripts/fixtures holds deliberately unusual code for the API extractor's tests.
+    ignores: [
+      'dist/',
+      'out-tsc/',
+      'coverage/',
+      '.angular/',
+      'tmp/',
+      'scripts/fixtures/',
+    ],
   },
 
   // TypeScript, shared by every project

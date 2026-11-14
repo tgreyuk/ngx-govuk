@@ -125,6 +125,10 @@ brackets. The release notes are built from them:
 - Mark a breaking change with `!` after the type, and add a
   `BREAKING CHANGE:` footer that says what people need to change.
 
+`npm install` sets up Git hooks that lint and format your staged files and
+check each commit message, so a commit that isn't a Conventional Commit is
+rejected.
+
 If you used an AI coding tool, add a trailer naming it at the end of the
 commit message, such as `Assisted-by: Claude Code`. Don't use
 `Co-Authored-By` for a tool.

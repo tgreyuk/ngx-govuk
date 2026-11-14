@@ -1,0 +1,27 @@
+# Checks that apply to the whole repository, so they run on every change,
+# unlike ci.yml, which runs only when the library or workspace config changes.
+name: Checks
+on:
+  push:
+  pull_request:
+jobs:
+  lint-and-commits:
+    runs-on: ubuntu-latest
+    name: Lint and commit messages
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - name: Set up Node
+        uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+          cache: 'npm'
+      - name: Install
+        run: npm ci
+      - name: Lint
+        run: npm run lint
+      - name: Check commit messages
+        if: github.event_name == 'pull_request'
+        run: npx commitlint --from ${{ github.event.pull_request.base.sha }} --to ${{ github.event.pull_request.head.sha }}

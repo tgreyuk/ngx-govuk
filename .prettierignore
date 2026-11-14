@@ -4,3 +4,4 @@
 /docs
 /out-tsc
 .angular
+/projects/ngx-govuk/CHANGELOG.md
