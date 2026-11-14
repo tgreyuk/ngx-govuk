@@ -9,7 +9,6 @@
     "website:lint": "ng lint website",
     "website:api": "node scripts/extract-api.mts",
     "website:api:test": "node --test scripts/extract-api.test.mts",
-    "website:govukstyles": "sass ./projects/website/govuk-frontend.scss ./projects/website/govuk-frontend.css --load-path=node_modules/govuk-frontend/dist --style=compressed --quiet-deps",
     "lib:build": "ng build ngx-govuk",
     "lib:test": "ng test ngx-govuk --watch=false",
     "lib:test:watch": "ng test ngx-govuk",
@@ -53,7 +52,6 @@
     "ng-packagr": "22.2.6",
     "postcss": "^8.4.35",
     "prettier": "^3.2.5",
-    "sass": "^1.71.1",
     "typescript": "6.0.3",
     "typescript-eslint": "8.72.2",
     "vitest": "5.1.0"

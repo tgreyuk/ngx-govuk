@@ -18,19 +18,18 @@ library source.
 
 ## Commands
 
-| Command                       | Does                                                |
-| ----------------------------- | --------------------------------------------------- |
-| `npm run lib:build`           | Builds the library into `dist/ngx-govuk`            |
-| `npm run lib:test`            | Runs the library's tests once                       |
-| `npm run lib:test:update`     | Runs them and rewrites changed snapshots            |
-| `npm run lib:lint`            | Lints the library                                   |
-| `npm run website:start`       | Writes the API reference, then serves the docs site |
-| `npm run website:build`       | Writes the API reference, then builds the docs site |
-| `npm run website:test`        | Runs the docs site's tests once                     |
-| `npm run website:lint`        | Lints the docs site                                 |
-| `npm run website:api`         | Writes the API reference only                       |
-| `npm run website:api:test`    | Tests the API extractor                             |
-| `npm run website:govukstyles` | Rebuilds the docs site's GOV.UK Frontend CSS        |
+| Command                    | Does                                                |
+| -------------------------- | --------------------------------------------------- |
+| `npm run lib:build`        | Builds the library into `dist/ngx-govuk`            |
+| `npm run lib:test`         | Runs the library's tests once                       |
+| `npm run lib:test:update`  | Runs them and rewrites changed snapshots            |
+| `npm run lib:lint`         | Lints the library                                   |
+| `npm run website:start`    | Writes the API reference, then serves the docs site |
+| `npm run website:build`    | Writes the API reference, then builds the docs site |
+| `npm run website:test`     | Runs the docs site's tests once                     |
+| `npm run website:lint`     | Lints the docs site                                 |
+| `npm run website:api`      | Writes the API reference only                       |
+| `npm run website:api:test` | Tests the API extractor                             |
 
 CI runs `lib:lint`, `lib:build` and `lib:test` on changes to the library or
 the workspace config. Node 22 runs the `.mts` scripts directly, with no
@@ -122,12 +121,12 @@ GOV.UK Frontend today, and ideas for testing it automatically.
 The site has two looks, kept apart on purpose:
 
 - **Component previews and page content use GOV.UK Frontend.** Its styles are
-  compiled from `projects/website/govuk-frontend.scss` into the committed
-  `govuk-frontend.css` by `npm run website:govukstyles`; rerun it after
-  upgrading govuk-frontend. That file swaps GDS Transport for Arial, since
-  only GOV.UK services may use it, and widens the page to 1100px. Lay out
-  page content with GOV.UK's own classes, such as `govuk-body`,
-  `govuk-heading-m` and the `govuk-!-margin-*` spacing utilities.
+  compiled by the site's build from `projects/website/govuk-frontend.scss`,
+  so they always match the installed govuk-frontend. That file swaps GDS
+  Transport for Arial, since only GOV.UK services may use it, and widens the
+  page to 1100px. Lay out page content with GOV.UK's own classes, such as
+  `govuk-body`, `govuk-heading-m` and the `govuk-!-margin-*` spacing
+  utilities.
 - **The site's own chrome (header, menus, footer, code blocks, API section)
   has its own look,** so the site can't be mistaken for GOV.UK: Inter, and the
   colours in the `--app-*` custom properties at the top of

@@ -72,9 +72,12 @@
             "tsConfig": "projects/website/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "styles": [
-              "projects/website/govuk-frontend.css",
+              "projects/website/govuk-frontend.scss",
               "projects/website/src/styles.scss"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": ["node_modules/govuk-frontend/dist"]
+            },
             "assets": [
               {
                 "input": "projects/website/src/assets",
