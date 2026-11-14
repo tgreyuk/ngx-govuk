@@ -1,0 +1,43 @@
+<ngx-govuk-radios
+  name="contact"
+  legend="How would you prefer to be contacted?"
+  hint="Select one option"
+>
+  <ngx-govuk-radio value="email">
+    Email
+    <ngx-govuk-form-group *ngxGovukRadioConditional label="Email address">
+      <input
+        id="contact-by-email"
+        type="email"
+        autocomplete="email"
+        spellcheck="false"
+        ngxGovukTextInput
+        inputWidth="20"
+      />
+    </ngx-govuk-form-group>
+  </ngx-govuk-radio>
+  <ngx-govuk-radio value="phone">
+    Phone
+    <ngx-govuk-form-group *ngxGovukRadioConditional label="Phone number">
+      <input
+        id="contact-by-phone"
+        type="tel"
+        autocomplete="tel"
+        ngxGovukTextInput
+        inputWidth="20"
+      />
+    </ngx-govuk-form-group>
+  </ngx-govuk-radio>
+  <ngx-govuk-radio value="text">
+    Text message
+    <ngx-govuk-form-group *ngxGovukRadioConditional label="Mobile phone number">
+      <input
+        id="contact-by-text"
+        type="tel"
+        autocomplete="tel"
+        ngxGovukTextInput
+        inputWidth="20"
+      />
+    </ngx-govuk-form-group>
+  </ngx-govuk-radio>
+</ngx-govuk-radios>

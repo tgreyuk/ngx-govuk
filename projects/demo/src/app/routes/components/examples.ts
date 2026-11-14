@@ -123,6 +123,16 @@ export const EXAMPLES: Record<string, Example[]> = {
           (m) => m.CheckboxesDemoComponent,
         ),
     },
+    {
+      path: 'checkboxes/conditional',
+      load: () =>
+        import('./examples/checkboxes/conditional.component').then(
+          (m) => m.CheckboxesConditionalDemoComponent,
+        ),
+      title: 'Conditionally revealing a related question',
+      description:
+        'Add content inside "ngx-govuk-checkbox" with "*ngxGovukCheckboxConditional" to show it only while that checkbox is checked.',
+    },
   ],
   'cookie-banner': [
     {
@@ -322,6 +332,16 @@ export const EXAMPLES: Record<string, Example[]> = {
         import('./examples/radios/default.component').then(
           (m) => m.RadiosDemoComponent,
         ),
+    },
+    {
+      path: 'radios/conditional',
+      load: () =>
+        import('./examples/radios/conditional.component').then(
+          (m) => m.RadiosConditionalDemoComponent,
+        ),
+      title: 'Conditionally revealing a related question',
+      description:
+        'Add content inside "ngx-govuk-radio" with "*ngxGovukRadioConditional" to show it only while that option is selected.',
     },
   ],
   select: [
