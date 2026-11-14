@@ -7,6 +7,10 @@ import {
   input,
   signal,
 } from '@angular/core';
+import {
+  ExitThisPageButton,
+  ExitThisPageRegistry,
+} from './exit-this-page-registry';
 
 /** How long users have to press Shift three times, in milliseconds. */
 const TIMEOUT = 5000;
@@ -22,13 +26,16 @@ const TIMEOUT = 5000;
  *
  * The button's text is "Emergency Exit this page", with "Emergency" for
  * screen reader users only. Put your own text inside it to change it.
+ *
+ * Add `ngxGovukExitThisPageSkipLink` to a link at the top of the page to let
+ * keyboard users exit as soon as they start tabbing.
  */
 @Component({
   selector: 'ngx-govuk-exit-this-page',
   templateUrl: './exit-this-page.component.html',
   host: { class: 'govuk-exit-this-page' },
 })
-export class NgxGovukExitThisPage {
+export class NgxGovukExitThisPage implements ExitThisPageButton {
   private document = inject(DOCUMENT);
 
   /** Where the button takes users. */
@@ -58,19 +65,27 @@ export class NgxGovukExitThisPage {
   constructor() {
     const keyup = (event: KeyboardEvent) => this.onKeyup(event);
     const pageshow = () => this.reset();
+    const registry = inject(ExitThisPageRegistry);
+    registry.register(this);
     afterNextRender(() => {
       // Capture, so a handler elsewhere that stops the event can't block it.
       this.document.addEventListener('keyup', keyup, true);
       this.document.defaultView?.addEventListener('pageshow', pageshow);
     });
     inject(DestroyRef).onDestroy(() => {
+      registry.unregister(this);
       this.document.removeEventListener('keyup', keyup, true);
       this.document.defaultView?.removeEventListener('pageshow', pageshow);
       this.reset();
     });
   }
 
-  protected exit(event?: Event) {
+  /**
+   * Hides the page and leaves it. Used by the skip link.
+   *
+   * @internal
+   */
+  exit(event?: Event) {
     event?.preventDefault();
     this.status.set('');
     this.document.body.classList.add('govuk-exit-this-page-hide-content');

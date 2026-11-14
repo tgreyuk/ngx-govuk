@@ -1,0 +1,12 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`NgxGovukExitThisPageSkipLink > matches the GOV.UK markup snapshot 1`] = `
+<a
+  class="govuk-skip-link govuk-js-exit-this-page-skiplink"
+  href="#exited"
+  ngxgovukexitthispageskiplink=""
+  rel="nofollow noreferrer"
+>
+  Exit this page
+</a>
+`;
