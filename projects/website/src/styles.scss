@@ -472,22 +472,18 @@ pre {
   }
 }
 
+// The same gradient stripe as the header, so the two bookend the page. Just
+// the disclaimer and licence: the header already links to support and GitHub.
 .app-footer {
   margin-top: 40px;
-  padding: 20px 0;
-  border-top: 1px solid var(--app-border);
+  padding: 25px 0;
+  border-top: 4px solid;
+  border-image: var(--app-gradient) 1;
   color: var(--app-muted);
   background: var(--app-slate-light);
-  font-size: 0.9375rem;
+  font-size: 1rem;
   line-height: 1.6;
 
-  .govuk-width-container {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px 24px;
-  }
   a {
     color: var(--app-text);
     &:focus-visible {
@@ -498,15 +494,6 @@ pre {
 
 .app-footer__text {
   margin: 0;
-}
-
-.app-footer__links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px 20px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
 }
 
 // API reference section headings (Selector, Inputs, Outputs, Methods): on a
