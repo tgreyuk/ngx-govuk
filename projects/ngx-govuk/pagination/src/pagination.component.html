@@ -1,0 +1,153 @@
+@if (isShown()) {
+  <nav
+    class="govuk-pagination"
+    [class.govuk-pagination--block]="isBlock()"
+    [attr.aria-label]="landmarkLabel()"
+  >
+    @if (hasPrevious()) {
+      <div class="govuk-pagination__prev">
+        @if (isNumbered()) {
+          <a
+            class="govuk-link govuk-pagination__link"
+            rel="prev"
+            [routerLink]="[]"
+            [queryParams]="pageParams(currentPage() - 1)"
+            [queryParamsHandling]="'merge'"
+          >
+            <ng-container *ngTemplateOutlet="arrowPrevious" />
+            <span class="govuk-pagination__link-title"
+              >Previous<span class="govuk-visually-hidden"> page</span></span
+            >
+          </a>
+        } @else if (previous(); as link) {
+          <a
+            class="govuk-link govuk-pagination__link"
+            rel="prev"
+            [routerLink]="link.routerLink"
+          >
+            <ng-container *ngTemplateOutlet="arrowPrevious" />
+            <ng-container
+              *ngTemplateOutlet="
+                blockText;
+                context: { $implicit: link, word: 'Previous' }
+              "
+            />
+          </a>
+        }
+      </div>
+    }
+
+    @if (isNumbered()) {
+      <ul class="govuk-pagination__list">
+        @for (item of items(); track $index) {
+          @if (isPage(item)) {
+            <li
+              class="govuk-pagination__item"
+              [class.govuk-pagination__item--current]="
+                item.number === currentPage()
+              "
+            >
+              <a
+                class="govuk-link govuk-pagination__link"
+                [routerLink]="[]"
+                [queryParams]="pageParams(item.number)"
+                [queryParamsHandling]="'merge'"
+                [attr.aria-label]="'Page ' + item.number"
+                [attr.aria-current]="
+                  item.number === currentPage() ? 'page' : null
+                "
+                >{{ item.number }}</a
+              >
+            </li>
+          } @else {
+            <li class="govuk-pagination__item govuk-pagination__item--ellipsis">
+              &ctdot;
+            </li>
+          }
+        }
+      </ul>
+    }
+
+    @if (hasNext()) {
+      <div class="govuk-pagination__next">
+        @if (isNumbered()) {
+          <a
+            class="govuk-link govuk-pagination__link"
+            rel="next"
+            [routerLink]="[]"
+            [queryParams]="pageParams(currentPage() + 1)"
+            [queryParamsHandling]="'merge'"
+          >
+            <span class="govuk-pagination__link-title"
+              >Next<span class="govuk-visually-hidden"> page</span></span
+            >
+            <ng-container *ngTemplateOutlet="arrowNext" />
+          </a>
+        } @else if (next(); as link) {
+          <a
+            class="govuk-link govuk-pagination__link"
+            rel="next"
+            [routerLink]="link.routerLink"
+          >
+            <ng-container *ngTemplateOutlet="arrowNext" />
+            <ng-container
+              *ngTemplateOutlet="
+                blockText;
+                context: { $implicit: link, word: 'Next' }
+              "
+            />
+          </a>
+        }
+      </div>
+    }
+  </nav>
+}
+
+<ng-template #blockText let-link let-word="word">
+  <span
+    class="govuk-pagination__link-title"
+    [class.govuk-pagination__link-title--decorated]="!link.labelText"
+  >
+    @if (link.text) {
+      {{ link.text }}
+    } @else {
+      {{ word }}<span class="govuk-visually-hidden"> page</span>
+    }
+  </span>
+  @if (link.labelText) {
+    <span class="govuk-visually-hidden">:</span>
+    <span class="govuk-pagination__link-label">{{ link.labelText }}</span>
+  }
+</ng-template>
+
+<ng-template #arrowPrevious>
+  <svg
+    class="govuk-pagination__icon govuk-pagination__icon--prev"
+    xmlns="http://www.w3.org/2000/svg"
+    height="13"
+    width="15"
+    aria-hidden="true"
+    focusable="false"
+    viewBox="0 0 15 13"
+  >
+    <path
+      d="m6.5938-0.0078125-6.7266 6.7266 6.7441 6.4062 1.377-1.449-4.1856-3.9768h12.896v-2h-12.984l4.2931-4.293-1.414-1.414z"
+    ></path>
+  </svg>
+</ng-template>
+
+<ng-template #arrowNext>
+  <svg
+    class="govuk-pagination__icon govuk-pagination__icon--next"
+    xmlns="http://www.w3.org/2000/svg"
+    height="13"
+    width="15"
+    aria-hidden="true"
+    focusable="false"
+    viewBox="0 0 15 13"
+  >
+    <path
+      d="m8.107-0.0078125-1.4136 1.414 4.2926 4.293h-12.986v2h12.896l-4.1855 3.9766 1.377 1.4492 6.7441-6.4062-6.7246-6.7266z"
+    ></path>
+  </svg>
+</ng-template>
