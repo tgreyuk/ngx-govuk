@@ -11,7 +11,7 @@ const imports = [
 ];
 
 @Component({
-  imports,
+  imports: [NgxGovukSummaryList, NgxGovukSummaryListRow],
   template: `<dl ngxGovukSummaryList>
     <div ngxGovukSummaryListRow key="Name">Sarah Philips</div>
     <div ngxGovukSummaryListRow key="Date of birth">5 January 1978</div>

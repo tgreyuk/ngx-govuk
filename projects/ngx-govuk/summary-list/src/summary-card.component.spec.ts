@@ -47,7 +47,12 @@ class ActionsHostComponent {
 }
 
 @Component({
-  imports,
+  imports: [
+    NgxGovukSummaryCard,
+    NgxGovukSummaryCardAction,
+    NgxGovukSummaryList,
+    NgxGovukSummaryListRow,
+  ],
   template: `<ngx-govuk-summary-card
     titleText="University of Gloucestershire"
     [titleHeadingLevel]="3"
