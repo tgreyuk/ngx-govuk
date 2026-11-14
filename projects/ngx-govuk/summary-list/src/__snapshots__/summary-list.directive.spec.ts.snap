@@ -1,0 +1,158 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`NgxGovukSummaryList > matches the GOV.UK markup snapshot 1`] = `
+<div>
+  <dl
+    class="govuk-summary-list"
+    ngxgovuksummarylist=""
+  >
+    <div
+      class="govuk-summary-list__row"
+      key="Name"
+      ngxgovuksummarylistrow=""
+    >
+      <dt
+        class="govuk-summary-list__key"
+      >
+        Name
+      </dt>
+      <dd
+        class="govuk-summary-list__value"
+      >
+        Sarah Philips
+      </dd>
+    </div>
+    <div
+      class="govuk-summary-list__row"
+      key="Date of birth"
+      ngxgovuksummarylistrow=""
+    >
+      <dt
+        class="govuk-summary-list__key"
+      >
+        Date of birth
+      </dt>
+      <dd
+        class="govuk-summary-list__value"
+      >
+        5 January 1978
+      </dd>
+    </div>
+  </dl>
+</div>
+`;
+
+exports[`NgxGovukSummaryList > matches the GOV.UK markup snapshot with actions 1`] = `
+<div>
+  <dl
+    class="govuk-summary-list"
+    ngxgovuksummarylist=""
+  >
+    <div
+      class="govuk-summary-list__row"
+      key="Name"
+      ngxgovuksummarylistrow=""
+    >
+      <dt
+        class="govuk-summary-list__key"
+      >
+        Name
+      </dt>
+      <dd
+        class="govuk-summary-list__value"
+      >
+         Sarah Philips 
+      </dd>
+      <dd
+        class="govuk-summary-list__actions"
+      >
+        <a
+          class="govuk-link"
+          href="/name"
+        >
+          Change
+          <span
+            class="govuk-visually-hidden"
+          >
+             name
+          </span>
+        </a>
+      </dd>
+    </div>
+    <div
+      class="govuk-summary-list__row"
+      key="Contact details"
+      ngxgovuksummarylistrow=""
+    >
+      <dt
+        class="govuk-summary-list__key"
+      >
+        Contact details
+      </dt>
+      <dd
+        class="govuk-summary-list__value"
+      >
+        <p
+          class="govuk-body"
+        >
+          sarah.phillips@example.com
+        </p>
+      </dd>
+      <dd
+        class="govuk-summary-list__actions"
+      >
+        <ul
+          class="govuk-summary-list__actions-list"
+        >
+          <li
+            class="govuk-summary-list__actions-list-item"
+          >
+            <a
+              class="govuk-link"
+              href="/contact/edit"
+            >
+              Edit
+              <span
+                class="govuk-visually-hidden"
+              >
+                 contact details
+              </span>
+            </a>
+          </li>
+          <li
+            class="govuk-summary-list__actions-list-item"
+          >
+            <a
+              class="govuk-link"
+              href="/contact/delete"
+            >
+              Delete
+              <span
+                class="govuk-visually-hidden"
+              >
+                 contact details
+              </span>
+            </a>
+          </li>
+        </ul>
+      </dd>
+    </div>
+    <div
+      class="govuk-summary-list__row govuk-summary-list__row--no-actions"
+      key="Reference"
+      ngxgovuksummarylistrow=""
+    >
+      <dt
+        class="govuk-summary-list__key"
+      >
+        Reference
+      </dt>
+      <dd
+        class="govuk-summary-list__value"
+      >
+        ABC123
+      </dd>
+    </div>
+  </dl>
+</div>
+`;
