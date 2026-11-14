@@ -19,13 +19,21 @@ import { NgxGovukTextarea } from 'ngx-govuk/textarea';
 const SCREEN_READER_DELAY = 1000;
 
 /**
- * Tells users how many characters they can still enter in a textarea.
+ * What the character count counts: `length` for the text's `length`, as
+ * the `maxlength` attribute does, `characters` for characters as users see
+ * them, so an emoji counts as one, or `words`.
+ */
+export type NgxGovukCountType = 'length' | 'characters' | 'words';
+
+/**
+ * Tells users how many characters, or words, they can still enter in a
+ * textarea.
  *
  * Use it in place of `ngx-govuk-form-group`: put a `textarea` with
  * `ngxGovukTextarea` inside it, and it adds the label, hint, error message
  * and count. Users can type past the limit, and the count tells them how many
- * characters to remove, as GOV.UK recommends. Check the length when the form
- * is submitted too.
+ * characters or words to remove, as GOV.UK recommends. Check the length when
+ * the form is submitted too, counting the same way.
  *
  * The textarea keeps its own `id`, or one is generated. The hint, error
  * message and count get ids based on it.
@@ -71,9 +79,17 @@ export class NgxGovukCharacterCount implements AfterContentInit {
   errorMessage = input<string | null>();
 
   /**
-   * The most characters users should enter.
+   * The most characters users should enter, or words when `countType` is
+   * `words`.
    */
   maxLength = input.required<number>();
+
+  /**
+   * What to count: `length` for the text's `length`, as the `maxlength`
+   * attribute does, `characters` for characters as users see them, so an
+   * emoji counts as one, or `words`.
+   */
+  countType = input<NgxGovukCountType>('length');
 
   /**
    * Hides the count until users have typed this percentage of `maxLength`,
@@ -91,8 +107,11 @@ export class NgxGovukCharacterCount implements AfterContentInit {
     return size ? `govuk-label govuk-label--${size}` : 'govuk-label';
   });
 
-  private length = signal(0);
-  private screenReaderLength = signal(0);
+  private element?: HTMLTextAreaElement;
+  private segmenters = new Map<NgxGovukCountType, Intl.Segmenter>();
+  private value = signal('');
+  private screenReaderValue = signal('');
+  private length = computed(() => this.countOf(this.value()));
   private screenReaderTimer?: ReturnType<typeof setTimeout>;
 
   protected remaining = computed(() => this.maxLength() - this.length());
@@ -101,9 +120,17 @@ export class NgxGovukCharacterCount implements AfterContentInit {
     const threshold = this.threshold();
     return !!threshold && this.length() < (this.maxLength() * threshold) / 100;
   });
-  protected message = computed(() => countMessage(this.remaining()));
+  protected unit = computed(() =>
+    this.countType() === 'words' ? 'words' : 'characters',
+  );
+  protected message = computed(() =>
+    countMessage(this.remaining(), this.unit()),
+  );
   protected screenReaderMessage = computed(() =>
-    countMessage(this.maxLength() - this.screenReaderLength()),
+    countMessage(
+      this.maxLength() - this.countOf(this.screenReaderValue()),
+      this.unit(),
+    ),
   );
 
   /** Any aria-describedby the textarea already had, kept first as GOV.UK does. */
@@ -152,31 +179,71 @@ export class NgxGovukCharacterCount implements AfterContentInit {
     }
     this.fieldId.set(element.id);
 
-    const count = () => this.count(element.value.length);
+    this.element = element;
+    const count = () => this.count(element.value);
     this.renderer.listen(element, 'input', count);
     // A form control can change the value without an input event.
     this.control()
       ?.valueChanges?.pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(count);
-    this.length.set(element.value.length);
-    this.screenReaderLength.set(element.value.length);
+    this.value.set(element.value);
+    this.screenReaderValue.set(element.value);
   }
 
-  private count(length: number): void {
-    this.length.set(length);
+  private count(value: string): void {
+    this.value.set(value);
     clearTimeout(this.screenReaderTimer);
     this.screenReaderTimer = setTimeout(
-      () => this.screenReaderLength.set(length),
+      () => this.screenReaderValue.set(value),
       SCREEN_READER_DELAY,
     );
+  }
+
+  /** Counts the text as GOV.UK Frontend does for the count type. */
+  private countOf(text: string): number {
+    const countType = this.countType();
+    if (countType === 'length') {
+      return text.length;
+    }
+    const segmenter = this.segmenter(countType);
+    if (!segmenter) {
+      // Without Intl.Segmenter, count words between spaces and UTF-16 units.
+      return countType === 'words'
+        ? (text.match(/\S+/g)?.length ?? 0)
+        : text.length;
+    }
+    const segments = Array.from(segmenter.segment(text));
+    return countType === 'words'
+      ? segments.filter((segment) => segment.isWordLike).length
+      : segments.length;
+  }
+
+  /** A segmenter for the page's language, made once for each count type. */
+  private segmenter(countType: NgxGovukCountType) {
+    if (!('Segmenter' in Intl)) {
+      return undefined;
+    }
+    let segmenter = this.segmenters.get(countType);
+    if (!segmenter) {
+      const lang =
+        this.element?.closest('[lang]')?.getAttribute('lang') || undefined;
+      segmenter = new Intl.Segmenter(lang, {
+        granularity: countType === 'words' ? 'word' : 'grapheme',
+      });
+      // Keep it once the page's language is known.
+      if (this.element) {
+        this.segmenters.set(countType, segmenter);
+      }
+    }
+    return segmenter;
   }
 }
 
 /** GOV.UK Frontend's count message, such as `You have 5 characters remaining`. */
-function countMessage(remaining: number): string {
+function countMessage(remaining: number, unit: 'characters' | 'words'): string {
   const count = Math.abs(remaining);
-  const characters = count === 1 ? 'character' : 'characters';
+  const units = count === 1 ? unit.slice(0, -1) : unit;
   return remaining < 0
-    ? `You have ${count} ${characters} too many`
-    : `You have ${count} ${characters} remaining`;
+    ? `You have ${count} ${units} too many`
+    : `You have ${count} ${units} remaining`;
 }
