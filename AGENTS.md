@@ -173,6 +173,15 @@ its template underneath as code.
   secondary button, not to show an input the API section already covers.
   Ask before adding one.
 
+### Supported versions
+
+The supported versions of Angular and GOV.UK Frontend are in two places: the
+compatibility table in `README.md` and the Supported versions section of the
+docs site's Help and support page (`projects/website/src/app/routes/support/`).
+When the library's peer dependencies change, add a row to both, and update
+the versions named on the home page, the Get started overview and the
+Installing ngx-govuk guide.
+
 ## Branches and releases
 
 Work on a feature branch created from `main`, one per change, with a short
