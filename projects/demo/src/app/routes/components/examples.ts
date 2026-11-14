@@ -178,6 +178,15 @@ export const EXAMPLES: Record<string, Example[]> = {
         ),
     },
   ],
+  footer: [
+    {
+      path: 'footer/default',
+      load: () =>
+        import('./examples/footer/default.component').then(
+          (m) => m.FooterDemoComponent,
+        ),
+    },
+  ],
   header: [
     {
       path: 'header/default',

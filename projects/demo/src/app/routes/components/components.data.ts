@@ -138,7 +138,7 @@ export const COMPONENTS: ComponentEntry[] = [
   {
     name: 'GOV.UK footer',
     id: 'footer',
-    status: 'to-do',
+    status: 'documented',
     description: 'The footer at the bottom of every page on GOV.UK.',
   },
   {
