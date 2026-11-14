@@ -68,7 +68,7 @@ export const COMPONENTS: ComponentEntry[] = [
   {
     name: 'Cookie banner',
     id: 'cookie-banner',
-    status: 'to-do',
+    status: 'documented',
     description:
       'Lets users accept or reject cookies that are not essential to the service.',
   },

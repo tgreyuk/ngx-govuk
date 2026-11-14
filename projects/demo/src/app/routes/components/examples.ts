@@ -124,6 +124,15 @@ export const EXAMPLES: Record<string, Example[]> = {
         ),
     },
   ],
+  'cookie-banner': [
+    {
+      path: 'cookie-banner/default',
+      load: () =>
+        import('./examples/cookie-banner/default.component').then(
+          (m) => m.CookieBannerDemoComponent,
+        ),
+    },
+  ],
   'date-input': [
     {
       path: 'date-input/default',
