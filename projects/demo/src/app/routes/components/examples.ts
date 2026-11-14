@@ -242,6 +242,15 @@ export const EXAMPLES: Record<string, Example[]> = {
         'Put the list inside "ngx-govuk-summary-card" and set its "titleText". Add actions for the whole card with "*ngxGovukSummaryCardAction".',
     },
   ],
+  table: [
+    {
+      path: 'table/default',
+      load: () =>
+        import('./examples/table/default.component').then(
+          (m) => m.TableDemoComponent,
+        ),
+    },
+  ],
   tabs: [
     {
       path: 'tabs/default',
