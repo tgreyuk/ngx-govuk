@@ -231,6 +231,16 @@ export const EXAMPLES: Record<string, Example[]> = {
           (m) => m.SummaryListDemoComponent,
         ),
     },
+    {
+      path: 'summary-list/card',
+      load: () =>
+        import('./examples/summary-list/card.component').then(
+          (m) => m.SummaryListCardDemoComponent,
+        ),
+      title: 'Summary card',
+      description:
+        'Put the list inside "ngx-govuk-summary-card" and set its "titleText". Add actions for the whole card with "*ngxGovukSummaryCardAction".',
+    },
   ],
   tabs: [
     {
