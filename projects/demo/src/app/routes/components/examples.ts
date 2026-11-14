@@ -373,6 +373,16 @@ export const EXAMPLES: Record<string, Example[]> = {
       description:
         'Add content inside "ngx-govuk-radio" with "*ngxGovukRadioConditional" to show it only while that option is selected.',
     },
+    {
+      path: 'radios/divider',
+      load: () =>
+        import('./examples/radios/divider.component').then(
+          (m) => m.RadiosDividerDemoComponent,
+        ),
+      title: 'Radio items with a text divider',
+      description:
+        'Put a "div" with "ngxGovukRadiosDivider" before the last option to set it apart.',
+    },
   ],
   select: [
     {
