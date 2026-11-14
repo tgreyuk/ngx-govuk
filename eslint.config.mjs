@@ -49,7 +49,7 @@ export default defineConfig(
 
   // Demo app
   {
-    files: ['projects/demo/**/*.ts'],
+    files: ['projects/website/**/*.ts'],
     rules: {
       '@angular-eslint/directive-selector': [
         'error',

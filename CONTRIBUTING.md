@@ -38,19 +38,19 @@ npm ci
 The repository is an Angular CLI workspace with two projects:
 
 - `projects/ngx-govuk`: the library, published to npm.
-- `projects/demo`: the documentation site at
+- `projects/website`: the documentation site at
   [ngx-govuk.org](https://ngx-govuk.org).
 
 Useful commands:
 
 | Command                   | Does                                          |
 | ------------------------- | --------------------------------------------- |
-| `npm run demo:start`      | Serves the documentation site locally         |
+| `npm run website:start`   | Serves the documentation site locally         |
 | `npm run lib:test`        | Runs the library's tests                      |
 | `npm run lib:test:update` | Runs the tests and rewrites changed snapshots |
 | `npm run lib:lint`        | Lints the library                             |
 | `npm run lib:build`       | Builds the library                            |
-| `npm run demo:build`      | Builds the documentation site                 |
+| `npm run website:build`   | Builds the documentation site                 |
 
 ## Making a change
 
@@ -109,8 +109,8 @@ CI runs the same checks on pull requests that change the library.
 ### Documentation
 
 A new component needs a page on the documentation site: an entry in
-`projects/demo/src/app/routes/components/components.data.ts`, and at least one
-example in `projects/demo/src/app/routes/components/examples/`. The example's
+`projects/website/src/app/routes/components/components.data.ts`, and at least one
+example in `projects/website/src/app/routes/components/examples/`. The example's
 template is shown on the page as code, so keep it realistic and
 self-contained.
 

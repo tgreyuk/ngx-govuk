@@ -40,6 +40,6 @@ Thumbs.db
 
 .angular
 
-# API reference for the docs site, written by `npm run demo:api`
-/projects/demo/src/assets/api/
+# API reference for the docs site, written by `npm run website:api`
+/projects/website/src/assets/api/
 

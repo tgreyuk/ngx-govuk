@@ -10,7 +10,7 @@ components for Angular, plus the documentation site at
 with two projects:
 
 - `projects/ngx-govuk` — the library, published to npm as `ngx-govuk`.
-- `projects/demo` — the documentation site, deployed by Vercel
+- `projects/website` — the documentation site, deployed by Vercel
   (`vercel.json`).
 
 `scripts/extract-api.mts` builds the docs site's API reference from the
@@ -18,19 +18,19 @@ library source.
 
 ## Commands
 
-| Command                    | Does                                                |
-| -------------------------- | --------------------------------------------------- |
-| `npm run lib:build`        | Builds the library into `dist/ngx-govuk`            |
-| `npm run lib:test`         | Runs the library's tests once                       |
-| `npm run lib:test:update`  | Runs them and rewrites changed snapshots            |
-| `npm run lib:lint`         | Lints the library                                   |
-| `npm run demo:start`       | Writes the API reference, then serves the docs site |
-| `npm run demo:build`       | Writes the API reference, then builds the docs site |
-| `npm run demo:test`        | Runs the docs site's tests once                     |
-| `npm run demo:lint`        | Lints the docs site                                 |
-| `npm run demo:api`         | Writes the API reference only                       |
-| `npm run demo:api:test`    | Tests the API extractor                             |
-| `npm run demo:govukstyles` | Rebuilds the docs site's GOV.UK Frontend CSS        |
+| Command                       | Does                                                |
+| ----------------------------- | --------------------------------------------------- |
+| `npm run lib:build`           | Builds the library into `dist/ngx-govuk`            |
+| `npm run lib:test`            | Runs the library's tests once                       |
+| `npm run lib:test:update`     | Runs them and rewrites changed snapshots            |
+| `npm run lib:lint`            | Lints the library                                   |
+| `npm run website:start`       | Writes the API reference, then serves the docs site |
+| `npm run website:build`       | Writes the API reference, then builds the docs site |
+| `npm run website:test`        | Runs the docs site's tests once                     |
+| `npm run website:lint`        | Lints the docs site                                 |
+| `npm run website:api`         | Writes the API reference only                       |
+| `npm run website:api:test`    | Tests the API extractor                             |
+| `npm run website:govukstyles` | Rebuilds the docs site's GOV.UK Frontend CSS        |
 
 CI runs `lib:lint`, `lib:build` and `lib:test` on changes to the library or
 the workspace config. Node 22 runs the `.mts` scripts directly, with no
@@ -107,13 +107,13 @@ GOV.UK Frontend today, and ideas for testing it automatically.
 
 ## Docs site
 
-- `projects/demo/src/app/routes/components/components.data.ts` lists every
+- `projects/website/src/app/routes/components/components.data.ts` lists every
   GOV.UK component with its status: `documented` (has a page), `in-progress`
   or `to-do`.
 - A component's page has two tabs, each its own route: Examples at
   `/components/<id>` and API at `/components/<id>/api`.
 - The API section reads `assets/api/<entry-point>.json`, which
-  `npm run demo:api` writes from the library source. It is gitignored. It
+  `npm run website:api` writes from the library source. It is gitignored. It
   lists the selector, inputs (including models), outputs and documented
   methods; other properties are deliberately left out.
 
@@ -122,8 +122,8 @@ GOV.UK Frontend today, and ideas for testing it automatically.
 The site has two looks, kept apart on purpose:
 
 - **Component previews and page content use GOV.UK Frontend.** Its styles are
-  compiled from `projects/demo/govuk-frontend.scss` into the committed
-  `govuk-frontend.css` by `npm run demo:govukstyles`; rerun it after
+  compiled from `projects/website/govuk-frontend.scss` into the committed
+  `govuk-frontend.css` by `npm run website:govukstyles`; rerun it after
   upgrading govuk-frontend. That file swaps GDS Transport for Arial, since
   only GOV.UK services may use it, and widens the page to 1100px. Lay out
   page content with GOV.UK's own classes, such as `govuk-body`,
@@ -131,7 +131,7 @@ The site has two looks, kept apart on purpose:
 - **The site's own chrome (header, menus, footer, code blocks, API section)
   has its own look,** so the site can't be mistaken for GOV.UK: Inter, and the
   colours in the `--app-*` custom properties at the top of
-  `projects/demo/src/styles.scss`. Never use GOV.UK's crest, logo or
+  `projects/website/src/styles.scss`. Never use GOV.UK's crest, logo or
   typeface, or its start button outside the component examples.
 
 Site styles are global, in `styles.scss`, with an `app-` prefix and a short
@@ -141,7 +141,7 @@ warns past 2 kB per component.
 ### Examples
 
 Each example is a small standalone component in
-`projects/demo/src/app/routes/components/examples/<component>/<name>.component.{ts,html}`,
+`projects/website/src/app/routes/components/examples/<component>/<name>.component.{ts,html}`,
 listed for its component in `examples.ts`. The page renders it live, with
 its template underneath as code.
 

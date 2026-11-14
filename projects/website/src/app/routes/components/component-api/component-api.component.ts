@@ -29,7 +29,7 @@ interface ApiSection {
 
 /**
  * The API reference for one library entry point, from
- * `assets/api/<componentId>.json` (written by `npm run demo:api`).
+ * `assets/api/<componentId>.json` (written by `npm run website:api`).
  */
 @Component({
   selector: 'ngx-govuk-api',
