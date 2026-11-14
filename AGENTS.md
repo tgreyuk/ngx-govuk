@@ -34,15 +34,16 @@ library source.
 | `npm run format`           | Formats the whole repository with Prettier          |
 | `npm run format:check`     | Checks formatting without changing files            |
 
-CI runs `lib:lint`, `lib:build` and `lib:test` on changes to the library or
-the workspace config. Node 22 runs the `.mts` scripts directly, with no
-build step.
+CI runs on every push and pull request: it lints the whole repository, builds
+and tests the library, and runs the docs site's and API extractor's tests. On
+pull requests it also checks commit messages with commitlint. Vercel builds
+the docs site itself. Node 22 runs the `.mts` scripts directly, with no build
+step.
 
 `npm install` sets up two Git hooks with husky: pre-commit runs `eslint --fix`
 and then Prettier on the staged files, and commit-msg checks the message with
-commitlint. CI's Checks workflow also lints on every push and checks commit
-messages on pull requests; formatting is left to the hook. Don't skip the
-hooks with `--no-verify`.
+commitlint. Formatting is left to the hook, not CI. Don't skip the hooks with
+`--no-verify`.
 
 ## Library conventions
 

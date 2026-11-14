@@ -1,43 +1,35 @@
+# Runs on every push and pull request, with no path filters: the whole run
+# takes about a minute, and GitHub's path filters skip large pull requests.
 name: CI
 on:
   push:
-    paths:
-      - 'projects/ngx-govuk/**'
-      - 'package.json'
-      - 'package-lock.json'
-      - 'angular.json'
-      - 'tsconfig.json'
-      - 'eslint.config.mjs'
-      - '.github/workflows/ci.yml'
   pull_request:
-    paths:
-      - 'projects/ngx-govuk/**'
-      - 'package.json'
-      - 'package-lock.json'
-      - 'angular.json'
-      - 'tsconfig.json'
-      - 'eslint.config.mjs'
-      - '.github/workflows/ci.yml'
 jobs:
-  lint-and-test:
+  ci:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node: ['22']
-    name: Node ${{ matrix.node }}
+    name: Lint, build and test
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
       - name: Set up Node
         uses: actions/setup-node@v7
         with:
-          node-version: ${{ matrix.node }}
+          node-version: '22'
           cache: 'npm'
       - name: Install
         run: npm ci
+      - name: Check commit messages
+        if: github.event_name == 'pull_request'
+        run: npx commitlint --from ${{ github.event.pull_request.base.sha }} --to ${{ github.event.pull_request.head.sha }}
       - name: Lint
-        run: npm run lib:lint
-      - name: Build
+        run: npm run lint
+      - name: Build the library
         run: npm run lib:build
-      - name: Test
+      - name: Test the library
         run: npm run lib:test
+      - name: Test the docs site
+        run: npm run website:test
+      - name: Test the API extractor
+        run: npm run website:api:test

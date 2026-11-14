@@ -99,12 +99,12 @@ GOV.UK Frontend.
 Before you open a pull request, run:
 
 ```shell
-npm run lib:lint
+npm run lint
 npm run lib:test
 npm run lib:build
 ```
 
-CI runs the same checks on pull requests that change the library.
+CI runs these on every pull request, along with the docs site's tests.
 
 ### Documentation
 
