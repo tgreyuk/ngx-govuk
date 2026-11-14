@@ -1,4 +1,3 @@
-import { NgTemplateOutlet } from '@angular/common';
 import {
   Component,
   computed,
@@ -7,6 +6,8 @@ import {
   inject,
   input,
 } from '@angular/core';
+import { NgxGovukSummaryActionOutlet } from './summary-action-outlet.directive';
+import { NgxGovukSummaryCard } from './summary-card.component';
 import { NgxGovukSummaryListAction } from './summary-list-action.directive';
 import { NgxGovukSummaryList } from './summary-list.directive';
 
@@ -22,7 +23,7 @@ import { NgxGovukSummaryList } from './summary-list.directive';
   // row is the div itself rather than an ngx-govuk- element around it.
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'div[ngxGovukSummaryListRow]',
-  imports: [NgTemplateOutlet],
+  imports: [NgxGovukSummaryActionOutlet],
   host: {
     class: 'govuk-summary-list__row',
     '[class.govuk-summary-list__row--no-actions]': 'noActions()',
@@ -31,14 +32,20 @@ import { NgxGovukSummaryList } from './summary-list.directive';
     <dd class="govuk-summary-list__value"><ng-content></ng-content></dd>
     @if (actions().length === 1) {
       <dd class="govuk-summary-list__actions">
-        <ng-container [ngTemplateOutlet]="actions()[0].template" />
+        <ng-container
+          [ngxGovukSummaryActionOutlet]="actions()[0].template"
+          [cardTitle]="card?.titleText()"
+        />
       </dd>
     } @else if (actions().length) {
       <dd class="govuk-summary-list__actions">
         <ul class="govuk-summary-list__actions-list">
           @for (action of actions(); track action) {
             <li class="govuk-summary-list__actions-list-item">
-              <ng-container [ngTemplateOutlet]="action.template" />
+              <ng-container
+                [ngxGovukSummaryActionOutlet]="action.template"
+                [cardTitle]="card?.titleText()"
+              />
             </li>
           }
         </ul>
@@ -55,6 +62,8 @@ export class NgxGovukSummaryListRow {
    * The row's key, such as the question that was asked.
    */
   key = input.required<string>();
+
+  protected card = inject(NgxGovukSummaryCard, { optional: true });
 
   protected actions = contentChildren(NgxGovukSummaryListAction);
 
