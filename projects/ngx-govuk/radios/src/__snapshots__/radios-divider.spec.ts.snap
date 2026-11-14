@@ -1,0 +1,68 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`NgxGovukRadiosDivider > matches the GOV.UK markup snapshot 1`] = `
+<div
+  class="govuk-radios"
+>
+  <ngx-govuk-radio
+    class="govuk-radios__item"
+    value="england"
+  >
+    <input
+      class="govuk-radios__input"
+      id="where"
+      name="where"
+      type="radio"
+      value="england"
+    />
+    <label
+      class="govuk-label govuk-radios__label"
+      for="where"
+    >
+      England
+    </label>
+  </ngx-govuk-radio>
+  <ngx-govuk-radio
+    class="govuk-radios__item"
+    value="wales"
+  >
+    <input
+      class="govuk-radios__input"
+      id="where-2"
+      name="where"
+      type="radio"
+      value="wales"
+    />
+    <label
+      class="govuk-label govuk-radios__label"
+      for="where-2"
+    >
+      Wales
+    </label>
+  </ngx-govuk-radio>
+  <div
+    class="govuk-radios__divider"
+    ngxgovukradiosdivider=""
+  >
+    or
+  </div>
+  <ngx-govuk-radio
+    class="govuk-radios__item"
+    value="abroad"
+  >
+    <input
+      class="govuk-radios__input"
+      id="where-3"
+      name="where"
+      type="radio"
+      value="abroad"
+    />
+    <label
+      class="govuk-label govuk-radios__label"
+      for="where-3"
+    >
+      I am a British citizen living abroad
+    </label>
+  </ngx-govuk-radio>
+</div>
+`;

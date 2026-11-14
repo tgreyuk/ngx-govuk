@@ -37,6 +37,19 @@ export class NgxGovukRadioConditional {
 }
 
 /**
+ * The divider before a last option that's different from the others, such
+ * as "I do not know", usually "or".
+ *
+ * Add it to a `div` inside `ngx-govuk-radios`, between the options, with
+ * its text inside.
+ */
+@Directive({
+  selector: 'div[ngxGovukRadiosDivider]',
+  host: { class: 'govuk-radios__divider' },
+})
+export class NgxGovukRadiosDivider {}
+
+/**
  * One option in `ngx-govuk-radios`. Its content is the label.
  *
  * To show more content while it's selected, add it with
@@ -101,6 +114,9 @@ export class NgxGovukRadio {
  * control with `formControlName`, `[formControl]` or `[(ngModel)]`, or to a
  * signal with `[(value)]`. It adds the fieldset, legend, hint and error
  * message.
+ *
+ * To set a last option apart, such as "I do not know", put a `div` with
+ * `ngxGovukRadiosDivider` before it.
  *
  * The first option's id is the `name`, so an error summary can link to it.
  * The others are `<name>-2`, `<name>-3` and so on, as in GOV.UK Frontend.
