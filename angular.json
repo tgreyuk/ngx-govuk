@@ -51,10 +51,10 @@
         }
       }
     },
-    "demo": {
+    "website": {
       "projectType": "application",
-      "root": "projects/demo",
-      "sourceRoot": "projects/demo/src",
+      "root": "projects/website",
+      "sourceRoot": "projects/website/src",
       "prefix": "app",
       "schematics": {
         "@schematics/angular:component": {
@@ -65,29 +65,32 @@
         "build": {
           "builder": "@angular/build:application",
           "options": {
-            "outputPath": "dist/demo",
-            "index": "projects/demo/src/index.html",
-            "browser": "projects/demo/src/main.ts",
+            "outputPath": "dist/website",
+            "index": "projects/website/src/index.html",
+            "browser": "projects/website/src/main.ts",
             "polyfills": ["zone.js"],
-            "tsConfig": "projects/demo/tsconfig.app.json",
+            "tsConfig": "projects/website/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "styles": [
-              "projects/demo/govuk-frontend.css",
-              "projects/demo/src/styles.scss"
+              "projects/website/govuk-frontend.scss",
+              "projects/website/src/styles.scss"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": ["node_modules/govuk-frontend/dist"]
+            },
             "assets": [
               {
-                "input": "projects/demo/src/assets",
+                "input": "projects/website/src/assets",
                 "glob": "**/*",
                 "output": "assets"
               },
               {
-                "input": "projects/demo/src",
+                "input": "projects/website/src",
                 "glob": "favicon.svg",
                 "output": "."
               },
               {
-                "input": "projects/demo/src/app/routes/components/examples",
+                "input": "projects/website/src/app/routes/components/examples",
                 "glob": "**/*",
                 "output": "examples"
               }
@@ -121,10 +124,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "demo:build:production"
+              "buildTarget": "website:build:production"
             },
             "development": {
-              "buildTarget": "demo:build:development"
+              "buildTarget": "website:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -132,15 +135,15 @@
         "test": {
           "builder": "@angular/build:unit-test",
           "options": {
-            "tsConfig": "projects/demo/tsconfig.spec.json"
+            "tsConfig": "projects/website/tsconfig.spec.json"
           }
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
             "lintFilePatterns": [
-              "projects/demo/**/*.ts",
-              "projects/demo/**/*.html"
+              "projects/website/**/*.ts",
+              "projects/website/**/*.html"
             ]
           }
         }

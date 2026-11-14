@@ -1,0 +1,72 @@
+<span class="govuk-caption-xl">Components</span>
+<h1 class="govuk-heading-xl govuk-!-margin-bottom-6">
+  {{ component()?.name ?? (componentId() | startcase) }}
+</h1>
+
+<p class="govuk-body govuk-!-margin-bottom-6">
+  For design guidance, including when to use the "{{ component()?.name }}"
+  component, see the official
+  <a
+    class="govuk-link"
+    href="https://design-system.service.gov.uk/components/{{ componentId() }}/"
+    target="_blank"
+    rel="noreferrer noopener"
+    >GOV.UK Design System documentation (opens in new tab)</a
+  >.
+</p>
+
+@if (component()?.note; as note) {
+  <div class="govuk-inset-text">{{ note }}</div>
+}
+
+@if (component()?.isField) {
+  <div class="govuk-inset-text">
+    This is a form field. Use it inside a form group to add a label, hint and
+    error message. See
+    <a class="govuk-link" routerLink="/get-started/forms">Working with forms</a
+    >.
+  </div>
+}
+
+<!-- The site's own tab bar, not GOV.UK's tabs: it's part of the docs. -->
+<nav class="app-tabs" aria-label="{{ component()?.name }}">
+  <a
+    class="app-tabs__link"
+    [routerLink]="['/components', componentId()]"
+    routerLinkActive="app-tabs__link--current"
+    [routerLinkActiveOptions]="{ exact: true }"
+    ariaCurrentWhenActive="page"
+    >Examples</a
+  >
+  <a
+    class="app-tabs__link"
+    [routerLink]="['/components', componentId(), 'api']"
+    routerLinkActive="app-tabs__link--current"
+    ariaCurrentWhenActive="page"
+    >API</a
+  >
+</nav>
+
+@if (tab() === 'api') {
+  <ngx-govuk-api
+    [componentId]="component()?.api ?? componentId()"
+    [headingLevel]="2"
+  />
+} @else {
+  @for (example of examples(); track example.path) {
+    @if (example.title) {
+      <h2 class="govuk-heading-m govuk-!-margin-top-8">
+        {{ example.title }}
+      </h2>
+    }
+    @if (example.description) {
+      <p class="govuk-body">{{ example.description }}</p>
+    }
+    <div class="app-example-group">
+      <div class="app-example">
+        <ng-container *ngComponentOutlet="example.component" />
+      </div>
+      <ngx-govuk-example-code [path]="example.path" />
+    </div>
+  }
+}

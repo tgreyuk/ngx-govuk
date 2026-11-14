@@ -1,0 +1,23 @@
+<ul ngxGovukTaskList>
+  <li ngxGovukTaskListItem titleText="Company Directors" link=".">Completed</li>
+  <li ngxGovukTaskListItem titleText="Registered company details" link=".">
+    <strong ngxGovukTag>Incomplete</strong>
+  </li>
+  <li
+    ngxGovukTaskListItem
+    titleText="Financial history"
+    link="."
+    hint="Include 5 years of the company’s relevant financial information"
+  >
+    <strong ngxGovukTag>Incomplete</strong>
+  </li>
+  <li ngxGovukTaskListItem titleText="Business plan" link=".">
+    <strong ngxGovukTag>Incomplete</strong>
+  </li>
+  <li ngxGovukTaskListItem titleText="References" link=".">
+    <strong ngxGovukTag>Incomplete</strong>
+  </li>
+  <li ngxGovukTaskListItem titleText="Submit and pay" [cannotStartYet]="true">
+    Cannot start yet
+  </li>
+</ul>

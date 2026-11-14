@@ -1,0 +1,26 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`NgxGovukFieldset > matches the GOV.UK markup snapshot 1`] = `
+<ngx-govuk-fieldset
+  legend="What is your address?"
+>
+  <fieldset
+    class="govuk-fieldset"
+  >
+    <legend
+      class="govuk-fieldset__legend govuk-fieldset__legend--l"
+    >
+      <h1
+        class="govuk-fieldset__heading"
+      >
+        What is your address?
+      </h1>
+    </legend>
+    <p
+      id="content"
+    >
+      Fields
+    </p>
+  </fieldset>
+</ngx-govuk-fieldset>
+`;

@@ -1,0 +1,110 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`NgxGovukCheckboxes > matches the GOV.UK markup snapshot 1`] = `
+<ngx-govuk-checkboxes
+  class="ng-untouched ng-pristine ng-valid"
+  formgroupname="nationality"
+  id="nationality-checkboxes"
+  legend="What is your nationality?"
+  name="nationality"
+>
+  <div
+    class="govuk-form-group govuk-form-group--error"
+  >
+    <fieldset
+      aria-describedby="nationality-hint nationality-error"
+      class="govuk-fieldset"
+    >
+      <legend
+        class="govuk-fieldset__legend govuk-fieldset__legend--l"
+      >
+        <h1
+          class="govuk-fieldset__heading"
+        >
+          What is your nationality?
+        </h1>
+      </legend>
+      <div
+        class="govuk-hint"
+        id="nationality-hint"
+      >
+        Select all that apply
+      </div>
+      <p
+        class="govuk-error-message"
+        id="nationality-error"
+      >
+        <span
+          class="govuk-visually-hidden"
+        >
+          Error:
+        </span>
+         Select your nationality 
+      </p>
+      <div
+        class="govuk-checkboxes"
+      >
+        <ngx-govuk-checkbox
+          class="govuk-checkboxes__item ng-untouched ng-pristine ng-valid"
+          formcontrolname="british"
+        >
+          <input
+            class="govuk-checkboxes__input"
+            id="nationality"
+            name="nationality"
+            type="checkbox"
+          />
+          <label
+            class="govuk-label govuk-checkboxes__label"
+            for="nationality"
+          >
+            British
+          </label>
+        </ngx-govuk-checkbox>
+        <ngx-govuk-checkbox
+          class="govuk-checkboxes__item ng-untouched ng-pristine ng-valid"
+          formcontrolname="irish"
+          hint="Including Northern Ireland"
+        >
+          <input
+            aria-describedby="nationality-2-item-hint"
+            class="govuk-checkboxes__input"
+            id="nationality-2"
+            name="nationality"
+            type="checkbox"
+          />
+          <label
+            class="govuk-label govuk-checkboxes__label"
+            for="nationality-2"
+          >
+             Irish 
+          </label>
+          <div
+            class="govuk-hint govuk-checkboxes__hint"
+            id="nationality-2-item-hint"
+          >
+             Including Northern Ireland 
+          </div>
+        </ngx-govuk-checkbox>
+        <ngx-govuk-checkbox
+          class="govuk-checkboxes__item ng-untouched ng-pristine ng-valid"
+          formcontrolname="other"
+        >
+          <input
+            class="govuk-checkboxes__input"
+            id="nationality-3"
+            name="nationality"
+            type="checkbox"
+          />
+          <label
+            class="govuk-label govuk-checkboxes__label"
+            for="nationality-3"
+          >
+            Other
+          </label>
+        </ngx-govuk-checkbox>
+      </div>
+    </fieldset>
+  </div>
+</ngx-govuk-checkboxes>
+`;

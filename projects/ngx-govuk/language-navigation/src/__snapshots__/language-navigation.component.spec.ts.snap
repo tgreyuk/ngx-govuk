@@ -1,0 +1,60 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`NgxGovukLanguageNavigation > matches the GOV.UK markup snapshot 1`] = `
+<div>
+  <ngx-govuk-language-navigation>
+    <nav
+      aria-label="Language"
+      class="govuk-language-navigation"
+    >
+      <ul
+        class="govuk-language-navigation__list"
+      >
+        <li
+          class="govuk-language-navigation__list-item"
+        >
+          <span
+            aria-current="true"
+            class="govuk-language-navigation__text"
+            lang="en"
+          >
+            English
+          </span>
+        </li>
+        <li
+          class="govuk-language-navigation__list-item"
+        >
+          <a
+            class="govuk-language-navigation__link"
+            href="/cy"
+            hreflang="cy"
+            lang="cy"
+            rel="alternate"
+          >
+            Cymraeg
+            <span
+              class="govuk-visually-hidden"
+            >
+               Newid yr iaith i'r Cymraeg
+            </span>
+          </a>
+        </li>
+        <li
+          class="govuk-language-navigation__list-item"
+        >
+          <a
+            class="govuk-language-navigation__link"
+            dir="rtl"
+            href="/ar/"
+            hreflang="ar-SA"
+            lang="ar"
+            rel="alternate"
+          >
+            العربية
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </ngx-govuk-language-navigation>
+</div>
+`;

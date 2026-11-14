@@ -1,51 +1,55 @@
-<div class="govuk-date-input">
-  <div class="govuk-date-input__item">
-    <div class="govuk-form-group">
-      <label class="govuk-label govuk-date-input__label" [attr.for]="dayId">
-        Day
-      </label>
-      <input
-        class="govuk-input govuk-date-input__input govuk-input--width-2"
-        [attr.id]="dayId"
-        type="text"
-        inputmode="numeric"
-        [(ngModel)]="day"
-        (input)="onDateChange()"
-        autocomplete="bday-day"
-      />
+<div
+  class="govuk-form-group"
+  [class.govuk-form-group--error]="!!errorMessage()"
+>
+  <fieldset
+    class="govuk-fieldset"
+    role="group"
+    [attr.aria-describedby]="describedBy()"
+  >
+    <legend [class]="legendClasses()">
+      @if (asPageHeading()) {
+        <h1 class="govuk-fieldset__heading">{{ legend() }}</h1>
+      } @else {
+        {{ legend() }}
+      }
+    </legend>
+
+    @if (hint()) {
+      <div [id]="hintId()" class="govuk-hint">{{ hint() }}</div>
+    }
+
+    @if (errorMessage()) {
+      <p [id]="errorId()" class="govuk-error-message">
+        <span class="govuk-visually-hidden">Error:</span> {{ errorMessage() }}
+      </p>
+    }
+
+    <div class="govuk-date-input" [id]="baseName()">
+      @for (part of parts; track part.key) {
+        <div class="govuk-date-input__item">
+          <div class="govuk-form-group">
+            <label
+              class="govuk-label govuk-date-input__label"
+              [for]="baseName() + '-' + part.key"
+            >
+              {{ part.label }}
+            </label>
+            <input
+              [class]="inputClasses(part)"
+              [id]="baseName() + '-' + part.key"
+              [name]="baseName() + '-' + part.key"
+              type="text"
+              inputmode="numeric"
+              [attr.autocomplete]="dateOfBirth() ? 'bday-' + part.key : null"
+              [value]="value()[part.key]"
+              [disabled]="disabled()"
+              (input)="update(part.key, $event)"
+              (blur)="onTouched()"
+            />
+          </div>
+        </div>
+      }
     </div>
-  </div>
-  <div class="govuk-date-input__item">
-    <div class="govuk-form-group">
-      <label class="govuk-label govuk-date-input__label" [attr.for]="monthId">
-        Month
-      </label>
-      <input
-        class="govuk-input govuk-date-input__input govuk-input--width-2"
-        [attr.id]="monthId"
-        type="text"
-        inputmode="numeric"
-        [(ngModel)]="month"
-        (input)="onDateChange()"
-        autocomplete="bday-month"
-      />
-    </div>
-  </div>
-  <div class="govuk-date-input__item">
-    <div class="govuk-form-group">
-      <label class="govuk-label govuk-date-input__label" [attr.for]="yearId">
-        Year
-      </label>
-      <input
-        class="govuk-input govuk-date-input__input govuk-input--width-4"
-        [attr.id]="yearId"
-        name="passport-issued-year"
-        type="text"
-        inputmode="numeric"
-        [(ngModel)]="year"
-        (input)="onDateChange()"
-        autocomplete="bday-year"
-      />
-    </div>
-  </div>
+  </fieldset>
 </div>

@@ -1,0 +1,80 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`NgxGovukFileUpload > matches the GOV.UK markup snapshot 1`] = `
+<div>
+  <ngx-govuk-form-group
+    hint="Your photo may be in your Pictures, Photos, Downloads or Desktop folder"
+    label="Upload a file"
+  >
+    <div
+      class="govuk-form-group"
+    >
+      <label
+        class="govuk-label"
+        for="file-upload"
+      >
+        Upload a file
+      </label>
+      <div
+        class="govuk-hint"
+        id="file-upload-hint"
+      >
+        Your photo may be in your Pictures, Photos, Downloads or Desktop folder
+      </div>
+      <input
+        aria-describedby="file-upload-hint"
+        class="govuk-file-upload"
+        id="file-upload"
+        name="fileUpload"
+        ngxgovukfileupload=""
+        type="file"
+      />
+    </div>
+  </ngx-govuk-form-group>
+</div>
+`;
+
+exports[`NgxGovukFileUpload > matches the GOV.UK markup snapshot with an error 1`] = `
+<div>
+  <ngx-govuk-form-group
+    hint="Your photo may be in your Pictures, Photos, Downloads or Desktop folder"
+    label="Upload a file"
+  >
+    <div
+      class="govuk-form-group govuk-form-group--error"
+    >
+      <label
+        class="govuk-label"
+        for="file-upload"
+      >
+        Upload a file
+      </label>
+      <div
+        class="govuk-hint"
+        id="file-upload-hint"
+      >
+        Your photo may be in your Pictures, Photos, Downloads or Desktop folder
+      </div>
+      <p
+        class="govuk-error-message"
+        id="file-upload-error"
+      >
+        <span
+          class="govuk-visually-hidden"
+        >
+          Error:
+        </span>
+         The selected file must be a JPG or PNG 
+      </p>
+      <input
+        aria-describedby="file-upload-hint file-upload-error"
+        class="govuk-file-upload govuk-file-upload--error"
+        id="file-upload"
+        name="fileUpload"
+        ngxgovukfileupload=""
+        type="file"
+      />
+    </div>
+  </ngx-govuk-form-group>
+</div>
+`;

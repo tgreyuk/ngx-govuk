@@ -1,0 +1,39 @@
+<div
+  class="govuk-file-upload-wrapper"
+  [class.govuk-file-upload-wrapper--disabled]="disabled()"
+>
+  <button
+    type="button"
+    class="govuk-file-upload-button"
+    [class.govuk-file-upload-button--empty]="fileCount() === 0"
+    [class.govuk-file-upload-button--dragging]="dragging()"
+    [attr.id]="buttonId() || null"
+    [attr.aria-describedby]="describedBy() || null"
+    [attr.aria-labelledby]="labelledBy()"
+    [disabled]="disabled()"
+    (click)="fileInput?.click()"
+    (dragover)="$event.preventDefault()"
+    (drop)="onDrop($event)"
+  >
+    <span
+      class="govuk-body govuk-file-upload-button__status"
+      aria-live="polite"
+      >{{ status() }}</span
+    >
+    <span class="govuk-visually-hidden" [attr.id]="commaId()">, </span>
+    <span class="govuk-file-upload-button__pseudo-button-container"
+      ><span
+        class="govuk-button govuk-button--secondary govuk-file-upload-button__pseudo-button"
+        >{{ chooseFilesButtonText() }}</span
+      >&ngsp;<span class="govuk-body govuk-file-upload-button__instruction">{{
+        dropInstructionText()
+      }}</span></span
+    >
+  </button>
+  <ng-content />
+</div>
+<span
+  class="govuk-file-upload-announcements govuk-visually-hidden"
+  aria-live="assertive"
+  >{{ announcement() }}</span
+>

@@ -1,0 +1,29 @@
+<div class="govuk-feedback govuk-width-container">
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      @switch (headingLevel()) {
+        @case (1) {
+          <h1 class="govuk-feedback__title">{{ titleText() }}</h1>
+        }
+        @case (3) {
+          <h3 class="govuk-feedback__title">{{ titleText() }}</h3>
+        }
+        @case (4) {
+          <h4 class="govuk-feedback__title">{{ titleText() }}</h4>
+        }
+        @case (5) {
+          <h5 class="govuk-feedback__title">{{ titleText() }}</h5>
+        }
+        @case (6) {
+          <h6 class="govuk-feedback__title">{{ titleText() }}</h6>
+        }
+        @default {
+          <h2 class="govuk-feedback__title">{{ titleText() }}</h2>
+        }
+      }
+      <div class="govuk-feedback__body">
+        <ng-content />
+      </div>
+    </div>
+  </div>
+</div>

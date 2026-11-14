@@ -1,0 +1,39 @@
+<ngx-govuk-fieldset legend="What is your address?" [asPageHeading]="true">
+  <ngx-govuk-form-group label="Address line 1">
+    <input
+      id="address-line-1"
+      type="text"
+      autocomplete="address-line1"
+      ngxGovukTextInput
+    />
+  </ngx-govuk-form-group>
+
+  <ngx-govuk-form-group label="Address line 2 (optional)">
+    <input
+      id="address-line-2"
+      type="text"
+      autocomplete="address-line2"
+      ngxGovukTextInput
+    />
+  </ngx-govuk-form-group>
+
+  <ngx-govuk-form-group label="Town or city">
+    <input
+      id="address-town"
+      type="text"
+      autocomplete="address-level2"
+      ngxGovukTextInput
+      inputWidth="two-thirds"
+    />
+  </ngx-govuk-form-group>
+
+  <ngx-govuk-form-group label="Postcode">
+    <input
+      id="address-postcode"
+      type="text"
+      autocomplete="postal-code"
+      ngxGovukTextInput
+      inputWidth="10"
+    />
+  </ngx-govuk-form-group>
+</ngx-govuk-fieldset>

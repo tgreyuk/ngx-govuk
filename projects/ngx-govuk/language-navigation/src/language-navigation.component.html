@@ -1,0 +1,52 @@
+<nav
+  class="govuk-language-navigation"
+  [class.govuk-language-navigation--inverse]="inverse()"
+  [attr.aria-label]="ariaLabel()"
+>
+  <ul class="govuk-language-navigation__list">
+    @for (item of items(); track $index) {
+      <li class="govuk-language-navigation__list-item">
+        @if (isCurrent(item)) {
+          <span
+            class="govuk-language-navigation__text"
+            aria-current="true"
+            [attr.lang]="item.lang"
+            [attr.dir]="item.dir"
+            >{{ item.text }}</span
+          >
+        } @else if (item.routerLink !== undefined) {
+          <a
+            class="govuk-language-navigation__link"
+            [routerLink]="item.routerLink"
+            rel="alternate"
+            [attr.lang]="item.lang"
+            [attr.hreflang]="item.hrefLang ?? item.lang"
+            [attr.dir]="item.dir"
+          >
+            <ng-container
+              *ngTemplateOutlet="linkText; context: { $implicit: item }"
+            />
+          </a>
+        } @else {
+          <a
+            class="govuk-language-navigation__link"
+            [attr.href]="item.href"
+            rel="alternate"
+            [attr.lang]="item.lang"
+            [attr.hreflang]="item.hrefLang ?? item.lang"
+            [attr.dir]="item.dir"
+          >
+            <ng-container
+              *ngTemplateOutlet="linkText; context: { $implicit: item }"
+            />
+          </a>
+        }
+      </li>
+    }
+  </ul>
+</nav>
+
+<!-- No space between the name and the hidden description, which starts
+     with its own, as GOV.UK Frontend renders it. -->
+<!-- prettier-ignore -->
+<ng-template #linkText let-item>{{ item.text }}@if (item.languageDescriptionText) {<span class="govuk-visually-hidden"> {{ item.languageDescriptionText }}</span>}</ng-template>

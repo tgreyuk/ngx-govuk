@@ -1,0 +1,116 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`NgxGovukDateInput > matches the GOV.UK markup snapshot 1`] = `
+<ngx-govuk-date-input
+  class="ng-untouched ng-pristine ng-valid"
+  hint="For example, 27 3 2007"
+  id="issued"
+  legend="When was your passport issued?"
+  name="passport-issued"
+>
+  <div
+    class="govuk-form-group govuk-form-group--error"
+  >
+    <fieldset
+      aria-describedby="passport-issued-hint passport-issued-error"
+      class="govuk-fieldset"
+      role="group"
+    >
+      <legend
+        class="govuk-fieldset__legend govuk-fieldset__legend--l"
+      >
+        <h1
+          class="govuk-fieldset__heading"
+        >
+          When was your passport issued?
+        </h1>
+      </legend>
+      <div
+        class="govuk-hint"
+        id="passport-issued-hint"
+      >
+        For example, 27 3 2007
+      </div>
+      <p
+        class="govuk-error-message"
+        id="passport-issued-error"
+      >
+        <span
+          class="govuk-visually-hidden"
+        >
+          Error:
+        </span>
+         The date your passport was issued must be in the past 
+      </p>
+      <div
+        class="govuk-date-input"
+        id="passport-issued"
+      >
+        <div
+          class="govuk-date-input__item"
+        >
+          <div
+            class="govuk-form-group"
+          >
+            <label
+              class="govuk-label govuk-date-input__label"
+              for="passport-issued-day"
+            >
+               Day 
+            </label>
+            <input
+              class="govuk-date-input__input govuk-input govuk-input--width-2 govuk-input--error"
+              id="passport-issued-day"
+              inputmode="numeric"
+              name="passport-issued-day"
+              type="text"
+            />
+          </div>
+        </div>
+        <div
+          class="govuk-date-input__item"
+        >
+          <div
+            class="govuk-form-group"
+          >
+            <label
+              class="govuk-label govuk-date-input__label"
+              for="passport-issued-month"
+            >
+               Month 
+            </label>
+            <input
+              class="govuk-date-input__input govuk-input govuk-input--width-2 govuk-input--error"
+              id="passport-issued-month"
+              inputmode="numeric"
+              name="passport-issued-month"
+              type="text"
+            />
+          </div>
+        </div>
+        <div
+          class="govuk-date-input__item"
+        >
+          <div
+            class="govuk-form-group"
+          >
+            <label
+              class="govuk-label govuk-date-input__label"
+              for="passport-issued-year"
+            >
+               Year 
+            </label>
+            <input
+              class="govuk-date-input__input govuk-input govuk-input--width-4 govuk-input--error"
+              id="passport-issued-year"
+              inputmode="numeric"
+              name="passport-issued-year"
+              type="text"
+            />
+          </div>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+</ngx-govuk-date-input>
+`;

@@ -1,0 +1,128 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`NgxGovukRadioConditional > matches the GOV.UK markup snapshot 1`] = `
+<div>
+  <form
+    class="ng-untouched ng-pristine ng-valid"
+    novalidate=""
+  >
+    <ngx-govuk-radios
+      class="ng-untouched ng-pristine ng-valid"
+      formcontrolname="contact"
+      legend="How would you like to be contacted?"
+      name="contact"
+    >
+      <div
+        class="govuk-form-group"
+      >
+        <fieldset
+          class="govuk-fieldset"
+        >
+          <legend
+            class="govuk-fieldset__legend"
+          >
+             How would you like to be contacted? 
+          </legend>
+          <div
+            class="govuk-radios"
+          >
+            <ngx-govuk-radio
+              class="govuk-radios__item"
+              value="email"
+            >
+              <input
+                aria-controls="conditional-contact"
+                aria-expanded="false"
+                class="govuk-radios__input"
+                id="contact"
+                name="contact"
+                type="radio"
+                value="email"
+              />
+              <label
+                class="govuk-label govuk-radios__label"
+                for="contact"
+              >
+                 Email 
+              </label>
+            </ngx-govuk-radio>
+            <div
+              class="govuk-radios__conditional govuk-radios__conditional--hidden"
+              id="conditional-contact"
+            >
+              <ngx-govuk-form-group
+                label="Email address"
+              >
+                <div
+                  class="govuk-form-group"
+                >
+                  <label
+                    class="govuk-label"
+                    for="email"
+                  >
+                    Email address
+                  </label>
+                  <input
+                    class="govuk-input ng-untouched ng-pristine ng-valid"
+                    formcontrolname="email"
+                    id="email"
+                    ngxgovuktextinput=""
+                  />
+                </div>
+              </ngx-govuk-form-group>
+            </div>
+            <ngx-govuk-radio
+              class="govuk-radios__item"
+              value="phone"
+            >
+              <input
+                aria-controls="conditional-contact-2"
+                aria-expanded="true"
+                class="govuk-radios__input"
+                id="contact-2"
+                name="contact"
+                type="radio"
+                value="phone"
+              />
+              <label
+                class="govuk-label govuk-radios__label"
+                for="contact-2"
+              >
+                 Phone 
+              </label>
+            </ngx-govuk-radio>
+            <div
+              class="govuk-radios__conditional"
+              id="conditional-contact-2"
+            >
+              <p
+                class="govuk-body"
+              >
+                We'll call you.
+              </p>
+            </div>
+            <ngx-govuk-radio
+              class="govuk-radios__item"
+              value="post"
+            >
+              <input
+                class="govuk-radios__input"
+                id="contact-3"
+                name="contact"
+                type="radio"
+                value="post"
+              />
+              <label
+                class="govuk-label govuk-radios__label"
+                for="contact-3"
+              >
+                Post
+              </label>
+            </ngx-govuk-radio>
+          </div>
+        </fieldset>
+      </div>
+    </ngx-govuk-radios>
+  </form>
+</div>
+`;

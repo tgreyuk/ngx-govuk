@@ -1,7 +1,52 @@
-<div class="govuk-character-count">
+<div
+  class="govuk-form-group govuk-character-count"
+  [class.govuk-form-group--error]="!!errorMessage()"
+>
+  @if (asPageHeading()) {
+    <h1 class="govuk-label-wrapper">
+      <label [attr.for]="fieldId()" [class]="labelClasses()">{{
+        label()
+      }}</label>
+    </h1>
+  } @else {
+    <label [attr.for]="fieldId()" [class]="labelClasses()">{{ label() }}</label>
+  }
+
+  @if (hint()) {
+    <div [id]="hintId()" class="govuk-hint">{{ hint() }}</div>
+  }
+
+  @if (errorMessage()) {
+    <p [id]="errorId()" class="govuk-error-message">
+      <span class="govuk-visually-hidden">Error:</span> {{ errorMessage() }}
+    </p>
+  }
+
   <ng-content></ng-content>
-  <div class="govuk-hint govuk-character-count__message">
-    {{ remainingCount() }}
-    {{ remainingCount() === 1 ? 'character' : 'characters' }} remaining.
+
+  <!-- The static message is for screen readers. The live count after it is
+       laid out as GOV.UK Frontend's JavaScript adds it, and screen readers
+       hear it once users stop typing. -->
+  <div
+    [id]="infoId()"
+    class="govuk-hint govuk-character-count__message govuk-visually-hidden"
+  >
+    You can enter up to {{ maxLength() }} {{ unit() }}
+  </div>
+  <div
+    class="govuk-character-count__message govuk-character-count__status"
+    [class.govuk-hint]="!overLimit()"
+    [class.govuk-error-message]="overLimit()"
+    [class.govuk-character-count__message--disabled]="belowThreshold()"
+    aria-hidden="true"
+  >
+    {{ message() }}
+  </div>
+  <div
+    class="govuk-character-count__sr-status govuk-visually-hidden"
+    aria-live="polite"
+    [attr.aria-hidden]="belowThreshold() ? 'true' : null"
+  >
+    {{ screenReaderMessage() }}
   </div>
 </div>

@@ -1,0 +1,19 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`NgxGovukTag > matches the GOV.UK markup snapshot 1`] = `
+<div>
+  <strong
+    class="govuk-tag"
+    ngxgovuktag=""
+  >
+    Completed
+  </strong>
+  <strong
+    class="govuk-tag govuk-tag--grey"
+    colour="grey"
+    ngxgovuktag=""
+  >
+    Not started
+  </strong>
+</div>
+`;

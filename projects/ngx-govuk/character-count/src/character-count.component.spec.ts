@@ -1,73 +1,179 @@
-import { Component, DebugElement, Renderer2, Type } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
+import { Component, signal } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { NgxGovukUtilsService } from 'ngx-govuk';
+import { NgxGovukTextarea } from 'ngx-govuk/textarea';
 import { MockProvider } from 'ng-mocks';
-import { NgxGovukFormGroup } from '../../form-group/src';
-import { NgxGovukUtilsService } from '../../src';
-import { NgxGovukTextarea } from '../../textarea/src';
 import { NgxGovukCharacterCount } from './character-count.component';
 
 @Component({
-  selector: 'ngx-govuk-host-component',
-  providers: [
-    MockProvider(NgxGovukUtilsService, {
-      randomId(prefix: string): string {
-        return prefix + '-someId';
-      },
-    }),
-  ],
-  imports: [NgxGovukCharacterCount, NgxGovukFormGroup, NgxGovukTextarea],
-  template: `<ngx-govuk-character-count [limit]="20">
-    <ngx-govuk-form-group
-      [asPageHeading]="true"
+  imports: [NgxGovukCharacterCount, NgxGovukTextarea, ReactiveFormsModule],
+  template: `
+    <ngx-govuk-character-count
+      id="detail-count"
       label="Can you provide more detail?"
-      hint="Do not include personal or financial information like your National Insurance number or credit card details."
+      [hint]="hint()"
+      [errorMessage]="errorMessage()"
+      [asPageHeading]="asPageHeading()"
+      [maxLength]="10"
+      [threshold]="threshold()"
     >
+      <textarea
+        id="detail"
+        ngxGovukTextarea
+        aria-describedby="own-help"
+        [formControl]="control"
+      ></textarea>
+    </ngx-govuk-character-count>
+
+    <ngx-govuk-character-count id="no-id" label="No id" [maxLength]="5">
       <textarea ngxGovukTextarea></textarea>
-    </ngx-govuk-form-group>
-  </ngx-govuk-character-count>`,
+    </ngx-govuk-character-count>
+  `,
 })
-class HostComponent {}
+class HostComponent {
+  control = new FormControl('');
+  hint = signal<string | undefined>('Do not include personal information.');
+  errorMessage = signal<string | null>(null);
+  asPageHeading = signal(false);
+  threshold = signal<number | undefined>(undefined);
+}
 
 describe('NgxGovukCharacterCount', () => {
-  let component: NgxGovukCharacterCount;
-  let fixture: ComponentFixture<HostComponent>;
-  let debugElement: DebugElement;
-  let renderer1: Renderer2;
-  let renderer2: Renderer2;
-  let fgdebugElement: DebugElement;
+  function setup() {
+    TestBed.configureTestingModule({
+      providers: [
+        MockProvider(NgxGovukUtilsService, {
+          randomId: (prefix: string) => `${prefix}-generated`,
+        }),
+      ],
+    });
+    const fixture = TestBed.createComponent(HostComponent);
+    fixture.detectChanges();
+    const element: HTMLElement = fixture.nativeElement;
+    const $ = (selector: string) =>
+      element.querySelector(selector) as HTMLElement;
+    const textarea = $('#detail') as HTMLTextAreaElement;
+    const status = () => $('#detail-count .govuk-character-count__status');
+    const srStatus = () => $('#detail-count .govuk-character-count__sr-status');
+    const type = (text: string) => {
+      textarea.value = text;
+      textarea.dispatchEvent(new Event('input'));
+      fixture.detectChanges();
+    };
+    return {
+      fixture,
+      host: fixture.componentInstance,
+      $,
+      textarea,
+      status,
+      srStatus,
+      type,
+    };
+  }
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [NgxGovukCharacterCount],
-      providers: [Renderer2],
-    }).compileComponents();
+  afterEach(() => {
+    vi.useRealTimers();
   });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(HostComponent);
+  it('matches the GOV.UK markup snapshot', () => {
+    const { fixture, host, $ } = setup();
+    host.errorMessage.set('Enter more detail');
+    host.asPageHeading.set(true);
     fixture.detectChanges();
-    debugElement = fixture.debugElement.query(
-      By.directive(NgxGovukCharacterCount),
-    );
-    fgdebugElement = fixture.debugElement.query(
-      By.directive(NgxGovukFormGroup),
-    );
-    component = debugElement.componentInstance;
-
-    renderer1 = debugElement.injector.get<Renderer2>(
-      Renderer2 as Type<Renderer2>,
-    );
-
-    renderer2 = fgdebugElement.injector.get<Renderer2>(
-      Renderer2 as Type<Renderer2>,
-    );
-    fixture.detectChanges();
-    vi.spyOn(renderer1, 'setAttribute').mockImplementation(() => undefined);
-    vi.spyOn(renderer2, 'setAttribute').mockImplementation(() => undefined);
+    expect($('#detail-count')).toMatchSnapshot();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('connects the label, hint, error and count to the textarea', () => {
+    const { fixture, host, $, textarea } = setup();
+    expect($('#detail-count label').getAttribute('for')).toBe('detail');
+    expect($('#detail-info').textContent?.trim()).toBe(
+      'You can enter up to 10 characters',
+    );
+    expect(textarea.getAttribute('aria-describedby')).toBe(
+      'own-help detail-info detail-hint',
+    );
+
+    host.errorMessage.set('Enter more detail');
+    fixture.detectChanges();
+    expect(textarea.getAttribute('aria-describedby')).toBe(
+      'own-help detail-info detail-hint detail-error',
+    );
+    expect(textarea.classList).toContain('govuk-textarea--error');
+    expect($('#detail-count > .govuk-form-group').classList).toContain(
+      'govuk-form-group--error',
+    );
+  });
+
+  it('generates an id when the textarea has none', () => {
+    const { $ } = setup();
+    expect($('#no-id textarea').id).toBe('field-generated');
+    expect($('#no-id textarea').getAttribute('aria-describedby')).toBe(
+      'field-generated-info',
+    );
+  });
+
+  it('counts down as users type', () => {
+    const { status, type } = setup();
+    expect(status().textContent?.trim()).toBe(
+      'You have 10 characters remaining',
+    );
+    type('123456789');
+    expect(status().textContent?.trim()).toBe('You have 1 character remaining');
+    expect(status().classList).toContain('govuk-hint');
+  });
+
+  it('lets users go over the limit and shows the error styles', () => {
+    const { status, textarea, type } = setup();
+    type('12345678901');
+    expect(textarea.value).toBe('12345678901');
+    expect(textarea.hasAttribute('maxlength')).toBe(false);
+    expect(status().textContent?.trim()).toBe('You have 1 character too many');
+    expect(status().classList).toContain('govuk-error-message');
+    expect(status().classList).not.toContain('govuk-hint');
+    expect(textarea.classList).toContain('govuk-textarea--error');
+
+    type('123');
+    expect(textarea.classList).not.toContain('govuk-textarea--error');
+  });
+
+  it('counts values set through the form control', () => {
+    const { fixture, host, status } = setup();
+    host.control.setValue('12345');
+    fixture.detectChanges();
+    expect(status().textContent?.trim()).toBe(
+      'You have 5 characters remaining',
+    );
+  });
+
+  it('tells screen readers the count once users stop typing', () => {
+    vi.useFakeTimers();
+    const { fixture, srStatus, type } = setup();
+    type('12');
+    expect(srStatus().textContent?.trim()).toBe(
+      'You have 10 characters remaining',
+    );
+    vi.advanceTimersByTime(1000);
+    fixture.detectChanges();
+    expect(srStatus().textContent?.trim()).toBe(
+      'You have 8 characters remaining',
+    );
+    expect(srStatus().getAttribute('aria-live')).toBe('polite');
+  });
+
+  it('hides the count until the threshold', () => {
+    const { fixture, host, status, srStatus, type } = setup();
+    host.threshold.set(50);
+    fixture.detectChanges();
+    expect(status().classList).toContain(
+      'govuk-character-count__message--disabled',
+    );
+    expect(srStatus().getAttribute('aria-hidden')).toBe('true');
+
+    type('12345');
+    expect(status().classList).not.toContain(
+      'govuk-character-count__message--disabled',
+    );
+    expect(srStatus().hasAttribute('aria-hidden')).toBe(false);
   });
 });

@@ -1,0 +1,28 @@
+<h2 class="govuk-tabs__title">{{ titleText() }}</h2>
+<ul class="govuk-tabs__list" [attr.role]="isTabbed() ? 'tablist' : null">
+  @for (tab of tabs(); track tab; let index = $index) {
+    <li
+      class="govuk-tabs__list-item"
+      [class.govuk-tabs__list-item--selected]="index === selectedIndex()"
+      [attr.role]="isTabbed() ? 'presentation' : null"
+    >
+      <a
+        #link
+        class="govuk-tabs__tab"
+        [attr.href]="'#' + tab.id()"
+        [attr.id]="isTabbed() ? tab.tabId() : null"
+        [attr.role]="isTabbed() ? 'tab' : null"
+        [attr.aria-controls]="isTabbed() ? tab.id() : null"
+        [attr.aria-selected]="isTabbed() ? index === selectedIndex() : null"
+        [attr.tabindex]="
+          isTabbed() ? (index === selectedIndex() ? 0 : -1) : null
+        "
+        (click)="onClick($event, index)"
+        (keydown)="onKeydown($event, index)"
+      >
+        {{ tab.label() }}
+      </a>
+    </li>
+  }
+</ul>
+<ng-content></ng-content>

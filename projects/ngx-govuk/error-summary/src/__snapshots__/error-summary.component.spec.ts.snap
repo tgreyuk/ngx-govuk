@@ -1,0 +1,44 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`NgxGovukErrorSummary > matches the GOV.UK markup snapshot 1`] = `
+<ngx-govuk-error-summary>
+  <div
+    class="govuk-error-summary"
+  >
+    <div
+      role="alert"
+    >
+      <h2
+        class="govuk-error-summary__title"
+      >
+        There is a problem
+      </h2>
+      <div
+        class="govuk-error-summary__body"
+      >
+        <ul
+          class="govuk-list govuk-error-summary__list"
+        >
+          <li>
+            <a
+              href="#event-name"
+            >
+              Enter the name of the event
+            </a>
+          </li>
+          <li>
+            <a
+              href="#where-do-you-live"
+            >
+              Select where you live
+            </a>
+          </li>
+          <li>
+             The service is not available 
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</ngx-govuk-error-summary>
+`;

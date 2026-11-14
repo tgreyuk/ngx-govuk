@@ -1,0 +1,44 @@
+<div
+  #banner
+  [class]="classes()"
+  [attr.role]="isSuccess() ? 'alert' : 'region'"
+  [attr.aria-labelledby]="titleId()"
+>
+  <div class="govuk-notification-banner__header">
+    @switch (titleHeadingLevel()) {
+      @case (1) {
+        <h1 class="govuk-notification-banner__title" [id]="titleId()">
+          {{ title() }}
+        </h1>
+      }
+      @case (3) {
+        <h3 class="govuk-notification-banner__title" [id]="titleId()">
+          {{ title() }}
+        </h3>
+      }
+      @case (4) {
+        <h4 class="govuk-notification-banner__title" [id]="titleId()">
+          {{ title() }}
+        </h4>
+      }
+      @case (5) {
+        <h5 class="govuk-notification-banner__title" [id]="titleId()">
+          {{ title() }}
+        </h5>
+      }
+      @case (6) {
+        <h6 class="govuk-notification-banner__title" [id]="titleId()">
+          {{ title() }}
+        </h6>
+      }
+      @default {
+        <h2 class="govuk-notification-banner__title" [id]="titleId()">
+          {{ title() }}
+        </h2>
+      }
+    }
+  </div>
+  <div class="govuk-notification-banner__content">
+    <ng-content></ng-content>
+  </div>
+</div>

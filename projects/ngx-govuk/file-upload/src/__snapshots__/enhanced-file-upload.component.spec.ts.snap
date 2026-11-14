@@ -1,0 +1,83 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`NgxGovukEnhancedFileUpload > matches the GOV.UK markup snapshot 1`] = `
+<div>
+  <ngx-govuk-form-group
+    hint="Your photo may be in your Pictures folder"
+    label="Upload a file"
+  >
+    <div
+      class="govuk-form-group"
+    >
+      <label
+        class="govuk-label"
+        for="photo"
+        id="photo-label"
+      >
+        Upload a file
+      </label>
+      <div
+        class="govuk-hint"
+        id="photo-hint"
+      >
+        Your photo may be in your Pictures folder
+      </div>
+      <ngx-govuk-enhanced-file-upload>
+        <div
+          class="govuk-file-upload-wrapper"
+        >
+          <button
+            aria-describedby="photo-hint"
+            aria-labelledby="photo-label photo-comma photo"
+            class="govuk-file-upload-button govuk-file-upload-button--empty"
+            id="photo"
+            type="button"
+          >
+            <span
+              aria-live="polite"
+              class="govuk-body govuk-file-upload-button__status"
+            >
+              No file chosen
+            </span>
+            <span
+              class="govuk-visually-hidden"
+              id="photo-comma"
+            >
+              , 
+            </span>
+            <span
+              class="govuk-file-upload-button__pseudo-button-container"
+            >
+              <span
+                class="govuk-button govuk-button--secondary govuk-file-upload-button__pseudo-button"
+              >
+                Choose file
+              </span>
+               
+              <span
+                class="govuk-body govuk-file-upload-button__instruction"
+              >
+                or drop file
+              </span>
+            </span>
+          </button>
+          <input
+            aria-describedby="photo-hint"
+            class="govuk-file-upload"
+            hidden="hidden"
+            id="photo-input"
+            ngxgovukfileupload=""
+            type="file"
+          />
+        </div>
+        <span
+          aria-live="assertive"
+          class="govuk-file-upload-announcements govuk-visually-hidden"
+        >
+          
+        </span>
+      </ngx-govuk-enhanced-file-upload>
+    </div>
+  </ngx-govuk-form-group>
+</div>
+`;

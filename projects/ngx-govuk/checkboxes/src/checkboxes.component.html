@@ -1,0 +1,28 @@
+<div
+  class="govuk-form-group"
+  [class.govuk-form-group--error]="!!errorMessage()"
+>
+  <fieldset class="govuk-fieldset" [attr.aria-describedby]="describedBy()">
+    <legend [class]="legendClasses()">
+      @if (asPageHeading()) {
+        <h1 class="govuk-fieldset__heading">{{ legend() }}</h1>
+      } @else {
+        {{ legend() }}
+      }
+    </legend>
+
+    @if (hint()) {
+      <div [id]="hintId()" class="govuk-hint">{{ hint() }}</div>
+    }
+
+    @if (errorMessage()) {
+      <p [id]="errorId()" class="govuk-error-message">
+        <span class="govuk-visually-hidden">Error:</span> {{ errorMessage() }}
+      </p>
+    }
+
+    <div class="govuk-checkboxes" [class.govuk-checkboxes--small]="small()">
+      <ng-content></ng-content>
+    </div>
+  </fieldset>
+</div>

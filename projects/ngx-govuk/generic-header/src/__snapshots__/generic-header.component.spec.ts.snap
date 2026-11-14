@@ -1,0 +1,26 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`NgxGovukGenericHeader > matches the GOV.UK markup snapshot 1`] = `
+<div>
+  <ngx-govuk-generic-header>
+    <div
+      class="govuk-generic-header"
+    >
+      <div
+        class="govuk-generic-header__container govuk-width-container"
+      >
+        <div
+          class="govuk-generic-header__logo"
+        >
+          <a
+            class="govuk-generic-header__homepage-link"
+            href="/"
+          >
+            My cool service
+          </a>
+        </div>
+      </div>
+    </div>
+  </ngx-govuk-generic-header>
+</div>
+`;

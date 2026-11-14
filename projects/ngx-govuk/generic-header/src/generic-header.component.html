@@ -1,0 +1,16 @@
+<div class="govuk-generic-header">
+  <div
+    class="govuk-generic-header__container"
+    [class.govuk-width-container]="!fullWidth()"
+    [class.govuk-generic-header__container--full-width]="fullWidth()"
+  >
+    <div class="govuk-generic-header__logo">
+      <a
+        [routerLink]="homepageLink()"
+        class="govuk-generic-header__homepage-link"
+      >
+        <ng-content />
+      </a>
+    </div>
+  </div>
+</div>

@@ -1,6 +1,6 @@
 /**
  * Writes the API reference for each library entry point to
- * `projects/demo/src/assets/api/<entry-point>.json`, for the docs site's
+ * `projects/website/src/assets/api/<entry-point>.json`, for the docs site's
  * component pages.
  *
  * Reads the library source with the TypeScript compiler API: the selector
@@ -10,7 +10,7 @@
  * left out: they are a component's state, not its API. So is anything tagged
  * `@internal`.
  *
- * Run with `npm run demo:api`; Node strips the types.
+ * Run with `npm run website:api`; Node strips the types.
  */
 import { mkdirSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
 import { existsSync } from 'node:fs';
@@ -23,11 +23,11 @@ import type {
   ApiInput,
   ApiOutput,
   ApiMethod,
-} from '../projects/demo/src/app/routes/components/component-api/api-docs.ts';
+} from '../projects/website/src/app/routes/components/component-api/api-docs.ts';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const libraryDir = join(root, 'projects/ngx-govuk');
-const outDir = join(root, 'projects/demo/src/assets/api');
+const outDir = join(root, 'projects/website/src/assets/api');
 
 const TYPE_FORMAT =
   ts.TypeFormatFlags.NoTruncation |

@@ -46,6 +46,7 @@ const WIDTH_CLASSES: Record<InputWidth, string> = {
   ],
 })
 export class NgxGovukTextInput implements NgxGovukField {
+  /** @internal */
   elementRef = inject<ElementRef<HTMLInputElement>>(ElementRef);
 
   /**

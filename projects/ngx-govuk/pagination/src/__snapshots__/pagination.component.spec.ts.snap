@@ -1,0 +1,205 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`NgxGovukPagination > matches the GOV.UK markup snapshot 1`] = `
+<div>
+  <ngx-govuk-pagination>
+    <nav
+      aria-label="Pagination"
+      class="govuk-pagination"
+    >
+      <div
+        class="govuk-pagination__prev"
+      >
+        <a
+          class="govuk-link govuk-pagination__link"
+          href="/?page=1"
+          rel="prev"
+        >
+          <svg
+            aria-hidden="true"
+            class="govuk-pagination__icon govuk-pagination__icon--prev"
+            focusable="false"
+            height="13"
+            viewBox="0 0 15 13"
+            width="15"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="m6.5938-0.0078125-6.7266 6.7266 6.7441 6.4062 1.377-1.449-4.1856-3.9768h12.896v-2h-12.984l4.2931-4.293-1.414-1.414z"
+            />
+          </svg>
+          <span
+            class="govuk-pagination__link-title"
+          >
+            Previous
+            <span
+              class="govuk-visually-hidden"
+            >
+               page
+            </span>
+          </span>
+        </a>
+      </div>
+      <ul
+        class="govuk-pagination__list"
+      >
+        <li
+          class="govuk-pagination__item"
+        >
+          <a
+            aria-label="Page 1"
+            class="govuk-link govuk-pagination__link"
+            href="/?page=1"
+          >
+            1
+          </a>
+        </li>
+        <li
+          class="govuk-pagination__item govuk-pagination__item--current"
+        >
+          <a
+            aria-current="page"
+            aria-label="Page 2"
+            class="govuk-link govuk-pagination__link"
+            href="/?page=2"
+          >
+            2
+          </a>
+        </li>
+        <li
+          class="govuk-pagination__item"
+        >
+          <a
+            aria-label="Page 3"
+            class="govuk-link govuk-pagination__link"
+            href="/?page=3"
+          >
+            3
+          </a>
+        </li>
+      </ul>
+      <div
+        class="govuk-pagination__next"
+      >
+        <a
+          class="govuk-link govuk-pagination__link"
+          href="/?page=3"
+          rel="next"
+        >
+          <span
+            class="govuk-pagination__link-title"
+          >
+            Next
+            <span
+              class="govuk-visually-hidden"
+            >
+               page
+            </span>
+          </span>
+          <svg
+            aria-hidden="true"
+            class="govuk-pagination__icon govuk-pagination__icon--next"
+            focusable="false"
+            height="13"
+            viewBox="0 0 15 13"
+            width="15"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="m8.107-0.0078125-1.4136 1.414 4.2926 4.293h-12.986v2h12.896l-4.1855 3.9766 1.377 1.4492 6.7441-6.4062-6.7246-6.7266z"
+            />
+          </svg>
+        </a>
+      </div>
+    </nav>
+  </ngx-govuk-pagination>
+</div>
+`;
+
+exports[`NgxGovukPagination > matches the GOV.UK markup snapshot for block pagination 1`] = `
+<div>
+  <ngx-govuk-pagination>
+    <nav
+      aria-label="Pagination"
+      class="govuk-pagination govuk-pagination--block"
+    >
+      <div
+        class="govuk-pagination__prev"
+      >
+        <a
+          class="govuk-link govuk-pagination__link"
+          href="/guide/eligibility"
+          rel="prev"
+        >
+          <svg
+            aria-hidden="true"
+            class="govuk-pagination__icon govuk-pagination__icon--prev"
+            focusable="false"
+            height="13"
+            viewBox="0 0 15 13"
+            width="15"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="m6.5938-0.0078125-6.7266 6.7266 6.7441 6.4062 1.377-1.449-4.1856-3.9768h12.896v-2h-12.984l4.2931-4.293-1.414-1.414z"
+            />
+          </svg>
+          <span
+            class="govuk-pagination__link-title"
+          >
+             Previous
+            <span
+              class="govuk-visually-hidden"
+            >
+               page
+            </span>
+          </span>
+          <span
+            class="govuk-visually-hidden"
+          >
+            :
+          </span>
+          <span
+            class="govuk-pagination__link-label"
+          >
+            Applying for a provisional lorry or bus licence
+          </span>
+        </a>
+      </div>
+      <div
+        class="govuk-pagination__next"
+      >
+        <a
+          class="govuk-link govuk-pagination__link"
+          href="/guide/how-to-apply"
+          rel="next"
+        >
+          <svg
+            aria-hidden="true"
+            class="govuk-pagination__icon govuk-pagination__icon--next"
+            focusable="false"
+            height="13"
+            viewBox="0 0 15 13"
+            width="15"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="m8.107-0.0078125-1.4136 1.414 4.2926 4.293h-12.986v2h12.896l-4.1855 3.9766 1.377 1.4492 6.7441-6.4062-6.7246-6.7266z"
+            />
+          </svg>
+          <span
+            class="govuk-pagination__link-title govuk-pagination__link-title--decorated"
+          >
+             Next
+            <span
+              class="govuk-visually-hidden"
+            >
+               page
+            </span>
+          </span>
+        </a>
+      </div>
+    </nav>
+  </ngx-govuk-pagination>
+</div>
+`;

@@ -1,0 +1,18 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`NgxGovukSkipLink > matches the GOV.UK markup snapshot 1`] = `
+<div>
+  <a
+    class="govuk-skip-link"
+    href="#main-content"
+    ngxgovukskiplink=""
+  >
+    Skip to main content
+  </a>
+  <main
+    id="main-content"
+  >
+    Content
+  </main>
+</div>
+`;

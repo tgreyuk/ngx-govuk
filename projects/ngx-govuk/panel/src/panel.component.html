@@ -1,0 +1,30 @@
+<div [class]="classes()">
+  @switch (headingLevel()) {
+    @case (2) {
+      <h2 class="govuk-panel__title">{{ titleText() }}</h2>
+    }
+    @case (3) {
+      <h3 class="govuk-panel__title">{{ titleText() }}</h3>
+    }
+    @case (4) {
+      <h4 class="govuk-panel__title">{{ titleText() }}</h4>
+    }
+    @case (5) {
+      <h5 class="govuk-panel__title">{{ titleText() }}</h5>
+    }
+    @case (6) {
+      <h6 class="govuk-panel__title">{{ titleText() }}</h6>
+    }
+    @default {
+      <h1 class="govuk-panel__title">{{ titleText() }}</h1>
+    }
+  }
+  <div class="govuk-panel__body">
+    <ng-content></ng-content>
+  </div>
+  @if (actions()) {
+    <div class="govuk-panel__actions">
+      <ng-content select="ngx-govuk-button-group"></ng-content>
+    </div>
+  }
+</div>

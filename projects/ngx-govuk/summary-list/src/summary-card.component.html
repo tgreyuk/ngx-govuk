@@ -1,0 +1,49 @@
+<div class="govuk-summary-card">
+  <div class="govuk-summary-card__title-wrapper">
+    @if (titleText()) {
+      @switch (titleHeadingLevel()) {
+        @case (1) {
+          <h1 class="govuk-summary-card__title">{{ titleText() }}</h1>
+        }
+        @case (3) {
+          <h3 class="govuk-summary-card__title">{{ titleText() }}</h3>
+        }
+        @case (4) {
+          <h4 class="govuk-summary-card__title">{{ titleText() }}</h4>
+        }
+        @case (5) {
+          <h5 class="govuk-summary-card__title">{{ titleText() }}</h5>
+        }
+        @case (6) {
+          <h6 class="govuk-summary-card__title">{{ titleText() }}</h6>
+        }
+        @default {
+          <h2 class="govuk-summary-card__title">{{ titleText() }}</h2>
+        }
+      }
+    }
+    @if (actions().length === 1) {
+      <div class="govuk-summary-card__actions">
+        <ng-container
+          [ngxGovukSummaryActionOutlet]="actions()[0].template"
+          [cardTitle]="titleText()"
+        />
+      </div>
+    } @else if (actions().length) {
+      <ul class="govuk-summary-card__actions">
+        @for (action of actions(); track action) {
+          <li class="govuk-summary-card__action">
+            <ng-container
+              [ngxGovukSummaryActionOutlet]="action.template"
+              [cardTitle]="titleText()"
+            />
+          </li>
+        }
+      </ul>
+    }
+  </div>
+
+  <div class="govuk-summary-card__content">
+    <ng-content></ng-content>
+  </div>
+</div>

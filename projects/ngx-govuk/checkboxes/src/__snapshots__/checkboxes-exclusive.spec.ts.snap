@@ -1,0 +1,78 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`NgxGovukCheckbox exclusive > matches the GOV.UK markup snapshot 1`] = `
+<div
+  class="govuk-checkboxes"
+>
+  <ngx-govuk-checkbox
+    class="govuk-checkboxes__item ng-untouched ng-pristine ng-valid"
+    formcontrolname="animal"
+  >
+    <input
+      aria-controls="conditional-waste"
+      aria-expanded="true"
+      class="govuk-checkboxes__input"
+      id="waste"
+      name="waste"
+      type="checkbox"
+    />
+    <label
+      class="govuk-label govuk-checkboxes__label"
+      for="waste"
+    >
+       Waste from animal carcasses 
+    </label>
+  </ngx-govuk-checkbox>
+  <div
+    class="govuk-checkboxes__conditional"
+    id="conditional-waste"
+  >
+    <p
+      class="govuk-body"
+    >
+      Details
+    </p>
+  </div>
+  <ngx-govuk-checkbox
+    class="govuk-checkboxes__item ng-untouched ng-pristine ng-valid"
+    formcontrolname="mines"
+  >
+    <input
+      class="govuk-checkboxes__input"
+      id="waste-2"
+      name="waste"
+      type="checkbox"
+    />
+    <label
+      class="govuk-label govuk-checkboxes__label"
+      for="waste-2"
+    >
+       Waste from mines or quarries 
+    </label>
+  </ngx-govuk-checkbox>
+  <div
+    class="govuk-checkboxes__divider"
+    ngxgovukcheckboxesdivider=""
+  >
+    or
+  </div>
+  <ngx-govuk-checkbox
+    class="govuk-checkboxes__item"
+    exclusive=""
+  >
+    <input
+      class="govuk-checkboxes__input"
+      data-behaviour="exclusive"
+      id="waste-3"
+      name="waste"
+      type="checkbox"
+    />
+    <label
+      class="govuk-label govuk-checkboxes__label"
+      for="waste-3"
+    >
+       None of these 
+    </label>
+  </ngx-govuk-checkbox>
+</div>
+`;

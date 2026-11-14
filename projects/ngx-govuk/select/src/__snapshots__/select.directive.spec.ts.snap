@@ -1,0 +1,110 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`NgxGovukSelect > matches the GOV.UK markup snapshot 1`] = `
+<div>
+  <ngx-govuk-form-group
+    hint="Choose how to order the results"
+    label="Sort by"
+  >
+    <div
+      class="govuk-form-group"
+    >
+      <label
+        class="govuk-label"
+        for="sort"
+      >
+        Sort by
+      </label>
+      <div
+        class="govuk-hint"
+        id="sort-hint"
+      >
+        Choose how to order the results
+      </div>
+      <select
+        aria-describedby="sort-hint"
+        class="govuk-select"
+        id="sort"
+        name="sort"
+        ngxgovukselect=""
+      >
+        <option
+          value="published"
+        >
+          Recently published
+        </option>
+        <option
+          value="updated"
+        >
+          Recently updated
+        </option>
+        <option
+          value="views"
+        >
+          Most views
+        </option>
+      </select>
+    </div>
+  </ngx-govuk-form-group>
+</div>
+`;
+
+exports[`NgxGovukSelect > matches the GOV.UK markup snapshot with an error 1`] = `
+<div>
+  <ngx-govuk-form-group
+    hint="Choose how to order the results"
+    label="Sort by"
+  >
+    <div
+      class="govuk-form-group govuk-form-group--error"
+    >
+      <label
+        class="govuk-label"
+        for="sort"
+      >
+        Sort by
+      </label>
+      <div
+        class="govuk-hint"
+        id="sort-hint"
+      >
+        Choose how to order the results
+      </div>
+      <p
+        class="govuk-error-message"
+        id="sort-error"
+      >
+        <span
+          class="govuk-visually-hidden"
+        >
+          Error:
+        </span>
+         Choose how to sort the results 
+      </p>
+      <select
+        aria-describedby="sort-hint sort-error"
+        class="govuk-select govuk-select--error"
+        id="sort"
+        name="sort"
+        ngxgovukselect=""
+      >
+        <option
+          value="published"
+        >
+          Recently published
+        </option>
+        <option
+          value="updated"
+        >
+          Recently updated
+        </option>
+        <option
+          value="views"
+        >
+          Most views
+        </option>
+      </select>
+    </div>
+  </ngx-govuk-form-group>
+</div>
+`;

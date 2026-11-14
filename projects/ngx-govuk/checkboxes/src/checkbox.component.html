@@ -1,11 +1,32 @@
 <input
   class="govuk-checkboxes__input"
-  [attr.id]="fieldId"
+  [id]="inputId()"
+  [name]="group.groupName()"
   type="checkbox"
-  [checked]="value()"
-  (change)="onChecked($event)"
+  [checked]="checked()"
+  [disabled]="isDisabled()"
+  [attr.aria-describedby]="hint() ? hintId() : null"
+  [attr.data-behaviour]="exclusive() ? 'exclusive' : null"
+  [attr.aria-controls]="conditional() ? conditionalId() : null"
+  [attr.aria-expanded]="conditional() ? checked() : null"
+  (change)="toggle($event)"
   (blur)="onTouched()"
 />
-<label class="govuk-label govuk-checkboxes__label" [attr.for]="fieldId">
-  {{ label() }}
+<label class="govuk-label govuk-checkboxes__label" [for]="inputId()">
+  <ng-content></ng-content>
 </label>
+@if (hint()) {
+  <div [id]="hintId()" class="govuk-hint govuk-checkboxes__hint">
+    {{ hint() }}
+  </div>
+}
+
+<ng-template #reveal>
+  <div
+    class="govuk-checkboxes__conditional"
+    [class.govuk-checkboxes__conditional--hidden]="!checked()"
+    [id]="conditionalId()"
+  >
+    <ng-container [ngTemplateOutlet]="conditional()?.template ?? null" />
+  </div>
+</ng-template>

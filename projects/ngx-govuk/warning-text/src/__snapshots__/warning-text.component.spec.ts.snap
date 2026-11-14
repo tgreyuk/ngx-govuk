@@ -1,0 +1,52 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`NgxGovukWarningText > matches the GOV.UK markup snapshot 1`] = `
+<div>
+  <ngx-govuk-warning-text>
+    <div
+      class="govuk-warning-text"
+    >
+      <span
+        aria-hidden="true"
+        class="govuk-warning-text__icon"
+      >
+        !
+      </span>
+      <strong
+        class="govuk-warning-text__text"
+      >
+        <span
+          class="govuk-visually-hidden"
+        >
+          Warning
+        </span>
+         You can be fined up to £5,000 if you do not register. 
+      </strong>
+    </div>
+  </ngx-govuk-warning-text>
+  <ngx-govuk-warning-text
+    iconfallbacktext="Important"
+  >
+    <div
+      class="govuk-warning-text"
+    >
+      <span
+        aria-hidden="true"
+        class="govuk-warning-text__icon"
+      >
+        !
+      </span>
+      <strong
+        class="govuk-warning-text__text"
+      >
+        <span
+          class="govuk-visually-hidden"
+        >
+          Important
+        </span>
+         Custom fallback text. 
+      </strong>
+    </div>
+  </ngx-govuk-warning-text>
+</div>
+`;

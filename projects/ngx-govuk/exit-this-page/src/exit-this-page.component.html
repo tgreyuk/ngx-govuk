@@ -1,0 +1,26 @@
+<a
+  [attr.href]="redirectUrl()"
+  role="button"
+  draggable="false"
+  class="govuk-button govuk-button--warning govuk-exit-this-page__button govuk-js-exit-this-page-button"
+  rel="nofollow noreferrer"
+  (click)="exit($event)"
+  (keydown.space)="exit($event)"
+>
+  <ng-content>
+    <span class="govuk-visually-hidden">Emergency</span> Exit this page
+  </ng-content>
+  <div
+    class="govuk-exit-this-page__indicator"
+    [class.govuk-exit-this-page__indicator--visible]="presses() > 0"
+    aria-hidden="true"
+  >
+    @for (light of [0, 1, 2]; track light) {
+      <div
+        class="govuk-exit-this-page__indicator-light"
+        [class.govuk-exit-this-page__indicator-light--on]="light < presses()"
+      ></div>
+    }
+  </div>
+</a>
+<span role="status" class="govuk-visually-hidden">{{ status() }}</span>
