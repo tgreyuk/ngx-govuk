@@ -115,7 +115,8 @@ export const COMPONENTS: ComponentEntry[] = [
   {
     name: 'File upload',
     id: 'file-upload',
-    status: 'to-do',
+    status: 'documented',
+    isField: true,
     description: 'Helps users select and upload a file.',
   },
   {

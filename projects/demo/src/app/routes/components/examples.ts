@@ -160,6 +160,15 @@ export const EXAMPLES: Record<string, Example[]> = {
         ),
     },
   ],
+  'file-upload': [
+    {
+      path: 'file-upload/default',
+      load: () =>
+        import('./examples/file-upload/default.component').then(
+          (m) => m.FileUploadDemoComponent,
+        ),
+    },
+  ],
   'inset-text': [
     {
       path: 'inset-text/default',
