@@ -169,6 +169,15 @@ export const EXAMPLES: Record<string, Example[]> = {
         ),
     },
   ],
+  'exit-this-page': [
+    {
+      path: 'exit-this-page/default',
+      load: () =>
+        import('./examples/exit-this-page/default.component').then(
+          (m) => m.ExitThisPageDemoComponent,
+        ),
+    },
+  ],
   fieldset: [
     {
       path: 'fieldset/default',
