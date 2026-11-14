@@ -1,6 +1,6 @@
 {
   "name": "ngx-govuk",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Angular components for the GOV.UK Design System",
   "keywords": [
     "angular",
