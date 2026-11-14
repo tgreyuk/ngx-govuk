@@ -26,6 +26,10 @@ Each release supports the current major versions of Angular and govuk-frontend. 
 
 Please visit https://ngx-govuk.org.
 
+## Contributing
+
+Issues and pull requests are welcome. See [Contributing to ngx-govuk](https://github.com/tgreyuk/ngx-govuk/blob/main/CONTRIBUTING.md) for how to set up the project and make a change.
+
 ## Acknowledgements
 
 The structure of the [documentation site](https://ngx-govuk.org) is inspired by [GOV.UK Vue](https://govukvue.org/).

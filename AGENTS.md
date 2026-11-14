@@ -164,9 +164,13 @@ its template underneath as code.
 
 ## Branches and releases
 
-Work on `dev`. Releases go out by merging a `dev` → `main` pull request with
-a **merge commit**, never a squash, so the branches keep a shared history.
-The repository owner merges pull requests.
+Work on a feature branch created from `main`, one per change, with a short
+name that says what it's for, such as `fix-tabs-focus`. Open a pull request
+against `main`. If it's squash-merged, its title becomes the commit message,
+so write the title as a Conventional Commit too (see Commit messages). If
+you're told to work on another branch, such as `dev`, do that instead.
+
+The repository owner reviews and merges pull requests.
 
 On every push to `main`, release-please opens or updates a release pull
 request with the next version and a changelog built from the commits. Its
