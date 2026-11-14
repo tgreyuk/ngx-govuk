@@ -177,7 +177,10 @@ name that says what it's for, such as `fix-tabs-focus`. Open a pull request
 against `main`. If you're told to work on another branch, such as `dev`, do
 that instead.
 
-The repository owner reviews and merges pull requests.
+The repository owner reviews and merges pull requests. They're rebase-merged,
+so each commit lands on `main` as it is: keep commits focused, and make each
+message a Conventional Commit. A pull request from `dev` is the exception: it
+gets a merge commit, so `dev` doesn't need resetting afterwards.
 
 On every push to `main`, release-please opens or updates a release pull
 request with the next version and a changelog built from the commits. Its
