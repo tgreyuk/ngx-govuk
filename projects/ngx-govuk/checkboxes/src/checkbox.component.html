@@ -6,6 +6,7 @@
   [checked]="checked()"
   [disabled]="isDisabled()"
   [attr.aria-describedby]="hint() ? hintId() : null"
+  [attr.data-behaviour]="exclusive() ? 'exclusive' : null"
   [attr.aria-controls]="conditional() ? conditionalId() : null"
   [attr.aria-expanded]="conditional() ? checked() : null"
   (change)="toggle($event)"
