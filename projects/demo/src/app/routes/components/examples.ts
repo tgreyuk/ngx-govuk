@@ -142,6 +142,15 @@ export const EXAMPLES: Record<string, Example[]> = {
         ),
     },
   ],
+  'error-message': [
+    {
+      path: 'error-message/default',
+      load: () =>
+        import('./examples/error-message/default.component').then(
+          (m) => m.ErrorMessageDemoComponent,
+        ),
+    },
+  ],
   'error-summary': [
     {
       path: 'error-summary/default',

@@ -15,6 +15,10 @@
   >.
 </p>
 
+@if (component()?.note; as note) {
+  <div class="govuk-inset-text">{{ note }}</div>
+}
+
 @if (component()?.isField) {
   <div class="govuk-inset-text">
     This is a form field. Use it inside a form group to add a label, hint and
@@ -44,7 +48,10 @@
 </nav>
 
 @if (tab() === 'api') {
-  <ngx-govuk-api [componentId]="componentId()" [headingLevel]="2" />
+  <ngx-govuk-api
+    [componentId]="component()?.api ?? componentId()"
+    [headingLevel]="2"
+  />
 } @else {
   @for (example of examples(); track example.path) {
     @if (example.title) {

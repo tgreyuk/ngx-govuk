@@ -13,6 +13,13 @@ export interface ComponentEntry {
   description: string;
   /** A form field used inside `ngx-govuk-form-group`. */
   isField?: boolean;
+  /**
+   * The entry point the API tab shows, when the component has none of its
+   * own, such as the error message, which the form group renders.
+   */
+  api?: string;
+  /** A short note shown at the top of the component's page. */
+  note?: string;
 }
 
 /** Mirrors https://design-system.service.gov.uk/components/ */
@@ -81,7 +88,9 @@ export const COMPONENTS: ComponentEntry[] = [
   {
     name: 'Error message',
     id: 'error-message',
-    status: 'to-do',
+    status: 'documented',
+    api: 'form-group',
+    note: 'There is no separate error message to import. Set "errorMessage" on the form group, or on the radios, checkboxes, date input, character count or password input. Show an error summary at the top of the page too.',
     description: 'Explains what went wrong with an answer and how to fix it.',
   },
   {
