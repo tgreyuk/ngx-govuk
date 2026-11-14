@@ -1,0 +1,45 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`NgxGovukExitThisPage > matches the GOV.UK markup snapshot 1`] = `
+<div>
+  <ngx-govuk-exit-this-page
+    class="govuk-exit-this-page"
+    redirecturl="#exited"
+  >
+    <a
+      class="govuk-button govuk-button--warning govuk-exit-this-page__button govuk-js-exit-this-page-button"
+      draggable="false"
+      href="#exited"
+      rel="nofollow noreferrer"
+      role="button"
+    >
+      <span
+        class="govuk-visually-hidden"
+      >
+        Emergency
+      </span>
+       Exit this page 
+      <div
+        aria-hidden="true"
+        class="govuk-exit-this-page__indicator"
+      >
+        <div
+          class="govuk-exit-this-page__indicator-light"
+        />
+        <div
+          class="govuk-exit-this-page__indicator-light"
+        />
+        <div
+          class="govuk-exit-this-page__indicator-light"
+        />
+      </div>
+    </a>
+    <span
+      class="govuk-visually-hidden"
+      role="status"
+    >
+      
+    </span>
+  </ngx-govuk-exit-this-page>
+</div>
+`;
