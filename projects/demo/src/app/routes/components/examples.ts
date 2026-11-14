@@ -178,6 +178,15 @@ export const EXAMPLES: Record<string, Example[]> = {
         ),
     },
   ],
+  feedback: [
+    {
+      path: 'feedback/default',
+      load: () =>
+        import('./examples/feedback/default.component').then(
+          (m) => m.FeedbackDemoComponent,
+        ),
+    },
+  ],
   fieldset: [
     {
       path: 'fieldset/default',

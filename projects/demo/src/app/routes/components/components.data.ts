@@ -111,9 +111,8 @@ export const COMPONENTS: ComponentEntry[] = [
   {
     name: 'Feedback',
     id: 'feedback',
-    status: 'to-do',
-    description:
-      'Asks users whether a page was useful and lets them report a problem.',
+    status: 'documented',
+    description: 'Invites users to give feedback on the service.',
   },
   {
     name: 'Fieldset',
