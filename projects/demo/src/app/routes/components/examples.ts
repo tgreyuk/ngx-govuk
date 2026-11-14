@@ -232,6 +232,15 @@ export const EXAMPLES: Record<string, Example[]> = {
         ),
     },
   ],
+  'language-navigation': [
+    {
+      path: 'language-navigation/default',
+      load: () =>
+        import('./examples/language-navigation/default.component').then(
+          (m) => m.LanguageNavigationDemoComponent,
+        ),
+    },
+  ],
   'notification-banner': [
     {
       path: 'notification-banner/default',

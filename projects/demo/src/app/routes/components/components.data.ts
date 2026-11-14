@@ -158,7 +158,7 @@ export const COMPONENTS: ComponentEntry[] = [
   {
     name: 'Language navigation',
     id: 'language-navigation',
-    status: 'to-do',
+    status: 'documented',
     description: 'Lets users switch the language a page is shown in.',
   },
   {
