@@ -104,7 +104,7 @@ export const COMPONENTS: ComponentEntry[] = [
     name: 'Exit this page',
     id: 'exit-this-page',
     status: 'documented',
-    note: 'The example on this page works: selecting the button, or pressing Shift 3 times, takes you to the BBC weather forecast.',
+    note: 'The examples on this page work: selecting the button or the skip link, or pressing Shift 3 times, takes you to the BBC weather forecast.',
     description:
       'Gives users a quick way to leave a page that shows sensitive information.',
   },

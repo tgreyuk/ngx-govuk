@@ -197,6 +197,16 @@ export const EXAMPLES: Record<string, Example[]> = {
           (m) => m.ExitThisPageDemoComponent,
         ),
     },
+    {
+      path: 'exit-this-page/skip-link',
+      load: () =>
+        import('./examples/exit-this-page/skip-link.component').then(
+          (m) => m.ExitThisPageSkipLinkDemoComponent,
+        ),
+      title: 'Exit this page skip link',
+      description:
+        'Add "ngxGovukExitThisPageSkipLink" to a link at the top of the page, before the skip to main content link. It shows when users tab to it.',
+    },
   ],
   feedback: [
     {
