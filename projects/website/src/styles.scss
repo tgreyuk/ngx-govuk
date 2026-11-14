@@ -162,7 +162,13 @@ pre {
   gap: 10px;
 }
 
-.app-header__version {
+// The version badge links to the package on npm, like the npm badges on a
+// README. The header's link underline is turned off here: the brighter border
+// is the hover cue inside a pill.
+.app-header .app-header__version {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   padding: 1px 8px;
   border: 1px solid #64748b;
   border-radius: 999px;
@@ -171,16 +177,26 @@ pre {
   font-weight: 500;
   line-height: 1.5;
   white-space: nowrap;
+  svg {
+    // The npm wordmark is 18 x 7; keep its proportions.
+    width: 27px;
+    height: 10.5px;
+  }
+  &:hover {
+    border-color: #fff;
+    color: #fff;
+    text-decoration: none;
+  }
 }
 
 .app-header__home {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   img {
     // The logo is 223 x 236; keep its proportions.
-    width: 30px;
-    height: 32px;
+    width: 34px;
+    height: 36px;
   }
 }
 
@@ -191,14 +207,9 @@ pre {
   position: relative;
   top: -1px;
   line-height: 1;
-  font-size: 1.5rem;
+  font-size: 1.75rem;
   font-weight: 700;
   letter-spacing: -0.01em;
-}
-
-.app-header__tagline {
-  color: #cbd5e1;
-  font-size: 1rem;
 }
 
 .app-header__github {
@@ -210,6 +221,19 @@ pre {
   img {
     width: 24px;
     height: 24px;
+  }
+}
+
+// On phones the GitHub mark stands alone to save room. The label is hidden
+// visually, not removed, so it stays the link's accessible name.
+@media (max-width: 40.0525em) {
+  .app-header__github-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
   }
 }
 

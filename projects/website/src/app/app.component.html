@@ -6,13 +6,24 @@
         <img src="/assets/ngx-govuk-logo.svg" alt="" />
         <span class="app-header__name">ngx-govuk</span>
       </a>
-      <span class="app-header__version">v{{ version }}</span>
+      <a
+        class="app-header__version"
+        href="https://www.npmjs.com/package/ngx-govuk"
+        [attr.aria-label]="'ngx-govuk ' + version + ' on npm'"
+        ><svg viewBox="0 0 18 7" aria-hidden="true" focusable="false">
+          <path
+            fill="currentColor"
+            fill-rule="evenodd"
+            d="M0 0h18v6H9v1H5V6H0zm1 1v4h2V2h1v3h1V1zm5 0v5h2V5h2V1zm2 1h1v2H8zm3-1v4h2V2h1v3h1V2h1v3h1V1z"
+          /></svg
+        >v{{ version }}</a
+      >
     </div>
-    <span class="app-header__tagline"
-      >Angular components for the GOV.UK Design System</span
-    >
     <a class="app-header__github" href="https://github.com/tgreyuk/ngx-govuk"
-      ><img src="/assets/github-mark-white.png" alt="" />GitHub</a
+      ><img src="/assets/github-mark-white.png" alt="" /><span
+        class="app-header__github-label"
+        >GitHub</span
+      ></a
     >
   </div>
 </header>
@@ -63,6 +74,12 @@
     <ul class="app-footer__links">
       <li><a routerLink="/support">Help and support</a></li>
       <li><a href="https://github.com/tgreyuk/ngx-govuk">GitHub</a></li>
+      <li>
+        <a
+          href="https://github.com/tgreyuk/ngx-govuk/blob/main/projects/ngx-govuk/CHANGELOG.md"
+          >Changelog</a
+        >
+      </li>
       <li>
         <a href="https://github.com/tgreyuk/ngx-govuk/blob/main/LICENSE"
           >MIT licence</a
