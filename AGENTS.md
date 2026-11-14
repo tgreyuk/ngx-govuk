@@ -188,7 +188,9 @@ request with the next version and a changelog built from the commits. Its
 changelog can be edited before merging, in both `CHANGELOG.md` and the pull
 request description, which becomes the GitHub release notes. Merging the
 release pull request tags the release, creates the GitHub release and
-publishes to npm through trusted publishing, with no npm token.
+stages it on npm through trusted publishing, with no npm token. It goes live
+once the repository owner approves it on npmjs.com. If staging fails, run the
+Release workflow by hand from `main` with the release's tag.
 
 ## Commit messages
 
