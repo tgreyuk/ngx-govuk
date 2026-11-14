@@ -206,6 +206,15 @@ export const EXAMPLES: Record<string, Example[]> = {
         ),
     },
   ],
+  'password-input': [
+    {
+      path: 'password-input/default',
+      load: () =>
+        import('./examples/password-input/default.component').then(
+          (m) => m.PasswordInputDemoComponent,
+        ),
+    },
+  ],
   'phase-banner': [
     {
       path: 'phase-banner/default',

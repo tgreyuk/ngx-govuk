@@ -173,7 +173,7 @@ export const COMPONENTS: ComponentEntry[] = [
   {
     name: 'Password input',
     id: 'password-input',
-    status: 'to-do',
+    status: 'documented',
     description: 'Helps users enter a password, with an option to show it.',
   },
   {
