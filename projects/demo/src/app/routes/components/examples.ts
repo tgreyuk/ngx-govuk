@@ -288,6 +288,15 @@ export const EXAMPLES: Record<string, Example[]> = {
         ),
     },
   ],
+  'task-list': [
+    {
+      path: 'task-list/default',
+      load: () =>
+        import('./examples/task-list/default.component').then(
+          (m) => m.TaskListDemoComponent,
+        ),
+    },
+  ],
   'text-input': [
     {
       path: 'text-input/default',

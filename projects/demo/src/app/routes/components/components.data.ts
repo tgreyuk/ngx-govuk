@@ -240,7 +240,7 @@ export const COMPONENTS: ComponentEntry[] = [
   {
     name: 'Task list',
     id: 'task-list',
-    status: 'to-do',
+    status: 'documented',
     description:
       'Shows users the tasks they need to complete and the status of each.',
   },
