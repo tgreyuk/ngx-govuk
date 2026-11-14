@@ -178,6 +178,15 @@ export const EXAMPLES: Record<string, Example[]> = {
         ),
     },
   ],
+  header: [
+    {
+      path: 'header/default',
+      load: () =>
+        import('./examples/header/default.component').then(
+          (m) => m.HeaderDemoComponent,
+        ),
+    },
+  ],
   'inset-text': [
     {
       path: 'inset-text/default',

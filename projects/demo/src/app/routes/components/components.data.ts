@@ -144,7 +144,8 @@ export const COMPONENTS: ComponentEntry[] = [
   {
     name: 'GOV.UK header',
     id: 'header',
-    status: 'to-do',
+    status: 'documented',
+    note: 'Only services on GOV.UK may use the GOV.UK header and logo. Other services should use the generic header.',
     description: 'The header that tells users they are using a GOV.UK service.',
   },
   {
