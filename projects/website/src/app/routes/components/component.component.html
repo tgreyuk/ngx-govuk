@@ -1,19 +1,32 @@
 <span class="govuk-caption-xl">Components</span>
 <h1 class="govuk-heading-xl govuk-!-margin-bottom-6">
   {{ component()?.name ?? (componentId() | startcase) }}
+  @if (component()?.source === 'ngx-govuk') {
+    <span class="app-badge app-badge--large">ngx-govuk</span>
+  }
 </h1>
 
-<p class="govuk-body govuk-!-margin-bottom-6">
-  For design guidance, including when to use the "{{ component()?.name }}"
-  component, see the official
-  <a
-    class="govuk-link"
-    href="https://design-system.service.gov.uk/components/{{ componentId() }}/"
-    target="_blank"
-    rel="noreferrer noopener"
-    >GOV.UK Design System documentation (opens in new tab)</a
-  >.
-</p>
+@if (component()?.source === 'ngx-govuk') {
+  <p class="govuk-body govuk-!-margin-bottom-6">
+    The {{ component()?.name | lowercase }} is part of ngx-govuk, not the GOV.UK
+    Design System. It renders GOV.UK Frontend's markup and classes, but has no
+    GOV.UK guidance of its own.
+  </p>
+} @else {
+  <p class="govuk-body govuk-!-margin-bottom-6">
+    For design guidance, including when to use the "{{ component()?.name }}"
+    component, see the official
+    <a
+      class="govuk-link"
+      href="https://design-system.service.gov.uk/components/{{
+        componentId()
+      }}/"
+      target="_blank"
+      rel="noreferrer noopener"
+      >GOV.UK Design System documentation (opens in new tab)</a
+    >.
+  </p>
+}
 
 @if (component()?.note; as note) {
   <div class="govuk-inset-text">{{ note }}</div>
@@ -21,8 +34,9 @@
 
 @if (component()?.isField) {
   <div class="govuk-inset-text">
-    This is a form field. Use it inside a form group to add a label, hint and
-    error message. See
+    This is a form field. Use it inside a
+    <a class="govuk-link" routerLink="/components/form-group">form group</a> to
+    add a label, hint and error message. See
     <a class="govuk-link" routerLink="/get-started/forms">Working with forms</a
     >.
   </div>

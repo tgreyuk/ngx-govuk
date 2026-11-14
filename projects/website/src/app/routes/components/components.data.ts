@@ -20,9 +20,18 @@ export interface ComponentEntry {
   api?: string;
   /** A short note shown at the top of the component's page. */
   note?: string;
+  /**
+   * `ngx-govuk` for a component the library adds, which isn't in the GOV.UK
+   * Design System. Its page and menu item carry a badge, and it has no GOV.UK
+   * guidance to link to.
+   */
+  source?: 'ngx-govuk';
 }
 
-/** Mirrors https://design-system.service.gov.uk/components/ */
+/**
+ * The components in https://design-system.service.gov.uk/components/, plus
+ * ngx-govuk's own, marked with `source`, in alphabetical order.
+ */
 export const COMPONENTS: ComponentEntry[] = [
   {
     name: 'Accordion',
@@ -127,6 +136,15 @@ export const COMPONENTS: ComponentEntry[] = [
     status: 'documented',
     isField: true,
     description: 'Helps users select and upload a file.',
+  },
+  {
+    name: 'Form group',
+    id: 'form-group',
+    status: 'documented',
+    source: 'ngx-govuk',
+    note: 'Use it around a text input, textarea, select or file upload. For design guidance, see those components in the GOV.UK Design System. Working with forms explains how fields, errors and the error summary fit together.',
+    description:
+      'Wraps a form field, and adds its label, hint and error message.',
   },
   {
     name: 'Generic header',

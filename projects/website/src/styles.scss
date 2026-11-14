@@ -437,6 +437,33 @@ pre {
   font-weight: 400;
 }
 
+// Marks a component that ngx-govuk adds, which isn't in the GOV.UK Design
+// System, wherever it's listed. The site's own look, like the version in the
+// header, so it isn't mistaken for a GOV.UK tag.
+.app-badge {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 0 7px;
+  border: 1px solid var(--app-border);
+  border-radius: 999px;
+  color: var(--app-muted);
+  font-family: var(--app-font);
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.5;
+  // Centre on the text's lowercase letters, whatever its size, rather than
+  // nudging by a fixed amount.
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+// Beside a page title.
+.app-badge--large {
+  margin-left: 12px;
+  padding: 2px 10px;
+  font-size: 1rem;
+}
+
 .app-subnav__link--active {
   border-left-color: var(--app-marker);
   color: var(--app-text);

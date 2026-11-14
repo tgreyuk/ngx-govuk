@@ -25,6 +25,9 @@
         <a class="govuk-link" [routerLink]="['/components', component.id]">{{
           component.name
         }}</a>
+        @if (component.source === 'ngx-govuk') {
+          <span class="app-badge">ngx-govuk</span>
+        }
       </h2>
       <p class="govuk-body">{{ component.description }}</p>
     </li>

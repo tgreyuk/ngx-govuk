@@ -119,6 +119,9 @@ GOV.UK Frontend today, and ideas for testing it automatically.
 - `projects/website/src/app/routes/components/components.data.ts` lists every
   GOV.UK component with its status: `documented` (has a page), `in-progress`
   or `to-do`.
+  It also lists components ngx-govuk adds that aren't in the GOV.UK Design
+  System, such as the form group, marked `source: 'ngx-govuk'`. Their pages
+  and menu items carry an "ngx-govuk" badge instead of a link to GOV.UK.
 - A component's page has two tabs, each its own route: Examples at
   `/components/<id>` and API at `/components/<id>/api`.
 - The API section reads `assets/api/<entry-point>.json`, which
