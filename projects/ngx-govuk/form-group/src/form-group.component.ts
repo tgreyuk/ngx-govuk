@@ -79,10 +79,10 @@ export class NgxGovukFormGroup implements AfterContentInit {
    */
   fieldId = signal('');
 
-  hintId = computed(() => `${this.fieldId()}-hint`);
-  errorId = computed(() => `${this.fieldId()}-error`);
+  protected hintId = computed(() => `${this.fieldId()}-hint`);
+  protected errorId = computed(() => `${this.fieldId()}-error`);
 
-  labelClasses = computed(() => {
+  protected labelClasses = computed(() => {
     const size = this.labelSize() ?? (this.asPageHeading() ? 'l' : undefined);
     return size ? `govuk-label govuk-label--${size}` : 'govuk-label';
   });

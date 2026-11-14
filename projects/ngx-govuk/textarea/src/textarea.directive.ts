@@ -29,6 +29,7 @@ import { NGX_GOVUK_FIELD, NgxGovukField } from 'ngx-govuk';
   ],
 })
 export class NgxGovukTextarea implements NgxGovukField, OnInit {
+  /** @internal */
   elementRef = inject<ElementRef<HTMLTextAreaElement>>(ElementRef);
   private renderer = inject(Renderer2);
 
