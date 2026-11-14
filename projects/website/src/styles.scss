@@ -68,9 +68,9 @@ pre {
   --app-slate-light: #f1f5f9;
   --app-border: #cbd5e1;
   --app-accent: #1e293b;
-  // Marks the current page in the navigation and the side menu. Angular's
-  // "bright blue", which is vivid enough not to be read as GOV.UK's muted blue.
-  --app-marker: #0546ff;
+  // Marks the current page in the navigation, side menu and tabs. The middle
+  // of the deep gradient, so the marker ties back to the header's stripe.
+  --app-marker: #a8007a;
   --app-text: #0f172a;
   --app-muted: #475569;
   --app-focus: #ffdd00;
@@ -242,12 +242,18 @@ pre {
   background: var(--app-slate-light);
 }
 
+// On phones the links sit closer and smaller so all three fit on one line,
+// and wrap rather than overflow if the text is enlarged.
 .app-nav__list {
   display: flex;
-  gap: 28px;
+  flex-wrap: wrap;
+  column-gap: 28px;
   margin: 0;
   padding: 0;
   list-style: none;
+  @media (max-width: 40.0525em) {
+    column-gap: 20px;
+  }
 }
 
 .app-nav__link {
@@ -258,8 +264,13 @@ pre {
   font-size: 1.0625rem;
   font-weight: 600;
   text-decoration: none;
-  &:hover {
-    color: var(--app-marker);
+  @media (max-width: 40.0525em) {
+    font-size: 0.9375rem;
+  }
+  // Hover previews the marker in grey, like the tabs, so the current page's
+  // underline stays the only magenta.
+  &:hover:not(.app-nav__link--active) {
+    border-bottom-color: var(--app-border);
   }
   // GOV.UK's focus style hugs the text rather than filling the item, so the
   // yellow and the dark bar beneath it read as one marker. The bar is what
