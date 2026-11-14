@@ -24,12 +24,25 @@ export class GetStartedComponent {
   BODY_CSS_CODE = `<html lang="en" class="govuk-template">
   <body class="govuk-template__body govuk-frontend-supported">`;
 
+  LAYOUT_CODE = `<a href="#main-content" ngxGovukSkipLink>Skip to main content</a>
+<!-- Your header, such as ngx-govuk-header or ngx-govuk-generic-header -->
+
+<div class="govuk-width-container">
+  <main class="govuk-main-wrapper" id="main-content">
+    <router-outlet />
+  </main>
+</div>
+
+<!-- Your footer, such as ngx-govuk-footer -->`;
+
   SASS_ALL_CODE = `// styles.scss
+// On service.gov.uk, leave out "with (...)" to keep GDS Transport.
 @use 'govuk-frontend' with (
   $govuk-font-family: ("Helvetica Neue", Helvetica, Arial, sans-serif)
 );`;
 
   SASS_CHERRY_PICK_CODE = `// styles.scss
+// On service.gov.uk, leave out "with (...)" to keep GDS Transport.
 @use 'govuk-frontend/dist/govuk/base' with (
   $govuk-font-family: ("Helvetica Neue", Helvetica, Arial, sans-serif)
 );

@@ -35,6 +35,12 @@
       Frontend's markup, and GOV.UK Frontend provides the styles.
     </p>
     <app-code-block [code]="INSTALL_CODE" lang="shellscript" />
+    <p class="govuk-body">
+      You only need GOV.UK Frontend's styles. Do not load its JavaScript or call
+      <code class="app-inline-code">initAll()</code>: ngx-govuk components
+      handle their own behaviour, and GOV.UK Frontend's scripts would add a
+      second set of behaviour to the same elements.
+    </p>
   </div>
 
   <div class="govuk-!-margin-bottom-8">
@@ -57,6 +63,15 @@
       that script, so add the class directly.
     </p>
     <app-code-block [code]="BODY_CSS_CODE" lang="angular-html" />
+    <p class="govuk-body">
+      In your root component's template, put the page's content in a
+      <code class="app-inline-code">govuk-width-container</code> and a
+      <code class="app-inline-code">main</code> element with
+      <code class="app-inline-code">govuk-main-wrapper</code>, as GOV.UK's page
+      template does. These set the page's width and spacing. The header and
+      footer go outside them, since they set their own width.
+    </p>
+    <app-code-block [code]="LAYOUT_CODE" lang="angular-html" />
   </div>
 
   <div class="govuk-!-margin-bottom-8">
@@ -79,9 +94,13 @@
       <code class="app-inline-code">styles.scss</code> stylesheet. GOV.UK
       Frontend uses Sass modules, so use
       <code class="app-inline-code">&#64;use</code> rather than
-      <code class="app-inline-code">&#64;import</code>. Loading it with Sass
-      lets you choose the font (see
-      <a class="govuk-link" routerLink="." fragment="font">Choose a font</a>).
+      <code class="app-inline-code">&#64;import</code>.
+    </p>
+    <p class="govuk-body">
+      The example replaces GOV.UK's GDS Transport font, which only services on
+      service.gov.uk may use. On service.gov.uk, leave out the
+      <code class="app-inline-code">with</code> to keep it. See
+      <a class="govuk-link" routerLink="." fragment="font">Choose a font</a>.
     </p>
     <app-code-block [code]="SASS_ALL_CODE" lang="scss" />
 
@@ -96,7 +115,7 @@
     <app-code-block [code]="SASS_CHERRY_PICK_CODE" lang="scss" />
 
     <h3 class="govuk-heading-s" id="styles-precompiled">
-      GOV.UK services: use the precompiled CSS
+      Quickest: use the precompiled CSS
     </h3>
     <p class="govuk-body">
       GOV.UK Frontend also ships a precompiled stylesheet. It is the quickest
@@ -109,9 +128,10 @@
     </p>
     <app-code-block [code]="PRECOMPILED_CODE" lang="jsonc" />
     <p class="govuk-body">
-      Angular's build may warn about a CSS syntax error in this file. It comes
-      from an old Internet Explorer workaround in GOV.UK Frontend's stylesheet
-      and is harmless.
+      Angular's build warns about a CSS syntax error in this file,
+      <code class="app-inline-code">Expected "&#123;" but found "("</code>. It
+      comes from an old Internet Explorer workaround in GOV.UK Frontend's
+      details styles and is harmless. The Sass options don't cause it.
     </p>
   </div>
 
@@ -134,14 +154,22 @@
       <a class="govuk-link" routerLink="." fragment="styles-sass"
         >Sass examples</a
       >
-      above already do this, with the font stack GOV.UK recommends. Change it to
-      your own brand's font if you have one. When loading only some styles, set
-      it on the <code class="app-inline-code">base</code> line.
+      above already do this, with the font stack
+      <a
+        class="govuk-link"
+        href="https://frontend.design-system.service.gov.uk/using-govuk-frontend-without-govuk-branding/"
+        >GOV.UK Frontend recommends</a
+      >. Change it to your own brand's font if you have one. When loading only
+      some styles, set it on the <code class="app-inline-code">base</code> line.
     </p>
     <p class="govuk-body">
       When GDS Transport is not in the font list, GOV.UK Frontend leaves out its
       font files entirely, so there is nothing to copy and no missing-font
-      errors.
+      errors. If you keep GDS Transport, copy its font files with the same
+      <code class="app-inline-code">assets</code> entry as the
+      <a class="govuk-link" routerLink="." fragment="styles-precompiled"
+        >precompiled CSS</a
+      >.
     </p>
     <p class="govuk-body">
       If your service is not on GOV.UK, also read
