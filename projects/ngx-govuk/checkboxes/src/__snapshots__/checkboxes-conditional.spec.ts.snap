@@ -1,0 +1,72 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`NgxGovukCheckboxConditional > matches the GOV.UK markup snapshot 1`] = `
+<div>
+  <ngx-govuk-checkboxes
+    legend="How would you like to be contacted?"
+    name="contact"
+  >
+    <div
+      class="govuk-form-group"
+    >
+      <fieldset
+        class="govuk-fieldset"
+      >
+        <legend
+          class="govuk-fieldset__legend"
+        >
+           How would you like to be contacted? 
+        </legend>
+        <div
+          class="govuk-checkboxes"
+        >
+          <ngx-govuk-checkbox
+            class="govuk-checkboxes__item"
+          >
+            <input
+              aria-controls="conditional-contact"
+              aria-expanded="false"
+              class="govuk-checkboxes__input"
+              id="contact"
+              name="contact"
+              type="checkbox"
+            />
+            <label
+              class="govuk-label govuk-checkboxes__label"
+              for="contact"
+            >
+               Email 
+            </label>
+          </ngx-govuk-checkbox>
+          <div
+            class="govuk-checkboxes__conditional govuk-checkboxes__conditional--hidden"
+            id="conditional-contact"
+          >
+            <p
+              class="govuk-body"
+            >
+              We'll email you.
+            </p>
+          </div>
+          <ngx-govuk-checkbox
+            class="govuk-checkboxes__item"
+          >
+            <input
+              class="govuk-checkboxes__input"
+              id="contact-2"
+              name="contact"
+              type="checkbox"
+            />
+            <label
+              class="govuk-label govuk-checkboxes__label"
+              for="contact-2"
+            >
+              Phone
+            </label>
+          </ngx-govuk-checkbox>
+        </div>
+      </fieldset>
+    </div>
+  </ngx-govuk-checkboxes>
+</div>
+`;

@@ -1,15 +1,40 @@
+import { NgTemplateOutlet } from '@angular/common';
 import {
   Component,
   computed,
+  contentChild,
   contentChildren,
+  Directive,
+  effect,
+  EmbeddedViewRef,
   forwardRef,
   inject,
   input,
   model,
   signal,
+  TemplateRef,
+  viewChild,
+  ViewContainerRef,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgxGovukUtilsService } from 'ngx-govuk';
+
+/**
+ * Content shown under a checkbox only while it's checked, such as a question
+ * that only applies to that answer.
+ *
+ * Add it with a `*` to the content inside `ngx-govuk-checkbox`, such as an
+ * `ngx-govuk-form-group`, or put it on an `ng-template` around several
+ * elements. The content stays on the page while it's hidden, so any answers
+ * in it are kept.
+ */
+@Directive({
+  selector: '[ngxGovukCheckboxConditional]',
+})
+export class NgxGovukCheckboxConditional {
+  /** @internal */
+  readonly template = inject(TemplateRef);
+}
 
 /**
  * One checkbox in `ngx-govuk-checkboxes`. Its content is the label.
@@ -17,9 +42,13 @@ import { NgxGovukUtilsService } from 'ngx-govuk';
  * Each checkbox is its own form control, whose value is `true` when it's
  * checked. Bind it with `formControlName`, `[formControl]` or `[(ngModel)]`,
  * or to a signal with `[(checked)]`.
+ *
+ * To show more content while it's checked, add it with
+ * `*ngxGovukCheckboxConditional`.
  */
 @Component({
   selector: 'ngx-govuk-checkbox',
+  imports: [NgTemplateOutlet],
   templateUrl: './checkbox.component.html',
   host: { class: 'govuk-checkboxes__item' },
   providers: [
@@ -55,6 +84,25 @@ export class NgxGovukCheckbox implements ControlValueAccessor {
   protected onTouched: () => void = () => {};
   protected inputId = computed(() => this.group.checkboxId(this));
   protected hintId = computed(() => `${this.inputId()}-item-hint`);
+  protected conditionalId = computed(() => `conditional-${this.inputId()}`);
+  protected conditional = contentChild(NgxGovukCheckboxConditional);
+  private reveal = viewChild<TemplateRef<unknown>>('reveal');
+  private revealView?: EmbeddedViewRef<unknown>;
+
+  constructor() {
+    // GOV.UK Frontend puts the conditional content straight after the item,
+    // not inside it, so render it into the item's own view container.
+    const container = inject(ViewContainerRef);
+    effect(() => {
+      const reveal = this.reveal();
+      if (this.conditional() && reveal && !this.revealView) {
+        this.revealView = container.createEmbeddedView(reveal);
+      } else if (!this.conditional() && this.revealView) {
+        this.revealView.destroy();
+        this.revealView = undefined;
+      }
+    });
+  }
   protected isDisabled = computed(() => this.disabled() || this.formDisabled());
 
   protected toggle(event: Event): void {

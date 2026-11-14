@@ -6,6 +6,8 @@
   [checked]="checked()"
   [disabled]="isDisabled()"
   [attr.aria-describedby]="hint() ? hintId() : null"
+  [attr.aria-controls]="conditional() ? conditionalId() : null"
+  [attr.aria-expanded]="conditional() ? checked() : null"
   (change)="toggle($event)"
   (blur)="onTouched()"
 />
@@ -17,3 +19,13 @@
     {{ hint() }}
   </div>
 }
+
+<ng-template #reveal>
+  <div
+    class="govuk-checkboxes__conditional"
+    [class.govuk-checkboxes__conditional--hidden]="!checked()"
+    [id]="conditionalId()"
+  >
+    <ng-container [ngTemplateOutlet]="conditional()?.template ?? null" />
+  </div>
+</ng-template>
