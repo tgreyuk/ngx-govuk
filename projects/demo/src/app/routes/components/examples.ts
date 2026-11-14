@@ -178,6 +178,25 @@ export const EXAMPLES: Record<string, Example[]> = {
         ),
     },
   ],
+  pagination: [
+    {
+      path: 'pagination/default',
+      load: () =>
+        import('./examples/pagination/default.component').then(
+          (m) => m.PaginationDemoComponent,
+        ),
+    },
+    {
+      path: 'pagination/block',
+      load: () =>
+        import('./examples/pagination/block.component').then(
+          (m) => m.PaginationBlockDemoComponent,
+        ),
+      title: 'Block pagination',
+      description:
+        'Leave "totalPages" unset, and set "previous" and "next" to the links, each with an optional "labelText".',
+    },
+  ],
   panel: [
     {
       path: 'panel/default',

@@ -159,7 +159,7 @@ export const COMPONENTS: ComponentEntry[] = [
   {
     name: 'Pagination',
     id: 'pagination',
-    status: 'to-do',
+    status: 'documented',
     description:
       'Helps users move between related pages, such as search results.',
   },
