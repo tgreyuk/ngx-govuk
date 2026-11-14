@@ -114,6 +114,16 @@ export const EXAMPLES: Record<string, Example[]> = {
           (m) => m.CharacterCountDemoComponent,
         ),
     },
+    {
+      path: 'character-count/words',
+      load: () =>
+        import('./examples/character-count/words.component').then(
+          (m) => m.CharacterCountWordsDemoComponent,
+        ),
+      title: 'Word count',
+      description:
+        'Set "countType" to "words" to count words, and "maxLength" to the most words users should enter.',
+    },
   ],
   checkboxes: [
     {
