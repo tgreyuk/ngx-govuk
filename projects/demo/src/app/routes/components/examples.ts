@@ -223,6 +223,15 @@ export const EXAMPLES: Record<string, Example[]> = {
         ),
     },
   ],
+  'summary-list': [
+    {
+      path: 'summary-list/default',
+      load: () =>
+        import('./examples/summary-list/default.component').then(
+          (m) => m.SummaryListDemoComponent,
+        ),
+    },
+  ],
   tabs: [
     {
       path: 'tabs/default',

@@ -214,7 +214,7 @@ export const COMPONENTS: ComponentEntry[] = [
   {
     name: 'Summary list',
     id: 'summary-list',
-    status: 'to-do',
+    status: 'documented',
     description:
       "Summarises information, such as a user's answers at the end of a form.",
   },
