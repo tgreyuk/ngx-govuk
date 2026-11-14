@@ -1,0 +1,84 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`NgxGovukTable > matches the GOV.UK markup snapshot 1`] = `
+<div>
+  <table
+    class="govuk-table"
+    ngxgovuktable=""
+  >
+    <caption
+      captionsize="m"
+      class="govuk-table__caption govuk-table__caption--m"
+      ngxgovuktablecaption=""
+    >
+       Months and rates 
+    </caption>
+    <thead
+      class="govuk-table__head"
+      ngxgovuktablehead=""
+    >
+      <tr
+        class="govuk-table__row"
+        ngxgovuktablerow=""
+      >
+        <th
+          class="govuk-table__header"
+          ngxgovuktableheader=""
+          scope="col"
+        >
+          Month you apply
+        </th>
+        <th
+          class="govuk-table__header govuk-table__header--numeric"
+          format="numeric"
+          ngxgovuktableheader=""
+          scope="col"
+        >
+          Rate for vehicles
+        </th>
+      </tr>
+    </thead>
+    <tbody
+      class="govuk-table__body"
+      ngxgovuktablebody=""
+    >
+      <tr
+        class="govuk-table__row"
+        ngxgovuktablerow=""
+      >
+        <th
+          class="govuk-table__header"
+          ngxgovuktableheader=""
+          scope="row"
+        >
+          January
+        </th>
+        <td
+          class="govuk-table__cell govuk-table__cell--numeric"
+          format="numeric"
+          ngxgovuktablecell=""
+        >
+          £95
+        </td>
+      </tr>
+      <tr
+        class="govuk-table__row"
+        ngxgovuktablerow=""
+      >
+        <td
+          class="govuk-table__cell"
+          ngxgovuktablecell=""
+        >
+          February
+        </td>
+        <td
+          class="govuk-table__cell"
+          ngxgovuktablecell=""
+        >
+          £55
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;
