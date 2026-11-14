@@ -204,6 +204,16 @@ export const EXAMPLES: Record<string, Example[]> = {
           (m) => m.FileUploadDemoComponent,
         ),
     },
+    {
+      path: 'file-upload/enhanced',
+      load: () =>
+        import('./examples/file-upload/enhanced.component').then(
+          (m) => m.FileUploadEnhancedDemoComponent,
+        ),
+      title: 'Enhanced file upload',
+      description:
+        'Put the input inside "ngx-govuk-enhanced-file-upload" for a button that shows the chosen file, and that users can drop files onto.',
+    },
   ],
   footer: [
     {
