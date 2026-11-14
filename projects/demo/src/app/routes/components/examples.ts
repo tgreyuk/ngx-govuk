@@ -187,6 +187,15 @@ export const EXAMPLES: Record<string, Example[]> = {
         ),
     },
   ],
+  'generic-header': [
+    {
+      path: 'generic-header/default',
+      load: () =>
+        import('./examples/generic-header/default.component').then(
+          (m) => m.GenericHeaderDemoComponent,
+        ),
+    },
+  ],
   header: [
     {
       path: 'header/default',

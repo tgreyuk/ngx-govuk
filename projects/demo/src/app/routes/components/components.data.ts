@@ -131,7 +131,7 @@ export const COMPONENTS: ComponentEntry[] = [
   {
     name: 'Generic header',
     id: 'generic-header',
-    status: 'to-do',
+    status: 'documented',
     description:
       'A header for services that are not on GOV.UK, without GOV.UK branding.',
   },
