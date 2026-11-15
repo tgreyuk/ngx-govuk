@@ -31,6 +31,16 @@ export const EXAMPLES: Record<string, Example[]> = {
           (m) => m.AccordionDemoComponent,
         ),
     },
+    {
+      path: 'accordion/summary',
+      load: () =>
+        import('./examples/accordion/summary.component').then(
+          (m) => m.AccordionSummaryDemoComponent,
+        ),
+      title: 'Summary lines',
+      description:
+        'Set "summary" on each panel to add a line under its heading.',
+    },
   ],
   'back-link': [
     {

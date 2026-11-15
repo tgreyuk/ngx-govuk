@@ -1,5 +1,6 @@
-import { Component, computed, contentChildren } from '@angular/core';
+import { Component, computed, contentChildren, input } from '@angular/core';
 import { NgxGovukAccordionPanel } from './accordion-panel.component';
+import { NGX_GOVUK_ACCORDION } from './accordion.token';
 
 /**
  * Lets users show and hide sections of related content on a page.
@@ -10,9 +11,16 @@ import { NgxGovukAccordionPanel } from './accordion-panel.component';
 @Component({
   selector: 'ngx-govuk-accordion',
   templateUrl: './accordion.component.html',
+  providers: [{ provide: NGX_GOVUK_ACCORDION, useExisting: NgxGovukAccordion }],
 })
 export class NgxGovukAccordion {
   private panels = contentChildren(NgxGovukAccordionPanel);
+
+  /**
+   * The level of each section's heading. Change it to fit the page's
+   * headings, such as `3` when the accordion is under an `h2`.
+   */
+  headingLevel = input<1 | 2 | 3 | 4 | 5 | 6>(2);
 
   /** Whether every section is open, for the "Show all sections" button. */
   protected allExpanded = computed(() => {
