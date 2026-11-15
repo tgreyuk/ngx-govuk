@@ -10,12 +10,12 @@ import { Directive, input, booleanAttribute } from '@angular/core';
   selector: 'a[ngxGovukBackLink]',
   host: {
     class: 'govuk-back-link',
-    '[class.govuk-back-link--inverse]': 'inversed()',
+    '[class.govuk-back-link--inverse]': 'inverse()',
   },
 })
 export class NgxGovukBackLink {
   /**
    * Shows the link in white, for use on a dark background.
    */
-  inversed = input(false, { transform: booleanAttribute });
+  inverse = input(false, { transform: booleanAttribute });
 }

@@ -20,7 +20,7 @@ class ConfirmationHostComponent {}
   >
     <p class="govuk-body">You entered your age as <strong>109</strong>.</p>
     <ngx-govuk-button-group>
-      <button ngxGovukButton [inversed]="true">Yes, this is correct</button>
+      <button ngxGovukButton inverse>Yes, this is correct</button>
       <a class="govuk-link govuk-link--inverse" href="/age"
         >No, change my age</a
       >

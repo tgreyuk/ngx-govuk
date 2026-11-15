@@ -10,9 +10,10 @@ exports[`NgxGovukButton > should render markup 1`] = `
   </button>
   <button
     class="govuk-button govuk-button--inverse"
+    inverse=""
     ngxgovukbutton=""
   >
-    Inversed
+    Inverse
   </button>
   <button
     buttontype="warning"

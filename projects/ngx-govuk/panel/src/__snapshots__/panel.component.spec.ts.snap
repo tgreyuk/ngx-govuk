@@ -62,6 +62,7 @@ exports[`NgxGovukPanel > matches the GOV.UK markup snapshot for an interruption 
         >
           <button
             class="govuk-button govuk-button--inverse"
+            inverse=""
             ngxgovukbutton=""
           >
             Yes, this is correct

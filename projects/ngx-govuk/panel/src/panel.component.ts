@@ -7,7 +7,7 @@ import { NgxGovukButtonGroup } from 'ngx-govuk/button';
  * continue.
  *
  * Put the body text inside it. For an interruption panel, add the actions in
- * an `ngx-govuk-button-group`, with each button `inversed` and each link
+ * an `ngx-govuk-button-group`, with each button `inverse` and each link
  * styled `govuk-link govuk-link--inverse`.
  */
 @Component({

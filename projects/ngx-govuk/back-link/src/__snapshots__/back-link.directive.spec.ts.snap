@@ -10,9 +10,10 @@ exports[`NgxGovukBackLink > should render markup 1`] = `
   </a>
   <a
     class="govuk-back-link govuk-back-link--inverse"
+    inverse=""
     ngxgovukbacklink=""
   >
-    Inversed
+    Inverse
   </a>
 </div>
 `;

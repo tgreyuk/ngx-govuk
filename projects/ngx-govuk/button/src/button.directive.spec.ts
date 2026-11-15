@@ -5,7 +5,7 @@ import { NgxGovukButton } from './button.directive';
 @Component({
   imports: [NgxGovukButton],
   template: `<button ngxGovukButton>Default</button>
-    <button ngxGovukButton [inversed]="true">Inversed</button>
+    <button ngxGovukButton inverse>Inverse</button>
     <button ngxGovukButton buttonType="warning">Warning</button>
     <button ngxGovukButton buttonType="start">Start</button> `,
 })

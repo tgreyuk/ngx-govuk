@@ -20,7 +20,7 @@ import {
     '[class.govuk-button--secondary]': "buttonType() === 'secondary'",
     '[class.govuk-button--warning]': "buttonType() === 'warning'",
     '[class.govuk-button--start]': "buttonType() === 'start'",
-    '[class.govuk-button--inverse]': 'inversed()',
+    '[class.govuk-button--inverse]': 'inverse()',
   },
 })
 export class NgxGovukButton {
@@ -38,7 +38,7 @@ export class NgxGovukButton {
   /**
    * Shows the button in white, for use on a dark background.
    */
-  inversed = input(false, { transform: booleanAttribute });
+  inverse = input(false, { transform: booleanAttribute });
 
   constructor() {
     effect(() => {
