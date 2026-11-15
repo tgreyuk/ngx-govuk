@@ -1,5 +1,9 @@
 <nav class="govuk-breadcrumbs" aria-label="Breadcrumb">
   <ol class="govuk-breadcrumbs__list">
-    <ng-content></ng-content>
+    @for (item of items(); track item) {
+      <li class="govuk-breadcrumbs__list-item">
+        <ng-container [ngxGovukBreadcrumbsLinkOutlet]="item.template" />
+      </li>
+    }
   </ol>
 </nav>

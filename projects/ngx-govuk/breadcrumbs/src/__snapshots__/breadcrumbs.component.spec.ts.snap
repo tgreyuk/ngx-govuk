@@ -15,7 +15,6 @@ exports[`NgxGovukBreadcrumbs > should render default state 1`] = `
         <a
           class="govuk-breadcrumbs__link"
           href="#"
-          ngxgovukbreadcrumbsitem=""
         >
           Home
         </a>
@@ -26,7 +25,6 @@ exports[`NgxGovukBreadcrumbs > should render default state 1`] = `
         <a
           class="govuk-breadcrumbs__link"
           href="#"
-          ngxgovukbreadcrumbsitem=""
         >
           Travel abroad
         </a>

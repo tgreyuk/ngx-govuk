@@ -1,44 +1,68 @@
-import { Component, DebugElement } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { RouterModule } from '@angular/router';
 import { NgxGovukBreadcrumbsItem } from './breadcrumbs-item.directive';
 import { NgxGovukBreadcrumbs } from './breadcrumbs.component';
 
 @Component({
-  imports: [NgxGovukBreadcrumbs, NgxGovukBreadcrumbsItem, RouterModule],
+  imports: [NgxGovukBreadcrumbs, NgxGovukBreadcrumbsItem],
   template: `<ngx-govuk-breadcrumbs>
-    <a ngxGovukBreadcrumbsItem href="#">Home</a>
-    <a ngxGovukBreadcrumbsItem href="#">Travel abroad</a>
+    <a *ngxGovukBreadcrumbsItem href="#">Home</a>
+    <a *ngxGovukBreadcrumbsItem href="#">Travel abroad</a>
   </ngx-govuk-breadcrumbs>`,
 })
 class TestHostComponent {}
 
 describe('NgxGovukBreadcrumbs', () => {
-  let fixture: ComponentFixture<TestHostComponent>;
-  let component: NgxGovukBreadcrumbs;
-  let debugElement: DebugElement;
-
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [NgxGovukBreadcrumbs],
-    }).compileComponents();
+  it('should render default state', () => {
+    const fixture = TestBed.createComponent(TestHostComponent);
+    fixture.detectChanges();
+    expect(
+      fixture.nativeElement.querySelector('ngx-govuk-breadcrumbs'),
+    ).toMatchSnapshot();
   });
+});
+
+@Component({
+  imports: [NgxGovukBreadcrumbs, NgxGovukBreadcrumbsItem],
+  template: `<ngx-govuk-breadcrumbs>
+    @for (crumb of crumbs(); track crumb) {
+      <a *ngxGovukBreadcrumbsItem href="#">{{ crumb }}</a>
+    }
+  </ngx-govuk-breadcrumbs>`,
+})
+class DynamicHostComponent {
+  crumbs = signal(['Home', 'Passports', 'Travel abroad']);
+}
+
+describe('NgxGovukBreadcrumbs with changing items', () => {
+  let fixture: ComponentFixture<DynamicHostComponent>;
+
+  const nav = (): HTMLElement => fixture.nativeElement.querySelector('nav');
+  const items = (): string[] =>
+    Array.from(
+      nav().querySelectorAll('.govuk-breadcrumbs__list > li'),
+      (li) => {
+        const link = li.querySelector('a.govuk-breadcrumbs__link');
+        return link ? link.textContent!.trim() : '(empty)';
+      },
+    );
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TestHostComponent);
+    fixture = TestBed.createComponent(DynamicHostComponent);
     fixture.detectChanges();
-    debugElement = fixture.debugElement.query(
-      By.directive(NgxGovukBreadcrumbs),
-    );
-    component = debugElement.componentInstance;
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('puts each link in its own list item', () => {
+    expect(items()).toEqual(['Home', 'Passports', 'Travel abroad']);
   });
 
-  it('should render default state', () => {
-    expect(debugElement.nativeNode).toMatchSnapshot();
+  it('keeps the list in step as links are added, removed and reordered', () => {
+    fixture.componentInstance.crumbs.set(['Home', 'Travel abroad']);
+    fixture.detectChanges();
+    expect(items()).toEqual(['Home', 'Travel abroad']);
+
+    fixture.componentInstance.crumbs.set(['Travel abroad', 'Home', 'Visas']);
+    fixture.detectChanges();
+    expect(items()).toEqual(['Travel abroad', 'Home', 'Visas']);
   });
 });
