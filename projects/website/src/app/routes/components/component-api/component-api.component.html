@@ -6,10 +6,10 @@
 }
 
 @for (apiClass of classes(); track apiClass.name) {
-  <!-- A heavy line between classes, not above the first. -->
+  <!-- A line between classes, not above the first. -->
   @if (!$first) {
     <hr
-      class="govuk-section-break govuk-section-break--l govuk-section-break--visible app-api-class-break"
+      class="govuk-section-break govuk-section-break--l govuk-section-break--visible"
     />
   }
   <ng-template #className>

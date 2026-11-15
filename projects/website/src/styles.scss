@@ -616,12 +616,6 @@ ngx-govuk-root {
   background-color: var(--app-slate-light);
 }
 
-// Between classes on one page: heavier than the lines between entries, as the
-// bigger break. Element and both classes, to win over GOV.UK's section break.
-hr.govuk-section-break--visible.app-api-class-break {
-  border-bottom: 3px solid #94a3b8;
-}
-
 // What sits under a strip: inset to line up with the heading text on the left
 // and the strip's edge padding on the right.
 .app-api-under-heading {
@@ -703,5 +697,5 @@ hr.govuk-section-break--visible.app-api-class-break {
 }
 
 .app-api-list__item dd p:has(+ .app-api-default) {
-  margin-bottom: 6px;
+  margin-bottom: 15px;
 }
