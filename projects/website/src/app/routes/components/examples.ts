@@ -115,6 +115,16 @@ export const EXAMPLES: Record<string, Example[]> = {
       description:
         'Wrap buttons, and any links, in "ngx-govuk-button-group" to lay them out together.',
     },
+    {
+      path: 'button/prevent-double-click',
+      load: () =>
+        import('./examples/button/prevent-double-click.component').then(
+          (m) => m.ButtonPreventDoubleClickDemoComponent,
+        ),
+      title: 'Stop users submitting twice',
+      description:
+        'Set "preventDoubleClick" to ignore a second click within 1 second.',
+    },
   ],
   'character-count': [
     {

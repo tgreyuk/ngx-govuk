@@ -1,10 +1,14 @@
 import {
   Component,
+  DestroyRef,
   ElementRef,
   booleanAttribute,
   inject,
   input,
 } from '@angular/core';
+
+/** How long a second click is ignored for, with `preventDoubleClick`. */
+const DEBOUNCE_TIMEOUT_IN_MS = 1000;
 
 /**
  * Styles a `button` or `a` element as a GOV.UK button.
@@ -29,6 +33,7 @@ import {
     '[attr.disabled]': "!isLink && disabled() ? '' : null",
     '[attr.aria-disabled]': "!isLink && disabled() ? 'true' : null",
     '(keydown.space)': 'onSpace($event)',
+    '(click)': 'onClick($event)',
   },
 })
 export class NgxGovukButton {
@@ -36,6 +41,8 @@ export class NgxGovukButton {
 
   /** Whether the button is a link, which GOV.UK gives a button's role. */
   protected readonly isLink = this.host.tagName === 'A';
+
+  private debounceTimer: ReturnType<typeof setTimeout> | null = null;
 
   /**
    * The kind of button: `secondary` for less important actions, `warning` for
@@ -60,10 +67,34 @@ export class NgxGovukButton {
    */
   disabled = input(false, { transform: booleanAttribute });
 
+  /**
+   * Ignores a second click within 1 second, so a form isn't submitted twice
+   * by accident. It stops the form submitting, not your own `click`
+   * handlers.
+   */
+  preventDoubleClick = input(false, { transform: booleanAttribute });
+
+  constructor() {
+    inject(DestroyRef).onDestroy(() => {
+      if (this.debounceTimer) clearTimeout(this.debounceTimer);
+    });
+  }
+
   /** Lets the Space key select a link, as it does a button. */
   protected onSpace(event: Event) {
     if (!this.isLink) return;
     event.preventDefault();
     this.host.click();
+  }
+
+  protected onClick(event: Event) {
+    if (!this.preventDoubleClick()) return;
+    if (this.debounceTimer) {
+      event.preventDefault();
+      return;
+    }
+    this.debounceTimer = setTimeout(() => {
+      this.debounceTimer = null;
+    }, DEBOUNCE_TIMEOUT_IN_MS);
   }
 }

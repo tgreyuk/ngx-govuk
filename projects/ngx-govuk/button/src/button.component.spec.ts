@@ -138,3 +138,49 @@ describe('NgxGovukButton button and link', () => {
     expect(link.hasAttribute('aria-disabled')).toBe(false);
   });
 });
+
+@Component({
+  imports: [NgxGovukButton],
+  template: `<button ngxGovukButton [preventDoubleClick]="prevent()">
+    Save
+  </button>`,
+})
+class DoubleClickHostComponent {
+  prevent = signal(true);
+}
+
+describe('NgxGovukButton preventDoubleClick', () => {
+  let fixture: ComponentFixture<DoubleClickHostComponent>;
+  let button: HTMLButtonElement;
+  const click = () => {
+    const event = new MouseEvent('click', { cancelable: true });
+    button.dispatchEvent(event);
+    return event.defaultPrevented;
+  };
+
+  beforeEach(() => {
+    vi.useFakeTimers();
+    fixture = TestBed.createComponent(DoubleClickHostComponent);
+    fixture.detectChanges();
+    button = fixture.nativeElement.querySelector('button');
+  });
+
+  afterEach(() => {
+    vi.useRealTimers();
+  });
+
+  it('ignores a second click within 1 second', () => {
+    expect(click()).toBe(false);
+    expect(click()).toBe(true);
+
+    vi.advanceTimersByTime(1000);
+    expect(click()).toBe(false);
+  });
+
+  it('lets every click through when it is not set', () => {
+    fixture.componentInstance.prevent.set(false);
+    fixture.detectChanges();
+    expect(click()).toBe(false);
+    expect(click()).toBe(false);
+  });
+});
