@@ -4,7 +4,7 @@
     {
       "files": "projects/website/src/app/routes/components/examples/**/*.html",
       "options": {
-        "printWidth": 100,
+        "printWidth": 88,
         "bracketSameLine": true
       }
     }
