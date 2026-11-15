@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, computed, contentChildren } from '@angular/core';
 import { NgxGovukAccordionPanel } from './accordion-panel.component';
 
@@ -10,7 +9,6 @@ import { NgxGovukAccordionPanel } from './accordion-panel.component';
  */
 @Component({
   selector: 'ngx-govuk-accordion',
-  imports: [CommonModule],
   templateUrl: './accordion.component.html',
 })
 export class NgxGovukAccordion {

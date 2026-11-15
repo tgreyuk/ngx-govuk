@@ -47,7 +47,7 @@ exports[`NgxGovukAccordion > should render default state 1`] = `
               <span
                 class="govuk-accordion__section-heading-text-focus"
               >
-                 Test heading 
+                Test heading
               </span>
             </span>
             <span
@@ -57,6 +57,7 @@ exports[`NgxGovukAccordion > should render default state 1`] = `
             </span>
             <span
               class="govuk-accordion__section-toggle"
+              data-nosnippet=""
             >
               <span
                 class="govuk-accordion__section-toggle-focus"
@@ -75,8 +76,8 @@ exports[`NgxGovukAccordion > should render default state 1`] = `
         </h2>
       </div>
       <div
-        aria-labelledby="heading-someId"
         class="govuk-accordion__section-content"
+        hidden="until-found"
         id="content-someId"
       />
     </ngx-govuk-accordion-panel>
@@ -131,7 +132,7 @@ exports[`NgxGovukAccordion > should render expanded state 1`] = `
               <span
                 class="govuk-accordion__section-heading-text-focus"
               >
-                 Test heading 
+                Test heading
               </span>
             </span>
             <span
@@ -141,6 +142,7 @@ exports[`NgxGovukAccordion > should render expanded state 1`] = `
             </span>
             <span
               class="govuk-accordion__section-toggle"
+              data-nosnippet=""
             >
               <span
                 class="govuk-accordion__section-toggle-focus"
@@ -159,7 +161,6 @@ exports[`NgxGovukAccordion > should render expanded state 1`] = `
         </h2>
       </div>
       <div
-        aria-labelledby="heading-someId"
         class="govuk-accordion__section-content"
         id="content-someId"
       />
