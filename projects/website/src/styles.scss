@@ -470,7 +470,7 @@ pre {
   font-weight: 600;
 }
 
-// The Examples and API tabs on a component's page. The site's own look, not
+// The Overview and API tabs on a component's page. The site's own look, not
 // GOV.UK's tabs, so they don't read as part of the example below.
 .app-tabs {
   display: flex;
@@ -505,6 +505,19 @@ pre {
   border-bottom-color: var(--app-marker);
 }
 
+// The component's one-line summary, at the top of the Overview tab. The
+// site's own look, so it isn't mistaken for GOV.UK's inset text or one of the
+// examples.
+.app-summary {
+  margin: 0 0 30px;
+  padding: 16px 20px;
+  border-left: 4px solid var(--app-marker);
+  background-color: var(--app-slate-light);
+  color: var(--app-text);
+  font-family: var(--app-font);
+  font-size: 1.125rem;
+  line-height: 1.5;
+}
 // A frame around live examples in guides.
 .app-example {
   margin-bottom: 20px;

@@ -33,12 +33,12 @@ export const appRoutes: Route[] = [
     component: ComponentsLayoutComponent,
     children: [
       { path: '', component: ComponentsComponent },
-      // Documented components get two tabs: examples, and the API.
+      // Documented components get two tabs: an overview with examples, and the API.
       {
         path: ':componentId',
         canMatch: [documented],
         component: ComponentComponent,
-        data: { tab: 'examples' },
+        data: { tab: 'overview' },
       },
       {
         path: ':componentId/api',
