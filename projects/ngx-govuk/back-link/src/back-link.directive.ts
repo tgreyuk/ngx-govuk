@@ -1,4 +1,4 @@
-import { Directive, HostBinding, input } from '@angular/core';
+import { Directive, input } from '@angular/core';
 
 /**
  * A link back to the previous page, for multi-page transactions.
@@ -8,16 +8,12 @@ import { Directive, HostBinding, input } from '@angular/core';
  */
 @Directive({
   selector: 'a[ngxGovukBackLink]',
+  host: {
+    class: 'govuk-back-link',
+    '[class.govuk-back-link--inverse]': 'inversed()',
+  },
 })
 export class NgxGovukBackLink {
-  @HostBinding('class') get className() {
-    const classes = [`govuk-back-link`];
-    if (this.inversed()) {
-      classes.push('govuk-back-link--inverse');
-    }
-    return classes.join(' ');
-  }
-
   /**
    * Shows the link in white, for use on a dark background.
    */
