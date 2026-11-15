@@ -48,44 +48,58 @@ test('splits the summary into paragraphs, without block tags', () => {
   assert.deepEqual(directive.description, []);
 });
 
-test('reads inputs and models, with their full types', () => {
+test('reads inputs and models, with the type of value they hold', () => {
   assert.deepEqual(component.inputs, [
     {
       name: 'label',
+      kind: 'input',
       description: ['A required input.'],
-      type: 'InputSignal<string>',
+      type: 'string',
       required: true,
     },
     {
       name: 'size',
+      kind: 'input',
       description: ['An optional input with no initial value.'],
-      type: 'InputSignal<"s" | "m" | undefined>',
+      type: '"s" | "m"',
       required: false,
     },
     {
       name: 'enabled',
+      kind: 'input',
       description: ['An input with an initial value.'],
-      type: 'InputSignal<boolean>',
+      type: 'boolean',
       default: 'true',
       required: false,
     },
     {
       name: 'error',
+      kind: 'input',
       description: ['An input that can be null.'],
-      type: 'InputSignal<string | null | undefined>',
+      type: 'string | null',
       required: false,
     },
     {
       name: 'publicName',
+      kind: 'input',
       description: ['An input bound under another name.'],
-      type: 'InputSignal<number>',
+      type: 'number',
       default: '0',
       required: false,
     },
     {
+      name: 'compact',
+      kind: 'input',
+      description: ['An input with a transform.'],
+      type: 'boolean',
+      default: 'false',
+      required: false,
+    },
+    {
       name: 'checked',
+      kind: 'model',
       description: ['A two-way binding.'],
-      type: 'ModelSignal<boolean>',
+      type: 'boolean',
       default: 'false',
       required: false,
     },
@@ -97,7 +111,7 @@ test('reads outputs', () => {
     {
       name: 'countChange',
       description: ['Emits the new count.'],
-      type: 'OutputEmitterRef<number>',
+      type: 'number',
     },
   ]);
 });

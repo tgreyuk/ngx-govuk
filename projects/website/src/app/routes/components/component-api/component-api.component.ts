@@ -84,6 +84,11 @@ export class ComponentApiComponent {
   });
 }
 
+/**
+ * Inputs, outputs and methods as lists. Inputs and outputs are named as they
+ * are bound, as in `[heading]`, `[(expanded)]` and `(closed)`, so a model
+ * stands out from an input.
+ */
 function sections(apiClass: ApiClass): ApiSection[] {
   return [
     {
@@ -92,6 +97,7 @@ function sections(apiClass: ApiClass): ApiSection[] {
       // required one has no default.
       entries: apiClass.inputs.map((input) => ({
         ...input,
+        name: input.kind === 'model' ? `[(${input.name})]` : `[${input.name}]`,
         description: paragraphs(input.description),
         default: input.default ?? (input.required ? undefined : 'undefined'),
       })),
@@ -100,6 +106,7 @@ function sections(apiClass: ApiClass): ApiSection[] {
       title: 'Outputs',
       entries: apiClass.outputs.map((output) => ({
         ...output,
+        name: `(${output.name})`,
         description: paragraphs(output.description),
       })),
     },

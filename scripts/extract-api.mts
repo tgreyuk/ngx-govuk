@@ -143,13 +143,7 @@ function addInputOrOutput(
   member: ts.PropertyDeclaration,
   name: ts.Identifier,
 ) {
-  // The declared type in full, such as `InputSignal<string | undefined>` or
-  // `ModelSignal<boolean>`: it tells Angular developers how to use the member.
-  const type = checker.typeToString(
-    checker.getTypeAtLocation(name),
-    undefined,
-    TYPE_FORMAT,
-  );
+  const signalType = checker.getTypeAtLocation(name);
   const initializer = member.initializer;
   const call =
     initializer && ts.isCallExpression(initializer) ? initializer : undefined;
@@ -162,8 +156,11 @@ function addInputOrOutput(
     const options = required ? call.arguments[0] : call.arguments[1];
     const input: ApiInput = {
       name: alias(options) ?? name.text,
+      kind: fn,
       description: description(member),
-      type,
+      // An optional input's `undefined` is left out: not being required
+      // already says it can be left unset.
+      type: valueType(checker, signalType, { omitUndefined: !required }),
       default: initialValue?.getText(),
       required,
     };
@@ -178,10 +175,51 @@ function addInputOrOutput(
     const output: ApiOutput = {
       name: alias(call.arguments[0]) ?? name.text,
       description: description(member),
-      type,
+      type: valueType(checker, signalType),
     };
     apiClass.outputs.push(output);
   }
+}
+
+/**
+ * The type of value an input, model or output holds, such as `string` for
+ * `InputSignal<string>`, rather than the signal's own type. For an input with
+ * a transform, such as `booleanAttribute`, this is the type after the
+ * transform, `boolean`, not the `unknown` it accepts.
+ */
+function valueType(
+  checker: ts.TypeChecker,
+  signalType: ts.Type,
+  { omitUndefined = false } = {},
+): string {
+  const [value] =
+    signalType.aliasTypeArguments ??
+    (isTypeReference(signalType) ? checker.getTypeArguments(signalType) : []);
+  if (!value) {
+    return checker.typeToString(signalType, undefined, TYPE_FORMAT);
+  }
+  if (omitUndefined && value.isUnion()) {
+    // TypeScript puts `null` first; write it last, as in `string | null`.
+    const isNull = (member: ts.Type) => !!(member.flags & ts.TypeFlags.Null);
+    const defined = value.types
+      .filter((member) => !(member.flags & ts.TypeFlags.Undefined))
+      .sort((a, b) => Number(isNull(a)) - Number(isNull(b)));
+    // `boolean` is the union `true | false`: keep it as one word.
+    if (defined.length !== value.types.length) {
+      return defined
+        .map((member) => checker.typeToString(member, undefined, TYPE_FORMAT))
+        .join(' | ')
+        .replace(/\bfalse \| true\b|\btrue \| false\b/, 'boolean');
+    }
+  }
+  return checker.typeToString(value, undefined, TYPE_FORMAT);
+}
+
+function isTypeReference(type: ts.Type): type is ts.TypeReference {
+  return (
+    !!(type.flags & ts.TypeFlags.Object) &&
+    !!((type as ts.ObjectType).objectFlags & ts.ObjectFlags.Reference)
+  );
 }
 
 /** `input`, `model` or `output` when called as `input(...)`, `input.required(...)`, etc. */

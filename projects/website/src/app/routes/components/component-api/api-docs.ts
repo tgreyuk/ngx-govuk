@@ -26,11 +26,14 @@ export interface ApiClass {
 }
 
 /**
- * An `input()` or `model()`. Types are the declared type in full, such as
- * `ModelSignal<boolean>`, which tells a model apart from an input.
+ * An `input()` or `model()`. The type is the value it holds, such as
+ * `boolean` for `ModelSignal<boolean>`, without `undefined` when the input is
+ * optional.
  */
 export interface ApiInput {
   name: string;
+  /** A `model` can also be bound both ways, with `[(name)]`. */
+  kind: 'input' | 'model';
   description: string[];
   type: string;
   /** The initial value as written in the source, if there is one. */
@@ -38,7 +41,7 @@ export interface ApiInput {
   required: boolean;
 }
 
-/** An `output()`, such as `OutputEmitterRef<number>`. */
+/** An `output()`. The type is the value it emits, such as `number`. */
 export interface ApiOutput {
   name: string;
   description: string[];

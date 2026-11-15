@@ -1,4 +1,11 @@
-import { Component, input, model, output, signal } from '@angular/core';
+import {
+  booleanAttribute,
+  Component,
+  input,
+  model,
+  output,
+  signal,
+} from '@angular/core';
 
 /**
  * An example component.
@@ -27,6 +34,9 @@ export class ExampleComponent {
 
   /** An input bound under another name. */
   internalName = input(0, { alias: 'publicName' });
+
+  /** An input with a transform. */
+  compact = input(false, { transform: booleanAttribute });
 
   /** A two-way binding. */
   checked = model(false);
