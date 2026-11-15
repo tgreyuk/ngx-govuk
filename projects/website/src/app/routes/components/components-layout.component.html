@@ -8,6 +8,9 @@
         routerLinkActive="app-subnav__link--active"
         ariaCurrentWhenActive="page"
         >{{ component.name }}
+        @if (component.source === 'ngx-govuk') {
+          <span class="app-badge">ngx-govuk</span>
+        }
         @if (component.status === 'to-do') {
           (todo)
         } @else if (component.status === 'in-progress') {

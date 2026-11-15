@@ -2,104 +2,141 @@
 <h1 class="govuk-heading-xl">Installing ngx-govuk</h1>
 <div class="govuk-!-margin-bottom-8">
   <h2 class="govuk-heading-m">Contents</h2>
-  <ul class="govuk-list">
-    @for (item of toc(); track item.id; let i = $index) {
+  <ol class="govuk-list govuk-list--number">
+    @for (item of contents; track item.id) {
       <li>
         <a
-          [attr.href]="'/get-started/installation#' + item.id"
           class="govuk-link govuk-link--no-visited-state"
-          >{{ i + 1 }}. {{ item.heading }}</a
+          routerLink="."
+          [fragment]="item.id"
+          >{{ item.heading }}</a
         >
       </li>
     }
-  </ul>
+  </ol>
 </div>
 
-<div id="contents" #contents>
+<div class="sections">
   <div class="govuk-!-margin-bottom-8">
-    <h2 class="govuk-heading-m">Requirements</h2>
+    <h2 class="govuk-heading-m" id="requirements">Requirements</h2>
     <ul class="govuk-list govuk-list--bullet">
       <li>Angular 22</li>
-      <li>GOV.UK Frontend (the "govuk-frontend" package) 6</li>
+      <li>
+        GOV.UK Frontend (the
+        <code class="app-inline-code">govuk-frontend</code> package) 6
+      </li>
     </ul>
   </div>
 
   <div class="govuk-!-margin-bottom-8">
-    <h2 class="govuk-heading-m">Install packages from npm</h2>
+    <h2 class="govuk-heading-m" id="install">Install packages from npm</h2>
     <p class="govuk-body">
       Install ngx-govuk together with GOV.UK Frontend. ngx-govuk renders GOV.UK
       Frontend's markup, and GOV.UK Frontend provides the styles.
     </p>
-    <pre class="govuk-body" [innerText]="INSTALL_CODE"></pre>
+    <app-code-block [code]="INSTALL_CODE" lang="shellscript" />
+    <p class="govuk-body">
+      You only need GOV.UK Frontend's styles. Do not load its JavaScript or call
+      <code class="app-inline-code">initAll()</code>: ngx-govuk components
+      handle their own behaviour, and GOV.UK Frontend's scripts would add a
+      second set of behaviour to the same elements.
+    </p>
   </div>
 
   <div class="govuk-!-margin-bottom-8">
-    <h2 class="govuk-heading-m">Add GOV.UK classes to the page</h2>
+    <h2 class="govuk-heading-m" id="page-classes">
+      Add GOV.UK classes to the page
+    </h2>
     <p class="govuk-body">
-      In your "index.html" file, add "govuk-template" to the html tag, and
-      "govuk-template__body" and "govuk-frontend-supported" to the body tag.
-      GOV.UK Frontend's page template uses these classes to set the page
+      In your <code class="app-inline-code">index.html</code> file, add
+      <code class="app-inline-code">govuk-template</code> to the html tag, and
+      <code class="app-inline-code">govuk-template__body</code> and
+      <code class="app-inline-code">govuk-frontend-supported</code> to the body
+      tag. GOV.UK Frontend's page template uses these classes to set the page
       background and text sizing.
     </p>
     <p class="govuk-body">
-      GOV.UK's page template adds "govuk-frontend-supported" with a small inline
-      script. The accordion and tabs styles depend on it, and without it they
-      show their no-JavaScript fallback. ngx-govuk components do not need that
-      script, so add the class directly.
+      GOV.UK's page template adds
+      <code class="app-inline-code">govuk-frontend-supported</code> with a small
+      inline script. The accordion and tabs styles depend on it, and without it
+      they show their no-JavaScript fallback. ngx-govuk components do not need
+      that script, so add the class directly.
     </p>
-    <pre class="govuk-body" [innerText]="BODY_CSS_CODE"></pre>
+    <app-code-block [code]="BODY_CSS_CODE" lang="angular-html" />
+    <p class="govuk-body">
+      In your root component's template, put the page's content in a
+      <code class="app-inline-code">govuk-width-container</code> and a
+      <code class="app-inline-code">main</code> element with
+      <code class="app-inline-code">govuk-main-wrapper</code>, as GOV.UK's page
+      template does. These set the page's width and spacing. The header and
+      footer go outside them, since they set their own width.
+    </p>
+    <app-code-block [code]="LAYOUT_CODE" lang="angular-html" />
   </div>
 
   <div class="govuk-!-margin-bottom-8">
-    <h2 class="govuk-heading-m">Include GOV.UK styles</h2>
+    <h2 class="govuk-heading-m" id="styles">Include GOV.UK styles</h2>
     <p class="govuk-body">
       ngx-govuk does not ship any styles of its own. Include
       <a
         class="govuk-link"
         href="https://frontend.design-system.service.gov.uk/include-css/"
-        target="_blank"
         >GOV.UK Frontend's styles</a
       >
       in one of these ways.
     </p>
 
-    <h3 class="govuk-heading-s">Recommended: load all styles with Sass</h3>
+    <h3 class="govuk-heading-s" id="styles-sass">
+      Recommended: load all styles with Sass
+    </h3>
     <p class="govuk-body">
-      Load GOV.UK Frontend in your global "styles.scss" stylesheet. GOV.UK
-      Frontend 6 uses Sass modules, so use "&#64;use" rather than "&#64;import".
-      Loading it with Sass lets you choose the font (see
-      <a class="govuk-link" href="/get-started/installation#heading-4"
-        >Choose a font</a
-      >).
+      Load GOV.UK Frontend in your global
+      <code class="app-inline-code">styles.scss</code> stylesheet. GOV.UK
+      Frontend uses Sass modules, so use
+      <code class="app-inline-code">&#64;use</code> rather than
+      <code class="app-inline-code">&#64;import</code>.
     </p>
-    <pre class="govuk-body" [innerText]="SASS_ALL_CODE"></pre>
+    <p class="govuk-body">
+      The example replaces GOV.UK's GDS Transport font, which only services on
+      service.gov.uk may use. On service.gov.uk, leave out the
+      <code class="app-inline-code">with</code> to keep it. See
+      <a class="govuk-link" routerLink="." fragment="font">Choose a font</a>.
+    </p>
+    <app-code-block [code]="SASS_ALL_CODE" lang="scss" />
 
-    <h3 class="govuk-heading-s">Load only the styles you use</h3>
+    <h3 class="govuk-heading-s" id="styles-selected">
+      Load only the styles you use
+    </h3>
     <p class="govuk-body">
       To keep your CSS smaller, load the base styles once and then only the
       components you use. This example loads the styles for buttons, details and
       text inputs.
     </p>
-    <pre class="govuk-body" [innerText]="SASS_CHERRY_PICK_CODE"></pre>
+    <app-code-block [code]="SASS_CHERRY_PICK_CODE" lang="scss" />
 
-    <h3 class="govuk-heading-s">GOV.UK services: use the precompiled CSS</h3>
+    <h3 class="govuk-heading-s" id="styles-precompiled">
+      Quickest: use the precompiled CSS
+    </h3>
     <p class="govuk-body">
       GOV.UK Frontend also ships a precompiled stylesheet. It is the quickest
       setup, but it always uses the GDS Transport font, which is for services on
-      service.gov.uk. Add it to the "styles" array in "angular.json", and copy
-      GOV.UK Frontend's fonts and images with an "assets" entry so the font
-      files load.
+      service.gov.uk. Add it to the
+      <code class="app-inline-code">styles</code> array in
+      <code class="app-inline-code">angular.json</code>, and copy GOV.UK
+      Frontend's fonts and images with an
+      <code class="app-inline-code">assets</code> entry so the font files load.
     </p>
-    <pre class="govuk-body" [innerText]="PRECOMPILED_CODE"></pre>
+    <app-code-block [code]="PRECOMPILED_CODE" lang="jsonc" />
     <p class="govuk-body">
-      Angular's build may warn about a CSS syntax error in this file. It comes
-      from an old Internet Explorer workaround in GOV.UK Frontend's stylesheet
-      and is harmless.
+      Angular's build warns about a CSS syntax error in this file,
+      <code class="app-inline-code">Expected "&#123;" but found "("</code>. It
+      comes from an old Internet Explorer workaround in GOV.UK Frontend's
+      details styles and is harmless. The Sass options don't cause it.
     </p>
   </div>
 
   <div class="govuk-!-margin-bottom-8">
-    <h2 class="govuk-heading-m">Choose a font</h2>
+    <h2 class="govuk-heading-m" id="font">Choose a font</h2>
     <p class="govuk-body">
       GOV.UK Frontend uses the GDS Transport font by default. Services on
       service.gov.uk must use it. Services publicly available on other domains
@@ -107,30 +144,41 @@
       <a
         class="govuk-link"
         href="https://design-system.service.gov.uk/styles/typeface/"
-        target="_blank"
         >GOV.UK typeface guidance</a
       >.
     </p>
     <p class="govuk-body">
-      To use an alternative, set "$govuk-font-family" when loading GOV.UK
-      Frontend with Sass. GOV.UK recommends the font stack shown below, or your
-      own brand's font. When GDS Transport is not in the font list, GOV.UK
-      Frontend leaves out its font files entirely, so there is nothing to copy
-      and no missing-font errors.
+      To use an alternative, set
+      <code class="app-inline-code">$govuk-font-family</code> when loading
+      GOV.UK Frontend with Sass. The
+      <a class="govuk-link" routerLink="." fragment="styles-sass"
+        >Sass examples</a
+      >
+      above already do this, with the font stack
+      <a
+        class="govuk-link"
+        href="https://frontend.design-system.service.gov.uk/using-govuk-frontend-without-govuk-branding/"
+        >GOV.UK Frontend recommends</a
+      >. Change it to your own brand's font if you have one. When loading only
+      some styles, set it on the <code class="app-inline-code">base</code> line.
     </p>
-    <pre class="govuk-body" [innerText]="SASS_ALL_CODE"></pre>
     <p class="govuk-body">
-      When loading only some styles, add the same "with" to the "base" line, as
-      shown above.
+      When GDS Transport is not in the font list, GOV.UK Frontend leaves out its
+      font files entirely, so there is nothing to copy and no missing-font
+      errors. If you keep GDS Transport, copy its font files with the same
+      <code class="app-inline-code">assets</code> entry as the
+      <a class="govuk-link" routerLink="." fragment="styles-precompiled"
+        >precompiled CSS</a
+      >.
     </p>
     <p class="govuk-body">
       If your service is not on GOV.UK, also read
       <a
         class="govuk-link"
         href="https://frontend.design-system.service.gov.uk/using-govuk-frontend-without-govuk-branding/"
-        target="_blank"
         >Using GOV.UK Frontend without GOV.UK branding</a
-      >, which covers changing the brand colour in the same "with".
+      >, which covers changing the brand colour in the same
+      <code class="app-inline-code">with</code>.
     </p>
   </div>
 </div>

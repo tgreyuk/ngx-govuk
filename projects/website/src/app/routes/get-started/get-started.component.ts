@@ -1,73 +1,48 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  Renderer2,
-  inject,
-  signal,
-  viewChild,
-} from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { CodeBlockComponent } from '../components/component-code/code-block.component';
 
-interface TocEntry {
-  heading: string | null;
-  id: string;
-  subheadings?: TocEntry[];
-}
-
+/** Guide to installing ngx-govuk and GOV.UK Frontend. */
 @Component({
   selector: 'ngx-govuk-get-started',
-  imports: [RouterLink],
+  imports: [RouterLink, CodeBlockComponent],
   templateUrl: './get-started.component.html',
   styleUrl: './get-started.component.scss',
 })
-export class GetStartedComponent implements AfterViewInit {
-  contents = viewChild<ElementRef<HTMLDivElement>>('contents');
-  private renderer = inject(Renderer2);
-
-  toc = signal<TocEntry[]>([]);
-
-  ngAfterViewInit(): void {
-    const toc: TocEntry[] = [];
-
-    const headings = this.contents()?.nativeElement?.querySelectorAll('h2');
-
-    headings?.forEach((heading, i) => {
-      this.renderer.setAttribute(heading, 'id', `heading-${i}`);
-      const subheadings = Array.from(
-        heading.parentElement?.querySelectorAll('h3') || [],
-      )?.map((subheading, x) => {
-        this.renderer.setAttribute(
-          subheading,
-          'id',
-          `heading-${i}-subheading-${x}`,
-        );
-        return {
-          heading: subheading.textContent,
-          id: `subheading-${x}`,
-        };
-      });
-      toc.push({
-        heading: heading.textContent,
-        id: `heading-${i}`,
-        subheadings,
-      });
-    });
-
-    this.toc.set(toc);
-  }
+export class GetStartedComponent {
+  /** The page's sections, in order. Each id matches a heading's id. */
+  contents = [
+    { id: 'requirements', heading: 'Requirements' },
+    { id: 'install', heading: 'Install packages from npm' },
+    { id: 'page-classes', heading: 'Add GOV.UK classes to the page' },
+    { id: 'styles', heading: 'Include GOV.UK styles' },
+    { id: 'font', heading: 'Choose a font' },
+  ];
 
   INSTALL_CODE = `npm install ngx-govuk govuk-frontend`;
 
   BODY_CSS_CODE = `<html lang="en" class="govuk-template">
   <body class="govuk-template__body govuk-frontend-supported">`;
 
+  LAYOUT_CODE = `<a href="#main-content" ngxGovukSkipLink>Skip to main content</a>
+<!-- Your header, such as ngx-govuk-header or ngx-govuk-generic-header -->
+
+<div class="govuk-width-container">
+  <main class="govuk-main-wrapper" id="main-content">
+    <router-outlet />
+  </main>
+</div>
+
+<!-- Your footer, such as ngx-govuk-footer -->`;
+
   SASS_ALL_CODE = `// styles.scss
+// On service.gov.uk, leave out "with (...)" to keep GDS Transport.
 @use 'govuk-frontend' with (
   $govuk-font-family: ("Helvetica Neue", Helvetica, Arial, sans-serif)
 );`;
 
   SASS_CHERRY_PICK_CODE = `// styles.scss
+// On service.gov.uk, leave out "with (...)" to keep GDS Transport.
 @use 'govuk-frontend/dist/govuk/base' with (
   $govuk-font-family: ("Helvetica Neue", Helvetica, Arial, sans-serif)
 );

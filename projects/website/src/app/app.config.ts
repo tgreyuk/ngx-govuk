@@ -20,9 +20,13 @@ export const appConfig: ApplicationConfig = {
 
       withComponentInputBinding(),
 
-      // Start each new page at the top, and go back to where you were with
-      // the browser's back button.
-      withInMemoryScrolling({ scrollPositionRestoration: 'enabled' }),
+      // Start each new page at the top, go back to where you were with the
+      // browser's back button, and scroll to the heading a link's #fragment
+      // names.
+      withInMemoryScrolling({
+        scrollPositionRestoration: 'enabled',
+        anchorScrolling: 'enabled',
+      }),
     ),
   ],
 };

@@ -68,9 +68,9 @@ pre {
   --app-slate-light: #f1f5f9;
   --app-border: #cbd5e1;
   --app-accent: #1e293b;
-  // Marks the current page in the navigation and the side menu. Angular's
-  // "bright blue", which is vivid enough not to be read as GOV.UK's muted blue.
-  --app-marker: #0546ff;
+  // Marks the current page in the navigation, side menu and tabs. The middle
+  // of the deep gradient, so the marker ties back to the header's stripe.
+  --app-marker: #a8007a;
   --app-text: #0f172a;
   --app-muted: #475569;
   --app-focus: #ffdd00;
@@ -162,7 +162,13 @@ pre {
   gap: 10px;
 }
 
-.app-header__version {
+// The version badge links to the package on npm, like the npm badges on a
+// README. The header's link underline is turned off here: the brighter border
+// is the hover cue inside a pill.
+.app-header .app-header__version {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   padding: 1px 8px;
   border: 1px solid #64748b;
   border-radius: 999px;
@@ -171,16 +177,26 @@ pre {
   font-weight: 500;
   line-height: 1.5;
   white-space: nowrap;
+  svg {
+    // The npm wordmark is 18 x 7; keep its proportions.
+    width: 27px;
+    height: 10.5px;
+  }
+  &:hover {
+    border-color: #fff;
+    color: #fff;
+    text-decoration: none;
+  }
 }
 
 .app-header__home {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   img {
     // The logo is 223 x 236; keep its proportions.
-    width: 30px;
-    height: 32px;
+    width: 34px;
+    height: 36px;
   }
 }
 
@@ -191,14 +207,9 @@ pre {
   position: relative;
   top: -1px;
   line-height: 1;
-  font-size: 1.5rem;
+  font-size: 1.75rem;
   font-weight: 700;
   letter-spacing: -0.01em;
-}
-
-.app-header__tagline {
-  color: #cbd5e1;
-  font-size: 1rem;
 }
 
 .app-header__github {
@@ -213,17 +224,36 @@ pre {
   }
 }
 
+// On phones the GitHub mark stands alone to save room. The label is hidden
+// visually, not removed, so it stays the link's accessible name.
+@media (max-width: 40.0525em) {
+  .app-header__github-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}
+
 .app-nav {
   border-bottom: 1px solid var(--app-border);
   background: var(--app-slate-light);
 }
 
+// On phones the links sit closer and smaller so all three fit on one line,
+// and wrap rather than overflow if the text is enlarged.
 .app-nav__list {
   display: flex;
-  gap: 28px;
+  flex-wrap: wrap;
+  column-gap: 28px;
   margin: 0;
   padding: 0;
   list-style: none;
+  @media (max-width: 40.0525em) {
+    column-gap: 20px;
+  }
 }
 
 .app-nav__link {
@@ -234,8 +264,13 @@ pre {
   font-size: 1.0625rem;
   font-weight: 600;
   text-decoration: none;
-  &:hover {
-    color: var(--app-marker);
+  @media (max-width: 40.0525em) {
+    font-size: 0.9375rem;
+  }
+  // Hover previews the marker in grey, like the tabs, so the current page's
+  // underline stays the only magenta.
+  &:hover:not(.app-nav__link--active) {
+    border-bottom-color: var(--app-border);
   }
   // GOV.UK's focus style hugs the text rather than filling the item, so the
   // yellow and the dark bar beneath it read as one marker. The bar is what
@@ -286,6 +321,46 @@ pre {
   }
 }
 
+// The home page's heading, intro and call to action, on a dark band in the header's slate. The
+// band runs the full width of the window: the border image paints the slate
+// out past the sides without widening the page, so nothing scrolls sideways.
+// The negative top margin cancels the main wrapper's padding, so the band
+// meets the navigation.
+.app-hero {
+  --govuk-link-colour: #fff;
+  --govuk-link-visited-colour: #fff;
+  --govuk-link-hover-colour: #fff;
+  margin-top: -20px;
+  margin-bottom: 40px;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  color: #fff;
+  border-image-source: linear-gradient(var(--app-slate), var(--app-slate));
+  border-image-slice: 0 fill;
+  border-image-outset: 0 100vw;
+
+  @media (min-width: 40.0625em) {
+    margin-top: -40px;
+  }
+
+  // GOV.UK's type classes set their own dark colour.
+  :is(h1, p) {
+    color: inherit;
+  }
+
+  // Full width, so the heading takes two lines rather than three, and closer
+  // to the intro than GOV.UK's 50px.
+  .govuk-heading-xl {
+    margin-bottom: 30px;
+  }
+
+  // The button's usual hover is the slate itself, so flip it to white here.
+  .app-cta:hover {
+    color: var(--app-slate);
+    background: #fff;
+  }
+}
+
 // Sections with a menu (components, get started): beside the page on desktop,
 // above it on mobile.
 .app-section-layout {
@@ -303,6 +378,12 @@ pre {
 .app-subnav {
   font-family: var(--app-font);
   padding-top: 30px;
+  // On desktop, start level with the page heading, and pull the menu left by
+  // its links' padding and marker so its text lines up with the header's.
+  @media (min-width: 48.0625em) {
+    margin-left: -14px;
+    padding-top: 0;
+  }
   @media (max-width: 48.0525em) {
     margin-bottom: 10px;
     padding-bottom: 10px;
@@ -354,6 +435,33 @@ pre {
 .app-subnav__link--planned {
   color: #8192a8;
   font-weight: 400;
+}
+
+// Marks a component that ngx-govuk adds, which isn't in the GOV.UK Design
+// System, wherever it's listed. The site's own look, like the version in the
+// header, so it isn't mistaken for a GOV.UK tag.
+.app-badge {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 0 7px;
+  border: 1px solid var(--app-border);
+  border-radius: 999px;
+  color: var(--app-muted);
+  font-family: var(--app-font);
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.5;
+  // Centre on the text's lowercase letters, whatever its size, rather than
+  // nudging by a fixed amount.
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+// Beside a page title.
+.app-badge--large {
+  margin-left: 12px;
+  padding: 2px 10px;
+  font-size: 1rem;
 }
 
 .app-subnav__link--active {
@@ -437,22 +545,33 @@ pre {
   }
 }
 
+// The same gradient stripe as the header, so the two bookend the page. Just
+// the disclaimer and licence: the header already links to support and GitHub.
+// Keeps the footer at the bottom of the window on short pages. Otherwise
+// GOV.UK's page background, close to the footer's colour, shows below it and
+// reads as extra footer space.
+ngx-govuk-root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+// A plain wrapper takes the spare height, since the width container centres
+// itself with auto margins, which would shrink it inside a flex column.
+.app-main {
+  flex-grow: 1;
+}
+
 .app-footer {
   margin-top: 40px;
-  padding: 20px 0;
-  border-top: 1px solid var(--app-border);
+  padding: 25px 0;
+  border-top: 4px solid;
+  border-image: var(--app-gradient) 1;
   color: var(--app-muted);
   background: var(--app-slate-light);
-  font-size: 0.9375rem;
+  font-size: 1rem;
   line-height: 1.6;
 
-  .govuk-width-container {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px 24px;
-  }
   a {
     color: var(--app-text);
     &:focus-visible {
@@ -463,15 +582,6 @@ pre {
 
 .app-footer__text {
   margin: 0;
-}
-
-.app-footer__links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px 20px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
 }
 
 // API reference section headings (Selector, Inputs, Outputs, Methods): on a
@@ -497,10 +607,12 @@ hr.govuk-section-break--visible.app-api-class-break {
   padding: 0 10px;
 }
 
-// API reference: names, types and signatures, set apart from the prose. Neutral
-// grey like the site's code blocks, so code is grey everywhere and slate is
-// left for structure, such as the section strips.
-.app-api-code {
+// Code in running text: names, types and signatures in the API reference, and
+// file names, selectors and inputs in the guides. Neutral grey like the site's
+// code blocks, so code is grey everywhere and slate is left for structure, such
+// as the section strips.
+.app-api-code,
+.app-inline-code {
   padding: 1px 5px;
   border-radius: 4px;
   background-color: #f3f2f1;

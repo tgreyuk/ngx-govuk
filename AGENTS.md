@@ -119,6 +119,9 @@ GOV.UK Frontend today, and ideas for testing it automatically.
 - `projects/website/src/app/routes/components/components.data.ts` lists every
   GOV.UK component with its status: `documented` (has a page), `in-progress`
   or `to-do`.
+  It also lists components ngx-govuk adds that aren't in the GOV.UK Design
+  System, such as the form group, marked `source: 'ngx-govuk'`. Their pages
+  and menu items carry an "ngx-govuk" badge instead of a link to GOV.UK.
 - A component's page has two tabs, each its own route: Examples at
   `/components/<id>` and API at `/components/<id>/api`.
 - The API section reads `assets/api/<entry-point>.json`, which
@@ -161,8 +164,7 @@ its template underneath as code.
   with `routerLink="."`, not `href="#"`.
 - The `.ts` file isn't shown on component pages, since the API section gives
   the import. It only needs to import what the template uses. A guide can
-  show it too with `showComponentCode`, when the class does real work, as in
-  the forms guide.
+  show it too with `showComponentCode`, when the class does real work.
 - The first example shows the default and has no title. Each later one has a
   `title` and a `description`: a short, factual line on how to get that
   variant, such as which input to set. Guidance on when to use it belongs to
@@ -170,6 +172,15 @@ its template underneath as code.
 - Add an example only for a real variation of the component, such as a
   secondary button, not to show an input the API section already covers.
   Ask before adding one.
+
+### Supported versions
+
+The supported versions of Angular and GOV.UK Frontend are in two places: the
+compatibility table in `README.md` and the Supported versions section of the
+docs site's Help and support page (`projects/website/src/app/routes/support/`).
+When the library's peer dependencies change, add a row to both, and update
+the versions named on the home page, the Get started overview and the
+Installing ngx-govuk guide.
 
 ## Branches and releases
 

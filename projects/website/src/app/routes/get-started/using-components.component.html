@@ -8,9 +8,10 @@
 
 <h2 class="govuk-heading-m">Import components</h2>
 <p class="govuk-body">
-  Each component has its own entry point, such as "ngx-govuk/button", so your
-  app only bundles the components it imports. Import them where you use them,
-  and add them to your component's "imports" array.
+  Each component has its own entry point, such as
+  <code class="app-inline-code">ngx-govuk/button</code>, so your app only
+  bundles the components it imports. Import them where you use them, and add
+  them to your component's <code class="app-inline-code">imports</code> array.
 </p>
 <app-code-block [code]="IMPORT_CODE" lang="angular-ts" />
 <p class="govuk-body">
@@ -19,11 +20,40 @@
   component.
 </p>
 
-<h2 class="govuk-heading-m">Inputs and outputs</h2>
+<h2 class="govuk-heading-m">Directives on native elements</h2>
 <p class="govuk-body">
-  Set inputs and listen to outputs in the usual Angular way.
+  Where GOV.UK's markup is a single element, such as a button, back link or text
+  input, ngx-govuk gives you a directive to add to your own element, rather than
+  a component that draws it. The element keeps all its own attributes, events
+  and Angular directives.
 </p>
+<app-code-block [code]="DIRECTIVE_CODE" lang="angular-html" />
+<p class="govuk-body">
+  Each component's API section shows which elements its directive works on.
+</p>
+
+<h2 class="govuk-heading-m">Components with parts</h2>
+<p class="govuk-body">
+  Some components are made of several parts, such as an accordion and its
+  sections, or a summary list and its rows. Each part has its own element, and
+  all of them come from the same entry point. Import every part you use.
+</p>
+<app-code-block [code]="PARTS_CODE" lang="angular-ts" />
+<p class="govuk-body">
+  The API section starts with one import line for everything in the entry point.
+</p>
+
+<h2 class="govuk-heading-m">Inputs</h2>
+<p class="govuk-body">Set inputs in the usual Angular way.</p>
 <app-code-block [code]="INPUT_CODE" lang="angular-html" />
+
+<h2 class="govuk-heading-m">Two-way binding</h2>
+<p class="govuk-body">
+  Some inputs change when the user acts, such as the open tab or whether an
+  accordion section is expanded. Bind these both ways to read and set them. Each
+  component's API section lists them as models.
+</p>
+<app-code-block [code]="MODEL_CODE" lang="angular-html" />
 
 <h2 class="govuk-heading-m">Methods</h2>
 <p class="govuk-body">
@@ -32,9 +62,37 @@
 </p>
 <app-code-block [code]="METHOD_CODE" lang="angular-html" />
 
-<h2 class="govuk-heading-m">Form fields</h2>
+<h2 class="govuk-heading-m">Links and the router</h2>
 <p class="govuk-body">
-  Form fields, such as text inputs, go inside a form group, which adds the
-  label, hint and error message. See
+  On a link directive, such as a button or back link, add
+  <code class="app-inline-code">routerLink</code> to the
+  <code class="app-inline-code">a</code> element yourself, as above.
+</p>
+<p class="govuk-body">
+  Components that draw their own links, such as the service navigation,
+  pagination, footer and task list, take a
+  <code class="app-inline-code">routerLink</code> value for each link instead,
+  in the same forms <code class="app-inline-code">routerLink</code> accepts.
+  Your app needs <code class="app-inline-code">provideRouter</code> for these.
+</p>
+<app-code-block [code]="ROUTER_CODE" lang="angular-ts" />
+
+<h2 class="govuk-heading-m" id="form-fields">Form fields</h2>
+<p class="govuk-body">
+  Text inputs, textareas, file uploads and selects go inside a form group, which
+  adds the label, hint and error message. See
   <a class="govuk-link" routerLink="/get-started/forms">Working with forms</a>.
 </p>
+<p class="govuk-body">
+  Checkboxes, radios and the date input add their own legend, hint and error
+  message, so they don't go in a form group. Bind them with
+  <code class="app-inline-code">formControlName</code> or
+  <code class="app-inline-code">ngModel</code> like any form control: each
+  <code class="app-inline-code">ngx-govuk-checkbox</code> is
+  <code class="app-inline-code">true</code> or
+  <code class="app-inline-code">false</code>,
+  <code class="app-inline-code">ngx-govuk-radios</code> is the chosen value, and
+  <code class="app-inline-code">ngx-govuk-date-input</code> is its day, month
+  and year.
+</p>
+<app-code-block [code]="CONTROL_CODE" lang="angular-html" />

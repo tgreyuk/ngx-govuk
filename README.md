@@ -16,9 +16,9 @@ ngx-govuk renders GOV.UK Frontend markup and uses its styles, so `govuk-frontend
 
 ## Compatibility
 
-| ngx-govuk | Angular | govuk-frontend |
-| --------- | ------- | -------------- |
-| 0.5.x     | 22.x    | 6.x            |
+| ngx-govuk       | Angular | govuk-frontend |
+| --------------- | ------- | -------------- |
+| 0.5.0 and later | 22.x    | 6.x            |
 
 Each release supports the current major versions of Angular and govuk-frontend. When a new major version of either comes out, a new ngx-govuk minor release adds support for it and drops the previous one. Until 1.0.0, earlier ngx-govuk versions are not maintained.
 

@@ -264,6 +264,15 @@ export const EXAMPLES: Record<string, Example[]> = {
         ),
     },
   ],
+  'form-group': [
+    {
+      path: 'form-group/default',
+      load: () =>
+        import('./examples/form-group/default.component').then(
+          (m) => m.FormGroupDemoComponent,
+        ),
+    },
+  ],
   'generic-header': [
     {
       path: 'generic-header/default',

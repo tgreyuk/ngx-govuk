@@ -1,10 +1,5 @@
-.code {
-  font-size: 16px;
-  border-left: 2px solid #ddd;
-  padding-left: 16px;
-}
-
-#contents {
+// Number the sections and subsections to match the contents list.
+.sections {
   counter-reset: heading;
   h2:before {
     content: counter(heading) '. ';

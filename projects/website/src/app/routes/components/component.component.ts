@@ -1,5 +1,5 @@
 import { Component, computed, input, resource } from '@angular/core';
-import { NgComponentOutlet } from '@angular/common';
+import { LowerCasePipe, NgComponentOutlet } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { StartCasePipe } from '../../pipes/start-case.pipe';
 import { ComponentApiComponent } from './component-api/component-api.component';
@@ -14,6 +14,7 @@ import { EXAMPLES } from './examples';
     RouterLink,
     RouterLinkActive,
     StartCasePipe,
+    LowerCasePipe,
     NgComponentOutlet,
     ComponentCodeComponent,
     ComponentApiComponent,

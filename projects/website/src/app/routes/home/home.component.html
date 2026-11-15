@@ -1,34 +1,61 @@
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
-    <h1 class="govuk-heading-xl">ngx-govuk</h1>
+<div class="app-hero">
+  <h1 class="govuk-heading-xl">
+    Build Angular apps with GOV.UK Design System components
+  </h1>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <p class="govuk-body-l">
+        ngx-govuk is a library of Angular components for the
+        <a class="govuk-link" href="https://design-system.service.gov.uk"
+          >GOV.UK Design System</a
+        >.
+      </p>
+      <p class="govuk-body">
+        Built for Angular 22, it works with reactive and template-driven forms
+        and renders GOV.UK Frontend's markup and styles unchanged. It is a
+        community project, not made or supported by the GOV.UK Design System
+        team.
+      </p>
+
+      <a routerLink="/get-started" class="app-cta">
+        Get started <span aria-hidden="true">→</span>
+      </a>
+    </div>
   </div>
 </div>
+
 <div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds">
-    <p class="govuk-body-l">
-      Angular components for the
-      <a class="govuk-link" href="https://design-system.service.gov.uk"
-        >GOV.UK Design System</a
-      >.
+  <div class="govuk-grid-column-one-third">
+    <h2 class="govuk-heading-m">Get started</h2>
+    <p class="govuk-body">
+      Install ngx-govuk and set up GOV.UK Frontend's styles.
     </p>
     <p class="govuk-body">
-      ngx-govuk is a community project. It is not made or supported by the
-      GOV.UK Design System team.
+      <a class="govuk-link govuk-!-font-weight-bold" routerLink="/get-started"
+        >Start using ngx-govuk</a
+      >
     </p>
-    <h2 class="govuk-heading-m">Features</h2>
-    <ul class="govuk-list govuk-list--bullet">
-      <li>Built for Angular 22 with signal-based APIs.</li>
-      <li>Compatible with reactive forms.</li>
-      <li>Tree-shakeable components utilising secondary entry points.</li>
-      <li>Accurate markup including all accessibility features.</li>
-      <li>Uses 100% of GOV.UK styles.</li>
-      <li>Simple to use with comprehensive documentation.</li>
-      <li>Fully tested.</li>
-    </ul>
-
-    <a routerLink="/get-started" class="app-cta">
-      Get started <span aria-hidden="true">→</span>
-    </a>
   </div>
-  <div class="govuk-grid-column-one-third"></div>
+  <div class="govuk-grid-column-one-third">
+    <h2 class="govuk-heading-m">Components</h2>
+    <p class="govuk-body">
+      Examples and the API for each component, from buttons to tables.
+    </p>
+    <p class="govuk-body">
+      <a class="govuk-link govuk-!-font-weight-bold" routerLink="/components"
+        >Browse components</a
+      >
+    </p>
+  </div>
+  <div class="govuk-grid-column-one-third">
+    <h2 class="govuk-heading-m">Help and support</h2>
+    <p class="govuk-body">
+      Ask a question, report a bug or request a component on GitHub.
+    </p>
+    <p class="govuk-body">
+      <a class="govuk-link govuk-!-font-weight-bold" routerLink="/support"
+        >Get help with ngx-govuk</a
+      >
+    </p>
+  </div>
 </div>
