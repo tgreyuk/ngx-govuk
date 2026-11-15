@@ -1,4 +1,9 @@
-import { Component, contentChildren } from '@angular/core';
+import {
+  Component,
+  booleanAttribute,
+  contentChildren,
+  input,
+} from '@angular/core';
 import { NgxGovukBreadcrumbsItem } from './breadcrumbs-item.directive';
 import { NgxGovukBreadcrumbsLinkOutlet } from './breadcrumbs-link-outlet.directive';
 
@@ -15,4 +20,20 @@ import { NgxGovukBreadcrumbsLinkOutlet } from './breadcrumbs-link-outlet.directi
 })
 export class NgxGovukBreadcrumbs {
   protected items = contentChildren(NgxGovukBreadcrumbsItem);
+
+  /**
+   * Shows only the first and last links on small screens, so long breadcrumbs
+   * don't wrap onto several lines.
+   */
+  collapseOnMobile = input(false, { transform: booleanAttribute });
+
+  /**
+   * Shows the breadcrumbs in white, for use on a dark background.
+   */
+  inverse = input(false, { transform: booleanAttribute });
+
+  /**
+   * The label screen readers announce for the breadcrumbs.
+   */
+  labelText = input('Breadcrumb');
 }

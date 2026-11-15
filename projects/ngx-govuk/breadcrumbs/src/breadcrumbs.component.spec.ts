@@ -24,7 +24,11 @@ describe('NgxGovukBreadcrumbs', () => {
 
 @Component({
   imports: [NgxGovukBreadcrumbs, NgxGovukBreadcrumbsItem],
-  template: `<ngx-govuk-breadcrumbs>
+  template: `<ngx-govuk-breadcrumbs
+    collapseOnMobile
+    inverse
+    labelText="You are here"
+  >
     @for (crumb of crumbs(); track crumb) {
       <a *ngxGovukBreadcrumbsItem href="#">{{ crumb }}</a>
     }
@@ -64,5 +68,14 @@ describe('NgxGovukBreadcrumbs with changing items', () => {
     fixture.componentInstance.crumbs.set(['Travel abroad', 'Home', 'Visas']);
     fixture.detectChanges();
     expect(items()).toEqual(['Travel abroad', 'Home', 'Visas']);
+  });
+
+  it('sets the options on the nav', () => {
+    expect(Array.from(nav().classList)).toEqual([
+      'govuk-breadcrumbs',
+      'govuk-breadcrumbs--collapse-on-mobile',
+      'govuk-breadcrumbs--inverse',
+    ]);
+    expect(nav().getAttribute('aria-label')).toBe('You are here');
   });
 });
