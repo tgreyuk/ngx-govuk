@@ -6,6 +6,7 @@ import {
   inject,
   input,
   viewChild,
+  booleanAttribute,
 } from '@angular/core';
 import { NgxGovukUtilsService } from 'ngx-govuk';
 
@@ -51,7 +52,7 @@ export class NgxGovukNotificationBanner {
    * Stops a success banner taking focus when the page loads. Only use it if
    * something else on the page needs focus.
    */
-  disableAutoFocus = input<boolean>(false);
+  disableAutoFocus = input(false, { transform: booleanAttribute });
 
   private banner = viewChild.required<ElementRef<HTMLElement>>('banner');
 

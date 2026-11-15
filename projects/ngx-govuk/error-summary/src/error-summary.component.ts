@@ -6,6 +6,7 @@ import {
   inject,
   input,
   viewChild,
+  booleanAttribute,
 } from '@angular/core';
 
 /** One error in an error summary. */
@@ -51,7 +52,7 @@ export class NgxGovukErrorSummary {
    * Stops the summary taking focus when it appears. Only use it if something
    * else on the page needs focus.
    */
-  disableAutoFocus = input<boolean>(false);
+  disableAutoFocus = input(false, { transform: booleanAttribute });
 
   private summary = viewChild.required<ElementRef<HTMLElement>>('summary');
 

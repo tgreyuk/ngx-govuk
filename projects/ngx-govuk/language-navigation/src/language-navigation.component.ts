@@ -1,5 +1,5 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { Component, input } from '@angular/core';
+import { Component, input, booleanAttribute } from '@angular/core';
 import { RouterLink, UrlTree } from '@angular/router';
 
 /** A language in the language navigation. */
@@ -71,7 +71,7 @@ export class NgxGovukLanguageNavigation {
   ariaLabel = input<string>('Language');
 
   /** Shows the navigation in white, for use on a dark background. */
-  inverse = input<boolean>(false);
+  inverse = input(false, { transform: booleanAttribute });
 
   protected isCurrent(item: NgxGovukLanguageNavigationItem) {
     return (

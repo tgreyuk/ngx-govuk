@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, booleanAttribute } from '@angular/core';
 
 /**
  * The header that tells users they're using a GOV.UK service, with the
@@ -31,5 +31,5 @@ export class NgxGovukHeader {
    * Makes the header's content span the full width of the page, rather than
    * the width of the page's content.
    */
-  fullWidth = input<boolean>(false);
+  fullWidth = input(false, { transform: booleanAttribute });
 }

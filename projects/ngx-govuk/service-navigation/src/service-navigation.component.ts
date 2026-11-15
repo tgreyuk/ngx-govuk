@@ -7,6 +7,7 @@ import {
   inject,
   input,
   signal,
+  booleanAttribute,
 } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Router, RouterLink, UrlTree } from '@angular/router';
@@ -88,7 +89,9 @@ export class NgxGovukServiceNavigation {
    * Collapses the navigation behind the menu button on small screens. By
    * default it collapses when there's more than one item.
    */
-  collapseNavigationOnMobile = input<boolean>();
+  collapseNavigationOnMobile = input<boolean | undefined, unknown>(undefined, {
+    transform: booleanAttribute,
+  });
 
   /**
    * The navigation list's id. Leave it unset for a unique id.

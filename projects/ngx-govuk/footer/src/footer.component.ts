@@ -1,5 +1,11 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { Component, contentChild, Directive, input } from '@angular/core';
+import {
+  Component,
+  contentChild,
+  Directive,
+  input,
+  booleanAttribute,
+} from '@angular/core';
 import { RouterLink, UrlTree } from '@angular/router';
 
 /** A link in the footer. */
@@ -87,7 +93,7 @@ export class NgxGovukFooter {
    * Shows that content is available under the Open Government Licence.
    * Set it to `false` if your content isn't.
    */
-  contentLicence = input<boolean>(true);
+  contentLicence = input(true, { transform: booleanAttribute });
 
   /**
    * The copyright notice, which links to The National Archives' page on

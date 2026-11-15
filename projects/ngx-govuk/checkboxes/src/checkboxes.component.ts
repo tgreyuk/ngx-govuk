@@ -89,7 +89,7 @@ export class NgxGovukCheckbox implements ControlValueAccessor {
    * Stops users changing this checkbox. With a form control, disable the
    * control instead.
    */
-  disabled = input<boolean>(false);
+  disabled = input(false, { transform: booleanAttribute });
 
   /**
    * Makes this a "None" option: checking it unchecks the others, and
@@ -195,7 +195,7 @@ export class NgxGovukCheckboxes {
    * Makes the legend the page heading. Use it when the page asks just one
    * question.
    */
-  asPageHeading = input<boolean>(false);
+  asPageHeading = input(false, { transform: booleanAttribute });
 
   /**
    * Hint text, to help users answer the question.
@@ -217,7 +217,7 @@ export class NgxGovukCheckboxes {
   /**
    * Shows smaller checkboxes.
    */
-  small = input<boolean>(false);
+  small = input(false, { transform: booleanAttribute });
 
   private generatedName = inject(NgxGovukUtilsService).randomId('checkboxes');
   private checkboxes = contentChildren(NgxGovukCheckbox, { descendants: true });

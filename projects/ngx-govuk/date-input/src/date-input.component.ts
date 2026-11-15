@@ -6,6 +6,7 @@ import {
   input,
   model,
   signal,
+  booleanAttribute,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgxGovukUtilsService } from 'ngx-govuk';
@@ -68,7 +69,7 @@ export class NgxGovukDateInput implements ControlValueAccessor {
    * Makes the legend the page heading. Use it when the page asks just one
    * question.
    */
-  asPageHeading = input<boolean>(false);
+  asPageHeading = input(false, { transform: booleanAttribute });
 
   /**
    * Hint text, such as `For example, 27 3 2007`.
@@ -97,7 +98,7 @@ export class NgxGovukDateInput implements ControlValueAccessor {
    * Tells browsers the date is the user's date of birth, so they can fill it
    * in.
    */
-  dateOfBirth = input<boolean>(false);
+  dateOfBirth = input(false, { transform: booleanAttribute });
 
   /**
    * The day, month and year as users typed them. Each is an empty string

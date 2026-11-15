@@ -9,6 +9,7 @@ import {
   input,
   Renderer2,
   signal,
+  booleanAttribute,
 } from '@angular/core';
 import { NgxGovukUtilsService } from 'ngx-govuk';
 import { NgxGovukTextInput } from 'ngx-govuk/text-input';
@@ -51,7 +52,7 @@ export class NgxGovukPasswordInput implements AfterContentInit {
    * Makes the label the page heading. Use it when the page asks just one
    * question.
    */
-  asPageHeading = input<boolean>(false);
+  asPageHeading = input(false, { transform: booleanAttribute });
 
   /**
    * Hint text, to help users answer the question.

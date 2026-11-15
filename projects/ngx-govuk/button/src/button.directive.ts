@@ -5,6 +5,7 @@ import {
   effect,
   input,
   inject,
+  booleanAttribute,
 } from '@angular/core';
 /**
  * Styles a `button` or `a` element as a GOV.UK button.
@@ -37,7 +38,7 @@ export class NgxGovukButton {
   /**
    * Shows the button in white, for use on a dark background.
    */
-  inversed = input<boolean>(false);
+  inversed = input(false, { transform: booleanAttribute });
 
   constructor() {
     effect(() => {

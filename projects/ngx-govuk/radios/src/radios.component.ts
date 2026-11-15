@@ -15,6 +15,7 @@ import {
   TemplateRef,
   viewChild,
   ViewContainerRef,
+  booleanAttribute,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgxGovukUtilsService } from 'ngx-govuk';
@@ -78,7 +79,7 @@ export class NgxGovukRadio {
    * Stops users selecting this option. To disable all the options, disable the
    * form control instead.
    */
-  disabled = input<boolean>(false);
+  disabled = input(false, { transform: booleanAttribute });
 
   protected inputId = computed(() => this.group.radioId(this));
   protected hintId = computed(() => `${this.inputId()}-item-hint`);
@@ -148,7 +149,7 @@ export class NgxGovukRadios implements ControlValueAccessor {
    * Makes the legend the page heading. Use it when the page asks just one
    * question.
    */
-  asPageHeading = input<boolean>(false);
+  asPageHeading = input(false, { transform: booleanAttribute });
 
   /**
    * Hint text, to help users answer the question.
@@ -171,12 +172,12 @@ export class NgxGovukRadios implements ControlValueAccessor {
    * Shows the options side by side. Use it only for two short options, such
    * as Yes and No.
    */
-  inline = input<boolean>(false);
+  inline = input(false, { transform: booleanAttribute });
 
   /**
    * Shows smaller radios.
    */
-  small = input<boolean>(false);
+  small = input(false, { transform: booleanAttribute });
 
   /**
    * The selected option's value, or `null` when none is selected.

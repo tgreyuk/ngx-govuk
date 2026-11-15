@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, booleanAttribute } from '@angular/core';
 import { RouterLink, UrlTree } from '@angular/router';
 
 /**
@@ -26,5 +26,5 @@ export class NgxGovukGenericHeader {
    * Makes the header's content span the full width of the page, rather than
    * the width of the page's content.
    */
-  fullWidth = input<boolean>(false);
+  fullWidth = input(false, { transform: booleanAttribute });
 }

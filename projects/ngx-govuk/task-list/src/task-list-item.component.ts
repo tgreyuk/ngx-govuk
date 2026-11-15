@@ -1,4 +1,10 @@
-import { Component, computed, inject, input } from '@angular/core';
+import {
+  Component,
+  computed,
+  inject,
+  input,
+  booleanAttribute,
+} from '@angular/core';
 import { RouterLink, UrlTree } from '@angular/router';
 import { NgxGovukUtilsService } from 'ngx-govuk';
 
@@ -71,7 +77,7 @@ export class NgxGovukTaskListItem {
    * Greys out the status, for a task users can't start yet, such as one
    * that depends on another task.
    */
-  cannotStartYet = input<boolean>(false);
+  cannotStartYet = input(false, { transform: booleanAttribute });
 
   protected describedBy = computed(() =>
     this.hint() ? `${this.hintId} ${this.statusId}` : this.statusId,

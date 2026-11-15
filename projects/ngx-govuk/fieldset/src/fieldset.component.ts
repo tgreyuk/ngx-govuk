@@ -1,4 +1,4 @@
-import { Component, computed, input } from '@angular/core';
+import { Component, computed, input, booleanAttribute } from '@angular/core';
 
 /**
  * Groups related form fields under a legend, such as the parts of an address.
@@ -27,7 +27,7 @@ export class NgxGovukFieldset {
    * Makes the legend the page heading. Use it when the fieldset is the only
    * question on the page.
    */
-  asPageHeading = input<boolean>(false);
+  asPageHeading = input(false, { transform: booleanAttribute });
 
   protected legendClasses = computed(() => {
     const size = this.legendSize() ?? (this.asPageHeading() ? 'l' : undefined);

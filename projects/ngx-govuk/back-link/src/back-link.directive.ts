@@ -1,4 +1,4 @@
-import { Directive, input } from '@angular/core';
+import { Directive, input, booleanAttribute } from '@angular/core';
 
 /**
  * A link back to the previous page, for multi-page transactions.
@@ -17,5 +17,5 @@ export class NgxGovukBackLink {
   /**
    * Shows the link in white, for use on a dark background.
    */
-  inversed = input<boolean>(false);
+  inversed = input(false, { transform: booleanAttribute });
 }

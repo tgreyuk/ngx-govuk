@@ -9,6 +9,7 @@ import {
   inject,
   input,
   signal,
+  booleanAttribute,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NgControl } from '@angular/forms';
@@ -64,7 +65,7 @@ export class NgxGovukCharacterCount implements AfterContentInit {
    * Makes the label the page heading. Use it when the page asks just one
    * question.
    */
-  asPageHeading = input<boolean>(false);
+  asPageHeading = input(false, { transform: booleanAttribute });
 
   /**
    * Hint text, to help users answer the question.
