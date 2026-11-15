@@ -69,6 +69,25 @@ its Design System URL.
 - Use `input()`, `input.required()`, `model()` and `output()`, not
   decorators. Use `model()` for state a consumer may want to bind both ways,
   such as the accordion panel's `expanded`.
+- Set host classes and attributes with the `host` property, such as
+  `'[class.govuk-button--inverse]': 'inverse()'`, not `@HostBinding`.
+- Give every true/false input `booleanAttribute`, as in
+  `input(false, { transform: booleanAttribute })`, so it can be written as a
+  bare attribute. Models can't take a transform.
+- Name inputs after GOV.UK's options and modifiers where there is one, and
+  the same way across components: `inverse` for dark backgrounds,
+  `headingLevel` for a heading's level (an `input<1 | 2 | 3 | 4 | 5 | 6>`
+  rendered with `@switch`), `labelText` for a landmark's label.
+- Never move, wrap or create elements around content Angular rendered, such
+  as wrapping a projected link in an `li`. Angular loses track of them when
+  the content comes from `@for`, and hydration fails. When a parent needs
+  to wrap each item, make the item a structural directive
+  (`*ngxGovukBreadcrumbsItem`) that exposes its `TemplateRef`, and have the
+  parent render the wrapper and the template. See the breadcrumbs and the
+  summary list's actions.
+- Add the behaviour GOV.UK Frontend's JavaScript adds, in Angular, rather
+  than loading its JavaScript: for example, the accordion's
+  `hidden="until-found"`.
 - Don't set `changeDetection`: OnPush is the default in Angular 22, which
   the library requires.
 - Form fields are directives that provide themselves as `NGX_GOVUK_FIELD`
