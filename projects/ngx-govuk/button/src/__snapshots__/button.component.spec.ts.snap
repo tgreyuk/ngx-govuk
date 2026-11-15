@@ -37,15 +37,28 @@ exports[`NgxGovukButton > should render markup 1`] = `
       width="17.5"
       xmlns="http://www.w3.org/2000/svg"
     >
-      
-    
       <path
         d="M0 0h13l20 20-20 20H0l20-20z"
         fill="currentColor"
       />
-      
-  
     </svg>
   </button>
+  <button
+    aria-disabled="true"
+    class="govuk-button"
+    disabled=""
+    ngxgovukbutton=""
+  >
+    Disabled
+  </button>
+  <a
+    class="govuk-button"
+    draggable="false"
+    href="/"
+    ngxgovukbutton=""
+    role="button"
+  >
+    Link
+  </a>
 </div>
 `;

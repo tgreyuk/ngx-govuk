@@ -103,7 +103,7 @@ export const EXAMPLES: Record<string, Example[]> = {
           (m) => m.ButtonDisabledDemoComponent,
         ),
       title: 'Disabled button',
-      description: 'Add the native "disabled" attribute.',
+      description: 'Add the "disabled" attribute.',
     },
     {
       path: 'button/group',
