@@ -14,7 +14,9 @@
   }
   <ng-template #className>
     {{ apiClass.name }}
-    <strong class="govuk-tag app-api-kind">{{ apiClass.kind }}</strong>
+    <span class="app-badge app-badge--large app-badge--strong">{{
+      apiClass.kind
+    }}</span>
   </ng-template>
   @if (headingLevel() === 2) {
     <h2 class="govuk-heading-m">
