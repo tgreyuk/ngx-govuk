@@ -64,8 +64,13 @@ its Design System URL.
   selectors `ngx-govuk-` and attribute selectors `ngxGovuk`. Lint enforces
   the selectors.
 - Use a directive on the native element where GOV.UK's markup is a single
-  element (`a[ngxGovukButton]`, `input[ngxGovukTextInput]`), so it keeps all
-  its own attributes, and a component where GOV.UK wraps content.
+  element (`a[ngxGovukBackLink]`, `input[ngxGovukTextInput]`), so it keeps all
+  its own attributes, and a component where GOV.UK wraps content. If the
+  native element needs markup of its own inside it, such as the start
+  button's icon, make it a component with the same attribute selector
+  (`a[ngxGovukButton]`) and render that markup from its template, never by
+  editing the DOM. Lint only allows element selectors for components, so
+  disable the rule on that line and say why.
 - Use `input()`, `input.required()`, `model()` and `output()`, not
   decorators. Use `model()` for state a consumer may want to bind both ways,
   such as the accordion panel's `expanded`.
