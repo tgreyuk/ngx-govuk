@@ -121,8 +121,19 @@ describe('NgxGovukDateInput', () => {
     host.control.setValue(null);
     fixture.detectChanges();
     expect(input('passport-issued-day').value).toBe('');
+  });
 
-    input('passport-issued-day').dispatchEvent(new Event('blur'));
+  it('marks the form control touched only when focus leaves all the fields', () => {
+    const { host, input } = setup();
+    const leave = (id: string, to: HTMLElement | null) =>
+      input(id).dispatchEvent(
+        new FocusEvent('focusout', { bubbles: true, relatedTarget: to }),
+      );
+
+    leave('passport-issued-day', input('passport-issued-month'));
+    expect(host.control.touched).toBe(false);
+
+    leave('passport-issued-year', input('date-generated-day'));
     expect(host.control.touched).toBe(true);
   });
 

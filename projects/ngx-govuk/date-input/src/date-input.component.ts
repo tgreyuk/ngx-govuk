@@ -110,8 +110,8 @@ export class NgxGovukDateInput implements ControlValueAccessor {
 
   private generatedName = inject(NgxGovukUtilsService).randomId('date');
   private onChange: (value: NgxGovukDateInputValue) => void = () => {};
+  private onTouched: () => void = () => {};
 
-  protected onTouched: () => void = () => {};
   protected disabled = signal(false);
   protected parts = PARTS;
   protected baseName = computed(() => this.name() ?? this.generatedName);
@@ -156,6 +156,18 @@ export class NgxGovukDateInput implements ControlValueAccessor {
     };
     this.value.set(value);
     this.onChange(value);
+  }
+
+  /**
+   * Marks the form control touched only when focus leaves all the fields, not
+   * when users move from one field to the next.
+   */
+  protected focusOut(event: FocusEvent): void {
+    const container = event.currentTarget as HTMLElement;
+    const next = event.relatedTarget as Node | null;
+    if (!next || !container.contains(next)) {
+      this.onTouched();
+    }
   }
 
   writeValue(value: NgxGovukDateInputValue | null): void {

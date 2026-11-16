@@ -25,7 +25,11 @@
       </p>
     }
 
-    <div class="govuk-date-input" [id]="baseName()">
+    <div
+      class="govuk-date-input"
+      [id]="baseName()"
+      (focusout)="focusOut($event)"
+    >
       @for (part of parts; track part.key) {
         <div class="govuk-date-input__item">
           <div class="govuk-form-group">
@@ -45,7 +49,6 @@
               [value]="value()[part.key]"
               [disabled]="disabled()"
               (input)="update(part.key, $event)"
-              (blur)="onTouched()"
             />
           </div>
         </div>
