@@ -66,7 +66,7 @@ export const COMPONENTS: ComponentEntry[] = [
     id: 'character-count',
     status: 'documented',
     description:
-      'Tells users how many characters or words they can still enter.',
+      'Helps users know how much text they can enter when there is a limit on the number of characters.',
   },
   {
     name: 'Checkboxes',
