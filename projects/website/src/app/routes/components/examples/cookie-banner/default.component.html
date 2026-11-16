@@ -1,9 +1,7 @@
 @if (!hidden()) {
   <ngx-govuk-cookie-banner>
     @if (choice() === undefined) {
-      <div
-        ngxGovukCookieBannerMessage
-        headingText="Cookies on Apply for a juggling licence">
+      <div ngxGovukCookieBannerMessage headingText="Cookies on [name of service]">
         <p class="govuk-body">
           We use some essential cookies to make this service work.
         </p>

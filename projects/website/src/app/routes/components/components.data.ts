@@ -80,7 +80,7 @@ export const COMPONENTS: ComponentEntry[] = [
     id: 'cookie-banner',
     status: 'documented',
     description:
-      'Lets users accept or reject cookies that are not essential to the service.',
+      'Lets users accept or reject cookies which are not essential to making your service work.',
   },
   {
     name: 'Date input',
