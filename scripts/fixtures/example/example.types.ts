@@ -24,6 +24,9 @@ export interface ExampleSection {
 /** A size: `s` or `m`. */
 export type ExampleSize = 's' | 'm';
 
+/** An alias of another generic type, which TypeScript would expand. */
+export type ExampleText = Partial<Record<'one' | 'other', string>>;
+
 /** @internal */
 export interface ExampleInternal {
   value: string;

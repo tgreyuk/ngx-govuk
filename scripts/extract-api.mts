@@ -227,7 +227,9 @@ function addInputOrOutput(
       description: description(member),
       // An optional input's `undefined` is left out: not being required
       // already says it can be left unset.
-      type: valueType(checker, signalType, { omitUndefined: !required }),
+      type:
+        writtenType(checker, call, { omitUndefined: !required }) ??
+        valueType(checker, signalType, { omitUndefined: !required }),
       default: initialValue?.getText(),
       required,
     };
@@ -242,7 +244,7 @@ function addInputOrOutput(
     const output: ApiOutput = {
       name: alias(call.arguments[0]) ?? name.text,
       description: description(member),
-      type: valueType(checker, signalType),
+      type: writtenType(checker, call) ?? valueType(checker, signalType),
     };
     apiClass.outputs.push(output);
   }
@@ -280,6 +282,60 @@ function valueType(
     }
   }
   return checker.typeToString(value, undefined, TYPE_FORMAT);
+}
+
+/**
+ * The value's type from the type argument written in the call, as in
+ * `input<NgxGovukPluralText>()`, or undefined when there isn't one and the
+ * type is inferred.
+ *
+ * TypeScript loses some of the library's type names: it expands an alias of
+ * another generic type, such as `NgxGovukPluralText`, an alias of `Partial`,
+ * and flattens a union alias, such as `NgxGovukInputWidth`, when it adds
+ * `undefined`. So a type that names another type, such as
+ * `NgxGovukFooterLink[]`, is kept as written. Other types, such as
+ * `'s' | 'm'`, come from the checker, so they're written as everywhere
+ * else, as in `"s" | "m"`.
+ */
+function writtenType(
+  checker: ts.TypeChecker,
+  call: ts.CallExpression,
+  { omitUndefined = false } = {},
+): string | undefined {
+  const [node] = call.typeArguments ?? [];
+  if (!node) {
+    return undefined;
+  }
+  const isKeyword = (member: ts.TypeNode, kind: ts.SyntaxKind) =>
+    member.kind === kind ||
+    (ts.isLiteralTypeNode(member) && member.literal.kind === kind);
+  const members = (ts.isUnionTypeNode(node) ? [...node.types] : [node])
+    .filter(
+      (member) =>
+        !(omitUndefined && isKeyword(member, ts.SyntaxKind.UndefinedKeyword)),
+    )
+    // `null` last, as in `string | null`.
+    .sort(
+      (a, b) =>
+        Number(isKeyword(a, ts.SyntaxKind.NullKeyword)) -
+        Number(isKeyword(b, ts.SyntaxKind.NullKeyword)),
+    );
+  return members
+    .map((member) =>
+      namesAType(member)
+        ? typeText(member)
+        : checker.typeToString(
+            checker.getTypeFromTypeNode(member),
+            undefined,
+            TYPE_FORMAT,
+          ),
+    )
+    .join(' | ');
+}
+
+/** Whether a type node refers to a type by name, such as `UrlTree`. */
+function namesAType(node: ts.Node): boolean {
+  return ts.isTypeReferenceNode(node) || !!ts.forEachChild(node, namesAType);
 }
 
 function isTypeReference(type: ts.Type): type is ts.TypeReference {

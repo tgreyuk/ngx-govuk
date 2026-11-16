@@ -106,6 +106,21 @@ test('reads inputs and models, with the type of value they hold', () => {
   ]);
 });
 
+test("keeps the library's own type names, as written", () => {
+  assert.deepEqual(
+    directive.inputs.map(({ name, type }) => ({ name, type })),
+    [
+      { name: 'text', type: 'ExampleText' },
+      { name: 'size', type: 'ExampleSize' },
+      { name: 'fallbackSize', type: 'ExampleSize | null' },
+    ],
+  );
+  assert.deepEqual(
+    directive.outputs.map(({ name, type }) => ({ name, type })),
+    [{ name: 'sizeChange', type: 'ExampleSize' }],
+  );
+});
+
 test('reads outputs', () => {
   assert.deepEqual(component.outputs, [
     {
