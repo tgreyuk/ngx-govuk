@@ -1,4 +1,4 @@
-export type InputWidth =
+export type NgxGovukInputWidth =
   | 'full'
   | 'three-quarters'
   | 'two-thirds'

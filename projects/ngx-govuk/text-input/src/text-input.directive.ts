@@ -7,9 +7,9 @@ import {
   input,
   signal,
 } from '@angular/core';
-import { InputWidth, NGX_GOVUK_FIELD, NgxGovukField } from 'ngx-govuk';
+import { NgxGovukInputWidth, NGX_GOVUK_FIELD, NgxGovukField } from 'ngx-govuk';
 
-const WIDTH_CLASSES: Record<InputWidth, string> = {
+const WIDTH_CLASSES: Record<NgxGovukInputWidth, string> = {
   '2': 'govuk-input--width-2',
   '3': 'govuk-input--width-3',
   '4': 'govuk-input--width-4',
@@ -61,7 +61,7 @@ export class NgxGovukTextInput implements NgxGovukField {
    * how long the answer will be, or a fraction, such as `one-half`, for a width
    * relative to the input's container.
    */
-  inputWidth = input<InputWidth>();
+  inputWidth = input<NgxGovukInputWidth>();
 
   protected widthClass = computed(() => {
     const width = this.inputWidth();
