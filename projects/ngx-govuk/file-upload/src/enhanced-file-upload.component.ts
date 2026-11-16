@@ -9,12 +9,10 @@ import {
   input,
   signal,
 } from '@angular/core';
+import { NgxGovukPluralText, formatPluralText } from 'ngx-govuk';
 
-/**
- * Text for each plural form, such as `one` and `other`, as
- * `Intl.PluralRules` names them. `%{count}` is replaced with the number.
- */
-export type NgxGovukPluralText = Partial<Record<Intl.LDMLPluralRule, string>>;
+// Kept here too, where it was first exported.
+export type { NgxGovukPluralText } from 'ngx-govuk';
 
 /**
  * Improves a file upload with a button that shows which file users chose,
@@ -84,9 +82,11 @@ export class NgxGovukEnhancedFileUpload {
     if (count === 1) {
       return this.fileName();
     }
-    const texts = this.multipleFilesChosenText();
-    const text = texts[this.pluralRules.select(count)] ?? texts.other ?? '';
-    return text.replace('%{count}', String(count));
+    return formatPluralText(
+      this.multipleFilesChosenText(),
+      count,
+      this.pluralRules,
+    );
   });
 
   private pluralRules = new Intl.PluralRules('en');
