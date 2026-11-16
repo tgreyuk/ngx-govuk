@@ -4,8 +4,8 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { NgxGovukUtilsService } from 'ngx-govuk';
 import { MockProvider } from 'ng-mocks';
 import {
-  DateInputPart,
-  DateInputValue,
+  NgxGovukDateInputPart,
+  NgxGovukDateInputValue,
   NgxGovukDateInput,
 } from './date-input.component';
 
@@ -32,11 +32,15 @@ import {
   `,
 })
 class HostComponent {
-  control = new FormControl<DateInputValue | null>(null);
+  control = new FormControl<NgxGovukDateInputValue | null>(null);
   errorMessage = signal<string | null>(null);
-  errorParts = signal<DateInputPart[] | undefined>(undefined);
+  errorParts = signal<NgxGovukDateInputPart[] | undefined>(undefined);
   asPageHeading = signal(false);
-  birthday = signal<DateInputValue>({ day: '1', month: '2', year: '1990' });
+  birthday = signal<NgxGovukDateInputValue>({
+    day: '1',
+    month: '2',
+    year: '1990',
+  });
 }
 
 describe('NgxGovukDateInput', () => {

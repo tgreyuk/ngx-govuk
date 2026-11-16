@@ -12,18 +12,18 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgxGovukUtilsService } from 'ngx-govuk';
 
 /** A date as users typed it, one string for each part. */
-export interface DateInputValue {
+export interface NgxGovukDateInputValue {
   day: string;
   month: string;
   year: string;
 }
 
 /** A part of the date: `day`, `month` or `year`. */
-export type DateInputPart = keyof DateInputValue;
+export type NgxGovukDateInputPart = 'day' | 'month' | 'year';
 
-const EMPTY: DateInputValue = { day: '', month: '', year: '' };
+const EMPTY: NgxGovukDateInputValue = { day: '', month: '', year: '' };
 
-const PARTS: { key: DateInputPart; label: string; width: 2 | 4 }[] = [
+const PARTS: { key: NgxGovukDateInputPart; label: string; width: 2 | 4 }[] = [
   { key: 'day', label: 'Day', width: 2 },
   { key: 'month', label: 'Month', width: 2 },
   { key: 'year', label: 'Year', width: 4 },
@@ -86,7 +86,7 @@ export class NgxGovukDateInput implements ControlValueAccessor {
    * The parts of the date the error message is about, such as `['year']`.
    * Only those fields show their error styles. When unset, all three do.
    */
-  errorParts = input<DateInputPart[]>();
+  errorParts = input<NgxGovukDateInputPart[]>();
 
   /**
    * The base for the fields' `name` and `id`, such as `passport-issued`. When
@@ -101,13 +101,15 @@ export class NgxGovukDateInput implements ControlValueAccessor {
   dateOfBirth = input(false, { transform: booleanAttribute });
 
   /**
-   * The day, month and year as users typed them. Each is an empty string
-   * until they type something.
+   * The date as users typed it: an object with a `day`, `month` and `year`
+   * string, such as `{ day: '27', month: '3', year: '2007' }`. Each part is an
+   * empty string until users type in it, and isn't checked or converted, so
+   * `'3'`, `'03'` and `'March'` all come through as typed.
    */
-  value = model<DateInputValue>(EMPTY);
+  value = model<NgxGovukDateInputValue>({ day: '', month: '', year: '' });
 
   private generatedName = inject(NgxGovukUtilsService).randomId('date');
-  private onChange: (value: DateInputValue) => void = () => {};
+  private onChange: (value: NgxGovukDateInputValue) => void = () => {};
 
   protected onTouched: () => void = () => {};
   protected disabled = signal(false);
@@ -147,7 +149,7 @@ export class NgxGovukDateInput implements ControlValueAccessor {
       .join(' ');
   }
 
-  protected update(part: DateInputPart, event: Event): void {
+  protected update(part: NgxGovukDateInputPart, event: Event): void {
     const value = {
       ...this.value(),
       [part]: (event.target as HTMLInputElement).value,
@@ -156,11 +158,11 @@ export class NgxGovukDateInput implements ControlValueAccessor {
     this.onChange(value);
   }
 
-  writeValue(value: DateInputValue | null): void {
+  writeValue(value: NgxGovukDateInputValue | null): void {
     this.value.set({ ...EMPTY, ...value });
   }
 
-  registerOnChange(fn: (value: DateInputValue) => void): void {
+  registerOnChange(fn: (value: NgxGovukDateInputValue) => void): void {
     this.onChange = fn;
   }
 
