@@ -531,6 +531,21 @@ pre {
   margin-bottom: 20px;
   padding: 30px 20px;
   border: 1px solid var(--app-border);
+  container-type: inline-size;
+
+  // GOV.UK's width container picks its side margins by the window's width,
+  // so on a wide window it centres itself with no margin inside this narrower
+  // frame. Pick them by the frame's width instead, as GOV.UK's own examples
+  // do in an iframe: 15px, then 30px from its tablet breakpoint.
+  .govuk-width-container {
+    margin-right: 15px;
+    margin-left: 15px;
+
+    @container (min-width: 40.0625em) {
+      margin-right: 30px;
+      margin-left: 30px;
+    }
+  }
 
   // The same space above and below every demo: drop the outer margins of
   // whatever comes first and last. Several levels down, since a component
