@@ -69,8 +69,20 @@ its Design System URL.
   native element needs markup of its own inside it, such as the start
   button's icon, make it a component with the same attribute selector
   (`a[ngxGovukButton]`) and render that markup from its template, never by
-  editing the DOM. Lint only allows element selectors for components, so
-  disable the rule on that line and say why.
+  editing the DOM. Do the same where the native element brings behaviour or
+  content of its own (`details[ngxGovukDetails]` opens and closes,
+  `nav[ngxGovukBreadcrumbs]` wraps projected links). Lint only allows element
+  selectors for components, so disable the rule on that line and say why.
+- Otherwise, make the component's own element GOV.UK's outermost element,
+  never a wrapper around it: set the root's classes and attributes with
+  `host` and leave it out of the template, so a consumer's `id`, classes and
+  attributes land where GOV.UK's CSS expects them. Add
+  `styles: ':host(:not([hidden])) { display: block; }'`, as custom elements
+  are inline, unless GOV.UK's CSS already sets the root's `display`. Where
+  the root is an element a custom element can't stand in for, such as a
+  `fieldset` or `nav`, and the native element adds little, keep the element
+  selector and render the root in the template (`ngx-govuk-fieldset`,
+  `ngx-govuk-language-navigation`).
 - Use `input()`, `input.required()`, `model()` and `output()`, not
   decorators. Use `model()` for state a consumer may want to bind both ways,
   such as the accordion panel's `expanded`.

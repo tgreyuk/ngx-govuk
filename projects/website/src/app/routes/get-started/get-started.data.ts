@@ -17,7 +17,7 @@ export const GUIDES: Guide[] = [
     name: 'Using components',
     path: '/get-started/components',
     description:
-      'Import components into your own, set their inputs, bind their values and use them with the router.',
+      "Import components into your own, use them on GOV.UK's own elements, set their inputs, bind their values and use them with the router.",
   },
   {
     name: 'Working with forms',

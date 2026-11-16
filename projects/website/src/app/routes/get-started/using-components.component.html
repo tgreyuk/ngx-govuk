@@ -20,7 +20,7 @@
   component.
 </p>
 
-<h2 class="govuk-heading-m">Directives on native elements</h2>
+<h2 class="govuk-heading-m">Native elements</h2>
 <p class="govuk-body">
   Where GOV.UK's markup is a single element, such as a button, back link or text
   input, ngx-govuk gives you a directive to add to your own element, rather than
@@ -29,8 +29,27 @@
 </p>
 <app-code-block [code]="DIRECTIVE_CODE" lang="angular-html" />
 <p class="govuk-body">
+  The same goes for elements that do something of their own, such as a
+  <code class="app-inline-code">details</code> element, which opens and closes,
+  and the <code class="app-inline-code">nav</code> around breadcrumbs. You write
+  the element, and ngx-govuk draws what goes inside it. Use the element's own
+  attributes and events, such as <code class="app-inline-code">open</code> and
+  <code class="app-inline-code">toggle</code>.
+</p>
+<app-code-block [code]="NATIVE_CODE" lang="angular-html" />
+<p class="govuk-body">
   Each component's API section shows which elements its directive works on.
 </p>
+
+<h2 class="govuk-heading-m">Classes and attributes</h2>
+<p class="govuk-body">
+  A component's own element is GOV.UK's outermost element, not a wrapper around
+  it. So an <code class="app-inline-code">id</code>, class or attribute you add
+  to any component lands where GOV.UK Frontend's styles expect it, including
+  spacing classes such as
+  <code class="app-inline-code">govuk-!-margin-bottom-0</code>.
+</p>
+<app-code-block [code]="CLASSES_CODE" lang="angular-html" />
 
 <h2 class="govuk-heading-m">Components with parts</h2>
 <p class="govuk-body">
