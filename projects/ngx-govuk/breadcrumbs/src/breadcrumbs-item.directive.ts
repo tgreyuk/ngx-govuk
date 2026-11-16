@@ -1,7 +1,7 @@
 import { Directive, TemplateRef, inject } from '@angular/core';
 
 /**
- * One link in the breadcrumbs, inside `ngx-govuk-breadcrumbs`.
+ * One link in the breadcrumbs, inside `nav[ngxGovukBreadcrumbs]`.
  *
  * Add it to an `a` element with a `*`, as in
  * `<a *ngxGovukBreadcrumbsItem routerLink="/">Home</a>`. The breadcrumbs put

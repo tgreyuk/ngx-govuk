@@ -1,35 +1,34 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`NgxGovukBreadcrumbs > should render default state 1`] = `
-<ngx-govuk-breadcrumbs>
-  <nav
-    aria-label="Breadcrumb"
-    class="govuk-breadcrumbs"
+<nav
+  aria-label="Breadcrumb"
+  class="govuk-breadcrumbs"
+  ngxgovukbreadcrumbs=""
+>
+  <ol
+    class="govuk-breadcrumbs__list"
   >
-    <ol
-      class="govuk-breadcrumbs__list"
+    <li
+      class="govuk-breadcrumbs__list-item"
     >
-      <li
-        class="govuk-breadcrumbs__list-item"
+      <a
+        class="govuk-breadcrumbs__link"
+        href="#"
       >
-        <a
-          class="govuk-breadcrumbs__link"
-          href="#"
-        >
-          Home
-        </a>
-      </li>
-      <li
-        class="govuk-breadcrumbs__list-item"
+        Home
+      </a>
+    </li>
+    <li
+      class="govuk-breadcrumbs__list-item"
+    >
+      <a
+        class="govuk-breadcrumbs__link"
+        href="#"
       >
-        <a
-          class="govuk-breadcrumbs__link"
-          href="#"
-        >
-          Travel abroad
-        </a>
-      </li>
-    </ol>
-  </nav>
-</ngx-govuk-breadcrumbs>
+        Travel abroad
+      </a>
+    </li>
+  </ol>
+</nav>
 `;

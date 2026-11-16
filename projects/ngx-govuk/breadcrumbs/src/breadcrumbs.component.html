@@ -1,14 +1,7 @@
-<nav
-  class="govuk-breadcrumbs"
-  [class.govuk-breadcrumbs--collapse-on-mobile]="collapseOnMobile()"
-  [class.govuk-breadcrumbs--inverse]="inverse()"
-  [attr.aria-label]="labelText()"
->
-  <ol class="govuk-breadcrumbs__list">
-    @for (item of items(); track item) {
-      <li class="govuk-breadcrumbs__list-item">
-        <ng-container [ngxGovukBreadcrumbsLinkOutlet]="item.template" />
-      </li>
-    }
-  </ol>
-</nav>
+<ol class="govuk-breadcrumbs__list">
+  @for (item of items(); track item) {
+    <li class="govuk-breadcrumbs__list-item">
+      <ng-container [ngxGovukBreadcrumbsLinkOutlet]="item.template" />
+    </li>
+  }
+</ol>

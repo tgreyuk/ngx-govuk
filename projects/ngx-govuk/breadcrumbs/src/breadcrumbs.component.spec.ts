@@ -5,10 +5,10 @@ import { NgxGovukBreadcrumbs } from './breadcrumbs.component';
 
 @Component({
   imports: [NgxGovukBreadcrumbs, NgxGovukBreadcrumbsItem],
-  template: `<ngx-govuk-breadcrumbs>
+  template: `<nav ngxGovukBreadcrumbs>
     <a *ngxGovukBreadcrumbsItem href="#">Home</a>
     <a *ngxGovukBreadcrumbsItem href="#">Travel abroad</a>
-  </ngx-govuk-breadcrumbs>`,
+  </nav>`,
 })
 class TestHostComponent {}
 
@@ -16,15 +16,16 @@ describe('NgxGovukBreadcrumbs', () => {
   it('should render default state', () => {
     const fixture = TestBed.createComponent(TestHostComponent);
     fixture.detectChanges();
-    expect(
-      fixture.nativeElement.querySelector('ngx-govuk-breadcrumbs'),
-    ).toMatchSnapshot();
+    expect(fixture.nativeElement.querySelector('nav')).toMatchSnapshot();
   });
 });
 
 @Component({
   imports: [NgxGovukBreadcrumbs, NgxGovukBreadcrumbsItem],
-  template: `<ngx-govuk-breadcrumbs
+  template: `<nav
+    ngxGovukBreadcrumbs
+    id="crumbs"
+    class="govuk-!-margin-bottom-0"
     collapseOnMobile
     inverse
     labelText="You are here"
@@ -32,7 +33,7 @@ describe('NgxGovukBreadcrumbs', () => {
     @for (crumb of crumbs(); track crumb) {
       <a *ngxGovukBreadcrumbsItem href="#">{{ crumb }}</a>
     }
-  </ngx-govuk-breadcrumbs>`,
+  </nav>`,
 })
 class DynamicHostComponent {
   crumbs = signal(['Home', 'Passports', 'Travel abroad']);
@@ -71,11 +72,17 @@ describe('NgxGovukBreadcrumbs with changing items', () => {
   });
 
   it('sets the options on the nav', () => {
-    expect(Array.from(nav().classList)).toEqual([
+    expect(Array.from(nav().classList).sort()).toEqual([
+      'govuk-!-margin-bottom-0',
       'govuk-breadcrumbs',
       'govuk-breadcrumbs--collapse-on-mobile',
       'govuk-breadcrumbs--inverse',
     ]);
     expect(nav().getAttribute('aria-label')).toBe('You are here');
+  });
+
+  it('keeps the attributes and classes set on the nav', () => {
+    expect(nav().id).toBe('crumbs');
+    expect(nav().classList).toContain('govuk-!-margin-bottom-0');
   });
 });
