@@ -100,7 +100,7 @@ describe('NgxGovukCharacterCount', () => {
       'own-help detail-info detail-hint detail-error',
     );
     expect(textarea.classList).toContain('govuk-textarea--error');
-    expect($('#detail-count > .govuk-form-group').classList).toContain(
+    expect($('#detail-count.govuk-form-group').classList).toContain(
       'govuk-form-group--error',
     );
   });

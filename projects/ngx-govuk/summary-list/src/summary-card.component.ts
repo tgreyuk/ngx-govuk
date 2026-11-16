@@ -15,6 +15,11 @@ import { NgxGovukSummaryActionOutlet } from './summary-action-outlet.directive';
   selector: 'ngx-govuk-summary-card',
   imports: [NgxGovukSummaryActionOutlet],
   templateUrl: './summary-card.component.html',
+  host: {
+    class: 'govuk-summary-card',
+  },
+  // Custom elements are inline by default; GOV.UK's styles expect a block.
+  styles: ':host(:not([hidden])) { display: block; }',
 })
 export class NgxGovukSummaryCard {
   /**

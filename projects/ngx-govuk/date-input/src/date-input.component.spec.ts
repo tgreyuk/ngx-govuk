@@ -199,7 +199,7 @@ describe('NgxGovukDateInput', () => {
     host.errorMessage.set('Enter a real date');
     fixture.detectChanges();
     expect(errorFields()).toEqual(['day', 'month', 'year']);
-    expect($('#issued .govuk-form-group').classList).toContain(
+    expect($('#issued.govuk-form-group').classList).toContain(
       'govuk-form-group--error',
     );
     expect($('#issued fieldset').getAttribute('aria-describedby')).toBe(

@@ -5,7 +5,6 @@ import {
   ElementRef,
   inject,
   input,
-  viewChild,
   booleanAttribute,
 } from '@angular/core';
 import { NgxGovukUtilsService } from 'ngx-govuk';
@@ -20,6 +19,14 @@ import { NgxGovukUtilsService } from 'ngx-govuk';
 @Component({
   selector: 'ngx-govuk-notification-banner',
   templateUrl: './notification-banner.component.html',
+  host: {
+    class: 'govuk-notification-banner',
+    '[class.govuk-notification-banner--success]': 'isSuccess()',
+    '[attr.role]': "isSuccess() ? 'alert' : 'region'",
+    '[attr.aria-labelledby]': 'titleId()',
+  },
+  // Custom elements are inline by default; GOV.UK's styles expect a block.
+  styles: ':host(:not([hidden])) { display: block; }',
 })
 export class NgxGovukNotificationBanner {
   /**
@@ -54,7 +61,7 @@ export class NgxGovukNotificationBanner {
    */
   disableAutoFocus = input(false, { transform: booleanAttribute });
 
-  private banner = viewChild.required<ElementRef<HTMLElement>>('banner');
+  private banner = inject<ElementRef<HTMLElement>>(ElementRef);
 
   protected isSuccess = computed(() => this.bannerType() === 'success');
 
@@ -62,18 +69,12 @@ export class NgxGovukNotificationBanner {
     () => this.titleText() ?? (this.isSuccess() ? 'Success' : 'Important'),
   );
 
-  protected classes = computed(() =>
-    this.isSuccess()
-      ? 'govuk-notification-banner govuk-notification-banner--success'
-      : 'govuk-notification-banner',
-  );
-
   constructor() {
     // As GOV.UK Frontend does: focus a success banner, so screen reader users
     // hear it and keyboard users start from it.
     afterNextRender(() => {
       if (this.isSuccess() && !this.disableAutoFocus()) {
-        this.focus(this.banner().nativeElement);
+        this.focus(this.banner.nativeElement);
       }
     });
   }

@@ -10,6 +10,11 @@ import { Component, input } from '@angular/core';
 @Component({
   selector: 'ngx-govuk-feedback',
   templateUrl: './feedback.component.html',
+  host: {
+    class: 'govuk-feedback govuk-width-container',
+  },
+  // Custom elements are inline by default; GOV.UK's styles expect a block.
+  styles: ':host(:not([hidden])) { display: block; }',
 })
 export class NgxGovukFeedback {
   /** The heading, such as "Help us improve this service". */

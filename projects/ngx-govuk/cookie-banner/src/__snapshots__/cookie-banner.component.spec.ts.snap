@@ -2,58 +2,56 @@
 
 exports[`NgxGovukCookieBanner > matches the GOV.UK markup snapshot 1`] = `
 <div>
-  <ngx-govuk-cookie-banner>
+  <ngx-govuk-cookie-banner
+    aria-label="Cookie banner"
+    class="govuk-cookie-banner"
+    data-nosnippet=""
+    role="region"
+  >
     <div
-      aria-label="Cookie banner"
-      class="govuk-cookie-banner"
-      data-nosnippet=""
-      role="region"
+      class="govuk-cookie-banner__message govuk-width-container"
+      headingtext="Cookies on this service"
+      ngxgovukcookiebannermessage=""
     >
       <div
-        class="govuk-cookie-banner__message govuk-width-container"
-        headingtext="Cookies on this service"
-        ngxgovukcookiebannermessage=""
+        class="govuk-grid-row"
       >
         <div
-          class="govuk-grid-row"
+          class="govuk-grid-column-two-thirds"
         >
-          <div
-            class="govuk-grid-column-two-thirds"
+          <h2
+            class="govuk-cookie-banner__heading govuk-heading-m"
           >
-            <h2
-              class="govuk-cookie-banner__heading govuk-heading-m"
+             Cookies on this service 
+          </h2>
+          <div
+            class="govuk-cookie-banner__content"
+          >
+            <p
+              class="govuk-body"
             >
-               Cookies on this service 
-            </h2>
-            <div
-              class="govuk-cookie-banner__content"
-            >
-              <p
-                class="govuk-body"
-              >
-                We use some essential cookies.
-              </p>
-            </div>
+              We use some essential cookies.
+            </p>
           </div>
         </div>
-        <ngx-govuk-button-group
-          class="govuk-button-group"
-        >
-          <button
-            class="govuk-button"
-            ngxgovukbutton=""
-            type="button"
-          >
-             Accept analytics cookies 
-          </button>
-          <a
-            class="govuk-link"
-            href="/cookies"
-          >
-            View cookies
-          </a>
-        </ngx-govuk-button-group>
       </div>
+      <ngx-govuk-button-group
+        class="govuk-button-group"
+      >
+        <button
+          class="govuk-button"
+          ngxgovukbutton=""
+          type="button"
+        >
+           Accept analytics cookies 
+        </button>
+        <a
+          class="govuk-link"
+          href="/cookies"
+        >
+          View cookies
+        </a>
+      </ngx-govuk-button-group>
     </div>
   </ngx-govuk-cookie-banner>
 </div>

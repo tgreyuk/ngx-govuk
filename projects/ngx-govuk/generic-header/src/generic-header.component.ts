@@ -14,6 +14,11 @@ import { RouterLink, UrlTree } from '@angular/router';
   selector: 'ngx-govuk-generic-header',
   imports: [RouterLink],
   templateUrl: './generic-header.component.html',
+  host: {
+    class: 'govuk-generic-header',
+  },
+  // Custom elements are inline by default; GOV.UK's styles expect a block.
+  styles: ':host(:not([hidden])) { display: block; }',
 })
 export class NgxGovukGenericHeader {
   /**

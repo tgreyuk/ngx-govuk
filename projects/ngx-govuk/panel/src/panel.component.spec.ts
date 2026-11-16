@@ -29,6 +29,16 @@ class ConfirmationHostComponent {}
 })
 class InterruptionHostComponent {}
 
+@Component({
+  imports: [NgxGovukPanel],
+  template: `<ngx-govuk-panel
+    id="done"
+    class="govuk-!-margin-bottom-0"
+    titleText="Application complete"
+  />`,
+})
+class ClassesHostComponent {}
+
 describe('NgxGovukPanel', () => {
   it('matches the GOV.UK markup snapshot for a confirmation', () => {
     const fixture = TestBed.createComponent(ConfirmationHostComponent);
@@ -40,5 +50,20 @@ describe('NgxGovukPanel', () => {
     const fixture = TestBed.createComponent(InterruptionHostComponent);
     fixture.detectChanges();
     expect(fixture.nativeElement).toMatchSnapshot();
+  });
+
+  it('is the GOV.UK panel itself, keeping the classes set on it', () => {
+    const fixture = TestBed.createComponent(ClassesHostComponent);
+    fixture.detectChanges();
+    const panel: HTMLElement = fixture.nativeElement.querySelector('#done');
+    expect(panel.tagName).toBe('NGX-GOVUK-PANEL');
+    expect(Array.from(panel.classList).sort()).toEqual([
+      'govuk-!-margin-bottom-0',
+      'govuk-panel',
+      'govuk-panel--confirmation',
+    ]);
+    expect(fixture.nativeElement.querySelectorAll('.govuk-panel').length).toBe(
+      1,
+    );
   });
 });

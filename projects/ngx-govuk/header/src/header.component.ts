@@ -13,6 +13,11 @@ import { Component, input, booleanAttribute } from '@angular/core';
 @Component({
   selector: 'ngx-govuk-header',
   templateUrl: './header.component.html',
+  host: {
+    class: 'govuk-header',
+  },
+  // Custom elements are inline by default; GOV.UK's styles expect a block.
+  styles: ':host(:not([hidden])) { display: block; }',
 })
 export class NgxGovukHeader {
   /**

@@ -9,6 +9,11 @@ import { Component, input } from '@angular/core';
 @Component({
   selector: 'ngx-govuk-warning-text',
   templateUrl: './warning-text.component.html',
+  host: {
+    class: 'govuk-warning-text',
+  },
+  // Custom elements are inline by default; GOV.UK's styles expect a block.
+  styles: ':host(:not([hidden])) { display: block; }',
 })
 export class NgxGovukWarningText {
   /**

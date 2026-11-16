@@ -12,6 +12,11 @@ import { NgxGovukTag } from 'ngx-govuk/tag';
   selector: 'ngx-govuk-phase-banner',
   imports: [NgxGovukTag],
   templateUrl: './phase-banner.component.html',
+  host: {
+    class: 'govuk-phase-banner govuk-width-container',
+  },
+  // Custom elements are inline by default; GOV.UK's styles expect a block.
+  styles: ':host(:not([hidden])) { display: block; }',
 })
 export class NgxGovukPhaseBanner {
   /**

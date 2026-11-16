@@ -5,7 +5,6 @@ import {
   ElementRef,
   inject,
   input,
-  viewChild,
   booleanAttribute,
 } from '@angular/core';
 
@@ -28,6 +27,11 @@ export interface NgxGovukErrorSummaryItem {
 @Component({
   selector: 'ngx-govuk-error-summary',
   templateUrl: './error-summary.component.html',
+  host: {
+    class: 'govuk-error-summary',
+  },
+  // Custom elements are inline by default; GOV.UK's styles expect a block.
+  styles: ':host(:not([hidden])) { display: block; }',
 })
 export class NgxGovukErrorSummary {
   private document = inject(DOCUMENT);
@@ -54,7 +58,7 @@ export class NgxGovukErrorSummary {
    */
   disableAutoFocus = input(false, { transform: booleanAttribute });
 
-  private summary = viewChild.required<ElementRef<HTMLElement>>('summary');
+  private summary = inject<ElementRef<HTMLElement>>(ElementRef);
 
   constructor() {
     afterNextRender(() => {
@@ -70,7 +74,7 @@ export class NgxGovukErrorSummary {
    */
   focus() {
     // As GOV.UK Frontend does: make the summary focusable for now.
-    const element = this.summary().nativeElement;
+    const element = this.summary.nativeElement;
     if (!element.hasAttribute('tabindex')) {
       element.setAttribute('tabindex', '-1');
       element.addEventListener(

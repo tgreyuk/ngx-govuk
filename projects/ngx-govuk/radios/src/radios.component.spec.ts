@@ -135,7 +135,7 @@ describe('NgxGovukRadios', () => {
 
     host.errorMessage.set('Select how you would like to be contacted');
     fixture.detectChanges();
-    expect($('#contact-radios .govuk-form-group').classList).toContain(
+    expect($('#contact-radios.govuk-form-group').classList).toContain(
       'govuk-form-group--error',
     );
     expect($('#contact-error').textContent?.replace(/\s+/g, ' ').trim()).toBe(

@@ -3,34 +3,31 @@
 exports[`NgxGovukPhaseBanner > matches the GOV.UK markup snapshot 1`] = `
 <div>
   <ngx-govuk-phase-banner
+    class="govuk-phase-banner govuk-width-container"
     tagtext="Alpha"
   >
-    <div
-      class="govuk-phase-banner govuk-width-container"
+    <p
+      class="govuk-phase-banner__content"
     >
-      <p
-        class="govuk-phase-banner__content"
+      <strong
+        class="govuk-phase-banner__content__tag govuk-tag"
+        ngxgovuktag=""
       >
-        <strong
-          class="govuk-phase-banner__content__tag govuk-tag"
-          ngxgovuktag=""
+        Alpha
+      </strong>
+      <span
+        class="govuk-phase-banner__text"
+      >
+         This is a new service. Help us improve it and 
+        <a
+          class="govuk-link"
+          href="/feedback"
         >
-          Alpha
-        </strong>
-        <span
-          class="govuk-phase-banner__text"
-        >
-           This is a new service. Help us improve it and 
-          <a
-            class="govuk-link"
-            href="/feedback"
-          >
-            give your feedback
-          </a>
-          . 
-        </span>
-      </p>
-    </div>
+          give your feedback
+        </a>
+        . 
+      </span>
+    </p>
   </ngx-govuk-phase-banner>
 </div>
 `;

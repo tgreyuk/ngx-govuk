@@ -150,7 +150,7 @@ describe('NgxGovukCheckboxes', () => {
 
     host.errorMessage.set('Select your nationality');
     fixture.detectChanges();
-    expect($('#nationality-checkboxes .govuk-form-group').classList).toContain(
+    expect($('#nationality-checkboxes.govuk-form-group').classList).toContain(
       'govuk-form-group--error',
     );
     expect(fieldset().getAttribute('aria-describedby')).toBe(

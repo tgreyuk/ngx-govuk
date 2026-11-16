@@ -30,6 +30,12 @@ import { NgxGovukTextInput } from 'ngx-govuk/text-input';
 @Component({
   selector: 'ngx-govuk-password-input',
   templateUrl: './password-input.component.html',
+  host: {
+    class: 'govuk-form-group govuk-password-input',
+    '[class.govuk-form-group--error]': '!!errorMessage()',
+  },
+  // Custom elements are inline by default; GOV.UK's styles expect a block.
+  styles: ':host(:not([hidden])) { display: block; }',
 })
 export class NgxGovukPasswordInput implements AfterContentInit {
   private renderer = inject(Renderer2);

@@ -50,6 +50,12 @@ const ALL_PARTS: NgxGovukDateInputPart[] = ['day', 'month', 'year'];
 @Component({
   selector: 'ngx-govuk-date-input',
   templateUrl: './date-input.component.html',
+  host: {
+    class: 'govuk-form-group',
+    '[class.govuk-form-group--error]': '!!errorMessage()',
+  },
+  // Custom elements are inline by default; GOV.UK's styles expect a block.
+  styles: ':host(:not([hidden])) { display: block; }',
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

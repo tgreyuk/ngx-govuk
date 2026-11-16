@@ -142,6 +142,12 @@ export class NgxGovukRadio {
 @Component({
   selector: 'ngx-govuk-radios',
   templateUrl: './radios.component.html',
+  host: {
+    class: 'govuk-form-group',
+    '[class.govuk-form-group--error]': '!!errorMessage()',
+  },
+  // Custom elements are inline by default; GOV.UK's styles expect a block.
+  styles: ':host(:not([hidden])) { display: block; }',
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

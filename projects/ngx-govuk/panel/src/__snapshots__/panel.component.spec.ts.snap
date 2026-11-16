@@ -3,25 +3,22 @@
 exports[`NgxGovukPanel > matches the GOV.UK markup snapshot for a confirmation 1`] = `
 <div>
   <ngx-govuk-panel
+    class="govuk-panel govuk-panel--confirmation"
     titletext="Application complete"
   >
-    <div
-      class="govuk-panel govuk-panel--confirmation"
+    <h1
+      class="govuk-panel__title"
     >
-      <h1
-        class="govuk-panel__title"
-      >
-        Application complete
-      </h1>
-      <div
-        class="govuk-panel__body"
-      >
-         Your reference number
-        <br />
-        <strong>
-          HDJ2123F
-        </strong>
-      </div>
+      Application complete
+    </h1>
+    <div
+      class="govuk-panel__body"
+    >
+       Your reference number
+      <br />
+      <strong>
+        HDJ2123F
+      </strong>
     </div>
   </ngx-govuk-panel>
 </div>
@@ -30,51 +27,48 @@ exports[`NgxGovukPanel > matches the GOV.UK markup snapshot for a confirmation 1
 exports[`NgxGovukPanel > matches the GOV.UK markup snapshot for an interruption 1`] = `
 <div>
   <ngx-govuk-panel
+    class="govuk-panel govuk-panel--interruption"
     paneltype="interruption"
     titletext="Is your age correct?"
   >
-    <div
-      class="govuk-panel govuk-panel--interruption"
+    <h2
+      class="govuk-panel__title"
     >
-      <h2
-        class="govuk-panel__title"
+      Is your age correct?
+    </h2>
+    <div
+      class="govuk-panel__body"
+    >
+      <p
+        class="govuk-body"
       >
-        Is your age correct?
-      </h2>
-      <div
-        class="govuk-panel__body"
+        You entered your age as 
+        <strong>
+          109
+        </strong>
+        .
+      </p>
+    </div>
+    <div
+      class="govuk-panel__actions"
+    >
+      <ngx-govuk-button-group
+        class="govuk-button-group"
       >
-        <p
-          class="govuk-body"
+        <button
+          class="govuk-button govuk-button--inverse"
+          inverse=""
+          ngxgovukbutton=""
         >
-          You entered your age as 
-          <strong>
-            109
-          </strong>
-          .
-        </p>
-      </div>
-      <div
-        class="govuk-panel__actions"
-      >
-        <ngx-govuk-button-group
-          class="govuk-button-group"
+          Yes, this is correct
+        </button>
+        <a
+          class="govuk-link govuk-link--inverse"
+          href="/age"
         >
-          <button
-            class="govuk-button govuk-button--inverse"
-            inverse=""
-            ngxgovukbutton=""
-          >
-            Yes, this is correct
-          </button>
-          <a
-            class="govuk-link govuk-link--inverse"
-            href="/age"
-          >
-            No, change my age
-          </a>
-        </ngx-govuk-button-group>
-      </div>
+          No, change my age
+        </a>
+      </ngx-govuk-button-group>
     </div>
   </ngx-govuk-panel>
 </div>

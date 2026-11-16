@@ -30,6 +30,8 @@ const TABLET = '(min-width: 40.0625em)';
   selector: 'ngx-govuk-tabs',
   templateUrl: './tabs.component.html',
   host: { class: 'govuk-tabs' },
+  // Custom elements are inline by default; GOV.UK's styles expect a block.
+  styles: ':host(:not([hidden])) { display: block; }',
 })
 export class NgxGovukTabs {
   private document = inject(DOCUMENT);

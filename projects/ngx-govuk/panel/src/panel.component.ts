@@ -1,4 +1,4 @@
-import { Component, computed, contentChild, input } from '@angular/core';
+import { Component, contentChild, input } from '@angular/core';
 import { NgxGovukButtonGroup } from 'ngx-govuk/button';
 
 /**
@@ -13,6 +13,13 @@ import { NgxGovukButtonGroup } from 'ngx-govuk/button';
 @Component({
   selector: 'ngx-govuk-panel',
   templateUrl: './panel.component.html',
+  host: {
+    class: 'govuk-panel',
+    '[class.govuk-panel--confirmation]': "panelType() === 'confirmation'",
+    '[class.govuk-panel--interruption]': "panelType() === 'interruption'",
+  },
+  // Custom elements are inline by default; GOV.UK's styles expect a block.
+  styles: ':host(:not([hidden])) { display: block; }',
 })
 export class NgxGovukPanel {
   /**
@@ -34,8 +41,4 @@ export class NgxGovukPanel {
   panelType = input<'confirmation' | 'interruption'>('confirmation');
 
   protected actions = contentChild(NgxGovukButtonGroup);
-
-  protected classes = computed(
-    () => `govuk-panel govuk-panel--${this.panelType()}`,
-  );
 }

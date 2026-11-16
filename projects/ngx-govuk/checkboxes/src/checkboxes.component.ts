@@ -203,6 +203,12 @@ export class NgxGovukCheckbox implements ControlValueAccessor {
 @Component({
   selector: 'ngx-govuk-checkboxes',
   templateUrl: './checkboxes.component.html',
+  host: {
+    class: 'govuk-form-group',
+    '[class.govuk-form-group--error]': '!!errorMessage()',
+  },
+  // Custom elements are inline by default; GOV.UK's styles expect a block.
+  styles: ':host(:not([hidden])) { display: block; }',
 })
 export class NgxGovukCheckboxes {
   /**

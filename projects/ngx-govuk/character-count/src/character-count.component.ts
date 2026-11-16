@@ -49,6 +49,12 @@ export type NgxGovukCountType = 'length' | 'characters' | 'words';
 @Component({
   selector: 'ngx-govuk-character-count',
   templateUrl: './character-count.component.html',
+  host: {
+    class: 'govuk-form-group govuk-character-count',
+    '[class.govuk-form-group--error]': '!!errorMessage()',
+  },
+  // Custom elements are inline by default; GOV.UK's styles expect a block.
+  styles: ':host(:not([hidden])) { display: block; }',
 })
 export class NgxGovukCharacterCount implements AfterContentInit {
   private renderer = inject(Renderer2);
