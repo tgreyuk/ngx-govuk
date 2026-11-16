@@ -13,8 +13,17 @@ import { NgxGovukUtilsService } from 'ngx-govuk';
 
 /** A date as users typed it, one string for each part. */
 export interface NgxGovukDateInputValue {
+  /**
+   * The day, such as `27`. Empty when the field is empty or not shown.
+   */
   day: string;
+  /**
+   * The month, such as `3`. Empty when the field is empty or not shown.
+   */
   month: string;
+  /**
+   * The year, such as `2007`. Empty when the field is empty or not shown.
+   */
   year: string;
 }
 

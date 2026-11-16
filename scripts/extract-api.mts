@@ -7,8 +7,9 @@
  * comes from the `@Component` / `@Directive` decorator, and inputs, models and
  * outputs from their `input()`, `model()` and `output()` initialisers. Public
  * methods are listed only when they have a JSDoc comment. Other properties are
- * left out: they are a component's state, not its API. So is anything tagged
- * `@internal`.
+ * left out: they are a component's state, not its API. Exported interfaces and
+ * type aliases are listed too, with their types as written. Anything tagged
+ * `@internal` is left out.
  *
  * Run with `npm run website:api`; Node strips the types.
  */
@@ -23,6 +24,8 @@ import type {
   ApiInput,
   ApiOutput,
   ApiMethod,
+  ApiProperty,
+  ApiType,
 } from '../projects/website/src/app/routes/components/component-api/api-docs.ts';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -53,7 +56,10 @@ export function createProgram(tsconfigPath: string): ts.Program {
   return ts.createProgram(config.fileNames, config.options);
 }
 
-/** The components and directives exported from one entry point's index file. */
+/**
+ * The components, directives, interfaces and type aliases exported from one
+ * entry point's index file.
+ */
 export function extractEntryPoint(
   program: ts.Program,
   indexFile: string,
@@ -68,22 +74,83 @@ export function extractEntryPoint(
   const exports = moduleSymbol ? checker.getExportsOfModule(moduleSymbol) : [];
 
   const classes: ApiClass[] = [];
+  const types: ApiType[] = [];
   for (const exported of exports) {
     const symbol =
       exported.flags & ts.SymbolFlags.Alias
         ? checker.getAliasedSymbol(exported)
         : exported;
-    const declaration = symbol.declarations?.find(ts.isClassDeclaration);
-    if (declaration) {
-      const apiClass = extractClass(checker, declaration);
-      if (apiClass) {
-        classes.push(apiClass);
+    for (const declaration of symbol.declarations ?? []) {
+      if (ts.isClassDeclaration(declaration)) {
+        const apiClass = extractClass(checker, declaration);
+        if (apiClass) {
+          classes.push(apiClass);
+        }
+      } else if (
+        ts.isInterfaceDeclaration(declaration) ||
+        ts.isTypeAliasDeclaration(declaration)
+      ) {
+        if (!isInternal(declaration)) {
+          types.push(extractType(declaration));
+        }
       }
     }
   }
   classes.sort((a, b) => a.name.localeCompare(b.name));
+  types.sort((a, b) => a.name.localeCompare(b.name));
 
-  return { name, importPath: `ngx-govuk/${name}`, classes };
+  return { name, importPath: `ngx-govuk/${name}`, classes, types };
+}
+
+/**
+ * An interface with its properties, or a type alias with its definition.
+ * Types are as written in the source, such as `NgxGovukFooterLink[]`, rather
+ * than expanded, so they name the library's other types.
+ */
+function extractType(
+  declaration: ts.InterfaceDeclaration | ts.TypeAliasDeclaration,
+): ApiType {
+  const apiType: ApiType = {
+    name: declaration.name.text,
+    kind: ts.isInterfaceDeclaration(declaration) ? 'Interface' : 'Type',
+    description: description(declaration),
+  };
+  if (ts.isTypeAliasDeclaration(declaration)) {
+    apiType.type = typeText(declaration.type);
+    return apiType;
+  }
+  apiType.properties = [];
+  for (const member of declaration.members) {
+    if (isInternal(member) || !member.name || !ts.isIdentifier(member.name)) {
+      continue;
+    }
+    let type = 'unknown';
+    if (ts.isPropertySignature(member) && member.type) {
+      type = typeText(member.type);
+    } else if (ts.isMethodSignature(member)) {
+      const parameters = member.parameters.map((p) => p.getText()).join(', ');
+      type = `(${parameters}) => ${member.type ? typeText(member.type) : 'void'}`;
+    }
+    const property: ApiProperty = {
+      name: member.name.text,
+      description: description(member),
+      type,
+      optional: !!member.questionToken,
+    };
+    apiType.properties.push(property);
+  }
+  return apiType;
+}
+
+/**
+ * A type node's source text on one line, without the leading `|` that
+ * Prettier adds to a union wrapped over several lines.
+ */
+function typeText(node: ts.TypeNode): string {
+  return node
+    .getText()
+    .replace(/\s*\n\s*/g, ' ')
+    .replace(/^\|\s*/, '');
 }
 
 function extractClass(

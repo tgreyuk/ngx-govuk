@@ -1,8 +1,9 @@
 import { NgTemplateOutlet } from '@angular/common';
 import { httpResource } from '@angular/common/http';
 import { Component, computed, input } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { CodeBlockComponent } from '../component-code/code-block.component';
-import { ApiClass, ApiEntryPoint } from './api-docs';
+import { ApiClass, ApiEntryPoint, ApiType } from './api-docs';
 
 /**
  * A description paragraph as HTML: the text escaped, and `backticked` parts
@@ -11,12 +12,19 @@ import { ApiClass, ApiEntryPoint } from './api-docs';
 type Paragraph = string;
 
 /**
+ * A type or signature cut into parts, so the names of the entry point's own
+ * interfaces and type aliases can link to them. `link` is the id of the
+ * type's heading.
+ */
+type TypeParts = { text: string; link?: string }[];
+
+/**
  * One entry of a section: a member's name and type, or a method's name and
  * call signature, such as `(): void`.
  */
 interface ApiEntry {
   name: string;
-  type: string;
+  type: TypeParts;
   description: Paragraph[];
   default?: string;
   required?: boolean;
@@ -33,7 +41,7 @@ interface ApiSection {
  */
 @Component({
   selector: 'ngx-govuk-api',
-  imports: [CodeBlockComponent, NgTemplateOutlet],
+  imports: [CodeBlockComponent, NgTemplateOutlet, RouterLink],
   templateUrl: './component-api.component.html',
 })
 export class ComponentApiComponent {
@@ -51,16 +59,40 @@ export class ComponentApiComponent {
     this.componentId() ? `./assets/api/${this.componentId()}.json` : undefined,
   );
 
-  /** Each class with its inputs, outputs and methods as lists. */
-  classes = computed(() =>
-    this.api.hasValue()
-      ? this.api.value().classes.map((apiClass) => ({
-          ...apiClass,
-          description: paragraphs(apiClass.description),
-          sections: sections(apiClass),
-        }))
-      : [],
+  /** The names of the entry point's interfaces and type aliases. */
+  private typeNames = computed(
+    () =>
+      new Set(
+        this.api.hasValue() ? this.api.value().types.map((t) => t.name) : [],
+      ),
   );
+
+  /** Each class with its inputs, outputs and methods as lists. */
+  protected classes = computed(() => {
+    if (!this.api.hasValue()) {
+      return [];
+    }
+    const names = this.typeNames();
+    return this.api.value().classes.map((apiClass) => ({
+      ...apiClass,
+      description: paragraphs(apiClass.description),
+      sections: sections(apiClass, names),
+    }));
+  });
+
+  /**
+   * Each interface with its properties, and each type alias with its
+   * definition.
+   */
+  protected types = computed(() => {
+    if (!this.api.hasValue()) {
+      return [];
+    }
+    const names = this.typeNames();
+    return this.api
+      .value()
+      .types.map((apiType) => typeWithParts(apiType, names));
+  });
 
   /**
    * One import for everything in this entry point, to paste alongside the
@@ -89,7 +121,7 @@ export class ComponentApiComponent {
  * are bound, as in `[heading]`, `[(expanded)]` and `(closed)`, so a model
  * stands out from an input.
  */
-function sections(apiClass: ApiClass): ApiSection[] {
+function sections(apiClass: ApiClass, typeNames: Set<string>): ApiSection[] {
   return [
     {
       title: 'Inputs',
@@ -98,6 +130,7 @@ function sections(apiClass: ApiClass): ApiSection[] {
       entries: apiClass.inputs.map((input) => ({
         ...input,
         name: input.kind === 'model' ? `[(${input.name})]` : `[${input.name}]`,
+        type: typeParts(input.type, typeNames),
         description: paragraphs(input.description),
         default: input.default ?? (input.required ? undefined : 'undefined'),
       })),
@@ -107,6 +140,7 @@ function sections(apiClass: ApiClass): ApiSection[] {
       entries: apiClass.outputs.map((output) => ({
         ...output,
         name: `(${output.name})`,
+        type: typeParts(output.type, typeNames),
         description: paragraphs(output.description),
       })),
     },
@@ -115,10 +149,49 @@ function sections(apiClass: ApiClass): ApiSection[] {
       entries: apiClass.methods.map((method) => ({
         ...method,
         description: paragraphs(method.description),
-        type: method.signature.slice(method.name.length),
+        type: typeParts(method.signature.slice(method.name.length), typeNames),
       })),
     },
   ];
+}
+
+/** An interface's properties as entries, required unless optional. */
+function typeWithParts(apiType: ApiType, typeNames: Set<string>) {
+  return {
+    name: apiType.name,
+    kind: apiType.kind,
+    description: paragraphs(apiType.description),
+    type:
+      apiType.type === undefined
+        ? undefined
+        : typeParts(apiType.type, typeNames),
+    properties: (apiType.properties ?? []).map((property): ApiEntry => ({
+      name: property.name,
+      type: typeParts(property.type, typeNames),
+      description: paragraphs(property.description),
+      required: !property.optional,
+    })),
+  };
+}
+
+/**
+ * Cuts a type into parts, with the entry point's own type names, such as
+ * `NgxGovukFooterLink` in `InputSignal<NgxGovukFooterLink[]>`, as links.
+ */
+export function typeParts(type: string, typeNames: Set<string>): TypeParts {
+  const parts: TypeParts = [];
+  // Odd indexes are identifiers, as the split keeps what it splits on.
+  type.split(/([A-Za-z_$][\w$]*)/).forEach((text, index) => {
+    const last = parts.at(-1);
+    if (index % 2 === 1 && typeNames.has(text)) {
+      parts.push({ text, link: text });
+    } else if (last && !last.link) {
+      last.text += text;
+    } else if (text) {
+      parts.push({ text });
+    }
+  });
+  return parts;
 }
 
 /**

@@ -704,6 +704,12 @@ ngx-govuk-root {
   font-size: 0.875em;
 }
 
+// A link from a type to the entry point's own interface or type alias, further
+// down the page. Keeps the code's font, which GOV.UK's link styles replace.
+.app-api-code .govuk-link {
+  font-family: inherit;
+}
+
 // A member's name, ahead of its type. Bold, so the names stand out when
 // skimming a list.
 .app-api-name {

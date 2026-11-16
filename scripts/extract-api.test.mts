@@ -126,3 +126,52 @@ test('lists documented public methods, and no other properties', () => {
     },
   ]);
 });
+
+test('lists exported interfaces and type aliases, sorted by name', () => {
+  assert.deepEqual(api.types, [
+    {
+      name: 'ExampleLink',
+      kind: 'Interface',
+      description: ['A link in the example.'],
+      properties: [
+        {
+          name: 'text',
+          description: ["The link's text."],
+          type: 'string',
+          optional: false,
+        },
+        {
+          name: 'href',
+          description: ['Where the link goes.'],
+          type: 'string',
+          optional: true,
+        },
+        {
+          name: 'width',
+          description: [],
+          type: "'full' | 'one-half'",
+          optional: true,
+        },
+      ],
+    },
+    {
+      name: 'ExampleSection',
+      kind: 'Interface',
+      description: ["The example's sections, each with its links."],
+      properties: [
+        {
+          name: 'items',
+          description: [],
+          type: 'ExampleLink[]',
+          optional: false,
+        },
+      ],
+    },
+    {
+      name: 'ExampleSize',
+      kind: 'Type',
+      description: ['A size: `s` or `m`.'],
+      type: "'s' | 'm'",
+    },
+  ]);
+});

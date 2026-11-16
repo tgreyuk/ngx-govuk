@@ -12,6 +12,11 @@ export interface ApiEntryPoint {
   importPath: string;
   /** The exported components and directives, sorted by name. */
   classes: ApiClass[];
+  /**
+   * The exported interfaces and type aliases, sorted by name: the shapes of
+   * values that inputs and models take, such as a footer's links.
+   */
+  types: ApiType[];
 }
 
 export interface ApiClass {
@@ -53,4 +58,26 @@ export interface ApiMethod {
   /** The name and call signature, such as `toggle(): void`. */
   signature: string;
   description: string[];
+}
+
+/**
+ * An exported interface, with its properties, or type alias, with its
+ * definition.
+ */
+export interface ApiType {
+  name: string;
+  kind: 'Interface' | 'Type';
+  description: string[];
+  /** A type alias's definition as written, such as `'s' | 'm'`. */
+  type?: string;
+  /** An interface's properties, in source order. */
+  properties?: ApiProperty[];
+}
+
+/** A property of an interface. Its type is as written in the source. */
+export interface ApiProperty {
+  name: string;
+  description: string[];
+  type: string;
+  optional: boolean;
 }
