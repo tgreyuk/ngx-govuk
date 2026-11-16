@@ -3,6 +3,8 @@ import {
   Component,
   DestroyRef,
   Renderer2,
+  afterEveryRender,
+  afterNextRender,
   computed,
   contentChild,
   effect,
@@ -33,8 +35,9 @@ export type NgxGovukCountType = 'length' | 'characters' | 'words';
  * Use it in place of `ngx-govuk-form-group`: put a `textarea` with
  * `ngxGovukTextarea` inside it, and it adds the label, hint, error message
  * and count. Users can type past the limit, and the count tells them how many
- * characters or words to remove, as GOV.UK recommends. Check the length when
- * the form is submitted too, counting the same way.
+ * characters or words to remove, as GOV.UK recommends, so a `maxlength`
+ * attribute on the textarea is removed. Check the length when the form is
+ * submitted too, counting the same way.
  *
  * The textarea keeps its own `id`, or one is generated. The hint, error
  * message and count get ids based on it.
@@ -163,6 +166,17 @@ export class NgxGovukCharacterCount implements AfterContentInit {
     });
 
     this.destroyRef.onDestroy(() => clearTimeout(this.screenReaderTimer));
+
+    // Bindings, signal forms and the browser can set the value without an
+    // input event, so check it after each render.
+    afterEveryRender(() => this.checkValue());
+    // A page restored from the back/forward cache isn't rendered again.
+    afterNextRender(() => {
+      const unlisten = this.renderer.listen('window', 'pageshow', () =>
+        this.checkValue(),
+      );
+      this.destroyRef.onDestroy(unlisten);
+    });
   }
 
   ngAfterContentInit(): void {
@@ -179,6 +193,7 @@ export class NgxGovukCharacterCount implements AfterContentInit {
       );
     }
     this.fieldId.set(element.id);
+    this.removeMaxLength(element);
 
     this.element = element;
     const count = () => this.count(element.value);
@@ -189,6 +204,26 @@ export class NgxGovukCharacterCount implements AfterContentInit {
       .subscribe(count);
     this.value.set(element.value);
     this.screenReaderValue.set(element.value);
+  }
+
+  /** Counts the value again if it changed without an input event. */
+  private checkValue(): void {
+    const element = this.element;
+    if (!element) {
+      return;
+    }
+    // Angular's maxlength validator can add the attribute back.
+    this.removeMaxLength(element);
+    if (element.value !== this.value()) {
+      this.count(element.value);
+    }
+  }
+
+  /** Lets users type past the limit, as GOV.UK Frontend does. */
+  private removeMaxLength(element: HTMLTextAreaElement): void {
+    if (element.hasAttribute('maxlength')) {
+      this.renderer.removeAttribute(element, 'maxlength');
+    }
   }
 
   private count(value: string): void {
