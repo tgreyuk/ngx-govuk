@@ -13,7 +13,7 @@ import { NgxGovukCookieBannerMessage } from './cookie-banner-message.component';
   ],
   template: `<ngx-govuk-cookie-banner>
     @if (!accepted()) {
-      <div ngxGovukCookieBannerMessage heading="Cookies on this service">
+      <div ngxGovukCookieBannerMessage headingText="Cookies on this service">
         <p class="govuk-body">We use some essential cookies.</p>
         <ngx-govuk-button-group>
           <button ngxGovukButton type="button" (click)="accepted.set(true)">

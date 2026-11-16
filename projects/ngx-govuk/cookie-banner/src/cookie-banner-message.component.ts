@@ -30,7 +30,7 @@ export class NgxGovukCookieBannerMessage {
   private element = inject<ElementRef<HTMLElement>>(ElementRef);
 
   /** The message's heading, such as "Cookies on [service name]". */
-  heading = input<string>();
+  headingText = input<string>();
 
   /**
    * Marks the message as confirming users' choice. Screen readers announce

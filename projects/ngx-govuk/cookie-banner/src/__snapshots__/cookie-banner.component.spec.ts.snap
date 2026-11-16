@@ -11,7 +11,7 @@ exports[`NgxGovukCookieBanner > matches the GOV.UK markup snapshot 1`] = `
     >
       <div
         class="govuk-cookie-banner__message govuk-width-container"
-        heading="Cookies on this service"
+        headingtext="Cookies on this service"
         ngxgovukcookiebannermessage=""
       >
         <div
