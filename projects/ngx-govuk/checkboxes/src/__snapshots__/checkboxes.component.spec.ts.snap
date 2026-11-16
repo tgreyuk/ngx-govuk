@@ -83,7 +83,7 @@ exports[`NgxGovukCheckboxes > matches the GOV.UK markup snapshot 1`] = `
             class="govuk-hint govuk-checkboxes__hint"
             id="nationality-2-item-hint"
           >
-             Including Northern Ireland 
+            Including Northern Ireland
           </div>
         </ngx-govuk-checkbox>
         <ngx-govuk-checkbox

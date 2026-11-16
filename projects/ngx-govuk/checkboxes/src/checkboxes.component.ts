@@ -10,6 +10,7 @@ import {
   EmbeddedViewRef,
   forwardRef,
   inject,
+  InjectionToken,
   input,
   model,
   signal,
@@ -19,6 +20,13 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgxGovukUtilsService } from 'ngx-govuk';
+
+/**
+ * The checkboxes and dividers in `ngx-govuk-checkboxes`, in order. GOV.UK
+ * Frontend counts dividers when it numbers the ids, so they're queried
+ * together.
+ */
+const CHECKBOXES_ITEM = new InjectionToken<unknown>('CHECKBOXES_ITEM');
 
 /**
  * Content shown under a checkbox only while it's checked, such as a question
@@ -46,6 +54,12 @@ export class NgxGovukCheckboxConditional {
 @Directive({
   selector: 'div[ngxGovukCheckboxesDivider]',
   host: { class: 'govuk-checkboxes__divider' },
+  providers: [
+    {
+      provide: CHECKBOXES_ITEM,
+      useExisting: forwardRef(() => NgxGovukCheckboxesDivider),
+    },
+  ],
 })
 export class NgxGovukCheckboxesDivider {}
 
@@ -69,6 +83,10 @@ export class NgxGovukCheckboxesDivider {}
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => NgxGovukCheckbox),
       multi: true,
+    },
+    {
+      provide: CHECKBOXES_ITEM,
+      useExisting: forwardRef(() => NgxGovukCheckbox),
     },
   ],
 })
@@ -173,7 +191,8 @@ export class NgxGovukCheckbox implements ControlValueAccessor {
  * other checkboxes, then a checkbox with `exclusive`.
  *
  * The first checkbox's id is the `name`, so an error summary can link to it.
- * The others are `<name>-2`, `<name>-3` and so on, as in GOV.UK Frontend.
+ * The others are `<name>-2`, `<name>-3` and so on, as in GOV.UK Frontend,
+ * which counts a divider as an item.
  */
 @Component({
   selector: 'ngx-govuk-checkboxes',
@@ -221,6 +240,7 @@ export class NgxGovukCheckboxes {
 
   private generatedName = inject(NgxGovukUtilsService).randomId('checkboxes');
   private checkboxes = contentChildren(NgxGovukCheckbox, { descendants: true });
+  private items = contentChildren(CHECKBOXES_ITEM, { descendants: true });
 
   /** @internal */
   groupName = computed(() => this.name() ?? this.generatedName);
@@ -261,7 +281,7 @@ export class NgxGovukCheckboxes {
 
   /** @internal */
   checkboxId(checkbox: NgxGovukCheckbox): string {
-    const index = this.checkboxes().indexOf(checkbox);
+    const index = this.items().indexOf(checkbox);
     return index > 0 ? `${this.groupName()}-${index + 1}` : this.groupName();
   }
 }

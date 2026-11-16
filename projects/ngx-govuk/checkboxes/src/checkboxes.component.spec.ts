@@ -88,6 +88,9 @@ describe('NgxGovukCheckboxes', () => {
 
   it('links checkbox hints to their input', () => {
     const { $, input } = setup();
+    expect($('#nationality-2-item-hint').textContent).toBe(
+      'Including Northern Ireland',
+    );
     expect(input('nationality-2').getAttribute('aria-describedby')).toBe(
       'nationality-2-item-hint',
     );
