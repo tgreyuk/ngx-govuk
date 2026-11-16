@@ -72,7 +72,8 @@ export const COMPONENTS: ComponentEntry[] = [
     name: 'Checkboxes',
     id: 'checkboxes',
     status: 'documented',
-    description: 'Lets users select one or more options from a list.',
+    description:
+      'Lets users select one or more options by using the checkboxes component.',
   },
   {
     name: 'Cookie banner',
