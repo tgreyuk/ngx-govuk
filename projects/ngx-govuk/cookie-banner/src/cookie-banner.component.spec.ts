@@ -73,3 +73,73 @@ describe('NgxGovukCookieBanner', () => {
     expect(document.activeElement).toBe(confirmation);
   });
 });
+
+@Component({
+  imports: [NgxGovukCookieBanner, NgxGovukCookieBannerMessage],
+  template: `<ngx-govuk-cookie-banner>
+    <div ngxGovukCookieBannerMessage id="question" [hidden]="chosen()">
+      <p class="govuk-body">We use some essential cookies.</p>
+    </div>
+    <div
+      ngxGovukCookieBannerMessage
+      id="confirmation"
+      confirmation
+      [hidden]="!chosen()"
+    >
+      <p class="govuk-body">You've accepted analytics cookies.</p>
+    </div>
+    <div ngxGovukCookieBannerMessage id="toggled" [confirmation]="toggled()">
+      <p class="govuk-body">A message that becomes a confirmation.</p>
+    </div>
+  </ngx-govuk-cookie-banner>`,
+})
+class HiddenHostComponent {
+  chosen = signal(false);
+  toggled = signal(false);
+}
+
+describe('NgxGovukCookieBannerMessage', () => {
+  async function setupHidden() {
+    const fixture = TestBed.createComponent(HiddenHostComponent);
+    document.body.appendChild(fixture.nativeElement);
+    fixture.detectChanges();
+    await fixture.whenStable();
+    const $ = (id: string) =>
+      (fixture.nativeElement as HTMLElement).querySelector(`#${id}`)!;
+    const update = async () => {
+      fixture.detectChanges();
+      await fixture.whenStable();
+    };
+    return { host: fixture.componentInstance, $, update };
+  }
+
+  afterEach(() => document.body.replaceChildren());
+
+  it('hides a message with the hidden attribute', async () => {
+    const { host, $, update } = await setupHidden();
+    expect($('question').hasAttribute('hidden')).toBe(false);
+    expect($('confirmation').hasAttribute('hidden')).toBe(true);
+
+    host.chosen.set(true);
+    await update();
+    expect($('question').hasAttribute('hidden')).toBe(true);
+    expect($('confirmation').hasAttribute('hidden')).toBe(false);
+  });
+
+  it('moves focus to a confirmation when it is unhidden', async () => {
+    const { host, $, update } = await setupHidden();
+    expect(document.activeElement).not.toBe($('confirmation'));
+
+    host.chosen.set(true);
+    await update();
+    expect(document.activeElement).toBe($('confirmation'));
+  });
+
+  it('moves focus to a message when it becomes a confirmation', async () => {
+    const { host, $, update } = await setupHidden();
+    host.toggled.set(true);
+    await update();
+    expect($('toggled').getAttribute('role')).toBe('alert');
+    expect(document.activeElement).toBe($('toggled'));
+  });
+});
