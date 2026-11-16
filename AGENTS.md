@@ -179,16 +179,21 @@ warns past 2 kB per component.
 Each example is a small standalone component in
 `projects/website/src/app/routes/components/examples/<component>/<name>.component.{ts,html}`,
 listed for its component in `examples.ts`. The page renders it live, with
-its template underneath as code.
+its template underneath as code, labelled "Template".
 
 - The code shown is the example's `.html` file itself: the build copies the
   `examples/` folder to the site, and the page fetches the template from
   there. So the template is exactly what readers copy. Keep it realistic and
   self-contained, with no demo-only wrappers, and give links a real target
   with `routerLink="."`, not `href="#"`.
-- The `.ts` file isn't shown on component pages, since the API section gives
-  the import. It only needs to import what the template uses. A guide can
-  show it too with `showComponentCode`, when the class does real work.
+- The `.ts` file is shown only when the template uses members of the class,
+  such as the cookie banner's signals: set `showComponentCode` on its entry
+  in `examples.ts`, and the page shows it under the template, labelled
+  "Component". Otherwise the API section gives the import, so the class
+  only needs to import what the template uses. When it is shown, name it and
+  its files as real code would be: `CookieBannerComponent` in
+  `cookie-banner.component.ts`, not `…DemoComponent` in
+  `default.component.ts`.
 - The first example shows the default and has no title. Each later one has a
   `title` and a `description`: a short, factual line on how to get that
   variant, such as which input to set. Guidance on when to use it belongs to

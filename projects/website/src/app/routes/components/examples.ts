@@ -19,6 +19,11 @@ export interface Example {
    * set. Guidance on when to use it belongs to the GOV.UK Design System.
    */
   description?: string;
+  /**
+   * Shows the demo's class under its template. Set it when the template
+   * uses members of the class, such as signals or methods.
+   */
+  showComponentCode?: boolean;
 }
 
 /** Each documented component's examples, in page order. */
@@ -176,11 +181,12 @@ export const EXAMPLES: Record<string, Example[]> = {
   ],
   'cookie-banner': [
     {
-      path: 'cookie-banner/default',
+      path: 'cookie-banner/cookie-banner',
       load: () =>
-        import('./examples/cookie-banner/default.component').then(
-          (m) => m.CookieBannerDemoComponent,
+        import('./examples/cookie-banner/cookie-banner.component').then(
+          (m) => m.CookieBannerComponent,
         ),
+      showComponentCode: true,
     },
   ],
   'date-input': [
@@ -286,11 +292,12 @@ export const EXAMPLES: Record<string, Example[]> = {
   ],
   'form-group': [
     {
-      path: 'form-group/default',
+      path: 'form-group/cost-form',
       load: () =>
-        import('./examples/form-group/default.component').then(
-          (m) => m.FormGroupDemoComponent,
+        import('./examples/form-group/cost-form.component').then(
+          (m) => m.CostFormComponent,
         ),
+      showComponentCode: true,
     },
   ],
   'generic-header': [

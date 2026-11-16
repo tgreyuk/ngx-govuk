@@ -7,7 +7,7 @@ import {
 } from 'ngx-govuk/cookie-banner';
 
 @Component({
-  selector: 'app-cookie-banner-demo',
+  selector: 'app-cookie-banner',
   imports: [
     RouterLink,
     NgxGovukButton,
@@ -15,9 +15,9 @@ import {
     NgxGovukCookieBanner,
     NgxGovukCookieBannerMessage,
   ],
-  templateUrl: './default.component.html',
+  templateUrl: './cookie-banner.component.html',
 })
-export class CookieBannerDemoComponent {
+export class CookieBannerComponent {
   /** Whether users accepted analytics cookies, once they've chosen. */
   protected choice = signal<boolean | undefined>(undefined);
   protected hidden = signal(false);

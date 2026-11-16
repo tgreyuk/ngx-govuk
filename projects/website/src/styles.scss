@@ -573,12 +573,34 @@ pre {
     margin-bottom: 0;
   }
 
-  // Only the template right under the frame, not code in a toggle below it.
-  ngx-govuk-example-code > app-code-block:first-of-type pre {
-    margin: 0;
-    border-color: var(--app-border);
-    border-top: 0;
+  // The code hangs off the bottom of the frame: one box, split by single
+  // lines.
+  ngx-govuk-example-code {
+    pre {
+      margin: 0;
+      border-color: var(--app-border);
+    }
+    > :first-child,
+    > app-code-block:first-child pre,
+    > app-code-block + .app-code-label {
+      border-top: 0;
+    }
   }
+}
+
+// Names each block of an example's code: its template, and its component
+// class if shown.
+.app-code-label {
+  margin: 0;
+  padding: 6px 15px;
+  border: 1px solid var(--app-border);
+  border-bottom: 0;
+  color: var(--app-muted);
+  background: var(--app-slate-light);
+  font-family: var(--app-font);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: 1.5;
 }
 
 // The same gradient stripe as the header, so the two bookend the page. Just

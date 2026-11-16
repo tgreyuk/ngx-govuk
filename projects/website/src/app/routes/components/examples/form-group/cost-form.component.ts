@@ -10,16 +10,16 @@ import { NgxGovukFormGroup } from 'ngx-govuk/form-group';
 import { NgxGovukTextInput } from 'ngx-govuk/text-input';
 
 @Component({
-  selector: 'app-form-group-demo',
+  selector: 'app-cost-form',
   imports: [
     ReactiveFormsModule,
     NgxGovukButton,
     NgxGovukFormGroup,
     NgxGovukTextInput,
   ],
-  templateUrl: './default.component.html',
+  templateUrl: './cost-form.component.html',
 })
-export class FormGroupDemoComponent {
+export class CostFormComponent {
   form = new FormGroup({
     cost: new FormControl('', [
       Validators.required,

@@ -79,7 +79,10 @@
       <div class="app-example">
         <ng-container *ngComponentOutlet="example.component" />
       </div>
-      <ngx-govuk-example-code [path]="example.path" />
+      <ngx-govuk-example-code
+        [path]="example.path"
+        [showComponentCode]="!!example.showComponentCode"
+      />
     </div>
   }
 }
