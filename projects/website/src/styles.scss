@@ -567,6 +567,7 @@ pre {
 // An example with its template attached underneath, so each demo is pinned to
 // its own code.
 .app-example-group {
+  position: relative;
   margin-bottom: 30px;
 
   .app-example {
@@ -585,6 +586,36 @@ pre {
     > app-code-block + .app-code-label {
       border-top: 0;
     }
+  }
+}
+
+// Puts a demo back in its first state, such as a cookie banner once it is
+// hidden. Sits in the frame's top-right corner, in its padding, so it never
+// covers the demo. The site's own style, like the copy button.
+.app-example__reset {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  z-index: 1;
+  padding: 2px 8px;
+  border: 0;
+  border-radius: 4px;
+  color: var(--app-muted);
+  background: transparent;
+  font-family: var(--app-font);
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  cursor: pointer;
+
+  &:hover {
+    color: var(--app-text);
+    background: var(--app-slate-light);
+  }
+
+  &:focus-visible {
+    outline: 3px solid var(--app-focus);
+    outline-offset: 0;
+    box-shadow: 0 0 0 5px var(--app-text);
   }
 }
 

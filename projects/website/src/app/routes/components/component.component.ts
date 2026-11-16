@@ -1,4 +1,4 @@
-import { Component, computed, input, resource } from '@angular/core';
+import { Component, computed, input, resource, signal } from '@angular/core';
 import { NgComponentOutlet } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { StartCasePipe } from '../../pipes/start-case.pipe';
@@ -44,4 +44,15 @@ export class ComponentComponent {
   });
 
   examples = computed(() => this.loadedExamples.value() ?? []);
+
+  /** How many times each example has been reset, by path. */
+  protected resets = signal<Record<string, number>>({});
+
+  /** Renders an example afresh, back in its first state. */
+  protected reset(path: string) {
+    this.resets.update((resets) => ({
+      ...resets,
+      [path]: (resets[path] ?? 0) + 1,
+    }));
+  }
 }

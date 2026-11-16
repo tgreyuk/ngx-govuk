@@ -24,6 +24,11 @@ export interface Example {
    * uses members of the class, such as signals or methods.
    */
   showComponentCode?: boolean;
+  /**
+   * Adds a button that puts the demo back in its first state. Set it when
+   * the demo can end up empty, such as a cookie banner once it is hidden.
+   */
+  resettable?: boolean;
 }
 
 /** Each documented component's examples, in page order. */
@@ -187,6 +192,7 @@ export const EXAMPLES: Record<string, Example[]> = {
           (m) => m.CookieBannerComponent,
         ),
       showComponentCode: true,
+      resettable: true,
     },
   ],
   'date-input': [

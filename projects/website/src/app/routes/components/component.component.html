@@ -76,8 +76,20 @@
       <p class="govuk-body">{{ example.description }}</p>
     }
     <div class="app-example-group">
+      @if (example.resettable) {
+        <button
+          type="button"
+          class="app-example__reset"
+          (click)="reset(example.path)"
+        >
+          Reset example
+        </button>
+      }
       <div class="app-example">
-        <ng-container *ngComponentOutlet="example.component" />
+        <!-- A new key renders the example afresh. -->
+        @for (run of [resets()[example.path] ?? 0]; track run) {
+          <ng-container *ngComponentOutlet="example.component" />
+        }
       </div>
       <ngx-govuk-example-code
         [path]="example.path"
