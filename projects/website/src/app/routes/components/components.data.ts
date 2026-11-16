@@ -93,7 +93,7 @@ export const COMPONENTS: ComponentEntry[] = [
     id: 'details',
     status: 'documented',
     description:
-      'Makes a page easier to scan by letting users reveal more detail when they need it.',
+      'Makes a page easier to scan by letting users reveal more detailed information only if they need it.',
   },
   {
     name: 'Error message',
