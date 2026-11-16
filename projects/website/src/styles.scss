@@ -673,12 +673,56 @@ ngx-govuk-root {
   margin: 0;
 }
 
+// The API reference's contents: a link to every component, directive and
+// type on the page, in two groups side by side when there's room. A light
+// panel, like the section strips, so it reads as the site's own navigation.
+.app-api-contents {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px 40px;
+  margin: 0 0 50px;
+  padding: 20px;
+  border-radius: 6px;
+  background-color: var(--app-slate-light);
+  font-family: var(--app-font);
+}
+
+.app-api-contents__title {
+  margin: 0 0 10px;
+  color: var(--app-muted);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.app-api-contents__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 1rem;
+  line-height: 1.5;
+
+  li + li {
+    margin-top: 6px;
+  }
+
+  // Inter, not the font GOV.UK's link styles set.
+  .govuk-link {
+    font-family: inherit;
+  }
+}
+
+// "Components and directives", then "Types": the space and the group heading
+// separate them, so there's no line between the groups, only between items.
+.app-api-group + .app-api-group {
+  margin-top: 80px;
+}
+
 // API reference section headings (Selector, Inputs, Outputs, Methods): on a
 // light strip, so they can't be mistaken for the bold member names below.
 // Element and both classes, to win over GOV.UK's padding for a heading that
 // follows body text.
-// Either level: h3 on a component's API tab, h4 under a guide's "API" heading.
-:is(h3, h4).govuk-heading-s.app-api-heading {
+// Either level: h4 on a component's API tab, h5 under a guide's "API" heading.
+:is(h4, h5).govuk-heading-s.app-api-heading {
   margin: 30px 0 20px;
   padding: 4px 10px;
   background-color: var(--app-slate-light);

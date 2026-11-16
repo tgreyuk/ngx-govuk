@@ -48,8 +48,10 @@ export class ComponentApiComponent {
   componentId = input<string>('');
 
   /**
-   * The level for each class's heading: 2 on the API tab, right under the
-   * page's `h1`, and 3 in a guide, under its own "API" `h2`.
+   * The level for the group headings, "Components and directives" and
+   * "Types": 2 on the API tab, right under the page's `h1`, and 3 in a guide,
+   * under its own "API" `h2`. Each item's name is one level lower, and its
+   * subheadings, such as Inputs, one lower again.
    */
   headingLevel = input<2 | 3>(3);
 
@@ -93,6 +95,28 @@ export class ComponentApiComponent {
       .value()
       .types.map((apiType) => typeWithParts(apiType, names));
   });
+
+  /**
+   * The groups, each with a link to every item in it, for the contents list.
+   * Empty groups are left out. Each item's heading has its name as its id.
+   */
+  protected contents = computed(() =>
+    [
+      {
+        title: 'Components and directives',
+        items: this.classes().map((apiClass) => apiClass.name),
+      },
+      {
+        title: 'Types',
+        items: this.types().map((apiType) => apiType.name),
+      },
+    ].filter((group) => group.items.length),
+  );
+
+  /** Whether to show the contents list: only when there's more than one item. */
+  protected showContents = computed(
+    () => this.classes().length + this.types().length > 1,
+  );
 
   /**
    * One import for everything in this entry point, to paste alongside the
