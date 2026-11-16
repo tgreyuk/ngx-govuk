@@ -15,7 +15,11 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NgControl } from '@angular/forms';
-import { NgxGovukUtilsService } from 'ngx-govuk';
+import {
+  NgxGovukPluralText,
+  NgxGovukUtilsService,
+  formatPluralText,
+} from 'ngx-govuk';
 import { NgxGovukTextarea } from 'ngx-govuk/textarea';
 
 /** How long users stop typing before screen readers hear the count. */
@@ -101,6 +105,63 @@ export class NgxGovukCharacterCount implements AfterContentInit {
    */
   threshold = input<number>();
 
+  /**
+   * Classes to add to the count message.
+   */
+  countMessageClasses = input<string>();
+
+  /**
+   * What screen readers hear about the limit, such as `You can enter up to
+   * %{count} characters`. `%{count}` is replaced with `maxLength`.
+   */
+  textareaDescriptionText = input<string>();
+
+  /**
+   * The count when users are under the character limit. `%{count}` is
+   * replaced with the number of characters left.
+   */
+  charactersUnderLimitText = input<NgxGovukPluralText>({
+    one: 'You have %{count} character remaining',
+    other: 'You have %{count} characters remaining',
+  });
+
+  /**
+   * The count when users reach the character limit.
+   */
+  charactersAtLimitText = input('You have 0 characters remaining');
+
+  /**
+   * The count when users are over the character limit. `%{count}` is
+   * replaced with the number of characters to remove.
+   */
+  charactersOverLimitText = input<NgxGovukPluralText>({
+    one: 'You have %{count} character too many',
+    other: 'You have %{count} characters too many',
+  });
+
+  /**
+   * The count when users are under the word limit. `%{count}` is replaced
+   * with the number of words left.
+   */
+  wordsUnderLimitText = input<NgxGovukPluralText>({
+    one: 'You have %{count} word remaining',
+    other: 'You have %{count} words remaining',
+  });
+
+  /**
+   * The count when users reach the word limit.
+   */
+  wordsAtLimitText = input('You have 0 words remaining');
+
+  /**
+   * The count when users are over the word limit. `%{count}` is replaced
+   * with the number of words to remove.
+   */
+  wordsOverLimitText = input<NgxGovukPluralText>({
+    one: 'You have %{count} word too many',
+    other: 'You have %{count} words too many',
+  });
+
   protected fieldId = signal('');
   protected hintId = computed(() => `${this.fieldId()}-hint`);
   protected errorId = computed(() => `${this.fieldId()}-error`);
@@ -112,6 +173,7 @@ export class NgxGovukCharacterCount implements AfterContentInit {
   });
 
   private element?: HTMLTextAreaElement;
+  private pluralRules = signal(new Intl.PluralRules('en'));
   private segmenters = new Map<NgxGovukCountType, Intl.Segmenter>();
   private value = signal('');
   private screenReaderValue = signal('');
@@ -124,16 +186,18 @@ export class NgxGovukCharacterCount implements AfterContentInit {
     const threshold = this.threshold();
     return !!threshold && this.length() < (this.maxLength() * threshold) / 100;
   });
-  protected unit = computed(() =>
-    this.countType() === 'words' ? 'words' : 'characters',
+  protected description = computed(() =>
+    (
+      this.textareaDescriptionText() ??
+      `You can enter up to %{count} ${
+        this.countType() === 'words' ? 'words' : 'characters'
+      }`
+    ).replace('%{count}', String(this.maxLength())),
   );
-  protected message = computed(() =>
-    countMessage(this.remaining(), this.unit()),
-  );
+  protected message = computed(() => this.countMessage(this.remaining()));
   protected screenReaderMessage = computed(() =>
-    countMessage(
+    this.countMessage(
       this.maxLength() - this.countOf(this.screenReaderValue()),
-      this.unit(),
     ),
   );
 
@@ -194,6 +258,8 @@ export class NgxGovukCharacterCount implements AfterContentInit {
     }
     this.fieldId.set(element.id);
     this.removeMaxLength(element);
+    const lang = element.closest('[lang]')?.getAttribute('lang') || 'en';
+    this.pluralRules.set(new Intl.PluralRules(lang));
 
     this.element = element;
     const count = () => this.count(element.value);
@@ -224,6 +290,23 @@ export class NgxGovukCharacterCount implements AfterContentInit {
     if (element.hasAttribute('maxlength')) {
       this.renderer.removeAttribute(element, 'maxlength');
     }
+  }
+
+  /** The count message for the count type, such as `You have 5 characters remaining`. */
+  private countMessage(remaining: number): string {
+    const words = this.countType() === 'words';
+    if (remaining === 0) {
+      return words ? this.wordsAtLimitText() : this.charactersAtLimitText();
+    }
+    const texts =
+      remaining < 0
+        ? words
+          ? this.wordsOverLimitText()
+          : this.charactersOverLimitText()
+        : words
+          ? this.wordsUnderLimitText()
+          : this.charactersUnderLimitText();
+    return formatPluralText(texts, Math.abs(remaining), this.pluralRules());
   }
 
   private count(value: string): void {
@@ -273,13 +356,4 @@ export class NgxGovukCharacterCount implements AfterContentInit {
     }
     return segmenter;
   }
-}
-
-/** GOV.UK Frontend's count message, such as `You have 5 characters remaining`. */
-function countMessage(remaining: number, unit: 'characters' | 'words'): string {
-  const count = Math.abs(remaining);
-  const units = count === 1 ? unit.slice(0, -1) : unit;
-  return remaining < 0
-    ? `You have ${count} ${units} too many`
-    : `You have ${count} ${units} remaining`;
 }
