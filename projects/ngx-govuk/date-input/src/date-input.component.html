@@ -30,25 +30,24 @@
       [id]="baseName()"
       (focusout)="focusOut($event)"
     >
-      @for (part of parts; track part.key) {
+      @for (field of fields(); track field.key) {
         <div class="govuk-date-input__item">
           <div class="govuk-form-group">
             <label
               class="govuk-label govuk-date-input__label"
-              [for]="baseName() + '-' + part.key"
+              [for]="field.id"
+              >{{ field.label }}</label
             >
-              {{ part.label }}
-            </label>
             <input
-              [class]="inputClasses(part)"
-              [id]="baseName() + '-' + part.key"
-              [name]="baseName() + '-' + part.key"
+              [class]="inputClasses(field.key, field.width)"
+              [id]="field.id"
+              [name]="field.id"
               type="text"
               inputmode="numeric"
-              [attr.autocomplete]="dateOfBirth() ? 'bday-' + part.key : null"
-              [value]="value()[part.key]"
+              [attr.autocomplete]="dateOfBirth() ? 'bday-' + field.key : null"
+              [value]="value()[field.key]"
               [disabled]="disabled()"
-              (input)="update(part.key, $event)"
+              (input)="update(field.key, $event)"
             />
           </div>
         </div>

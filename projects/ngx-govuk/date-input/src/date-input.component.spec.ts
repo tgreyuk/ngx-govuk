@@ -29,6 +29,15 @@ import {
       [dateOfBirth]="true"
       [(value)]="birthday"
     />
+
+    <ngx-govuk-date-input
+      name="expiry"
+      legend="Pryd mae'r cerdyn yn dod i ben?"
+      [parts]="['year', 'month']"
+      monthLabel="Mis"
+      yearLabel="Blwyddyn"
+      [(value)]="expiry"
+    />
   `,
 })
 class HostComponent {
@@ -41,6 +50,7 @@ class HostComponent {
     month: '2',
     year: '1990',
   });
+  expiry = signal<NgxGovukDateInputValue>({ day: '', month: '', year: '' });
 }
 
 describe('NgxGovukDateInput', () => {
@@ -135,6 +145,29 @@ describe('NgxGovukDateInput', () => {
 
     leave('passport-issued-year', input('date-generated-day'));
     expect(host.control.touched).toBe(true);
+  });
+
+  it('asks only for the parts it is given, in day, month, year order', () => {
+    const { host, $, input, type } = setup();
+    const ids = Array.from(
+      $('#expiry').querySelectorAll('input'),
+      (field) => field.id,
+    );
+    expect(ids).toEqual(['expiry-month', 'expiry-year']);
+
+    type('expiry-month', '9');
+    expect(host.expiry()).toEqual({ day: '', month: '9', year: '' });
+    expect(input('expiry-year').classList).toContain('govuk-input--width-4');
+  });
+
+  it('takes its own labels, such as for Welsh', () => {
+    const { $ } = setup();
+    const labels = Array.from(
+      $('#expiry').querySelectorAll('label'),
+      (label) => label.textContent,
+    );
+    expect(labels).toEqual(['Mis', 'Blwyddyn']);
+    expect($('label[for="passport-issued-day"]').textContent).toBe('Day');
   });
 
   it('binds both ways to a signal', () => {

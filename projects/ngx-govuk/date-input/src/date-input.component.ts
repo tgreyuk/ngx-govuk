@@ -23,11 +23,7 @@ export type NgxGovukDateInputPart = 'day' | 'month' | 'year';
 
 const EMPTY: NgxGovukDateInputValue = { day: '', month: '', year: '' };
 
-const PARTS: { key: NgxGovukDateInputPart; label: string; width: 2 | 4 }[] = [
-  { key: 'day', label: 'Day', width: 2 },
-  { key: 'month', label: 'Month', width: 2 },
-  { key: 'year', label: 'Year', width: 4 },
-];
+const ALL_PARTS: NgxGovukDateInputPart[] = ['day', 'month', 'year'];
 
 /**
  * Helps users enter a date they know or can find easily, such as their date
@@ -84,9 +80,31 @@ export class NgxGovukDateInput implements ControlValueAccessor {
 
   /**
    * The parts of the date the error message is about, such as `['year']`.
-   * Only those fields show their error styles. When unset, all three do.
+   * Only those fields show their error styles. When unset, all of them do.
    */
   errorParts = input<NgxGovukDateInputPart[]>();
+
+  /**
+   * The parts of the date to ask for, such as `['month', 'year']` for a card's
+   * expiry date. They're always shown in the order day, month, year. The
+   * value keeps an empty string for each part that isn't shown.
+   */
+  parts = input<NgxGovukDateInputPart[]>(['day', 'month', 'year']);
+
+  /**
+   * The day field's label, such as `Diwrnod` in Welsh.
+   */
+  dayLabel = input('Day');
+
+  /**
+   * The month field's label, such as `Mis` in Welsh.
+   */
+  monthLabel = input('Month');
+
+  /**
+   * The year field's label, such as `Blwyddyn` in Welsh.
+   */
+  yearLabel = input('Year');
 
   /**
    * The base for the fields' `name` and `id`, such as `passport-issued`. When
@@ -113,10 +131,24 @@ export class NgxGovukDateInput implements ControlValueAccessor {
   private onTouched: () => void = () => {};
 
   protected disabled = signal(false);
-  protected parts = PARTS;
   protected baseName = computed(() => this.name() ?? this.generatedName);
   protected hintId = computed(() => `${this.baseName()}-hint`);
   protected errorId = computed(() => `${this.baseName()}-error`);
+
+  protected fields = computed(() => {
+    const labels = {
+      day: this.dayLabel(),
+      month: this.monthLabel(),
+      year: this.yearLabel(),
+    };
+    const shown = this.parts();
+    return ALL_PARTS.filter((part) => shown.includes(part)).map((part) => ({
+      key: part,
+      id: `${this.baseName()}-${part}`,
+      label: labels[part],
+      width: part === 'year' ? 4 : 2,
+    }));
+  });
 
   protected describedBy = computed(
     () =>
@@ -135,14 +167,14 @@ export class NgxGovukDateInput implements ControlValueAccessor {
       : 'govuk-fieldset__legend';
   });
 
-  protected inputClasses(part: (typeof PARTS)[number]): string {
+  protected inputClasses(part: NgxGovukDateInputPart, width: number): string {
     const parts = this.errorParts();
     const hasError =
-      !!this.errorMessage() && (!parts?.length || parts.includes(part.key));
+      !!this.errorMessage() && (!parts?.length || parts.includes(part));
     return [
       'govuk-input',
       'govuk-date-input__input',
-      `govuk-input--width-${part.width}`,
+      `govuk-input--width-${width}`,
       hasError ? 'govuk-input--error' : '',
     ]
       .filter(Boolean)
