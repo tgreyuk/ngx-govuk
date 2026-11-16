@@ -9,6 +9,7 @@ import {
   EmbeddedViewRef,
   forwardRef,
   inject,
+  InjectionToken,
   input,
   model,
   signal,
@@ -19,6 +20,12 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgxGovukUtilsService } from 'ngx-govuk';
+
+/**
+ * The options and dividers in `ngx-govuk-radios`, in order. GOV.UK Frontend
+ * counts dividers when it numbers the ids, so they're queried together.
+ */
+const RADIOS_ITEM = new InjectionToken<unknown>('RADIOS_ITEM');
 
 /**
  * Content shown under an option only while it's selected, such as a question
@@ -47,6 +54,12 @@ export class NgxGovukRadioConditional {
 @Directive({
   selector: 'div[ngxGovukRadiosDivider]',
   host: { class: 'govuk-radios__divider' },
+  providers: [
+    {
+      provide: RADIOS_ITEM,
+      useExisting: forwardRef(() => NgxGovukRadiosDivider),
+    },
+  ],
 })
 export class NgxGovukRadiosDivider {}
 
@@ -61,6 +74,9 @@ export class NgxGovukRadiosDivider {}
   imports: [NgTemplateOutlet],
   templateUrl: './radio.component.html',
   host: { class: 'govuk-radios__item' },
+  providers: [
+    { provide: RADIOS_ITEM, useExisting: forwardRef(() => NgxGovukRadio) },
+  ],
 })
 export class NgxGovukRadio {
   protected group = inject(NgxGovukRadios);
@@ -120,7 +136,8 @@ export class NgxGovukRadio {
  * `ngxGovukRadiosDivider` before it.
  *
  * The first option's id is the `name`, so an error summary can link to it.
- * The others are `<name>-2`, `<name>-3` and so on, as in GOV.UK Frontend.
+ * The others are `<name>-2`, `<name>-3` and so on, as in GOV.UK Frontend,
+ * which counts a divider as an item.
  */
 @Component({
   selector: 'ngx-govuk-radios',
@@ -185,7 +202,7 @@ export class NgxGovukRadios implements ControlValueAccessor {
   value = model<string | null>(null);
 
   private generatedName = inject(NgxGovukUtilsService).randomId('radios');
-  private radios = contentChildren(NgxGovukRadio, { descendants: true });
+  private items = contentChildren(RADIOS_ITEM, { descendants: true });
   private onChange: (value: string | null) => void = () => {};
   private onTouched: () => void = () => {};
 
@@ -217,7 +234,7 @@ export class NgxGovukRadios implements ControlValueAccessor {
 
   /** @internal */
   radioId(radio: NgxGovukRadio): string {
-    const index = this.radios().indexOf(radio);
+    const index = this.items().indexOf(radio);
     return index > 0 ? `${this.groupName()}-${index + 1}` : this.groupName();
   }
 

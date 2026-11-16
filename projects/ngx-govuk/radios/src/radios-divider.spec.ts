@@ -29,13 +29,13 @@ describe('NgxGovukRadiosDivider', () => {
     expect(element.querySelector('.govuk-radios')).toMatchSnapshot();
   });
 
-  it("doesn't count as an option", () => {
+  it('counts as an item when numbering the ids, as GOV.UK Frontend does', () => {
     const fixture = TestBed.createComponent(HostComponent);
     fixture.detectChanges();
     const element = fixture.nativeElement as HTMLElement;
     const ids = Array.from(element.querySelectorAll('input')).map(
       (input) => input.id,
     );
-    expect(ids).toEqual(['where', 'where-2', 'where-3']);
+    expect(ids).toEqual(['where', 'where-2', 'where-4']);
   });
 });
