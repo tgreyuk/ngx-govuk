@@ -47,12 +47,14 @@ exports[`NgxGovukCheckboxes > matches the GOV.UK markup snapshot 1`] = `
         <ngx-govuk-checkbox
           class="govuk-checkboxes__item ng-untouched ng-pristine ng-valid"
           formcontrolname="british"
+          value="british"
         >
           <input
             class="govuk-checkboxes__input"
             id="nationality"
             name="nationality"
             type="checkbox"
+            value="british"
           />
           <label
             class="govuk-label govuk-checkboxes__label"

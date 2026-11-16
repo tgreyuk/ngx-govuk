@@ -3,6 +3,7 @@
   [id]="inputId()"
   [name]="group.groupName()"
   type="checkbox"
+  [attr.value]="value() ?? null"
   [checked]="checked()"
   [disabled]="isDisabled()"
   [attr.aria-describedby]="hint() ? hintId() : null"

@@ -99,6 +99,12 @@ export class NgxGovukCheckbox implements ControlValueAccessor {
   checked = model<boolean>(false);
 
   /**
+   * The input's `value` attribute, sent when a form is submitted without
+   * Angular. The form control's value is still `true` or `false`.
+   */
+  value = input<string>();
+
+  /**
    * Hint text for this checkbox.
    */
   hint = input<string>();

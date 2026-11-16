@@ -18,7 +18,7 @@ import { NgxGovukCheckbox, NgxGovukCheckboxes } from './checkboxes.component';
         [asPageHeading]="asPageHeading()"
         formGroupName="nationality"
       >
-        <ngx-govuk-checkbox formControlName="british"
+        <ngx-govuk-checkbox formControlName="british" value="british"
           >British</ngx-govuk-checkbox
         >
         <ngx-govuk-checkbox
@@ -84,6 +84,12 @@ describe('NgxGovukCheckboxes', () => {
     expect(input('nationality-3')).not.toBeNull();
     expect(input('checkboxes-generated')).not.toBeNull();
     expect(input('checkboxes-generated-2')).not.toBeNull();
+  });
+
+  it('sets the value attribute only when a value is given', () => {
+    const { input } = setup();
+    expect(input('nationality').getAttribute('value')).toBe('british');
+    expect(input('nationality-2').hasAttribute('value')).toBe(false);
   });
 
   it('links checkbox hints to their input', () => {
