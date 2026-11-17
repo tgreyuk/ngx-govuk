@@ -437,6 +437,16 @@ export const EXAMPLES: Record<string, Example[]> = {
       showComponentCode: true,
     },
     {
+      path: 'radios/changed-name',
+      load: () =>
+        import('./examples/radios/changed-name.component').then(
+          (m) => m.ChangedNameComponent,
+        ),
+      showComponentCode: true,
+      title: 'Inline radios',
+      description: 'Set "inline" to show the options side by side.',
+    },
+    {
       path: 'radios/contact-preference',
       load: () =>
         import('./examples/radios/contact-preference.component').then(
