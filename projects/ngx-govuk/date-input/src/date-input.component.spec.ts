@@ -90,6 +90,11 @@ describe('NgxGovukDateInput', () => {
     expect($('#issued')).toMatchSnapshot();
   });
 
+  it('renders the legend text with no space around it', () => {
+    const { $ } = setup();
+    expect($('legend').textContent).toBe('When was your passport issued?');
+  });
+
   it('bases the ids and names on the name, as GOV.UK Frontend does', () => {
     const { $, input } = setup();
     expect($('.govuk-date-input').id).toBe('passport-issued');

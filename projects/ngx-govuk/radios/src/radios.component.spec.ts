@@ -103,6 +103,11 @@ describe('NgxGovukRadios', () => {
     expect($('#contact-radios')).toMatchSnapshot();
   });
 
+  it('renders the legend text with no space around it', () => {
+    const { $ } = setup();
+    expect($('legend').textContent).toBe('How would you like to be contacted?');
+  });
+
   it('bases the ids on the name, as GOV.UK Frontend does', () => {
     const { $, input } = setup();
     expect(input('contact').value).toBe('email');

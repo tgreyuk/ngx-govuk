@@ -3,7 +3,7 @@
     @if (asPageHeading()) {
       <h1 class="govuk-fieldset__heading">{{ legend() }}</h1>
     } @else {
-      {{ legend() }}
+      <ng-container>{{ legend() }}</ng-container>
     }
   </legend>
 

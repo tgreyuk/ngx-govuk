@@ -45,7 +45,7 @@ describe('NgxGovukFieldset', () => {
   it('has a body-size legend by default', () => {
     const { legend } = setup();
     expect(legend().className).toBe('govuk-fieldset__legend');
-    expect(legend().textContent?.trim()).toBe('What is your address?');
+    expect(legend().textContent).toBe('What is your address?');
   });
 
   it('makes the legend a large page heading', () => {

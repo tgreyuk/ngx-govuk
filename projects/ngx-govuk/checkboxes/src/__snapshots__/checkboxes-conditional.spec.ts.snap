@@ -13,7 +13,7 @@ exports[`NgxGovukCheckboxConditional > matches the GOV.UK markup snapshot 1`] = 
       <legend
         class="govuk-fieldset__legend"
       >
-         How would you like to be contacted? 
+        How would you like to be contacted?
       </legend>
       <div
         class="govuk-checkboxes"

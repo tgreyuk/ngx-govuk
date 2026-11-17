@@ -85,6 +85,11 @@ describe('NgxGovukCheckboxes', () => {
     expect($('#nationality-checkboxes')).toMatchSnapshot();
   });
 
+  it('renders the legend text with no space around it', () => {
+    const { $ } = setup();
+    expect($('legend').textContent).toBe('What is your nationality?');
+  });
+
   it('bases the ids on the name, as GOV.UK Frontend does', () => {
     const { $, input } = setup();
     expect(input('nationality').name).toBe('nationality');
