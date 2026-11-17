@@ -96,6 +96,13 @@ test('reads inputs and models, with the type of value they hold', () => {
       required: false,
     },
     {
+      name: 'id',
+      kind: 'input',
+      description: ['An input whose initial value is worked out by a call.'],
+      type: 'string',
+      required: false,
+    },
+    {
       name: 'checked',
       kind: 'model',
       description: ['A two-way binding.'],

@@ -230,7 +230,13 @@ function addInputOrOutput(
       type:
         writtenType(checker, call, { omitUndefined: !required }) ??
         valueType(checker, signalType, { omitUndefined: !required }),
-      default: initialValue?.getText(),
+      // A default worked out by a call, such as a generated id, is code
+      // rather than a value, so it's left out: the input's JSDoc says what
+      // it defaults to.
+      default:
+        initialValue && !ts.isCallExpression(initialValue)
+          ? initialValue.getText()
+          : undefined,
       required,
     };
     if (input.default === undefined) {

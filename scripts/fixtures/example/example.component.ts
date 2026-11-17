@@ -38,6 +38,9 @@ export class ExampleComponent {
   /** An input with a transform. */
   compact = input(false, { transform: booleanAttribute });
 
+  /** An input whose initial value is worked out by a call. */
+  id = input(String(Math.random()));
+
   /** A two-way binding. */
   checked = model(false);
 
