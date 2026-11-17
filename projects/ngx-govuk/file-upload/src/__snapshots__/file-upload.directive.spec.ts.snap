@@ -53,13 +53,15 @@ exports[`NgxGovukFileUpload > matches the GOV.UK markup snapshot with an error 1
     <p
       class="govuk-error-message"
       id="file-upload-error"
+      ngxgovukerrormessage=""
     >
       <span
         class="govuk-visually-hidden"
       >
         Error:
       </span>
-       The selected file must be a JPG or PNG 
+       
+      The selected file must be a JPG or PNG
     </p>
     <input
       aria-describedby="file-upload-hint file-upload-error"

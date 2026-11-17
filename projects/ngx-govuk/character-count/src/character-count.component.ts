@@ -21,6 +21,7 @@ import {
   formatPluralText,
 } from 'ngx-govuk';
 import { NgxGovukTextarea } from 'ngx-govuk/textarea';
+import { NgxGovukErrorMessage } from 'ngx-govuk/error-message';
 
 /** How long users stop typing before screen readers hear the count. */
 const SCREEN_READER_DELAY = 1000;
@@ -37,8 +38,8 @@ export type NgxGovukCountType = 'length' | 'characters' | 'words';
  * textarea.
  *
  * Use it in place of `ngx-govuk-form-group`: put a `textarea` with
- * `ngxGovukTextarea` inside it, and it adds the label, hint, error message
- * and count. Users can type past the limit, and the count tells them how many
+ * `ngxGovukTextarea` inside it, and it adds the label, hint and count. To
+ * show an error, put a `p` with `ngxGovukErrorMessage` inside it too. Users can type past the limit, and the count tells them how many
  * characters or words to remove, as GOV.UK recommends, so a `maxlength`
  * attribute on the textarea is removed. Check the length when the form is
  * submitted too, counting the same way.
@@ -84,13 +85,6 @@ export class NgxGovukCharacterCount implements AfterContentInit {
    * Hint text, to help users answer the question.
    */
   hint = input<string>();
-
-  /**
-   * The error message. When it's set, the character count and its textarea
-   * show their error styles. Set it when validation fails, such as after the
-   * form is submitted.
-   */
-  errorMessage = input<string | null>();
 
   /**
    * The most characters users should enter, or words when `countType` is
@@ -171,6 +165,16 @@ export class NgxGovukCharacterCount implements AfterContentInit {
   protected fieldId = signal('');
   protected hintId = computed(() => `${this.fieldId()}-hint`);
   protected errorId = computed(() => `${this.fieldId()}-error`);
+
+  /** The projected error message, if there is one. */
+  protected errorMessage = contentChild(NgxGovukErrorMessage, {
+    descendants: false,
+  });
+
+  /** Gives the projected error message the id GOV.UK Frontend uses. */
+  private linkErrorMessage = effect(() =>
+    this.errorMessage()?.fieldErrorId.set(this.errorId()),
+  );
   protected infoId = computed(() => `${this.fieldId()}-info`);
 
   protected labelClasses = computed(() => {
@@ -215,7 +219,7 @@ export class NgxGovukCharacterCount implements AfterContentInit {
       this.initialDescribedBy(),
       this.infoId(),
       this.hint() ? this.hintId() : '',
-      this.errorMessage() ? this.errorId() : '',
+      this.errorMessage()?.id() ?? '',
     ]
       .filter(Boolean)
       .join(' '),

@@ -1,23 +1,31 @@
 import { Component, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { NgxGovukErrorMessage } from 'ngx-govuk/error-message';
 import { NgxGovukUtilsService } from 'ngx-govuk';
 import { NgxGovukTextarea } from 'ngx-govuk/textarea';
 import { MockProvider } from 'ng-mocks';
 import { NgxGovukCharacterCount } from './character-count.component';
 
 @Component({
-  imports: [NgxGovukCharacterCount, NgxGovukTextarea, ReactiveFormsModule],
+  imports: [
+    NgxGovukErrorMessage,
+    NgxGovukCharacterCount,
+    NgxGovukTextarea,
+    ReactiveFormsModule,
+  ],
   template: `
     <ngx-govuk-character-count
       id="detail-count"
       label="Can you provide more detail?"
       [hint]="hint()"
-      [errorMessage]="errorMessage()"
       [asPageHeading]="asPageHeading()"
       [maxLength]="10"
       [threshold]="threshold()"
     >
+      @if (errorMessage()) {
+        <p ngxGovukErrorMessage>{{ errorMessage() }}</p>
+      }
       <textarea
         id="detail"
         ngxGovukTextarea

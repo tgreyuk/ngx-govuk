@@ -11,11 +11,7 @@
     <div [id]="hintId()" class="govuk-hint">{{ hint() }}</div>
   }
 
-  @if (errorMessage()) {
-    <p [id]="errorId()" class="govuk-error-message">
-      <span class="govuk-visually-hidden">Error:</span> {{ errorMessage() }}
-    </p>
-  }
+  <ng-content select="[ngxGovukErrorMessage]"></ng-content>
 
   <div class="govuk-checkboxes" [class.govuk-checkboxes--small]="small()">
     <ng-content></ng-content>

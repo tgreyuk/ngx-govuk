@@ -1,6 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { NgxGovukErrorMessage } from 'ngx-govuk/error-message';
 import { NgxGovukUtilsService } from 'ngx-govuk';
 import { MockProvider } from 'ng-mocks';
 import {
@@ -10,18 +11,21 @@ import {
 } from './date-input.component';
 
 @Component({
-  imports: [NgxGovukDateInput, ReactiveFormsModule],
+  imports: [NgxGovukErrorMessage, NgxGovukDateInput, ReactiveFormsModule],
   template: `
     <ngx-govuk-date-input
       id="issued"
       name="passport-issued"
       legend="When was your passport issued?"
       hint="For example, 27 3 2007"
-      [errorMessage]="errorMessage()"
       [errorParts]="errorParts()"
       [asPageHeading]="asPageHeading()"
       [formControl]="control"
-    />
+    >
+      @if (errorMessage()) {
+        <p ngxGovukErrorMessage>{{ errorMessage() }}</p>
+      }
+    </ngx-govuk-date-input>
 
     <ngx-govuk-date-input
       id="birth"

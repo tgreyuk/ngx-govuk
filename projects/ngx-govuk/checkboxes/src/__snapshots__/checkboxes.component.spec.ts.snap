@@ -30,13 +30,15 @@ exports[`NgxGovukCheckboxes > matches the GOV.UK markup snapshot 1`] = `
     <p
       class="govuk-error-message"
       id="nationality-error"
+      ngxgovukerrormessage=""
     >
       <span
         class="govuk-visually-hidden"
       >
         Error:
       </span>
-       Select your nationality 
+       
+      Select your nationality
     </p>
     <div
       class="govuk-checkboxes"

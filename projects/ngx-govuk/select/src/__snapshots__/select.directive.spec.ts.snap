@@ -68,13 +68,15 @@ exports[`NgxGovukSelect > matches the GOV.UK markup snapshot with an error 1`] =
     <p
       class="govuk-error-message"
       id="sort-error"
+      ngxgovukerrormessage=""
     >
       <span
         class="govuk-visually-hidden"
       >
         Error:
       </span>
-       Choose how to sort the results 
+       
+      Choose how to sort the results
     </p>
     <select
       aria-describedby="sort-hint sort-error"

@@ -10,11 +10,7 @@
   <div [attr.id]="hintId()" class="govuk-hint">{{ hint() }}</div>
 }
 
-@if (errorMessage()) {
-  <p [attr.id]="errorId()" class="govuk-error-message">
-    <span class="govuk-visually-hidden">Error:</span> {{ errorMessage() }}
-  </p>
-}
+<ng-content select="[ngxGovukErrorMessage]"></ng-content>
 
 <!-- GOV.UK Frontend only adds the wrapper when there is a prefix or suffix.
      Angular allows one default ng-content, so it is captured here once. -->

@@ -25,13 +25,15 @@ exports[`NgxGovukCharacterCount > matches the GOV.UK markup snapshot 1`] = `
   <p
     class="govuk-error-message"
     id="detail-error"
+    ngxgovukerrormessage=""
   >
     <span
       class="govuk-visually-hidden"
     >
       Error:
     </span>
-     Enter more detail 
+     
+    Enter more detail
   </p>
   <textarea
     aria-describedby="own-help detail-info detail-hint detail-error"

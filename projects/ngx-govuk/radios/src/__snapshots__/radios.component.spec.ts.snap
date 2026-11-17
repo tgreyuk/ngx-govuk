@@ -29,13 +29,15 @@ exports[`NgxGovukRadios > matches the GOV.UK markup snapshot 1`] = `
     <p
       class="govuk-error-message"
       id="contact-error"
+      ngxgovukerrormessage=""
     >
       <span
         class="govuk-visually-hidden"
       >
         Error:
       </span>
-       Select how you would like to be contacted 
+       
+      Select how you would like to be contacted
     </p>
     <div
       class="govuk-radios"

@@ -13,13 +13,15 @@ import {
 } from '@angular/core';
 import { NgxGovukUtilsService } from 'ngx-govuk';
 import { NgxGovukTextInput } from 'ngx-govuk/text-input';
+import { NgxGovukErrorMessage } from 'ngx-govuk/error-message';
 
 /**
  * Helps users enter a password, with a button to show it.
  *
  * Use it in place of `ngx-govuk-form-group`: put an `input` with
- * `ngxGovukTextInput` inside it, and it adds the label, hint, error message
- * and "Show" button. It makes the input a password field, turns off spell
+ * `ngxGovukTextInput` inside it, and it adds the label, hint and "Show"
+ * button. To show an error, put a `p` with `ngxGovukErrorMessage` inside it
+ * too. It makes the input a password field, turns off spell
  * checking and capitalisation, and sets `autocomplete` to `current-password`
  * unless the input has its own. Use `new-password` when users are creating
  * one.
@@ -65,16 +67,19 @@ export class NgxGovukPasswordInput implements AfterContentInit {
    */
   hint = input<string>();
 
-  /**
-   * The error message. When it's set, the password input shows its error
-   * styles. Set it when validation fails, such as after the form is
-   * submitted.
-   */
-  errorMessage = input<string | null>();
-
   protected fieldId = signal('');
   protected hintId = computed(() => `${this.fieldId()}-hint`);
   protected errorId = computed(() => `${this.fieldId()}-error`);
+
+  /** The projected error message, if there is one. */
+  protected errorMessage = contentChild(NgxGovukErrorMessage, {
+    descendants: false,
+  });
+
+  /** Gives the projected error message the id GOV.UK Frontend uses. */
+  private linkErrorMessage = effect(() =>
+    this.errorMessage()?.fieldErrorId.set(this.errorId()),
+  );
 
   protected labelClasses = computed(() => {
     const size = this.labelSize() ?? (this.asPageHeading() ? 'l' : undefined);
@@ -92,7 +97,7 @@ export class NgxGovukPasswordInput implements AfterContentInit {
     [
       this.initialDescribedBy(),
       this.hint() ? this.hintId() : '',
-      this.errorMessage() ? this.errorId() : '',
+      this.errorMessage()?.id() ?? '',
     ]
       .filter(Boolean)
       .join(' '),

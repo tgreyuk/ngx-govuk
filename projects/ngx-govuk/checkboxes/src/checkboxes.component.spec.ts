@@ -1,12 +1,18 @@
 import { Component, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { NgxGovukErrorMessage } from 'ngx-govuk/error-message';
 import { NgxGovukUtilsService } from 'ngx-govuk';
 import { MockProvider } from 'ng-mocks';
 import { NgxGovukCheckbox, NgxGovukCheckboxes } from './checkboxes.component';
 
 @Component({
-  imports: [NgxGovukCheckboxes, NgxGovukCheckbox, ReactiveFormsModule],
+  imports: [
+    NgxGovukErrorMessage,
+    NgxGovukCheckboxes,
+    NgxGovukCheckbox,
+    ReactiveFormsModule,
+  ],
   template: `
     <form [formGroup]="form">
       <ngx-govuk-checkboxes
@@ -14,10 +20,12 @@ import { NgxGovukCheckbox, NgxGovukCheckboxes } from './checkboxes.component';
         name="nationality"
         legend="What is your nationality?"
         [hint]="hint()"
-        [errorMessage]="errorMessage()"
         [asPageHeading]="asPageHeading()"
         formGroupName="nationality"
       >
+        @if (errorMessage()) {
+          <p ngxGovukErrorMessage>{{ errorMessage() }}</p>
+        }
         <ngx-govuk-checkbox formControlName="british" value="british"
           >British</ngx-govuk-checkbox
         >

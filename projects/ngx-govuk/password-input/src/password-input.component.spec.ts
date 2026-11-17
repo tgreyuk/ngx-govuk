@@ -1,16 +1,16 @@
 import { Component, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
+import { NgxGovukErrorMessage } from 'ngx-govuk/error-message';
 import { NgxGovukTextInput } from 'ngx-govuk/text-input';
 import { NgxGovukPasswordInput } from './password-input.component';
 
 @Component({
-  imports: [NgxGovukPasswordInput, NgxGovukTextInput],
+  imports: [NgxGovukErrorMessage, NgxGovukPasswordInput, NgxGovukTextInput],
   template: `<form (submit)="$event.preventDefault()">
-    <ngx-govuk-password-input
-      label="Password"
-      [hint]="hint()"
-      [errorMessage]="errorMessage()"
-    >
+    <ngx-govuk-password-input label="Password" [hint]="hint()">
+      @if (errorMessage()) {
+        <p ngxGovukErrorMessage>{{ errorMessage() }}</p>
+      }
       <input id="password" name="password" ngxGovukTextInput />
     </ngx-govuk-password-input>
     <ngx-govuk-password-input label="New password">

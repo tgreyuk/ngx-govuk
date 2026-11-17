@@ -12,14 +12,16 @@ import {
   booleanAttribute,
 } from '@angular/core';
 import { NGX_GOVUK_FIELD, NgxGovukUtilsService } from 'ngx-govuk';
+import { NgxGovukErrorMessage } from 'ngx-govuk/error-message';
 
 /**
- * Adds a label, hint and error message to a form field, and connects them for
- * assistive technology, as GOV.UK Frontend's macros do.
+ * Adds a label and hint to a form field, and connects them and any error
+ * message for assistive technology, as GOV.UK Frontend's macros do.
  *
  * Put one field inside it, such as an `input` with `ngxGovukTextInput` or a
  * `textarea` with `ngxGovukTextarea`. The field keeps its own attributes. Give
- * it an `id`, or one is generated.
+ * it an `id`, or one is generated. To show an error, put a `p` with
+ * `ngxGovukErrorMessage` inside it too: it goes between the hint and the field.
  *
  * The hint and error message get ids based on the field's id (`<id>-hint` and
  * `<id>-error`), and the field's `aria-describedby` points to them.
@@ -63,13 +65,6 @@ export class NgxGovukFormGroup implements AfterContentInit {
   hint = input<string>();
 
   /**
-   * The error message. When it's set, the form group and its field show their
-   * error styles. Set it when validation fails, such as after the form is
-   * submitted, as GOV.UK recommends.
-   */
-  errorMessage = input<string | null>();
-
-  /**
    * Text shown before the field, such as `£`.
    */
   prefix = input<string>();
@@ -89,6 +84,16 @@ export class NgxGovukFormGroup implements AfterContentInit {
   protected hintId = computed(() => `${this.fieldId()}-hint`);
   protected errorId = computed(() => `${this.fieldId()}-error`);
 
+  /** The projected error message, if there is one. */
+  protected errorMessage = contentChild(NgxGovukErrorMessage, {
+    descendants: false,
+  });
+
+  /** Gives the projected error message the id GOV.UK Frontend uses. */
+  private linkErrorMessage = effect(() =>
+    this.errorMessage()?.fieldErrorId.set(this.errorId()),
+  );
+
   protected labelClasses = computed(() => {
     const size = this.labelSize() ?? (this.asPageHeading() ? 'l' : undefined);
     return size ? `govuk-label govuk-label--${size}` : 'govuk-label';
@@ -101,7 +106,7 @@ export class NgxGovukFormGroup implements AfterContentInit {
     [
       this.initialDescribedBy(),
       this.hint() ? this.hintId() : '',
-      this.errorMessage() ? this.errorId() : '',
+      this.errorMessage()?.id() ?? '',
     ]
       .filter(Boolean)
       .join(' '),

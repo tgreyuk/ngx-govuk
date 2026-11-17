@@ -1,15 +1,18 @@
 import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
+import { NgxGovukErrorMessage } from 'ngx-govuk/error-message';
 import { NgxGovukFormGroup } from 'ngx-govuk/form-group';
 import { NgxGovukFileUpload } from './file-upload.directive';
 
 @Component({
-  imports: [NgxGovukFormGroup, NgxGovukFileUpload],
+  imports: [NgxGovukErrorMessage, NgxGovukFormGroup, NgxGovukFileUpload],
   template: `<ngx-govuk-form-group
     label="Upload a file"
     hint="Your photo may be in your Pictures, Photos, Downloads or Desktop folder"
-    [errorMessage]="errorMessage"
   >
+    @if (errorMessage) {
+      <p ngxGovukErrorMessage>{{ errorMessage }}</p>
+    }
     <input id="file-upload" name="fileUpload" type="file" ngxGovukFileUpload />
   </ngx-govuk-form-group>`,
 })

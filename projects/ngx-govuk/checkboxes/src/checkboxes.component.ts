@@ -20,6 +20,7 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgxGovukUtilsService } from 'ngx-govuk';
+import { NgxGovukErrorMessage } from 'ngx-govuk/error-message';
 
 /**
  * The checkboxes and dividers in `ngx-govuk-checkboxes`, in order. GOV.UK
@@ -190,7 +191,8 @@ export class NgxGovukCheckbox implements ControlValueAccessor {
  * Lets users select one or more options from a list.
  *
  * Put an `ngx-govuk-checkbox` inside it for each option. It adds the fieldset,
- * legend, hint and error message. To keep the checkboxes' form controls
+ * legend and hint. To show an error, put a `p` with `ngxGovukErrorMessage`
+ * inside it too. To keep the checkboxes' form controls
  * together, put `formGroupName` on it.
  *
  * For a "None" option, put a `div` with `ngxGovukCheckboxesDivider` after the
@@ -234,12 +236,6 @@ export class NgxGovukCheckboxes {
   hint = input<string>();
 
   /**
-   * The error message. When it's set, the checkboxes show their error styles.
-   * Set it when validation fails, such as after the form is submitted.
-   */
-  errorMessage = input<string | null>();
-
-  /**
    * The checkboxes' `name`, which their ids are based on. When unset, one is
    * generated.
    */
@@ -260,12 +256,19 @@ export class NgxGovukCheckboxes {
   protected hintId = computed(() => `${this.groupName()}-hint`);
   protected errorId = computed(() => `${this.groupName()}-error`);
 
+  /** The projected error message, if there is one. */
+  protected errorMessage = contentChild(NgxGovukErrorMessage, {
+    descendants: false,
+  });
+
+  /** Gives the projected error message the id GOV.UK Frontend uses. */
+  private linkErrorMessage = effect(() =>
+    this.errorMessage()?.fieldErrorId.set(this.errorId()),
+  );
+
   protected describedBy = computed(
     () =>
-      [
-        this.hint() ? this.hintId() : '',
-        this.errorMessage() ? this.errorId() : '',
-      ]
+      [this.hint() ? this.hintId() : '', this.errorMessage()?.id() ?? '']
         .filter(Boolean)
         .join(' ') || null,
   );

@@ -20,6 +20,7 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgxGovukUtilsService } from 'ngx-govuk';
+import { NgxGovukErrorMessage } from 'ngx-govuk/error-message';
 
 /**
  * The options and dividers in `ngx-govuk-radios`, in order. GOV.UK Frontend
@@ -129,8 +130,8 @@ export class NgxGovukRadio {
  *
  * Put an `ngx-govuk-radio` inside it for each option. Bind it to a form
  * control with `formControlName`, `[formControl]` or `[(ngModel)]`, or to a
- * signal with `[(value)]`. It adds the fieldset, legend, hint and error
- * message.
+ * signal with `[(value)]`. It adds the fieldset, legend and hint. To show an
+ * error, put a `p` with `ngxGovukErrorMessage` inside it too.
  *
  * To set a last option apart, such as "I do not know", put a `div` with
  * `ngxGovukRadiosDivider` before it.
@@ -180,12 +181,6 @@ export class NgxGovukRadios implements ControlValueAccessor {
   hint = input<string>();
 
   /**
-   * The error message. When it's set, the radios show their error styles. Set
-   * it when validation fails, such as after the form is submitted.
-   */
-  errorMessage = input<string | null>();
-
-  /**
    * The radios' `name`, which their ids are based on. When unset, one is
    * generated.
    */
@@ -221,12 +216,19 @@ export class NgxGovukRadios implements ControlValueAccessor {
   protected hintId = computed(() => `${this.groupName()}-hint`);
   protected errorId = computed(() => `${this.groupName()}-error`);
 
+  /** The projected error message, if there is one. */
+  protected errorMessage = contentChild(NgxGovukErrorMessage, {
+    descendants: false,
+  });
+
+  /** Gives the projected error message the id GOV.UK Frontend uses. */
+  private linkErrorMessage = effect(() =>
+    this.errorMessage()?.fieldErrorId.set(this.errorId()),
+  );
+
   protected describedBy = computed(
     () =>
-      [
-        this.hint() ? this.hintId() : '',
-        this.errorMessage() ? this.errorId() : '',
-      ]
+      [this.hint() ? this.hintId() : '', this.errorMessage()?.id() ?? '']
         .filter(Boolean)
         .join(' ') || null,
   );

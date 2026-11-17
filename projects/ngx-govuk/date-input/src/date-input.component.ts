@@ -7,9 +7,12 @@ import {
   model,
   signal,
   booleanAttribute,
+  contentChild,
+  effect,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgxGovukUtilsService } from 'ngx-govuk';
+import { NgxGovukErrorMessage } from 'ngx-govuk/error-message';
 
 /** A date as users typed it, one string for each part. */
 export interface NgxGovukDateInputValue {
@@ -41,8 +44,8 @@ const ALL_PARTS: NgxGovukDateInputPart[] = ['day', 'month', 'year'];
  * Bind it to a form control with `formControlName`, `[formControl]` or
  * `[(ngModel)]`, or to a signal with `[(value)]`. Its value has the day, month
  * and year as users typed them, so you can check each part and say which one
- * is wrong, as GOV.UK recommends. It adds the fieldset, legend, hint and error
- * message.
+ * is wrong, as GOV.UK recommends. It adds the fieldset, legend and hint. To
+ * show an error, put a `p` with `ngxGovukErrorMessage` inside it.
  *
  * The fields' ids are `<name>-day`, `<name>-month` and `<name>-year`. Link an
  * error summary to the first field with an error.
@@ -88,14 +91,9 @@ export class NgxGovukDateInput implements ControlValueAccessor {
   hint = input<string>();
 
   /**
-   * The error message. When it's set, the date input shows its error styles.
-   * Set it when validation fails, such as after the form is submitted.
-   */
-  errorMessage = input<string | null>();
-
-  /**
    * The parts of the date the error message is about, such as `['year']`.
-   * Only those fields show their error styles. When unset, all of them do.
+   * While there's an error message, only those fields show their error
+   * styles. When unset, all of them do.
    */
   errorParts = input<NgxGovukDateInputPart[]>();
 
@@ -150,6 +148,16 @@ export class NgxGovukDateInput implements ControlValueAccessor {
   protected hintId = computed(() => `${this.baseName()}-hint`);
   protected errorId = computed(() => `${this.baseName()}-error`);
 
+  /** The projected error message, if there is one. */
+  protected errorMessage = contentChild(NgxGovukErrorMessage, {
+    descendants: false,
+  });
+
+  /** Gives the projected error message the id GOV.UK Frontend uses. */
+  private linkErrorMessage = effect(() =>
+    this.errorMessage()?.fieldErrorId.set(this.errorId()),
+  );
+
   protected fields = computed(() => {
     const labels = {
       day: this.dayLabel(),
@@ -167,10 +175,7 @@ export class NgxGovukDateInput implements ControlValueAccessor {
 
   protected describedBy = computed(
     () =>
-      [
-        this.hint() ? this.hintId() : '',
-        this.errorMessage() ? this.errorId() : '',
-      ]
+      [this.hint() ? this.hintId() : '', this.errorMessage()?.id() ?? '']
         .filter(Boolean)
         .join(' ') || null,
   );

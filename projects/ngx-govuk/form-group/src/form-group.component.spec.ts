@@ -1,5 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NgxGovukErrorMessage } from 'ngx-govuk/error-message';
 import { NgxGovukUtilsService } from 'ngx-govuk';
 import { NgxGovukTextInput } from 'ngx-govuk/text-input';
 import { NgxGovukTextarea } from 'ngx-govuk/textarea';
@@ -7,20 +8,30 @@ import { MockProvider } from 'ng-mocks';
 import { NgxGovukFormGroup } from './form-group.component';
 
 @Component({
-  imports: [NgxGovukFormGroup, NgxGovukTextInput, NgxGovukTextarea],
+  imports: [
+    NgxGovukErrorMessage,
+    NgxGovukFormGroup,
+    NgxGovukTextInput,
+    NgxGovukTextarea,
+  ],
   template: `
     <ngx-govuk-form-group
       label="Email address"
       [hint]="hint()"
-      [errorMessage]="errorMessage()"
       [asPageHeading]="asPageHeading()"
       [labelSize]="labelSize()"
       [prefix]="prefix()"
     >
       <input id="email" ngxGovukTextInput autocomplete="email" />
+      @if (errorMessage()) {
+        <p ngxGovukErrorMessage>{{ errorMessage() }}</p>
+      }
     </ngx-govuk-form-group>
 
-    <ngx-govuk-form-group label="No id" [errorMessage]="errorMessage()">
+    <ngx-govuk-form-group label="No id">
+      @if (errorMessage()) {
+        <p ngxGovukErrorMessage>{{ errorMessage() }}</p>
+      }
       <textarea ngxGovukTextarea aria-describedby="own-help"></textarea>
     </ngx-govuk-form-group>
   `,
@@ -32,6 +43,17 @@ class HostComponent {
   labelSize = signal<'s' | 'm' | 'l' | 'xl' | undefined>(undefined);
   prefix = signal<string | undefined>(undefined);
 }
+
+@Component({
+  imports: [NgxGovukErrorMessage, NgxGovukFormGroup, NgxGovukTextInput],
+  template: `
+    <ngx-govuk-form-group label="Full name">
+      <input id="full-name" ngxGovukTextInput />
+      <p ngxGovukErrorMessage id="own-error">Enter your full name</p>
+    </ngx-govuk-form-group>
+  `,
+})
+class OwnIdHostComponent {}
 
 describe('NgxGovukFormGroup', () => {
   let fixture: ComponentFixture<HostComponent>;
@@ -143,5 +165,31 @@ describe('NgxGovukFormGroup', () => {
       $('.govuk-input__wrapper > .govuk-input__prefix')?.textContent?.trim(),
     ).toBe('£');
     expect($('.govuk-input__wrapper > input#email')).not.toBeNull();
+  });
+
+  it('puts the error message after the hint and before the field', () => {
+    host.errorMessage.set('Enter an email address');
+    fixture.detectChanges();
+    const order = Array.from(
+      $('ngx-govuk-form-group')?.children ?? [],
+      (child) => child.className,
+    );
+    expect(order).toEqual([
+      'govuk-label',
+      'govuk-hint',
+      'govuk-error-message',
+      'govuk-input govuk-input--error',
+    ]);
+  });
+
+  it("keeps an error message's own id and points the field to it", () => {
+    const ownIdFixture = TestBed.createComponent(OwnIdHostComponent);
+    ownIdFixture.detectChanges();
+    const own = ownIdFixture.nativeElement as HTMLElement;
+    expect(own.querySelector('p')?.id).toBe('own-error');
+    expect(own.querySelector('input')?.getAttribute('aria-describedby')).toBe(
+      'own-error',
+    );
+    expect(own.querySelector('.govuk-form-group--error')).not.toBeNull();
   });
 });

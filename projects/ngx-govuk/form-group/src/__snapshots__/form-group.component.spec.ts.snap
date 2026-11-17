@@ -20,13 +20,15 @@ exports[`NgxGovukFormGroup > matches the GOV.UK markup snapshot 1`] = `
   <p
     class="govuk-error-message"
     id="email-error"
+    ngxgovukerrormessage=""
   >
     <span
       class="govuk-visually-hidden"
     >
       Error:
     </span>
-     Enter an email address 
+     
+    Enter an email address
   </p>
   <input
     aria-describedby="email-hint email-error"
