@@ -98,4 +98,12 @@ describe('NgxGovukPagination', () => {
       '/?q=tax&page=3',
     );
   });
+
+  it('trims the link text in block pagination', () => {
+    const { element } = setup(BlockHostComponent);
+    const titles = Array.from(
+      element.querySelectorAll('.govuk-pagination__link-title'),
+    ).map((title) => title.textContent);
+    expect(titles).toEqual(['Previous page', 'Next page']);
+  });
 });

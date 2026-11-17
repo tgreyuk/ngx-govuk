@@ -104,16 +104,12 @@
 }
 
 <ng-template #blockText let-link let-word="word">
+  <!-- On one line, so the link text has no space at each end. -->
+  <!-- prettier-ignore -->
   <span
     class="govuk-pagination__link-title"
     [class.govuk-pagination__link-title--decorated]="!link.labelText"
-  >
-    @if (link.text) {
-      {{ link.text }}
-    } @else {
-      {{ word }}<span class="govuk-visually-hidden"> page</span>
-    }
-  </span>
+  >@if (link.text) {{{ link.text }}} @else {{{ word }}<span class="govuk-visually-hidden"> page</span>}</span>
   @if (link.labelText) {
     <span class="govuk-visually-hidden">:</span>
     <span class="govuk-pagination__link-label">{{ link.labelText }}</span>
