@@ -74,10 +74,10 @@ export class NgxGovukFooterMeta {}
  * The footer at the bottom of every page, with the crown, links to support
  * pages such as cookies and privacy, and the content licence and copyright.
  *
- * Put it at the bottom of every page. Set the support links as
- * `metaLinks`, and add your own content in an element with
- * `ngxGovukFooterMeta`. Set `navigation` for sections of links under
- * headings, as GOV.UK has.
+ * Put it at the bottom of every page, inside a `footer` element with the
+ * `govuk-template__footer` class. Set the support links as `metaLinks`,
+ * and add your own content in an element with `ngxGovukFooterMeta`. Set
+ * `navigation` for sections of links under headings, as GOV.UK has.
 
  */
 @Component({

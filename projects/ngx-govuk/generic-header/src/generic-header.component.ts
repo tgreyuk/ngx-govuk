@@ -7,7 +7,8 @@ import { RouterLink, UrlTree } from '@angular/router';
  * not part of the GOV.UK website.
  *
  * Put your service's name or logo inside it, as text, an image or both. Put
- * it at the top of every page, after the skip link. Put the service's
+ * it at the top of every page, after the skip link, inside a `header`
+ * element with the `govuk-template__header` class. Put the service's
  * navigation in `ngx-govuk-service-navigation` straight after it.
  *
  * Services on GOV.UK should use the GOV.UK header instead.

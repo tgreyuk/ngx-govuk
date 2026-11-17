@@ -25,7 +25,10 @@ export class GetStartedComponent {
   <body class="govuk-template__body govuk-frontend-supported">`;
 
   LAYOUT_CODE = `<a href="#main-content" ngxGovukSkipLink>Skip to main content</a>
-<!-- Your header, such as ngx-govuk-header or ngx-govuk-generic-header -->
+<header class="govuk-template__header">
+  <!-- Your header, such as ngx-govuk-header or ngx-govuk-generic-header,
+       and ngx-govuk-service-navigation -->
+</header>
 
 <div class="govuk-width-container">
   <main class="govuk-main-wrapper" id="main-content">
@@ -33,7 +36,9 @@ export class GetStartedComponent {
   </main>
 </div>
 
-<!-- Your footer, such as ngx-govuk-footer -->`;
+<footer class="govuk-template__footer">
+  <!-- Your footer, such as ngx-govuk-footer -->
+</footer>`;
 
   SASS_ALL_CODE = `// styles.scss
 // On service.gov.uk, leave out "with (...)" to keep GDS Transport.

@@ -77,6 +77,15 @@
       template does. These set the page's width and spacing. The header and
       footer go outside them, since they set their own width.
     </p>
+    <p class="govuk-body">
+      Put the header and service navigation in a
+      <code class="app-inline-code">header</code> element with
+      <code class="app-inline-code">govuk-template__header</code>, and the
+      footer in a <code class="app-inline-code">footer</code> element with
+      <code class="app-inline-code">govuk-template__footer</code>. GOV.UK's
+      header and footer components don't include these elements, which tell
+      screen reader users where the page's header and footer are.
+    </p>
     <app-code-block [code]="LAYOUT_CODE" lang="angular-html" />
   </div>
 
