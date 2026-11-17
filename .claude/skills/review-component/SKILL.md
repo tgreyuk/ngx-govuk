@@ -80,6 +80,11 @@ the conventions this review checks against.
 - The summary in `components.data.ts` matches GOV.UK's own one-line summary.
 - The first example matches GOV.UK's default example, and its template is
   realistic, with `routerLink="."` for links.
+- Each example uses the text of the matching example on GOV.UK's component
+  page, such as "Service name" and "Navigation item 1", not text of our
+  own. Read the page for it: the fixtures in `node_modules` don't always
+  match what the page shows. Links still use `routerLink="."` where GOV.UK
+  has `href="#"`.
 - Each other example is a real variation, with a title and a short, factual
   description of how to get it. Don't propose an example only to show an
   input, or one that needs a demo-only wrapper, such as a dark background
