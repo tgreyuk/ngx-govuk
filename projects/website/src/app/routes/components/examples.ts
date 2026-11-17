@@ -487,6 +487,34 @@ export const EXAMPLES: Record<string, Example[]> = {
           (m) => m.ServiceNavigationDemoComponent,
         ),
     },
+    {
+      path: 'service-navigation/service-name',
+      load: () =>
+        import('./examples/service-navigation/service-name.component').then(
+          (m) => m.ServiceNavigationServiceNameDemoComponent,
+        ),
+      title: 'Showing your service name only',
+      description: 'Set "serviceName" and leave out "navigation".',
+    },
+    {
+      path: 'service-navigation/service-name-and-navigation',
+      load: () =>
+        import('./examples/service-navigation/service-name-and-navigation.component').then(
+          (m) => m.ServiceNavigationServiceNameAndNavigationDemoComponent,
+        ),
+      title: 'Showing service name and navigation links',
+      description: 'Set "serviceName" and "navigation".',
+    },
+    {
+      path: 'service-navigation/inline-end-slot',
+      load: () =>
+        import('./examples/service-navigation/inline-end-slot.component').then(
+          (m) => m.ServiceNavigationInlineEndSlotDemoComponent,
+        ),
+      title: 'Align the end slot with the navigation items',
+      description:
+        'Put content, such as language navigation, inside it with "ngxGovukServiceNavigationEnd", and add the "inline" attribute.',
+    },
   ],
   'skip-link': [
     {

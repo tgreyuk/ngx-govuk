@@ -251,7 +251,7 @@ export const COMPONENTS: ComponentEntry[] = [
     id: 'service-navigation',
     status: 'documented',
     description:
-      'Shows users which service they are using and helps them move around it.',
+      "Service navigation helps users understand that they're using your service and lets them navigate around your service.",
   },
   {
     name: 'Skip link',
