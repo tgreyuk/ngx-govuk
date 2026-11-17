@@ -94,7 +94,9 @@ its Design System URL.
 - Name inputs after GOV.UK's options and modifiers where there is one, and
   the same way across components: `inverse` for dark backgrounds,
   `headingLevel` for a heading's level (an `input<1 | 2 | 3 | 4 | 5 | 6>`
-  rendered with `@switch`), `labelText` for a landmark's label.
+  rendered with `@switch`). A landmark's label takes GOV.UK's name for it,
+  which varies: `labelText` on the breadcrumbs, `ariaLabel` on the cookie
+  banner, language navigation and service navigation.
 - When an input departs from GOV.UK's option in a way the docs site's
   "Using components" guide doesn't cover (flattened text options, projected
   content instead of `html`, element `classes` and `attributes`, projected

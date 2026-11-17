@@ -49,7 +49,7 @@ export interface NgxGovukLanguageNavigationItem {
 }
 
 /**
- * Lets users switch the language a page is shown in.
+ * Helps users choose and switch between languages when using a service.
  *
  * Set the languages as `items`, each with its name written in that
  * language. Mark the language the page is in as `current`, or leave out
