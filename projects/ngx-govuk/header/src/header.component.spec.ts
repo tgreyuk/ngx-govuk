@@ -5,11 +5,13 @@ import { NgxGovukHeader } from './header.component';
 @Component({
   imports: [NgxGovukHeader],
   template: `<ngx-govuk-header
+    [homepageUrl]="homepageUrl()"
     [productName]="productName()"
     [fullWidth]="fullWidth()"
   />`,
 })
 class TestHostComponent {
+  homepageUrl = signal('//gov.uk');
   productName = signal<string | undefined>(undefined);
   fullWidth = signal(false);
 }
@@ -32,6 +34,20 @@ describe('NgxGovukHeader', () => {
     expect(link?.querySelector('svg')?.getAttribute('aria-label')).toBe(
       'GOV.UK',
     );
+  });
+
+  it('links the logo to another homepage', () => {
+    const { fixture, element } = setup();
+    fixture.componentInstance.homepageUrl.set('/');
+    fixture.detectChanges();
+    expect(element.querySelector('a')?.getAttribute('href')).toBe('/');
+  });
+
+  it('links the logo to GOV.UK when the homepage URL is empty', () => {
+    const { fixture, element } = setup();
+    fixture.componentInstance.homepageUrl.set('');
+    fixture.detectChanges();
+    expect(element.querySelector('a')?.getAttribute('href')).toBe('//gov.uk');
   });
 
   it('shows a product name', () => {

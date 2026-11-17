@@ -4,7 +4,10 @@
   [class.govuk-header__container--full-width]="fullWidth()"
 >
   <div class="govuk-header__logo">
-    <a [attr.href]="homepageUrl()" class="govuk-header__homepage-link">
+    <a
+      [attr.href]="homepageUrl() || '//gov.uk'"
+      class="govuk-header__homepage-link"
+    >
       <!-- GOV.UK's logo, as GOV.UK Frontend renders it. Only GOV.UK
            services may use it. -->
       <svg
