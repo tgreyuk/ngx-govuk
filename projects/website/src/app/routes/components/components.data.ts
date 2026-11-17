@@ -131,7 +131,7 @@ export const COMPONENTS: ComponentEntry[] = [
     status: 'documented',
     note: 'The examples on this page work: selecting the button or the skip link, or pressing Shift 3 times, takes you to the BBC weather forecast.',
     description:
-      'Gives users a quick way to leave a page that shows sensitive information.',
+      'Gives users a way to quickly and safely exit a service, website or application.',
   },
   {
     name: 'Feedback',
