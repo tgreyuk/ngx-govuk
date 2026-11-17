@@ -9,5 +9,5 @@ import { NgxGovukTextInput } from 'ngx-govuk/text-input';
   templateUrl: './password.component.html',
 })
 export class PasswordComponent {
-  password = new FormControl('');
+  passwordControl = new FormControl('');
 }

@@ -9,7 +9,7 @@ import { NgxGovukFormGroup } from 'ngx-govuk/form-group';
 import { NgxGovukTextInput } from 'ngx-govuk/text-input';
 
 @Component({
-  selector: 'app-event-name',
+  selector: 'app-error-summary',
   imports: [
     ReactiveFormsModule,
     NgxGovukErrorMessage,
@@ -17,12 +17,12 @@ import { NgxGovukTextInput } from 'ngx-govuk/text-input';
     NgxGovukFormGroup,
     NgxGovukTextInput,
   ],
-  templateUrl: './event-name.component.html',
+  templateUrl: './error-summary.component.html',
 })
-export class EventNameComponent {
-  eventName = new FormControl('');
+export class ErrorSummaryComponent {
+  eventNameControl = new FormControl('');
 
   errors: NgxGovukErrorSummaryItem[] = [
-    { text: 'Enter the name of the event', fieldId: 'event-name' },
+    { text: 'Enter the name of the event', control: this.eventNameControl },
   ];
 }

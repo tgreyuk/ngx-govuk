@@ -12,5 +12,5 @@ import { NgxGovukErrorMessage } from 'ngx-govuk/error-message';
   templateUrl: './passport-issued.component.html',
 })
 export class PassportIssuedComponent {
-  passportIssued = new FormControl<NgxGovukDateInputValue | null>(null);
+  passportIssuedControl = new FormControl<NgxGovukDateInputValue | null>(null);
 }

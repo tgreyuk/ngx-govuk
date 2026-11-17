@@ -15,5 +15,5 @@ import { NgxGovukTextInput } from 'ngx-govuk/text-input';
   templateUrl: './full-name.component.html',
 })
 export class FullNameComponent {
-  fullName = new FormControl('');
+  fullNameControl = new FormControl('');
 }

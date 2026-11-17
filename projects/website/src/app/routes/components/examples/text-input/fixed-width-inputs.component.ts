@@ -9,10 +9,10 @@ import { NgxGovukTextInput } from 'ngx-govuk/text-input';
   templateUrl: './fixed-width-inputs.component.html',
 })
 export class FixedWidthInputsComponent {
-  width20 = new FormControl('');
-  width10 = new FormControl('');
-  width5 = new FormControl('');
-  width4 = new FormControl('');
-  width3 = new FormControl('');
-  width2 = new FormControl('');
+  width20Control = new FormControl('');
+  width10Control = new FormControl('');
+  width5Control = new FormControl('');
+  width4Control = new FormControl('');
+  width3Control = new FormControl('');
+  width2Control = new FormControl('');
 }

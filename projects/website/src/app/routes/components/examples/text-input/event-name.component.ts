@@ -9,5 +9,5 @@ import { NgxGovukTextInput } from 'ngx-govuk/text-input';
   templateUrl: './event-name.component.html',
 })
 export class EventNameComponent {
-  eventName = new FormControl('');
+  eventNameControl = new FormControl('');
 }

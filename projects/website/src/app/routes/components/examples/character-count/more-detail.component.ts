@@ -9,5 +9,5 @@ import { NgxGovukTextarea } from 'ngx-govuk/textarea';
   templateUrl: './more-detail.component.html',
 })
 export class MoreDetailComponent {
-  moreDetail = new FormControl('');
+  moreDetailControl = new FormControl('');
 }

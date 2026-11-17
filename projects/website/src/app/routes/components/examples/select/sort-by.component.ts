@@ -9,5 +9,5 @@ import { NgxGovukSelect } from 'ngx-govuk/select';
   templateUrl: './sort-by.component.html',
 })
 export class SortByComponent {
-  sort = new FormControl('updated');
+  sortControl = new FormControl('updated');
 }

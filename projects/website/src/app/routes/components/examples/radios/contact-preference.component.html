@@ -2,7 +2,7 @@
   name="contact"
   legend="How would you prefer to be contacted?"
   hint="Select one option"
-  [formControl]="contact">
+  [formControl]="contactControl">
   <ngx-govuk-radio value="email">
     Email
     <ngx-govuk-form-group *ngxGovukRadioConditional label="Email address">
@@ -11,7 +11,7 @@
         type="email"
         autocomplete="email"
         spellcheck="false"
-        [formControl]="email"
+        [formControl]="emailControl"
         ngxGovukTextInput
         inputWidth="20" />
     </ngx-govuk-form-group>
@@ -23,7 +23,7 @@
         id="contact-by-phone"
         type="tel"
         autocomplete="tel"
-        [formControl]="phone"
+        [formControl]="phoneControl"
         ngxGovukTextInput
         inputWidth="20" />
     </ngx-govuk-form-group>
@@ -35,7 +35,7 @@
         id="contact-by-text"
         type="tel"
         autocomplete="tel"
-        [formControl]="mobile"
+        [formControl]="mobileControl"
         ngxGovukTextInput
         inputWidth="20" />
     </ngx-govuk-form-group>

@@ -17,5 +17,5 @@ import {
   templateUrl: './where-do-you-live-or-abroad.component.html',
 })
 export class WhereDoYouLiveOrAbroadComponent {
-  whereDoYouLive = new FormControl<string | null>(null);
+  whereDoYouLiveControl = new FormControl<string | null>(null);
 }

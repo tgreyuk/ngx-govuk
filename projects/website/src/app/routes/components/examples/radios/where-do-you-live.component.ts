@@ -8,5 +8,5 @@ import { NgxGovukRadio, NgxGovukRadios } from 'ngx-govuk/radios';
   templateUrl: './where-do-you-live.component.html',
 })
 export class WhereDoYouLiveComponent {
-  whereDoYouLive = new FormControl<string | null>(null);
+  whereDoYouLiveControl = new FormControl<string | null>(null);
 }

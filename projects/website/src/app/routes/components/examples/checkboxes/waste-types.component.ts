@@ -8,7 +8,7 @@ import { NgxGovukCheckbox, NgxGovukCheckboxes } from 'ngx-govuk/checkboxes';
   templateUrl: './waste-types.component.html',
 })
 export class WasteTypesComponent {
-  animalCarcasses = new FormControl(false);
-  minesOrQuarries = new FormControl(false);
-  farmOrAgricultural = new FormControl(false);
+  animalCarcassesControl = new FormControl(false);
+  minesOrQuarriesControl = new FormControl(false);
+  farmOrAgriculturalControl = new FormControl(false);
 }

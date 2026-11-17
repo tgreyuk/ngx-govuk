@@ -242,10 +242,10 @@ export const EXAMPLES: Record<string, Example[]> = {
   ],
   'error-summary': [
     {
-      path: 'error-summary/event-name',
+      path: 'error-summary/error-summary',
       load: () =>
-        import('./examples/error-summary/event-name.component').then(
-          (m) => m.EventNameComponent,
+        import('./examples/error-summary/error-summary.component').then(
+          (m) => m.ErrorSummaryComponent,
         ),
       showComponentCode: true,
     },

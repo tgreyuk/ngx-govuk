@@ -17,8 +17,8 @@ import {
   templateUrl: './travel-countries.component.html',
 })
 export class TravelCountriesComponent {
-  france = new FormControl(false);
-  portugal = new FormControl(false);
-  spain = new FormControl(false);
-  none = new FormControl(false);
+  franceControl = new FormControl(false);
+  portugalControl = new FormControl(false);
+  spainControl = new FormControl(false);
+  noneControl = new FormControl(false);
 }

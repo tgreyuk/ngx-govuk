@@ -9,10 +9,10 @@ import { NgxGovukTextInput } from 'ngx-govuk/text-input';
   templateUrl: './fluid-width-inputs.component.html',
 })
 export class FluidWidthInputsComponent {
-  fullWidth = new FormControl('');
-  threeQuartersWidth = new FormControl('');
-  twoThirdsWidth = new FormControl('');
-  oneHalfWidth = new FormControl('');
-  oneThirdWidth = new FormControl('');
-  oneQuarterWidth = new FormControl('');
+  fullWidthControl = new FormControl('');
+  threeQuartersWidthControl = new FormControl('');
+  twoThirdsWidthControl = new FormControl('');
+  oneHalfWidthControl = new FormControl('');
+  oneThirdWidthControl = new FormControl('');
+  oneQuarterWidthControl = new FormControl('');
 }

@@ -21,8 +21,8 @@ import { NgxGovukTextInput } from 'ngx-govuk/text-input';
   templateUrl: './contact-preference.component.html',
 })
 export class ContactPreferenceComponent {
-  contact = new FormControl<string | null>(null);
-  email = new FormControl('');
-  phone = new FormControl('');
-  mobile = new FormControl('');
+  contactControl = new FormControl<string | null>(null);
+  emailControl = new FormControl('');
+  phoneControl = new FormControl('');
+  mobileControl = new FormControl('');
 }

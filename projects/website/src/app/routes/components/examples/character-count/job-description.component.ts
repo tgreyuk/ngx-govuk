@@ -9,5 +9,5 @@ import { NgxGovukTextarea } from 'ngx-govuk/textarea';
   templateUrl: './job-description.component.html',
 })
 export class JobDescriptionComponent {
-  jobDescription = new FormControl('');
+  jobDescriptionControl = new FormControl('');
 }

@@ -21,10 +21,10 @@ import { NgxGovukTextInput } from 'ngx-govuk/text-input';
   templateUrl: './contact-methods.component.html',
 })
 export class ContactMethodsComponent {
-  byEmail = new FormControl(false);
-  byPhone = new FormControl(false);
-  byText = new FormControl(false);
-  email = new FormControl('');
-  phone = new FormControl('');
-  mobile = new FormControl('');
+  byEmailControl = new FormControl(false);
+  byPhoneControl = new FormControl(false);
+  byTextControl = new FormControl(false);
+  emailControl = new FormControl('');
+  phoneControl = new FormControl('');
+  mobileControl = new FormControl('');
 }
