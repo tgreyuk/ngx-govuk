@@ -1,5 +1,5 @@
 import { Component, input } from '@angular/core';
-import { NgxGovukTag } from 'ngx-govuk/tag';
+import { NgxGovukTag, NgxGovukTagColour } from 'ngx-govuk/tag';
 
 /**
  * Shows users that a service is still being worked on, with a tag for its
@@ -23,4 +23,10 @@ export class NgxGovukPhaseBanner {
    * The service's phase, shown in the tag, such as `Alpha` or `Beta`.
    */
   tagText = input.required<string>();
+
+  /**
+   * The tag's colour, as on the tag. Leave it unset for blue. Replaces
+   * GOV.UK's `tag.classes`.
+   */
+  tagColour = input<NgxGovukTagColour>();
 }
