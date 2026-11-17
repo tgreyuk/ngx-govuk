@@ -11,7 +11,7 @@ import {
   effect,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { NgxGovukUtilsService } from 'ngx-govuk';
+import { addErrorSummaryTarget, NgxGovukUtilsService } from 'ngx-govuk';
 import { NgxGovukErrorMessage } from 'ngx-govuk/error-message';
 
 /** A date as users typed it, one string for each part. */
@@ -157,6 +157,17 @@ export class NgxGovukDateInput implements ControlValueAccessor {
   private linkErrorMessage = effect(() =>
     this.errorMessage()?.fieldErrorId.set(this.errorId()),
   );
+
+  constructor() {
+    // As GOV.UK recommends: link an error to the first part that's wrong.
+    addErrorSummaryTarget(() => {
+      const fields = this.fields();
+      const errorParts = this.errorParts();
+      const field =
+        fields.find((f) => errorParts?.includes(f.key)) ?? fields[0];
+      return field?.id ?? null;
+    });
+  }
 
   protected fields = computed(() => {
     const labels = {

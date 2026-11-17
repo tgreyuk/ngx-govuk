@@ -9,14 +9,24 @@ import {
   input,
   signal,
 } from '@angular/core';
+import { AbstractControl } from '@angular/forms';
+import { NgxGovukErrorSummaryTargets } from 'ngx-govuk';
 
 /** One error in an error summary. */
 export interface NgxGovukErrorSummaryItem {
   /** The error message, usually the same as the one next to the field. */
   text: string;
   /**
-   * The `id` of the field with the error, such as `event-name`. The summary
-   * links the error to it. This replaces GOV.UK Frontend's `href`.
+   * The form control of the field with the error. The summary links the
+   * error to the ngx-govuk field bound to it with `[formControl]` or
+   * `formControlName`, wherever it is on the page. For radios, it links to
+   * the first radio, and for a date input, to the first part in
+   * `errorParts`. The field still needs an `id` or `name`.
+   */
+  control?: AbstractControl;
+  /**
+   * The `id` of the field with the error, such as `event-name`, for a field
+   * without a form control. This replaces GOV.UK Frontend's `href`.
    */
   fieldId?: string;
 }
@@ -26,9 +36,10 @@ export interface NgxGovukErrorSummaryItem {
  * `main` content.
  *
  * Show it only when there are errors, such as after the form is submitted.
- * It takes focus when it appears, so screen reader users hear it. Each error
- * links to its field: selecting it moves focus to the field and scrolls its
- * label or legend into view.
+ * It takes focus when it appears, so screen reader users hear it. Link each
+ * error to its field with the field's form control, or with its `id`:
+ * selecting the error moves focus to the field and scrolls its label or
+ * legend into view.
  *
  * For a description with links or other markup, put a `p` inside the summary
  * instead of setting `descriptionText`. Links in it to a field, such as
@@ -48,13 +59,14 @@ export interface NgxGovukErrorSummaryItem {
 export class NgxGovukErrorSummary {
   private document = inject(DOCUMENT);
   private location = inject(Location);
+  private targets = inject(NgxGovukErrorSummaryTargets);
 
   /** The current page's URL, without its fragment, for the links. */
   private pageUrl = signal(this.currentPageUrl());
 
   /**
-   * The errors to list. Link each one to its field with `fieldId`, such as
-   * `event-name`.
+   * The errors to list. Link each one to its field with `control`, the
+   * field's form control, or `fieldId`, such as `event-name`.
    */
   errorList = input<NgxGovukErrorSummaryItem[]>([]);
 
@@ -114,6 +126,13 @@ export class NgxGovukErrorSummary {
    */
   protected fieldHref(fieldId: string) {
     return `${this.pageUrl()}#${encodeURIComponent(fieldId)}`;
+  }
+
+  /** The id of the item's field, if it's on the page. */
+  protected linkId(item: NgxGovukErrorSummaryItem) {
+    return (
+      item.fieldId ?? (item.control ? this.targets.linkId(item.control) : null)
+    );
   }
 
   protected focusField(event: MouseEvent, fieldId: string) {

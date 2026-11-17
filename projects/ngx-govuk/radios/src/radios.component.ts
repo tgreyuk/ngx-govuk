@@ -19,7 +19,7 @@ import {
   booleanAttribute,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { NgxGovukUtilsService } from 'ngx-govuk';
+import { addErrorSummaryTarget, NgxGovukUtilsService } from 'ngx-govuk';
 import { NgxGovukErrorMessage } from 'ngx-govuk/error-message';
 
 /**
@@ -206,6 +206,11 @@ export class NgxGovukRadios implements ControlValueAccessor {
   private items = contentChildren(RADIOS_ITEM, { descendants: true });
   private onChange: (value: string | null) => void = () => {};
   private onTouched: () => void = () => {};
+
+  constructor() {
+    // GOV.UK links an error to the first radio, whose id is the name.
+    addErrorSummaryTarget(() => this.groupName());
+  }
 
   /** @internal */
   groupName = computed(() => this.name() ?? this.generatedName);

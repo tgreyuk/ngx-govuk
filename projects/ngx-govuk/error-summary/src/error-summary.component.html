@@ -10,11 +10,12 @@
     @if (errorList().length) {
       <ul class="govuk-list govuk-error-summary__list">
         @for (item of errorList(); track $index) {
+          @let fieldId = linkId(item);
           <li>
-            @if (item.fieldId) {
+            @if (fieldId) {
               <a
-                [attr.href]="fieldHref(item.fieldId)"
-                (click)="focusField($event, item.fieldId)"
+                [attr.href]="fieldHref(fieldId)"
+                (click)="focusField($event, fieldId)"
                 >{{ item.text }}</a
               >
             } @else {

@@ -19,7 +19,7 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { NgxGovukUtilsService } from 'ngx-govuk';
+import { addErrorSummaryTarget, NgxGovukUtilsService } from 'ngx-govuk';
 import { NgxGovukErrorMessage } from 'ngx-govuk/error-message';
 
 /**
@@ -134,6 +134,8 @@ export class NgxGovukCheckbox implements ControlValueAccessor {
   private revealView?: EmbeddedViewRef<unknown>;
 
   constructor() {
+    addErrorSummaryTarget(() => this.inputId());
+
     // GOV.UK Frontend puts the conditional content straight after the item,
     // not inside it, so render it into the item's own view container.
     const container = inject(ViewContainerRef);

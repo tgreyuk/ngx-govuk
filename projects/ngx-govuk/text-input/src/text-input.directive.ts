@@ -7,7 +7,12 @@ import {
   input,
   signal,
 } from '@angular/core';
-import { NgxGovukInputWidth, NGX_GOVUK_FIELD, NgxGovukField } from 'ngx-govuk';
+import {
+  addErrorSummaryTarget,
+  NgxGovukInputWidth,
+  NGX_GOVUK_FIELD,
+  NgxGovukField,
+} from 'ngx-govuk';
 
 const WIDTH_CLASSES: Record<NgxGovukInputWidth, string> = {
   '2': 'govuk-input--width-2',
@@ -55,6 +60,10 @@ export class NgxGovukTextInput implements NgxGovukField {
    * @internal
    */
   hasError = signal(false);
+
+  constructor() {
+    addErrorSummaryTarget(() => this.elementRef.nativeElement.id || null);
+  }
 
   /**
    * The input's width. Use a number of characters, such as `10`, when you know
