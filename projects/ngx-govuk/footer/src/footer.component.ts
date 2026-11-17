@@ -28,7 +28,7 @@ export interface NgxGovukFooterLink {
 export interface NgxGovukFooterSection {
   /** The section's heading. */
   title: string;
-  /** The section's links. */
+  /** The section's links. Links without a `routerLink` or `href` are left out. */
   items: NgxGovukFooterLink[];
   /**
    * How wide the section is, as a GOV.UK grid width, such as `one-half` or
@@ -66,6 +66,7 @@ export class NgxGovukFooterMeta {}
  * `metaLinks`, and add your own content in an element with
  * `ngxGovukFooterMeta`. Set `navigation` for sections of links under
  * headings, as GOV.UK has.
+
  */
 @Component({
   selector: 'ngx-govuk-footer',
@@ -85,7 +86,7 @@ export class NgxGovukFooter {
 
   /**
    * Links to support pages, such as help, cookies, accessibility statement
-   * and privacy notice.
+   * and privacy notice. Links without a `routerLink` or `href` are left out.
    */
   metaLinks = input<NgxGovukFooterLink[]>([]);
 

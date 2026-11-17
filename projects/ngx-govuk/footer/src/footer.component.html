@@ -32,9 +32,9 @@
           class="govuk-footer__section"
           [class]="'govuk-grid-column-' + (section.width || 'full')"
         >
-          <h2 class="govuk-footer__heading govuk-heading-m">
-            {{ section.title }}
-          </h2>
+          <!-- On one line, so the heading has no space at each end. -->
+          <!-- prettier-ignore -->
+          <h2 class="govuk-footer__heading govuk-heading-m">{{ section.title }}</h2>
           @if (section.items.length) {
             <ul
               class="govuk-footer__list"
@@ -42,11 +42,13 @@
               [class.govuk-footer__list--columns-3]="section.columns === 3"
             >
               @for (item of section.items; track $index) {
-                <li class="govuk-footer__list-item">
-                  <ng-container
-                    *ngTemplateOutlet="link; context: { $implicit: item }"
-                  />
-                </li>
+                @if (item.routerLink !== undefined || item.href) {
+                  <li class="govuk-footer__list-item">
+                    <ng-container
+                      *ngTemplateOutlet="link; context: { $implicit: item }"
+                    />
+                  </li>
+                }
               }
             </ul>
           }
@@ -64,11 +66,13 @@
       @if (metaLinks().length) {
         <ul class="govuk-footer__inline-list">
           @for (item of metaLinks(); track $index) {
-            <li class="govuk-footer__inline-list-item">
-              <ng-container
-                *ngTemplateOutlet="link; context: { $implicit: item }"
-              />
-            </li>
+            @if (item.routerLink !== undefined || item.href) {
+              <li class="govuk-footer__inline-list-item">
+                <ng-container
+                  *ngTemplateOutlet="link; context: { $implicit: item }"
+                />
+              </li>
+            }
           }
         </ul>
       }

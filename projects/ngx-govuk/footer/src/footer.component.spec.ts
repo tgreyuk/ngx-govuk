@@ -73,6 +73,32 @@ describe('NgxGovukFooter', () => {
     ]);
   });
 
+  it('has no space around section headings', () => {
+    const heading = setup().element.querySelector('.govuk-footer__heading');
+    expect(heading?.textContent).toBe('Services and information');
+  });
+
+  it('leaves out links without a routerLink or href', () => {
+    const { fixture, element } = setup();
+    fixture.componentInstance.navigation.set([
+      {
+        title: 'Services and information',
+        items: [{ text: 'Benefits' }, { text: 'Business', href: '/business' }],
+      },
+    ]);
+    fixture.componentInstance.metaLinks.set([
+      { text: 'Help' },
+      { text: 'Cookies', routerLink: '/cookies' },
+    ]);
+    fixture.detectChanges();
+    const texts = (selector: string) =>
+      Array.from(element.querySelectorAll(selector)).map((li) =>
+        li.textContent?.trim(),
+      );
+    expect(texts('.govuk-footer__list-item')).toEqual(['Business']);
+    expect(texts('.govuk-footer__inline-list-item')).toEqual(['Cookies']);
+  });
+
   it('leaves out the navigation and its section break without sections', () => {
     const { fixture, element } = setup();
     fixture.componentInstance.navigation.set([]);

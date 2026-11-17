@@ -73,7 +73,7 @@ exports[`NgxGovukFooter > matches the GOV.UK markup snapshot 1`] = `
           <h2
             class="govuk-footer__heading govuk-heading-m"
           >
-             Services and information 
+            Services and information
           </h2>
           <ul
             class="govuk-footer__list govuk-footer__list--columns-2"
@@ -106,7 +106,7 @@ exports[`NgxGovukFooter > matches the GOV.UK markup snapshot 1`] = `
           <h2
             class="govuk-footer__heading govuk-heading-m"
           >
-             Departments and policy 
+            Departments and policy
           </h2>
           <ul
             class="govuk-footer__list"
