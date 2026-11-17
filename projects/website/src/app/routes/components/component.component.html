@@ -52,7 +52,17 @@
   </p>
 
   @if (component()?.note; as note) {
-    <div class="govuk-inset-text">{{ note }}</div>
+    <div class="govuk-inset-text">
+      {{ note }}
+      @if (component()?.noteLink; as link) {
+        See
+        <a
+          class="govuk-link"
+          [routerLink]="link.routerLink"
+          [fragment]="link.fragment"
+          >{{ link.text }}</a>.
+      }
+    </div>
   }
 
   @if (component()?.isField) {

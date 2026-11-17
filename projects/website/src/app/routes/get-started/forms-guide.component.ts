@@ -9,6 +9,17 @@ import { CodeBlockComponent } from '../components/component-code/code-block.comp
   templateUrl: './forms-guide.component.html',
 })
 export class FormsGuideComponent {
+  contents = [
+    { id: 'how-a-field-is-built', heading: 'How a field is built' },
+    { id: 'other-fields', heading: 'Other fields' },
+    { id: 'groups-of-fields', heading: 'Groups of fields' },
+    { id: 'showing-errors', heading: 'Showing errors' },
+    { id: 'error-summary', heading: 'Error summary' },
+    { id: 'labels', heading: 'Labels' },
+    { id: 'prefixes-and-suffixes', heading: 'Prefixes and suffixes' },
+    { id: 'ids-and-screen-readers', heading: 'Ids and screen readers' },
+  ];
+
   FIELD_CODE = `<ngx-govuk-form-group
   label="What is your email address?"
   hint="We'll only use this to send you a receipt"
@@ -51,6 +62,7 @@ export class FormsGuideComponent {
 
   SUMMARY_TS_CODE = `export class ContactDetailsComponent {
   private title = inject(Title);
+  private errorSummary = viewChild(NgxGovukErrorSummary);
 
   form = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -65,13 +77,17 @@ export class FormsGuideComponent {
 
   errors(): NgxGovukErrorSummaryItem[] {
     const email = this.emailError();
-    return email ? [{ text: email, fieldId: 'email' }] : [];
+    return email ? [{ text: email, control: this.form.controls.email }] : [];
   }
 
   continue() {
     this.submitted.set(true);
     const prefix = this.errors().length ? 'Error: ' : '';
     this.title.setTitle(\`\${prefix}Contact details – Your service\`);
+
+    // The first time, the summary appears and takes focus itself. After
+    // that, it's already showing, so move focus to it.
+    this.errorSummary()?.focus();
   }
 }`;
 

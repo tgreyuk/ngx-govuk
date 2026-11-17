@@ -21,6 +21,11 @@ export interface ComponentEntry {
   /** A short note shown at the top of the component's page. */
   note?: string;
   /**
+   * A page on this site with more on setting the component up, linked at
+   * the end of the note as "See <text>."
+   */
+  noteLink?: { text: string; routerLink: string; fragment?: string };
+  /**
    * `ngx-govuk` for a component the library adds, which isn't in the GOV.UK
    * Design System. Its page and menu item carry a badge, and it has no GOV.UK
    * guidance to link to.
@@ -100,12 +105,23 @@ export const COMPONENTS: ComponentEntry[] = [
     id: 'error-message',
     status: 'documented',
     note: 'Put it inside the form group, radios, checkboxes, date input, character count or password input, which place it and connect it to the field. Show an error summary at the top of the page too.',
+    noteLink: {
+      text: 'Working with forms',
+      routerLink: '/get-started/forms',
+      fragment: 'showing-errors',
+    },
     description: 'Explains what went wrong with an answer and how to fix it.',
   },
   {
     name: 'Error summary',
     id: 'error-summary',
     status: 'documented',
+    note: 'Show it only when there are errors, with the same messages as the fields. Link each error to its field by its form control, and move focus to the summary when users try to continue again.',
+    noteLink: {
+      text: 'Working with forms',
+      routerLink: '/get-started/forms',
+      fragment: 'error-summary',
+    },
     description:
       'Summarises any errors a user has made, at the top of the page.',
   },

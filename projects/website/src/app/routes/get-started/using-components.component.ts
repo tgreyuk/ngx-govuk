@@ -9,6 +9,18 @@ import { CodeBlockComponent } from '../components/component-code/code-block.comp
   templateUrl: './using-components.component.html',
 })
 export class UsingComponentsComponent {
+  contents = [
+    { id: 'import-components', heading: 'Import components' },
+    { id: 'native-elements', heading: 'Native elements' },
+    { id: 'classes-and-attributes', heading: 'Classes and attributes' },
+    { id: 'components-with-parts', heading: 'Components with parts' },
+    { id: 'inputs', heading: 'Inputs' },
+    { id: 'two-way-binding', heading: 'Two-way binding' },
+    { id: 'methods', heading: 'Methods' },
+    { id: 'links-and-the-router', heading: 'Links and the router' },
+    { id: 'form-fields', heading: 'Form fields' },
+  ];
+
   IMPORT_CODE = `import { Component } from '@angular/core';
 import { NgxGovukButton } from 'ngx-govuk/button';
 import { NgxGovukDetails } from 'ngx-govuk/details';

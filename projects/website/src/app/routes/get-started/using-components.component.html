@@ -6,7 +6,23 @@
   the ones you need into your own components, then use them in your templates.
 </p>
 
-<h2 class="govuk-heading-m">Import components</h2>
+<div class="govuk-!-margin-bottom-8">
+  <h2 class="govuk-heading-m">Contents</h2>
+  <ol class="govuk-list govuk-list--number">
+    @for (item of contents; track item.id) {
+      <li>
+        <a
+          class="govuk-link govuk-link--no-visited-state"
+          routerLink="."
+          [fragment]="item.id"
+          >{{ item.heading }}</a
+        >
+      </li>
+    }
+  </ol>
+</div>
+
+<h2 class="govuk-heading-m" id="import-components">Import components</h2>
 <p class="govuk-body">
   Each component has its own entry point, such as
   <code class="app-inline-code">ngx-govuk/button</code>, so your app only
@@ -20,7 +36,7 @@
   component.
 </p>
 
-<h2 class="govuk-heading-m">Native elements</h2>
+<h2 class="govuk-heading-m" id="native-elements">Native elements</h2>
 <p class="govuk-body">
   Where GOV.UK's markup is a single element, such as a button, back link or text
   input, ngx-govuk gives you a directive to add to your own element, rather than
@@ -41,7 +57,9 @@
   Each component's API section shows which elements its directive works on.
 </p>
 
-<h2 class="govuk-heading-m">Classes and attributes</h2>
+<h2 class="govuk-heading-m" id="classes-and-attributes">
+  Classes and attributes
+</h2>
 <p class="govuk-body">
   A component's own element is GOV.UK's outermost element, not a wrapper around
   it. So an <code class="app-inline-code">id</code>, class or attribute you add
@@ -51,7 +69,9 @@
 </p>
 <app-code-block [code]="CLASSES_CODE" lang="angular-html" />
 
-<h2 class="govuk-heading-m">Components with parts</h2>
+<h2 class="govuk-heading-m" id="components-with-parts">
+  Components with parts
+</h2>
 <p class="govuk-body">
   Some components are made of several parts, such as an accordion and its
   sections, or a summary list and its rows. Each part has its own element, and
@@ -62,11 +82,47 @@
   The API section starts with one import line for everything in the entry point.
 </p>
 
-<h2 class="govuk-heading-m">Inputs</h2>
+<h2 class="govuk-heading-m" id="inputs">Inputs</h2>
 <p class="govuk-body">Set inputs in the usual Angular way.</p>
 <app-code-block [code]="INPUT_CODE" lang="angular-html" />
+<p class="govuk-body">
+  Inputs are named after the options of GOV.UK Frontend's macros, such as
+  <code class="app-inline-code">titleText</code> and
+  <code class="app-inline-code">disableAutoFocus</code>, so GOV.UK's guidance
+  carries over. Where Angular has its own way, ngx-govuk uses it instead:
+</p>
+<ul class="govuk-list govuk-list--bullet">
+  <li>
+    Options with nested text are a single input. GOV.UK's
+    <code class="app-inline-code">label.text</code> and
+    <code class="app-inline-code">hint.text</code> are
+    <code class="app-inline-code">label</code> and
+    <code class="app-inline-code">hint</code>.
+  </li>
+  <li>
+    Instead of an <code class="app-inline-code">html</code> option, put the
+    content inside the component.
+  </li>
+  <li>
+    Instead of <code class="app-inline-code">classes</code> and
+    <code class="app-inline-code">attributes</code>, set classes and attributes
+    on the element as usual.
+  </li>
+  <li>
+    Components the GOV.UK Design System documents on their own go inside the
+    component that uses them. For example, put an
+    <a class="govuk-link" routerLink="/components/error-message"
+      >error message</a
+    >
+    inside a field rather than setting an option.
+  </li>
+</ul>
+<p class="govuk-body">
+  Any other input that differs from GOV.UK's option says so in its component's
+  API tab.
+</p>
 
-<h2 class="govuk-heading-m">Two-way binding</h2>
+<h2 class="govuk-heading-m" id="two-way-binding">Two-way binding</h2>
 <p class="govuk-body">
   Some inputs change when the user acts, such as the open tab or whether an
   accordion section is expanded. Bind these both ways to read and set them. Each
@@ -74,14 +130,14 @@
 </p>
 <app-code-block [code]="MODEL_CODE" lang="angular-html" />
 
-<h2 class="govuk-heading-m">Methods</h2>
+<h2 class="govuk-heading-m" id="methods">Methods</h2>
 <p class="govuk-body">
   Some components have methods you can call. Use a template reference variable
   to reach the component instance.
 </p>
 <app-code-block [code]="METHOD_CODE" lang="angular-html" />
 
-<h2 class="govuk-heading-m">Links and the router</h2>
+<h2 class="govuk-heading-m" id="links-and-the-router">Links and the router</h2>
 <p class="govuk-body">
   On a link directive, such as a button or back link, add
   <code class="app-inline-code">routerLink</code> to the
