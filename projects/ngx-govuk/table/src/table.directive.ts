@@ -2,7 +2,7 @@ import { booleanAttribute, Directive, inject, input } from '@angular/core';
 
 /**
  * Styles a `table` element as a GOV.UK table, to make information easier to
- * compare and scan.
+ * compare and scan for users.
  *
  * Add the table's parts as native elements with their own directives:
  * `caption ngxGovukTableCaption`, `thead ngxGovukTableHead`,

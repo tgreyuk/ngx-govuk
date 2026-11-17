@@ -271,7 +271,7 @@ export const COMPONENTS: ComponentEntry[] = [
     name: 'Table',
     id: 'table',
     status: 'documented',
-    description: 'Makes information easier to compare and scan.',
+    description: 'Makes information easier to compare and scan for users.',
   },
   {
     name: 'Tabs',
