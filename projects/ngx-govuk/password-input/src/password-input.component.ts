@@ -137,6 +137,9 @@ export class NgxGovukPasswordInput {
       // to the page from the browser's cache. The type is set straight away,
       // as a form that posts can leave the page before Angular updates it.
       const hide = () => {
+        if (this.shown()) {
+          this.announcement.set('Your password is hidden');
+        }
         this.shown.set(false);
         this.renderer.setAttribute(element, 'type', 'password');
       };

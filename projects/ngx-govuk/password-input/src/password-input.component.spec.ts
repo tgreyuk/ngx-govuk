@@ -122,4 +122,23 @@ describe('NgxGovukPasswordInput', () => {
     expect(button.textContent).toBe('Hide');
     expect(status.textContent).toBe('Your password is visible');
   });
+
+  it('tells screen readers when submitting the form hides the password', () => {
+    const { fixture, element, status, click } = setup();
+    click();
+    element
+      .querySelector('form')!
+      .dispatchEvent(new Event('submit', { cancelable: true }));
+    fixture.detectChanges();
+    expect(status.textContent).toBe('Your password is hidden');
+  });
+
+  it('says nothing when submitting the form with the password hidden', () => {
+    const { fixture, element, status } = setup();
+    element
+      .querySelector('form')!
+      .dispatchEvent(new Event('submit', { cancelable: true }));
+    fixture.detectChanges();
+    expect(status.textContent).toBe('');
+  });
 });
