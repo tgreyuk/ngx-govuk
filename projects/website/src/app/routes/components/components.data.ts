@@ -168,7 +168,7 @@ export const COMPONENTS: ComponentEntry[] = [
     id: 'generic-header',
     status: 'documented',
     description:
-      'A header for services that are not on GOV.UK, without GOV.UK branding.',
+      'The header that tells users they are using a government service that is not part of the GOV.UK website.',
   },
   {
     name: 'GOV.UK footer',
