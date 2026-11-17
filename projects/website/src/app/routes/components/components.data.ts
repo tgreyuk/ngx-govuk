@@ -144,8 +144,7 @@ export const COMPONENTS: ComponentEntry[] = [
     name: 'Fieldset',
     id: 'fieldset',
     status: 'documented',
-    description:
-      'Groups related form inputs together, such as the parts of an address.',
+    description: 'Groups related form inputs.',
   },
   {
     name: 'File upload',
