@@ -17,7 +17,8 @@ import { NgxGovukTab } from './tab.component';
 const TABLET = '(min-width: 40.0625em)';
 
 /**
- * Lets users move between related sections of content, one at a time.
+ * Lets users navigate between related sections of content, displaying one
+ * section at a time.
  *
  * Put an `ngx-govuk-tab` inside it for each section. From tablet width up, the
  * sections show as tabs. On smaller screens, every section shows in turn, with

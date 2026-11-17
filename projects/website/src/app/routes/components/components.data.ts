@@ -278,7 +278,7 @@ export const COMPONENTS: ComponentEntry[] = [
     id: 'tabs',
     status: 'documented',
     description:
-      'Lets users move between related sections of content, one at a time.',
+      'Lets users navigate between related sections of content, displaying one section at a time.',
   },
   {
     name: 'Tag',
