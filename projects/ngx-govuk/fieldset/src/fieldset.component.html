@@ -1,4 +1,8 @@
-<fieldset class="govuk-fieldset">
+<fieldset
+  class="govuk-fieldset"
+  [attr.role]="role() || null"
+  [attr.aria-describedby]="describedBy() || null"
+>
   <legend [class]="legendClasses()">
     @if (asPageHeading()) {
       <h1 class="govuk-fieldset__heading">{{ legend() }}</h1>
