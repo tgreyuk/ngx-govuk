@@ -1,0 +1,61 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`NgxGovukTabs with routes > matches the GOV.UK markup snapshot on a wide screen 1`] = `
+<ngx-govuk-tabs
+  class="govuk-tabs"
+>
+  <h2
+    class="govuk-tabs__title"
+  >
+    Contents
+  </h2>
+  <ul
+    class="govuk-tabs__list"
+    role="tablist"
+  >
+    <li
+      class="govuk-tabs__list-item"
+      role="presentation"
+    >
+      <a
+        aria-controls="govuk-tabs-panel-someId"
+        aria-selected="false"
+        class="govuk-tabs__tab"
+        href="/results/day"
+        id="tab_day"
+        role="tab"
+        tabindex="-1"
+      >
+         Past day 
+      </a>
+    </li>
+    <li
+      class="govuk-tabs__list-item govuk-tabs__list-item--selected"
+      role="presentation"
+    >
+      <a
+        aria-controls="govuk-tabs-panel-someId"
+        aria-selected="true"
+        class="govuk-tabs__tab"
+        href="/results/week"
+        id="tab_week"
+        role="tab"
+        tabindex="0"
+      >
+         Past week 
+      </a>
+    </li>
+  </ul>
+  <div
+    aria-labelledby="tab_week"
+    class="govuk-tabs__panel"
+    id="govuk-tabs-panel-someId"
+    role="tabpanel"
+  >
+    <router-outlet />
+    <ng-component>
+      Week
+    </ng-component>
+  </div>
+</ngx-govuk-tabs>
+`;

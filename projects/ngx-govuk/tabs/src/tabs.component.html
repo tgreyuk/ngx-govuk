@@ -3,26 +3,57 @@
   @for (tab of tabs(); track tab; let index = $index) {
     <li
       class="govuk-tabs__list-item"
-      [class.govuk-tabs__list-item--selected]="index === selectedIndex()"
+      [class.govuk-tabs__list-item--selected]="index === openIndex()"
       [attr.role]="isTabbed() ? 'presentation' : null"
     >
-      <a
-        #link
-        class="govuk-tabs__tab"
-        [attr.href]="pageUrl() + '#' + tab.id()"
-        [attr.id]="isTabbed() ? tab.tabId() : null"
-        [attr.role]="isTabbed() ? 'tab' : null"
-        [attr.aria-controls]="isTabbed() ? tab.id() : null"
-        [attr.aria-selected]="isTabbed() ? index === selectedIndex() : null"
-        [attr.tabindex]="
-          isTabbed() ? (index === selectedIndex() ? 0 : -1) : null
-        "
-        (click)="onClick($event, index)"
-        (keydown)="onKeydown($event, index)"
-      >
-        {{ tab.label() }}
-      </a>
+      @if (tab.link() !== undefined) {
+        <a
+          #link
+          class="govuk-tabs__tab"
+          [routerLink]="tab.link()"
+          [attr.id]="isTabbed() ? tab.tabId() : null"
+          [attr.role]="isTabbed() ? 'tab' : null"
+          [attr.aria-controls]="isTabbed() ? panelId : null"
+          [attr.aria-selected]="isTabbed() ? index === openIndex() : null"
+          [attr.tabindex]="
+            isTabbed() ? (index === focusIndex() ? 0 : -1) : null
+          "
+          (keydown)="onKeydown($event, index)"
+        >
+          {{ tab.label() }}
+        </a>
+      } @else {
+        <a
+          #link
+          class="govuk-tabs__tab"
+          [attr.href]="pageUrl() + '#' + tab.id()"
+          [attr.id]="isTabbed() ? tab.tabId() : null"
+          [attr.role]="isTabbed() ? 'tab' : null"
+          [attr.aria-controls]="isTabbed() ? tab.id() : null"
+          [attr.aria-selected]="isTabbed() ? index === openIndex() : null"
+          [attr.tabindex]="
+            isTabbed() ? (index === focusIndex() ? 0 : -1) : null
+          "
+          (click)="onClick($event, index)"
+          (keydown)="onKeydown($event, index)"
+        >
+          {{ tab.label() }}
+        </a>
+      }
     </li>
   }
 </ul>
-<ng-content></ng-content>
+@if (routed()) {
+  <div
+    class="govuk-tabs__panel"
+    [id]="panelId"
+    [attr.role]="isTabbed() ? 'tabpanel' : null"
+    [attr.aria-labelledby]="
+      isTabbed() && openIndex() >= 0 ? tabs()[openIndex()].tabId() : null
+    "
+  >
+    <ng-content />
+  </div>
+} @else {
+  <ng-content select="ngx-govuk-tab" />
+}

@@ -2,8 +2,10 @@ import { DOCUMENT, Location } from '@angular/common';
 import {
   afterNextRender,
   Component,
+  computed,
   contentChildren,
   DestroyRef,
+  effect,
   ElementRef,
   inject,
   input,
@@ -11,10 +13,33 @@ import {
   signal,
   viewChildren,
 } from '@angular/core';
-import { NgxGovukTab } from './tab.component';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import {
+  ActivatedRoute,
+  containsTree,
+  IsActiveMatchOptions,
+  NavigationEnd,
+  Router,
+  RouterLink,
+  UrlTree,
+} from '@angular/router';
+import { NgxGovukUtilsService } from 'ngx-govuk';
+import { filter } from 'rxjs';
+import { NgxGovukTab, NgxGovukTabLink } from './tab.component';
 
 /** GOV.UK Frontend's tablet breakpoint, where the list becomes tabs. */
 const TABLET = '(min-width: 40.0625em)';
+
+/**
+ * A routed tab is open on its own route and the routes below it, whatever
+ * the query or fragment.
+ */
+const ROUTE_MATCH: IsActiveMatchOptions = {
+  paths: 'subset',
+  queryParams: 'ignored',
+  matrixParams: 'ignored',
+  fragment: 'ignored',
+};
 
 /**
  * Lets users navigate between related sections of content, displaying one
@@ -29,9 +54,16 @@ const TABLET = '(min-width: 40.0625em)';
  * history entry, and the browser's back button goes back to the previous
  * tab. Tabs only show when the page's `body` has the
  * `govuk-frontend-supported` class, which GOV.UK's styles need for them.
+ *
+ * For tabs that each open a route, set every tab's `link` and put a
+ * `router-outlet` inside `ngx-govuk-tabs` after them. The tab whose route is
+ * active is open, and the outlet shows in a single panel below the tabs, on
+ * small screens too. This is an ngx-govuk addition: GOV.UK's tabs are always
+ * sections of one page.
  */
 @Component({
   selector: 'ngx-govuk-tabs',
+  imports: [RouterLink],
   templateUrl: './tabs.component.html',
   host: { class: 'govuk-tabs' },
   // Custom elements are inline by default; GOV.UK's styles expect a block.
@@ -40,6 +72,8 @@ const TABLET = '(min-width: 40.0625em)';
 export class NgxGovukTabs {
   private document = inject(DOCUMENT);
   private location = inject(Location);
+  private router = inject(Router);
+  private route = inject(ActivatedRoute, { optional: true });
 
   /**
    * The heading above the list of links on small screens. It's hidden when
@@ -49,7 +83,8 @@ export class NgxGovukTabs {
 
   /**
    * The position of the open tab, starting from 0. Bind it with
-   * `[(selectedIndex)]` to keep it in step with your own state.
+   * `[(selectedIndex)]` to keep it in step with your own state. With routed
+   * tabs, the router decides which tab is open, and this reports it.
    */
   selectedIndex = model(0);
 
@@ -69,6 +104,46 @@ export class NgxGovukTabs {
    */
   protected pageUrl = signal(this.currentPageUrl());
 
+  /** Whether the tabs open routes, rather than sections of the page. */
+  protected routed = computed(() =>
+    this.tabs().some((tab) => tab.link() !== undefined),
+  );
+
+  /** The id of the single panel that routed tabs show their route in. */
+  protected panelId = inject(NgxGovukUtilsService).randomId('govuk-tabs-panel');
+
+  private currentUrl = signal<UrlTree | undefined>(undefined);
+
+  /**
+   * The routed tab whose route is active. Where several are, such as a tab
+   * for `''` and one for `day`, the most specific wins.
+   */
+  private activeIndex = computed(() => {
+    const url = this.currentUrl();
+    let found = -1;
+    let foundLength = -1;
+    if (!url) return found;
+    this.tabs().forEach((tab, index) => {
+      const link = tab.link();
+      if (link === undefined) return;
+      const tree = this.urlTree(link);
+      const length = this.router.serializeUrl(tree).length;
+      if (containsTree(url, tree, ROUTE_MATCH) && length > foundLength) {
+        found = index;
+        foundLength = length;
+      }
+    });
+    return found;
+  });
+
+  /** The open tab, or -1 when no routed tab's route is active. */
+  protected openIndex = computed(() =>
+    this.routed() ? this.activeIndex() : this.selectedIndex(),
+  );
+
+  /** The tab that's in the page's tab order: the open one, or the first. */
+  protected focusIndex = computed(() => Math.max(this.openIndex(), 0));
+
   private links = viewChildren<ElementRef<HTMLAnchorElement>>('link');
 
   constructor() {
@@ -84,6 +159,21 @@ export class NgxGovukTabs {
       media.addEventListener('change', update);
       destroyRef.onDestroy(() => media.removeEventListener('change', update));
     }
+
+    // Routed tabs follow the router's URL.
+    this.currentUrl.set(this.router.parseUrl(this.router.url));
+    this.router.events
+      .pipe(
+        filter((event) => event instanceof NavigationEnd),
+        takeUntilDestroyed(),
+      )
+      .subscribe(() =>
+        this.currentUrl.set(this.router.parseUrl(this.router.url)),
+      );
+    effect(() => {
+      const index = this.activeIndex();
+      if (this.routed() && index >= 0) this.selectedIndex.set(index);
+    });
 
     // Keep links pointing at the page as the router moves between URLs.
     destroyRef.onDestroy(
@@ -115,7 +205,12 @@ export class NgxGovukTabs {
     event.preventDefault();
     const next = index + step;
     if (next < 0 || next >= this.tabs().length) return;
-    this.open(next);
+    const link = this.tabs()[next].link();
+    if (link === undefined) {
+      this.open(next);
+    } else {
+      void this.router.navigateByUrl(this.urlTree(link));
+    }
     this.links()[next].nativeElement.focus();
   }
 
@@ -128,12 +223,22 @@ export class NgxGovukTabs {
   }
 
   private openTabFromUrl(focus: boolean) {
+    if (this.routed()) return;
     const [, hash = ''] = this.location.path(true).split('#');
     const id = decodeURIComponent(hash);
     const index = this.tabs().findIndex((tab) => tab.id() === id);
     if (!id || index < 0) return;
     this.selectedIndex.set(index);
     if (focus && this.isTabbed()) this.links()[index]?.nativeElement.focus();
+  }
+
+  /** A routed tab's link, resolved as `routerLink` would resolve it. */
+  private urlTree(link: NgxGovukTabLink): UrlTree {
+    if (link instanceof UrlTree) return link;
+    const commands = typeof link === 'string' ? [link] : [...link];
+    return this.router.createUrlTree(commands, {
+      relativeTo: this.route ?? undefined,
+    });
   }
 
   private currentPageUrl() {
