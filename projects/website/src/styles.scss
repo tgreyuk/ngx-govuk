@@ -700,6 +700,14 @@ ngx-govuk-root {
   list-style: none;
   font-size: 1rem;
   line-height: 1.5;
+  // Two columns where there's room, such as a page with one group; one
+  // where groups sit side by side or the screen is narrow.
+  columns: 240px 2;
+  column-gap: 40px;
+
+  li {
+    break-inside: avoid;
+  }
 
   li + li {
     margin-top: 6px;
