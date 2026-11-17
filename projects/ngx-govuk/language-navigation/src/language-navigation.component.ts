@@ -37,8 +37,8 @@ export interface NgxGovukLanguageNavigationItem {
    */
   href?: string;
   /**
-   * Marks the language the page is in. Defaults to `true` for an item
-   * without a `routerLink` or `href`.
+   * Marks the language the page is in. An item without a `routerLink` or
+   * `href` is always marked.
    */
   current?: boolean;
   /**
@@ -74,8 +74,6 @@ export class NgxGovukLanguageNavigation {
   inverse = input(false, { transform: booleanAttribute });
 
   protected isCurrent(item: NgxGovukLanguageNavigationItem) {
-    return (
-      item.current ?? (item.routerLink === undefined && item.href === undefined)
-    );
+    return item.current || (item.routerLink === undefined && !item.href);
   }
 }
