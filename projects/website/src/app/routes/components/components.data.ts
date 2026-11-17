@@ -174,7 +174,9 @@ export const COMPONENTS: ComponentEntry[] = [
     name: 'GOV.UK footer',
     id: 'footer',
     status: 'documented',
-    description: 'The footer at the bottom of every page on GOV.UK.',
+    note: 'Only services on GOV.UK may use the GOV.UK footer.',
+    description:
+      'The GOV.UK footer provides copyright, licensing and other information about your service.',
   },
   {
     name: 'GOV.UK header',

@@ -71,8 +71,8 @@ export interface NgxGovukFooterSection {
 export class NgxGovukFooterMeta {}
 
 /**
- * The footer at the bottom of every page, with the crown, links to support
- * pages such as cookies and privacy, and the content licence and copyright.
+ * The GOV.UK footer provides copyright, licensing and other information
+ * about your service.
  *
  * Put it at the bottom of every page, inside a `footer` element with the
  * `govuk-template__footer` class. Set the support links as `metaLinks`,
@@ -82,6 +82,8 @@ export class NgxGovukFooterMeta {}
  * GOV.UK's styles show the Royal Arms above the copyright notice from
  * `/assets/images/govuk-crest.svg`, so copy GOV.UK Frontend's images into
  * your app's assets.
+ *
+ * Only services on GOV.UK may use it.
  */
 @Component({
   selector: 'ngx-govuk-footer',
