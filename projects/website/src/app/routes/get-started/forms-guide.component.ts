@@ -65,7 +65,7 @@ export class FormsGuideComponent {
 
   errors(): NgxGovukErrorSummaryItem[] {
     const email = this.emailError();
-    return email ? [{ text: email, href: '#email' }] : [];
+    return email ? [{ text: email, fieldId: 'email' }] : [];
   }
 
   continue() {

@@ -3,17 +3,18 @@
 <div role="alert">
   <h2 class="govuk-error-summary__title">{{ titleText() }}</h2>
   <div class="govuk-error-summary__body">
-    @if (description()) {
-      <p>{{ description() }}</p>
+    @if (descriptionText()) {
+      <p>{{ descriptionText() }}</p>
     }
+    <ng-content />
     @if (errorList().length) {
       <ul class="govuk-list govuk-error-summary__list">
         @for (item of errorList(); track $index) {
           <li>
-            @if (item.href) {
+            @if (item.fieldId) {
               <a
-                [attr.href]="item.href"
-                (click)="focusField($event, item.href)"
+                [attr.href]="fieldHref(item.fieldId)"
+                (click)="focusField($event, item.fieldId)"
                 >{{ item.text }}</a
               >
             } @else {

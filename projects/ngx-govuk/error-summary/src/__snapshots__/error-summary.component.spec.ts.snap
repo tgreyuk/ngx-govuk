@@ -20,16 +20,23 @@ exports[`NgxGovukErrorSummary > matches the GOV.UK markup snapshot 1`] = `
       >
         <li>
           <a
-            href="#event-name"
+            href="/app/apply/details?step=2#event-name"
           >
             Enter the name of the event
           </a>
         </li>
         <li>
           <a
-            href="#where-do-you-live"
+            href="/app/apply/details?step=2#where-do-you-live"
           >
             Select where you live
+          </a>
+        </li>
+        <li>
+          <a
+            href="/app/apply/details?step=2#unlabelled"
+          >
+            Enter a value
           </a>
         </li>
         <li>
