@@ -2,10 +2,12 @@
   <ngx-govuk-form-group
     label="What is the cost per item, in pounds?"
     hint="Leave it blank or type a letter, then select Continue"
-    [errorMessage]="submitted() ? costError() : null"
     labelSize="m"
     prefix="£"
     suffix="per item">
+    @if (submitted() && costError(); as error) {
+      <p ngxGovukErrorMessage>{{ error }}</p>
+    }
     <input
       id="cost"
       type="text"

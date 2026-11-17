@@ -221,6 +221,16 @@ export const EXAMPLES: Record<string, Example[]> = {
           (m) => m.ErrorMessageDemoComponent,
         ),
     },
+    {
+      path: 'error-message/custom-prefix',
+      load: () =>
+        import('./examples/error-message/custom-prefix.component').then(
+          (m) => m.ErrorMessageCustomPrefixDemoComponent,
+        ),
+      title: 'Custom prefix',
+      description:
+        'Set "visuallyHiddenText" to change the hidden "Error" before the message, such as to "Gwall" in Welsh.',
+    },
   ],
   'error-summary': [
     {

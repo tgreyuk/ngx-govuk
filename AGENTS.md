@@ -108,8 +108,15 @@ its Design System URL.
 - Don't set `changeDetection`: OnPush is the default in Angular 22, which
   the library requires.
 - Form fields are directives that provide themselves as `NGX_GOVUK_FIELD`
-  and go inside `ngx-govuk-form-group`, which adds the label, hint and error
-  message. See the text input and textarea.
+  and go inside `ngx-govuk-form-group`, which adds the label and hint. See
+  the text input and textarea.
+- Components the GOV.UK Design System documents on their own, such as the
+  error message, have their own entry point and are projected into the
+  components that use them. Label, hint and legend are only options of other
+  components there, so they stay string inputs. A parent finds a projected
+  error message with `contentChild(..., { descendants: false })`, places it
+  with `ng-content select`, and gives it its id through an `@internal`
+  signal.
 
 ### Public API
 

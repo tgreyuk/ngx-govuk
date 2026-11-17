@@ -6,6 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { NgxGovukButton } from 'ngx-govuk/button';
+import { NgxGovukErrorMessage } from 'ngx-govuk/error-message';
 import { NgxGovukFormGroup } from 'ngx-govuk/form-group';
 import { NgxGovukTextInput } from 'ngx-govuk/text-input';
 
@@ -14,6 +15,7 @@ import { NgxGovukTextInput } from 'ngx-govuk/text-input';
   imports: [
     ReactiveFormsModule,
     NgxGovukButton,
+    NgxGovukErrorMessage,
     NgxGovukFormGroup,
     NgxGovukTextInput,
   ],

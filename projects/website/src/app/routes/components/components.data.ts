@@ -99,8 +99,7 @@ export const COMPONENTS: ComponentEntry[] = [
     name: 'Error message',
     id: 'error-message',
     status: 'documented',
-    api: 'form-group',
-    note: 'There is no separate error message to import. Set "errorMessage" on the form group, or on the radios, checkboxes, date input, character count or password input. Show an error summary at the top of the page too.',
+    note: 'Put it inside the form group, radios, checkboxes, date input, character count or password input, which place it and connect it to the field. Show an error summary at the top of the page too.',
     description: 'Explains what went wrong with an answer and how to fix it.',
   },
   {

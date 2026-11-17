@@ -23,12 +23,12 @@ export class FormsGuideComponent {
   />
 </ngx-govuk-form-group>`;
 
-  ERROR_CODE = `<ngx-govuk-form-group
-  label="What is your email address?"
-  [errorMessage]="submitted() && email.invalid
-    ? 'Enter an email address in the correct format, like name@example.com'
-    : null"
->
+  ERROR_CODE = `<ngx-govuk-form-group label="What is your email address?">
+  @if (submitted() && email.invalid) {
+    <p ngxGovukErrorMessage>
+      Enter an email address in the correct format, like name@example.com
+    </p>
+  }
   <input id="email" formControlName="email" ngxGovukTextInput />
 </ngx-govuk-form-group>`;
 
@@ -39,10 +39,10 @@ export class FormsGuideComponent {
 <h1 class="govuk-heading-l">Contact details</h1>
 
 <form [formGroup]="form" (ngSubmit)="continue()" novalidate>
-  <ngx-govuk-form-group
-    label="What is your email address?"
-    [errorMessage]="submitted() ? emailError() : null"
-  >
+  <ngx-govuk-form-group label="What is your email address?">
+    @if (submitted() && emailError(); as error) {
+      <p ngxGovukErrorMessage>{{ error }}</p>
+    }
     <input id="email" type="email" formControlName="email" ngxGovukTextInput />
   </ngx-govuk-form-group>
 

@@ -1,11 +1,7 @@
-<ngx-govuk-form-group
-  label="What is your National Insurance number?"
-  hint="It’s on your National Insurance card, benefit letter, payslip or P60. For example, ‘QQ 12 34 56 C’."
-  errorMessage="Enter a National Insurance number in the correct format">
-  <input
-    id="national-insurance-number"
-    name="nationalInsuranceNumber"
-    type="text"
-    ngxGovukTextInput
-    inputWidth="10" />
-</ngx-govuk-form-group>
+<ngx-govuk-date-input
+  name="passport-issued"
+  legend="When was your passport issued?"
+  hint="For example, 27 3 2007"
+  [asPageHeading]="true">
+  <p ngxGovukErrorMessage>The date your passport was issued must be in the past</p>
+</ngx-govuk-date-input>

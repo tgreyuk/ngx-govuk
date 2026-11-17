@@ -84,10 +84,12 @@
 
 <h2 class="govuk-heading-m">Showing errors</h2>
 <p class="govuk-body">
-  Set <code class="app-inline-code">errorMessage</code> when your validation
-  fails. The form group then shows the message and adds the error styles to
-  itself and the field. Leave it unset, or set it to null, when there is no
-  error.
+  When your validation fails, put a <code class="app-inline-code">p</code> with
+  <code class="app-inline-code">ngxGovukErrorMessage</code> inside the form
+  group, using <code class="app-inline-code">&#64;if</code>. The form group
+  shows it between the hint and the field, and adds the error styles to itself
+  and the field while it's there. Import it from
+  <code class="app-inline-code">ngx-govuk/error-message</code>.
 </p>
 <p class="govuk-body">
   GOV.UK's
