@@ -46,6 +46,15 @@ export class GetStartedComponent {
   $govuk-font-family: ("Helvetica Neue", Helvetica, Arial, sans-serif)
 );`;
 
+  IMAGES_CODE = `// angular.json, in your project's build options
+"assets": [
+  {
+    "glob": "**/*",
+    "input": "node_modules/govuk-frontend/dist/govuk/assets/images",
+    "output": "assets/images"
+  }
+]`;
+
   SASS_CHERRY_PICK_CODE = `// styles.scss
 // On service.gov.uk, leave out "with (...)" to keep GDS Transport.
 @use 'govuk-frontend/dist/govuk/base' with (

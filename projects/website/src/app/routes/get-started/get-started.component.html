@@ -118,6 +118,14 @@
       <a class="govuk-link" routerLink="." fragment="font">Choose a font</a>.
     </p>
     <app-code-block [code]="SASS_ALL_CODE" lang="scss" />
+    <p class="govuk-body">
+      Copy GOV.UK Frontend's images with an
+      <code class="app-inline-code">assets</code> entry in
+      <code class="app-inline-code">angular.json</code>. The footer's styles
+      load the Royal Arms above the copyright notice from
+      <code class="app-inline-code">/assets/images/govuk-crest.svg</code>.
+    </p>
+    <app-code-block [code]="IMAGES_CODE" lang="jsonc" />
 
     <h3 class="govuk-heading-s" id="styles-selected">
       Load only the styles you use

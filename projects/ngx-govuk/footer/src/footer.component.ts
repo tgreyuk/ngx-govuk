@@ -78,7 +78,10 @@ export class NgxGovukFooterMeta {}
  * `govuk-template__footer` class. Set the support links as `metaLinks`,
  * and add your own content in an element with `ngxGovukFooterMeta`. Set
  * `navigation` for sections of links under headings, as GOV.UK has.
-
+ *
+ * GOV.UK's styles show the Royal Arms above the copyright notice from
+ * `/assets/images/govuk-crest.svg`, so copy GOV.UK Frontend's images into
+ * your app's assets.
  */
 @Component({
   selector: 'ngx-govuk-footer',
