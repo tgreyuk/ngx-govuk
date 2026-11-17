@@ -26,6 +26,24 @@ LAYOUT_CLASS = re.compile(
 )
 
 
+# HTML attributes, global and on common elements, old ones included. An input
+# with one of these names stays in the DOM as that attribute when written
+# bare, where the browser or assistive technology may act on it.
+NATIVE_ATTRIBUTES = set('''
+accesskey autocapitalize autofocus class contenteditable dir draggable
+enterkeyhint hidden id inert inputmode is lang nonce popover role slot
+spellcheck style tabindex title translate
+accept action align alt autocomplete bgcolor border checked color cols
+colspan content data datetime download face for form headers height href
+hreflang label list max maxlength media method min minlength multiple name
+open pattern placeholder readonly rel required rows rowspan scope selected
+size span src start step summary target type valign value width wrap
+'''.split())
+
+# Native names the library uses on purpose, with the same meaning.
+SAME_MEANING = {'disabled', 'name', 'value'}
+
+
 def library_sources():
     return sorted(
         p for p in LIB.rglob('*.ts')
@@ -78,6 +96,17 @@ def booleans_without_transform():
         for number, line in enumerate(path.read_text().splitlines(), 1):
             if pattern.search(line) and 'booleanAttribute' not in line:
                 findings.append(f'{path}:{number}: {line.strip()}')
+    return findings
+
+
+def native_attribute_inputs():
+    findings = []
+    for path in sorted(API.glob('*.json')):
+        for api_class in json.loads(path.read_text())['classes']:
+            for member in api_class['inputs']:
+                name = member['name'].lower()
+                if name in NATIVE_ATTRIBUTES and name not in SAME_MEANING:
+                    findings.append(f"{api_class['name']}.{member['name']}")
     return findings
 
 
@@ -143,6 +172,7 @@ if __name__ == '__main__':
     report('Examples that hard-code component classes', hard_coded_classes())
     report('Decorators, CommonModule or ngClass', decorators_and_common_module())
     report('True/false inputs without booleanAttribute', booleans_without_transform())
+    report('Inputs named like native HTML attributes', native_attribute_inputs())
     report(
         'Element-selector components with no :host style',
         element_components_without_display(),

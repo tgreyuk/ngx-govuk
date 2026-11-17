@@ -72,6 +72,9 @@ the conventions this review checks against.
 - Input names that differ from GOV.UK's option or modifier, or from the
   library's other components (`inverse`, `headingLevel`, and GOV.UK's own
   name for a landmark's label).
+- Input names that are native HTML attributes with a different meaning,
+  such as `align` or `title` (see AGENTS.md). Same-meaning names, such as
+  `disabled`, are fine.
 - Members that are public but aren't part of the API (see AGENTS.md's
   "Public API").
 
@@ -158,6 +161,9 @@ It checks every component for what a search can find:
 - `@HostBinding`, `@HostListener`, `@Input`, `@Output`, `CommonModule` and
   `ngClass`.
 - True/false inputs without `booleanAttribute`.
+- Inputs named like native HTML attributes, other than `disabled`, `name`
+  and `value`. Many mean the same as the native attribute, or the name
+  means nothing on that element; report only the ones that clash.
 - Element-selector components with no `:host` style.
 - Site summaries in `components.data.ts` that differ from the first line
   of the component's JSDoc. A JSDoc that says the same and adds to it is
