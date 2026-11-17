@@ -135,6 +135,7 @@ export const COMPONENTS: ComponentEntry[] = [
     id: 'file-upload',
     status: 'documented',
     isField: true,
+    note: "Angular's forms can't hold files: a form control on a file input only gets a made-up path. Read the files from the input's files property when it fires a change event.",
     description: 'Helps users select and upload a file.',
   },
   {

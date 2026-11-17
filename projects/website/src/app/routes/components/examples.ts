@@ -138,18 +138,20 @@ export const EXAMPLES: Record<string, Example[]> = {
   ],
   'character-count': [
     {
-      path: 'character-count/default',
+      path: 'character-count/more-detail',
       load: () =>
-        import('./examples/character-count/default.component').then(
-          (m) => m.CharacterCountDemoComponent,
+        import('./examples/character-count/more-detail.component').then(
+          (m) => m.MoreDetailComponent,
         ),
+      showComponentCode: true,
     },
     {
-      path: 'character-count/words',
+      path: 'character-count/job-description',
       load: () =>
-        import('./examples/character-count/words.component').then(
-          (m) => m.CharacterCountWordsDemoComponent,
+        import('./examples/character-count/job-description.component').then(
+          (m) => m.JobDescriptionComponent,
         ),
+      showComponentCode: true,
       title: 'Word count',
       description:
         'Set "countType" to "words" to count words, and "maxLength" to the most words users should enter.',
@@ -157,28 +159,31 @@ export const EXAMPLES: Record<string, Example[]> = {
   ],
   checkboxes: [
     {
-      path: 'checkboxes/default',
+      path: 'checkboxes/waste-types',
       load: () =>
-        import('./examples/checkboxes/default.component').then(
-          (m) => m.CheckboxesDemoComponent,
+        import('./examples/checkboxes/waste-types.component').then(
+          (m) => m.WasteTypesComponent,
         ),
+      showComponentCode: true,
     },
     {
-      path: 'checkboxes/conditional',
+      path: 'checkboxes/contact-methods',
       load: () =>
-        import('./examples/checkboxes/conditional.component').then(
-          (m) => m.CheckboxesConditionalDemoComponent,
+        import('./examples/checkboxes/contact-methods.component').then(
+          (m) => m.ContactMethodsComponent,
         ),
+      showComponentCode: true,
       title: 'Conditionally revealing a related question',
       description:
         'Add content inside "ngx-govuk-checkbox" with "*ngxGovukCheckboxConditional" to show it only while that checkbox is checked.',
     },
     {
-      path: 'checkboxes/none',
+      path: 'checkboxes/travel-countries',
       load: () =>
-        import('./examples/checkboxes/none.component').then(
-          (m) => m.CheckboxesNoneDemoComponent,
+        import('./examples/checkboxes/travel-countries.component').then(
+          (m) => m.TravelCountriesComponent,
         ),
+      showComponentCode: true,
       title: 'Add an option for "none"',
       description:
         'Add "exclusive" to the last checkbox, after a "div" with "ngxGovukCheckboxesDivider". Checking it unchecks the others, and checking another unchecks it.',
@@ -197,11 +202,12 @@ export const EXAMPLES: Record<string, Example[]> = {
   ],
   'date-input': [
     {
-      path: 'date-input/default',
+      path: 'date-input/passport-issued',
       load: () =>
-        import('./examples/date-input/default.component').then(
-          (m) => m.DateInputDemoComponent,
+        import('./examples/date-input/passport-issued.component').then(
+          (m) => m.PassportIssuedComponent,
         ),
+      showComponentCode: true,
     },
   ],
   details: [
@@ -215,18 +221,20 @@ export const EXAMPLES: Record<string, Example[]> = {
   ],
   'error-message': [
     {
-      path: 'error-message/default',
+      path: 'error-message/passport-issued',
       load: () =>
-        import('./examples/error-message/default.component').then(
-          (m) => m.ErrorMessageDemoComponent,
+        import('./examples/error-message/passport-issued.component').then(
+          (m) => m.PassportIssuedComponent,
         ),
+      showComponentCode: true,
     },
     {
-      path: 'error-message/custom-prefix',
+      path: 'error-message/full-name',
       load: () =>
-        import('./examples/error-message/custom-prefix.component').then(
-          (m) => m.ErrorMessageCustomPrefixDemoComponent,
+        import('./examples/error-message/full-name.component').then(
+          (m) => m.FullNameComponent,
         ),
+      showComponentCode: true,
       title: 'Custom prefix',
       description:
         'Set "visuallyHiddenText" to change the hidden "Error" before the message, such as to "Gwall" in Welsh.',
@@ -234,11 +242,12 @@ export const EXAMPLES: Record<string, Example[]> = {
   ],
   'error-summary': [
     {
-      path: 'error-summary/default',
+      path: 'error-summary/event-name',
       load: () =>
-        import('./examples/error-summary/default.component').then(
-          (m) => m.ErrorSummaryDemoComponent,
+        import('./examples/error-summary/event-name.component').then(
+          (m) => m.EventNameComponent,
         ),
+      showComponentCode: true,
     },
   ],
   'exit-this-page': [
@@ -391,11 +400,12 @@ export const EXAMPLES: Record<string, Example[]> = {
   ],
   'password-input': [
     {
-      path: 'password-input/default',
+      path: 'password-input/password',
       load: () =>
-        import('./examples/password-input/default.component').then(
-          (m) => m.PasswordInputDemoComponent,
+        import('./examples/password-input/password.component').then(
+          (m) => m.PasswordComponent,
         ),
+      showComponentCode: true,
     },
   ],
   'phase-banner': [
@@ -409,28 +419,31 @@ export const EXAMPLES: Record<string, Example[]> = {
   ],
   radios: [
     {
-      path: 'radios/default',
+      path: 'radios/where-do-you-live',
       load: () =>
-        import('./examples/radios/default.component').then(
-          (m) => m.RadiosDemoComponent,
+        import('./examples/radios/where-do-you-live.component').then(
+          (m) => m.WhereDoYouLiveComponent,
         ),
+      showComponentCode: true,
     },
     {
-      path: 'radios/conditional',
+      path: 'radios/contact-preference',
       load: () =>
-        import('./examples/radios/conditional.component').then(
-          (m) => m.RadiosConditionalDemoComponent,
+        import('./examples/radios/contact-preference.component').then(
+          (m) => m.ContactPreferenceComponent,
         ),
+      showComponentCode: true,
       title: 'Conditionally revealing a related question',
       description:
         'Add content inside "ngx-govuk-radio" with "*ngxGovukRadioConditional" to show it only while that option is selected.',
     },
     {
-      path: 'radios/divider',
+      path: 'radios/where-do-you-live-or-abroad',
       load: () =>
-        import('./examples/radios/divider.component').then(
-          (m) => m.RadiosDividerDemoComponent,
+        import('./examples/radios/where-do-you-live-or-abroad.component').then(
+          (m) => m.WhereDoYouLiveOrAbroadComponent,
         ),
+      showComponentCode: true,
       title: 'Radio items with a text divider',
       description:
         'Put a "div" with "ngxGovukRadiosDivider" before the last option to set it apart.',
@@ -438,11 +451,12 @@ export const EXAMPLES: Record<string, Example[]> = {
   ],
   select: [
     {
-      path: 'select/default',
+      path: 'select/sort-by',
       load: () =>
-        import('./examples/select/default.component').then(
-          (m) => m.SelectDemoComponent,
+        import('./examples/select/sort-by.component').then(
+          (m) => m.SortByComponent,
         ),
+      showComponentCode: true,
     },
   ],
   'service-navigation': [
@@ -520,28 +534,31 @@ export const EXAMPLES: Record<string, Example[]> = {
   ],
   'text-input': [
     {
-      path: 'text-input/default',
+      path: 'text-input/event-name',
       load: () =>
-        import('./examples/text-input/default.component').then(
-          (m) => m.TextInputDemoComponent,
+        import('./examples/text-input/event-name.component').then(
+          (m) => m.EventNameComponent,
         ),
+      showComponentCode: true,
     },
     {
-      path: 'text-input/fixed-width',
+      path: 'text-input/fixed-width-inputs',
       load: () =>
-        import('./examples/text-input/fixed-width.component').then(
-          (m) => m.TextInputFixedWidthDemoComponent,
+        import('./examples/text-input/fixed-width-inputs.component').then(
+          (m) => m.FixedWidthInputsComponent,
         ),
+      showComponentCode: true,
       title: 'Fixed width inputs',
       description:
         'Set "inputWidth" to a number of characters: "30", "20", "10", "5", "4", "3" or "2".',
     },
     {
-      path: 'text-input/fluid-width',
+      path: 'text-input/fluid-width-inputs',
       load: () =>
-        import('./examples/text-input/fluid-width.component').then(
-          (m) => m.TextInputFluidWidthDemoComponent,
+        import('./examples/text-input/fluid-width-inputs.component').then(
+          (m) => m.FluidWidthInputsComponent,
         ),
+      showComponentCode: true,
       title: 'Fluid width inputs',
       description:
         'Set "inputWidth" to a fraction of its container: "full", "three-quarters", "two-thirds", "one-half", "one-third" or "one-quarter".',
@@ -549,11 +566,12 @@ export const EXAMPLES: Record<string, Example[]> = {
   ],
   textarea: [
     {
-      path: 'textarea/default',
+      path: 'textarea/more-detail',
       load: () =>
-        import('./examples/textarea/default.component').then(
-          (m) => m.TextareaDemoComponent,
+        import('./examples/textarea/more-detail.component').then(
+          (m) => m.MoreDetailComponent,
         ),
+      showComponentCode: true,
     },
   ],
   'warning-text': [

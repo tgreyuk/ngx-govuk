@@ -1,0 +1,13 @@
+<ngx-govuk-checkboxes
+  name="countries"
+  legend="Will you be travelling to any of these countries?"
+  [asPageHeading]="true"
+  hint="Select all countries that apply">
+  <ngx-govuk-checkbox [formControl]="france">France</ngx-govuk-checkbox>
+  <ngx-govuk-checkbox [formControl]="portugal">Portugal</ngx-govuk-checkbox>
+  <ngx-govuk-checkbox [formControl]="spain">Spain</ngx-govuk-checkbox>
+  <div ngxGovukCheckboxesDivider>or</div>
+  <ngx-govuk-checkbox [formControl]="none" exclusive>
+    No, I will not be travelling to any of these countries
+  </ngx-govuk-checkbox>
+</ngx-govuk-checkboxes>
