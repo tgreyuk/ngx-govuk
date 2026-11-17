@@ -1,4 +1,4 @@
-import { Component, computed, ElementRef, inject, input } from '@angular/core';
+import { Component, computed, inject, input } from '@angular/core';
 import { NgxGovukUtilsService } from 'ngx-govuk';
 import { NgxGovukTabs } from './tabs.component';
 
@@ -9,9 +9,11 @@ import { NgxGovukTabs } from './tabs.component';
  */
 @Component({
   selector: 'ngx-govuk-tab',
-  template: '<ng-content></ng-content>',
+  template: '<ng-content />',
   // The element is the panel itself, which GOV.UK's CSS expects to be a block.
-  styles: ':host { display: block; }',
+  // `:where` keeps the rule's specificity at 0, so GOV.UK's rule that hides
+  // closed panels still wins.
+  styles: ':where(:host:not([hidden])) { display: block; }',
   host: {
     class: 'govuk-tabs__panel',
     '[class.govuk-tabs__panel--hidden]': '!isSelected()',
@@ -22,7 +24,6 @@ import { NgxGovukTabs } from './tabs.component';
 })
 export class NgxGovukTab {
   protected tabs = inject(NgxGovukTabs);
-  private element = inject<ElementRef<HTMLElement>>(ElementRef);
 
   /**
    * The text of the section's tab.
@@ -31,7 +32,7 @@ export class NgxGovukTab {
 
   /**
    * The id of the section. Its tab links to it, so it's the URL fragment that
-   * opens this tab when the page loads. Leave it unset for a unique id.
+   * opens this tab. Leave it unset for a unique id.
    */
   id = input<string>(inject(NgxGovukUtilsService).randomId('govuk-tabs-panel'));
 
@@ -41,9 +42,4 @@ export class NgxGovukTab {
   protected isSelected = computed(
     () => this.tabs.tabs().indexOf(this) === this.tabs.selectedIndex(),
   );
-
-  /** @internal Brings the section into view, when tabs show as a list. */
-  scrollIntoView() {
-    this.element.nativeElement.scrollIntoView();
-  }
 }

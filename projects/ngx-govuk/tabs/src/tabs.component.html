@@ -9,7 +9,7 @@
       <a
         #link
         class="govuk-tabs__tab"
-        [attr.href]="'#' + tab.id()"
+        [attr.href]="pageUrl() + '#' + tab.id()"
         [attr.id]="isTabbed() ? tab.tabId() : null"
         [attr.role]="isTabbed() ? 'tab' : null"
         [attr.aria-controls]="isTabbed() ? tab.id() : null"
