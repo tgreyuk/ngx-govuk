@@ -1,6 +1,6 @@
 <dl ngxGovukSummaryList>
   <div ngxGovukSummaryListRow key="Name">
-    Sarah Philips
+    Sarah Phillips
     <a
       *ngxGovukSummaryListAction
       ngxGovukSummaryActionLink
@@ -32,6 +32,13 @@
   <div ngxGovukSummaryListRow key="Contact details">
     <p class="govuk-body">07700 900457</p>
     <p class="govuk-body">sarah.phillips&#64;example.com</p>
+    <a
+      *ngxGovukSummaryListAction
+      ngxGovukSummaryActionLink
+      visuallyHiddenText="contact details"
+      routerLink="."
+      >Add</a
+    >
     <a
       *ngxGovukSummaryListAction
       ngxGovukSummaryActionLink

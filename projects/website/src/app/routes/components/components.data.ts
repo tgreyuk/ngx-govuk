@@ -265,7 +265,7 @@ export const COMPONENTS: ComponentEntry[] = [
     id: 'summary-list',
     status: 'documented',
     description:
-      "Summarises information, such as a user's answers at the end of a form.",
+      "Summarises information, for example, a user's responses at the end of a form.",
   },
   {
     name: 'Table',
