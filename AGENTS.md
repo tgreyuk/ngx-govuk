@@ -97,6 +97,13 @@ its Design System URL.
   rendered with `@switch`). A landmark's label takes GOV.UK's name for it,
   which varies: `labelText` on the breadcrumbs, `ariaLabel` on the cookie
   banner, language navigation and service navigation.
+- Don't give an input the name of a native HTML attribute unless it means
+  the same thing, as `disabled`, `name` and `value` do on the radios. Written
+  bare, it stays in the DOM as that attribute, where the browser or
+  assistive technology may act on it, and it reads as HTML's own. Where
+  GOV.UK's option has such a name, name the input for what it does instead,
+  as `inline` on the service navigation's end slot does for GOV.UK's
+  `align: 'inline'`.
 - When an input departs from GOV.UK's option in a way the docs site's
   "Using components" guide doesn't cover (flattened text options, projected
   content instead of `html`, element `classes` and `attributes`, projected
