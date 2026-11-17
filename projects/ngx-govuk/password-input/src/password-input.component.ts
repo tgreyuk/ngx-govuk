@@ -1,6 +1,5 @@
 import { DOCUMENT } from '@angular/common';
 import {
-  AfterContentInit,
   Component,
   computed,
   contentChild,
@@ -9,6 +8,7 @@ import {
   input,
   Renderer2,
   signal,
+  untracked,
   booleanAttribute,
 } from '@angular/core';
 import { NgxGovukUtilsService } from 'ngx-govuk';
@@ -39,7 +39,7 @@ import { NgxGovukErrorMessage } from 'ngx-govuk/error-message';
   // Custom elements are inline by default; GOV.UK's styles expect a block.
   styles: ':host(:not([hidden])) { display: block; }',
 })
-export class NgxGovukPasswordInput implements AfterContentInit {
+export class NgxGovukPasswordInput {
   private renderer = inject(Renderer2);
   private document = inject(DOCUMENT);
   private utilsService = inject(NgxGovukUtilsService);
@@ -103,6 +103,61 @@ export class NgxGovukPasswordInput implements AfterContentInit {
       .join(' '),
   );
 
+  /**
+   * Sets up the input once it's rendered, which can be after the password
+   * input, such as when it's inside `@if`.
+   */
+  private setUpInput = effect((onCleanup) => {
+    const element = this.textInput()?.elementRef.nativeElement;
+    if (!element) {
+      return;
+    }
+    untracked(() => {
+      this.initialDescribedBy.set(
+        element.getAttribute('aria-describedby') ?? '',
+      );
+      if (!element.id) {
+        this.renderer.setAttribute(
+          element,
+          'id',
+          this.utilsService.randomId('field'),
+        );
+      }
+      this.fieldId.set(element.id);
+
+      // The attributes GOV.UK Frontend's macro gives a password input.
+      this.renderer.addClass(element, 'govuk-password-input__input');
+      this.renderer.setAttribute(element, 'spellcheck', 'false');
+      this.renderer.setAttribute(element, 'autocapitalize', 'none');
+      if (!element.hasAttribute('autocomplete')) {
+        this.renderer.setAttribute(element, 'autocomplete', 'current-password');
+      }
+
+      // Hide the password before the form is sent, and when users come back
+      // to the page from the browser's cache. The type is set straight away,
+      // as a form that posts can leave the page before Angular updates it.
+      const hide = () => {
+        this.shown.set(false);
+        this.renderer.setAttribute(element, 'type', 'password');
+      };
+      if (element.form) {
+        onCleanup(this.renderer.listen(element.form, 'submit', hide));
+      }
+      const view = this.document.defaultView;
+      if (view) {
+        onCleanup(
+          this.renderer.listen(
+            view,
+            'pageshow',
+            (event: PageTransitionEvent) => {
+              if (event.persisted) hide();
+            },
+          ),
+        );
+      }
+    });
+  });
+
   constructor() {
     effect(() => {
       const textInput = this.textInput();
@@ -123,47 +178,6 @@ export class NgxGovukPasswordInput implements AfterContentInit {
         this.renderer.removeAttribute(element, 'aria-describedby');
       }
     });
-  }
-
-  ngAfterContentInit(): void {
-    const element = this.textInput()?.elementRef.nativeElement;
-    if (!element) {
-      return;
-    }
-    this.initialDescribedBy.set(element.getAttribute('aria-describedby') ?? '');
-    if (!element.id) {
-      this.renderer.setAttribute(
-        element,
-        'id',
-        this.utilsService.randomId('field'),
-      );
-    }
-    this.fieldId.set(element.id);
-
-    // The attributes GOV.UK Frontend's macro gives a password input.
-    this.renderer.addClass(element, 'govuk-password-input__input');
-    this.renderer.setAttribute(element, 'spellcheck', 'false');
-    this.renderer.setAttribute(element, 'autocapitalize', 'none');
-    if (!element.hasAttribute('autocomplete')) {
-      this.renderer.setAttribute(element, 'autocomplete', 'current-password');
-    }
-
-    // Hide the password before the form is sent, and when users come back
-    // to the page from the browser's cache. The type is set straight away,
-    // as a form that posts can leave the page before Angular updates it.
-    const hide = () => {
-      this.shown.set(false);
-      this.renderer.setAttribute(element, 'type', 'password');
-    };
-    if (element.form) {
-      this.renderer.listen(element.form, 'submit', hide);
-    }
-    const view = this.document.defaultView;
-    if (view) {
-      this.renderer.listen(view, 'pageshow', (event: PageTransitionEvent) => {
-        if (event.persisted) hide();
-      });
-    }
   }
 
   protected toggle() {

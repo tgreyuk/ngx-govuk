@@ -23,6 +23,20 @@ class TestHostComponent {
   errorMessage = signal<string | null>(null);
 }
 
+@Component({
+  imports: [NgxGovukPasswordInput, NgxGovukTextInput],
+  template: `
+    <ngx-govuk-password-input label="Password">
+      @if (showInput()) {
+        <input id="late-password" ngxGovukTextInput />
+      }
+    </ngx-govuk-password-input>
+  `,
+})
+class LateInputHostComponent {
+  showInput = signal(false);
+}
+
 function setup() {
   const fixture = TestBed.createComponent(TestHostComponent);
   fixture.detectChanges();
@@ -82,5 +96,21 @@ describe('NgxGovukPasswordInput', () => {
       .querySelector('form')!
       .dispatchEvent(new Event('submit', { cancelable: true }));
     expect(input.type).toBe('password');
+  });
+
+  it('sets up an input that is rendered after the password input', () => {
+    const fixture = TestBed.createComponent(LateInputHostComponent);
+    fixture.detectChanges();
+    fixture.componentInstance.showInput.set(true);
+    fixture.detectChanges();
+    const element = fixture.nativeElement as HTMLElement;
+    const input = element.querySelector('input') as HTMLInputElement;
+
+    expect(element.querySelector('label')?.getAttribute('for')).toBe(
+      'late-password',
+    );
+    expect(input.type).toBe('password');
+    expect(input.classList).toContain('govuk-password-input__input');
+    expect(input.getAttribute('autocomplete')).toBe('current-password');
   });
 });

@@ -47,6 +47,20 @@ class HostComponent {
   threshold = signal<number | undefined>(undefined);
 }
 
+@Component({
+  imports: [NgxGovukCharacterCount, NgxGovukTextarea],
+  template: `
+    <ngx-govuk-character-count label="More detail" [maxLength]="10">
+      @if (showTextarea()) {
+        <textarea id="late-detail" ngxGovukTextarea></textarea>
+      }
+    </ngx-govuk-character-count>
+  `,
+})
+class LateTextareaHostComponent {
+  showTextarea = signal(false);
+}
+
 describe('NgxGovukCharacterCount', () => {
   function setup() {
     TestBed.configureTestingModule({
@@ -183,5 +197,26 @@ describe('NgxGovukCharacterCount', () => {
       'govuk-character-count__message--disabled',
     );
     expect(srStatus().hasAttribute('aria-hidden')).toBe(false);
+  });
+
+  it('sets up a textarea that is rendered after the character count', () => {
+    const fixture = TestBed.createComponent(LateTextareaHostComponent);
+    fixture.detectChanges();
+    fixture.componentInstance.showTextarea.set(true);
+    fixture.detectChanges();
+    const element = fixture.nativeElement as HTMLElement;
+    const textarea = element.querySelector('textarea') as HTMLTextAreaElement;
+
+    expect(element.querySelector('label')?.getAttribute('for')).toBe(
+      'late-detail',
+    );
+    expect(textarea.getAttribute('aria-describedby')).toBe('late-detail-info');
+
+    textarea.value = 'Hello';
+    textarea.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+    expect(
+      element.querySelector('.govuk-character-count__status')?.textContent,
+    ).toContain('You have 5 characters remaining');
   });
 });

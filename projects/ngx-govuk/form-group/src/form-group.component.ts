@@ -1,6 +1,5 @@
 import { NgTemplateOutlet } from '@angular/common';
 import {
-  AfterContentInit,
   Component,
   Renderer2,
   computed,
@@ -37,7 +36,7 @@ import { NgxGovukErrorMessage } from 'ngx-govuk/error-message';
   // Custom elements are inline by default; GOV.UK's styles expect a block.
   styles: ':host(:not([hidden])) { display: block; }',
 })
-export class NgxGovukFormGroup implements AfterContentInit {
+export class NgxGovukFormGroup {
   private renderer = inject(Renderer2);
   private utilsService = inject(NgxGovukUtilsService);
   private field = contentChild(NGX_GOVUK_FIELD);
@@ -112,6 +111,26 @@ export class NgxGovukFormGroup implements AfterContentInit {
       .join(' '),
   );
 
+  /**
+   * Sets up the field once it's rendered, which can be after the form group,
+   * such as when it's inside `@if`.
+   */
+  private setUpField = effect(() => {
+    const element = this.field()?.elementRef.nativeElement;
+    if (!element) {
+      return;
+    }
+    this.initialDescribedBy.set(element.getAttribute('aria-describedby') ?? '');
+    if (!element.id) {
+      this.renderer.setAttribute(
+        element,
+        'id',
+        this.utilsService.randomId('field'),
+      );
+    }
+    this.fieldId.set(element.id);
+  });
+
   constructor() {
     effect(() => {
       const field = this.field();
@@ -127,21 +146,5 @@ export class NgxGovukFormGroup implements AfterContentInit {
         this.renderer.removeAttribute(element, 'aria-describedby');
       }
     });
-  }
-
-  ngAfterContentInit(): void {
-    const element = this.field()?.elementRef.nativeElement;
-    if (!element) {
-      return;
-    }
-    this.initialDescribedBy.set(element.getAttribute('aria-describedby') ?? '');
-    if (!element.id) {
-      this.renderer.setAttribute(
-        element,
-        'id',
-        this.utilsService.randomId('field'),
-      );
-    }
-    this.fieldId.set(element.id);
   }
 }

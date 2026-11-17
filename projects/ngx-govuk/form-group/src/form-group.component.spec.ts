@@ -55,6 +55,24 @@ class HostComponent {
 })
 class OwnIdHostComponent {}
 
+@Component({
+  imports: [NgxGovukErrorMessage, NgxGovukFormGroup, NgxGovukTextInput],
+  template: `
+    <ngx-govuk-form-group label="Email address" hint="Use your work email">
+      @if (errorMessage()) {
+        <p ngxGovukErrorMessage>{{ errorMessage() }}</p>
+      }
+      @if (showField()) {
+        <input id="email" ngxGovukTextInput />
+      }
+    </ngx-govuk-form-group>
+  `,
+})
+class LateFieldHostComponent {
+  showField = signal(false);
+  errorMessage = signal<string | null>(null);
+}
+
 describe('NgxGovukFormGroup', () => {
   let fixture: ComponentFixture<HostComponent>;
   let host: HostComponent;
@@ -191,5 +209,24 @@ describe('NgxGovukFormGroup', () => {
       'own-error',
     );
     expect(own.querySelector('.govuk-form-group--error')).not.toBeNull();
+  });
+
+  it('connects a field that is rendered after the form group', () => {
+    const lateFixture = TestBed.createComponent(LateFieldHostComponent);
+    lateFixture.detectChanges();
+    const late = lateFixture.nativeElement as HTMLElement;
+
+    lateFixture.componentInstance.showField.set(true);
+    lateFixture.componentInstance.errorMessage.set('Enter an email address');
+    lateFixture.detectChanges();
+
+    const input = late.querySelector('input');
+    expect(late.querySelector('label')?.getAttribute('for')).toBe('email');
+    expect(late.querySelector('.govuk-hint')?.id).toBe('email-hint');
+    expect(late.querySelector('.govuk-error-message')?.id).toBe('email-error');
+    expect(input?.getAttribute('aria-describedby')).toBe(
+      'email-hint email-error',
+    );
+    expect(input?.classList).toContain('govuk-input--error');
   });
 });

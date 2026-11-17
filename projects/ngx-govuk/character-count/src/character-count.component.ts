@@ -1,5 +1,4 @@
 import {
-  AfterContentInit,
   Component,
   DestroyRef,
   Renderer2,
@@ -11,9 +10,9 @@ import {
   inject,
   input,
   signal,
+  untracked,
   booleanAttribute,
 } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NgControl } from '@angular/forms';
 import {
   NgxGovukPluralText,
@@ -57,7 +56,7 @@ export type NgxGovukCountType = 'length' | 'characters' | 'words';
   // Custom elements are inline by default; GOV.UK's styles expect a block.
   styles: ':host(:not([hidden])) { display: block; }',
 })
-export class NgxGovukCharacterCount implements AfterContentInit {
+export class NgxGovukCharacterCount {
   private renderer = inject(Renderer2);
   private destroyRef = inject(DestroyRef);
   private utilsService = inject(NgxGovukUtilsService);
@@ -225,6 +224,42 @@ export class NgxGovukCharacterCount implements AfterContentInit {
       .join(' '),
   );
 
+  /**
+   * Sets up the textarea once it's rendered, which can be after the
+   * character count, such as when it's inside `@if`.
+   */
+  private setUpTextarea = effect((onCleanup) => {
+    const element = this.textarea()?.elementRef.nativeElement;
+    if (!element) {
+      return;
+    }
+    untracked(() => {
+      this.initialDescribedBy.set(
+        element.getAttribute('aria-describedby') ?? '',
+      );
+      if (!element.id) {
+        this.renderer.setAttribute(
+          element,
+          'id',
+          this.utilsService.randomId('field'),
+        );
+      }
+      this.fieldId.set(element.id);
+      this.removeMaxLength(element);
+      const lang = element.closest('[lang]')?.getAttribute('lang') || 'en';
+      this.pluralRules.set(new Intl.PluralRules(lang));
+
+      this.element = element;
+      const count = () => this.count(element.value);
+      onCleanup(this.renderer.listen(element, 'input', count));
+      // A form control can change the value without an input event.
+      const subscription = this.control()?.valueChanges?.subscribe(count);
+      onCleanup(() => subscription?.unsubscribe());
+      this.value.set(element.value);
+      this.screenReaderValue.set(element.value);
+    });
+  });
+
   constructor() {
     effect(() => {
       const textarea = this.textarea();
@@ -251,35 +286,6 @@ export class NgxGovukCharacterCount implements AfterContentInit {
       );
       this.destroyRef.onDestroy(unlisten);
     });
-  }
-
-  ngAfterContentInit(): void {
-    const element = this.textarea()?.elementRef.nativeElement;
-    if (!element) {
-      return;
-    }
-    this.initialDescribedBy.set(element.getAttribute('aria-describedby') ?? '');
-    if (!element.id) {
-      this.renderer.setAttribute(
-        element,
-        'id',
-        this.utilsService.randomId('field'),
-      );
-    }
-    this.fieldId.set(element.id);
-    this.removeMaxLength(element);
-    const lang = element.closest('[lang]')?.getAttribute('lang') || 'en';
-    this.pluralRules.set(new Intl.PluralRules(lang));
-
-    this.element = element;
-    const count = () => this.count(element.value);
-    this.renderer.listen(element, 'input', count);
-    // A form control can change the value without an input event.
-    this.control()
-      ?.valueChanges?.pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(count);
-    this.value.set(element.value);
-    this.screenReaderValue.set(element.value);
   }
 
   /** Counts the value again if it changed without an input event. */
