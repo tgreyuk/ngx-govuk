@@ -1,4 +1,4 @@
-import { computed, Directive, inject, input } from '@angular/core';
+import { Directive, inject, input } from '@angular/core';
 
 /**
  * Styles a `table` element as a GOV.UK table, to make information easier to
@@ -22,7 +22,9 @@ export class NgxGovukTable {}
   selector: 'caption[ngxGovukTableCaption]',
   host: {
     class: 'govuk-table__caption',
-    '[class]': 'sizeClass()',
+    '[class.govuk-table__caption--m]': "captionSize() === 'm'",
+    '[class.govuk-table__caption--l]': "captionSize() === 'l'",
+    '[class.govuk-table__caption--xl]': "captionSize() === 'xl'",
   },
 })
 export class NgxGovukTableCaption {
@@ -31,11 +33,6 @@ export class NgxGovukTableCaption {
    * unset, the caption is bold body text, the size of a small heading.
    */
   captionSize = input<'m' | 'l' | 'xl'>();
-
-  protected sizeClass = computed(() => {
-    const size = this.captionSize();
-    return size ? `govuk-table__caption--${size}` : '';
-  });
 }
 
 /**
