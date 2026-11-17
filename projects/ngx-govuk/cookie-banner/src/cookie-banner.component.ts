@@ -19,7 +19,7 @@ import { Component, input } from '@angular/core';
     '[attr.aria-label]': 'ariaLabel()',
   },
   // Custom elements are inline by default; GOV.UK's styles expect a block.
-  styles: ':host(:not([hidden])) { display: block; }',
+  styles: ':where(:host:not([hidden])) { display: block; }',
 })
 export class NgxGovukCookieBanner {
   /** Labels the banner for screen reader users. */

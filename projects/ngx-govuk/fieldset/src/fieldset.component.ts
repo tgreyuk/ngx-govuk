@@ -15,7 +15,7 @@ import { Component, computed, input, booleanAttribute } from '@angular/core';
   selector: 'ngx-govuk-fieldset',
   templateUrl: './fieldset.component.html',
   // Custom elements are inline by default; the fieldset inside is a block.
-  styles: ':host(:not([hidden])) { display: block; }',
+  styles: ':where(:host:not([hidden])) { display: block; }',
 })
 export class NgxGovukFieldset {
   /**

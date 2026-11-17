@@ -119,6 +119,17 @@ def element_components_without_display():
     return findings
 
 
+def host_display_without_where():
+    # A bare `:host` rule outranks GOV.UK's own rules on the root, such as
+    # one that hides it, so display rules go inside `:where(...)`.
+    findings = []
+    for path in library_sources():
+        source = path.read_text()
+        if re.search(r'(?<!:where\()(?<!\w):host\b[^{]*\{\s*display:\s*block', source):
+            findings.append(str(path))
+    return findings
+
+
 def summaries_and_jsdoc():
     data = (COMPONENTS / 'components.data.ts').read_text()
     entries = re.finditer(
@@ -176,6 +187,10 @@ if __name__ == '__main__':
     report(
         'Element-selector components with no :host style',
         element_components_without_display(),
+    )
+    report(
+        'Host display rules not wrapped in :where',
+        host_display_without_where(),
     )
     report('Site summaries that differ from the JSDoc', summaries_and_jsdoc())
     report(

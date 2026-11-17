@@ -34,7 +34,7 @@ import { NgxGovukErrorMessage } from 'ngx-govuk/error-message';
     '[class.govuk-form-group--error]': '!!errorMessage()',
   },
   // Custom elements are inline by default; GOV.UK's styles expect a block.
-  styles: ':host(:not([hidden])) { display: block; }',
+  styles: ':where(:host:not([hidden])) { display: block; }',
 })
 export class NgxGovukFormGroup {
   private renderer = inject(Renderer2);

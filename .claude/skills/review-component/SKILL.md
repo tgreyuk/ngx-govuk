@@ -165,6 +165,8 @@ It checks every component for what a search can find:
   and `value`. Many mean the same as the native attribute, or the name
   means nothing on that element; report only the ones that clash.
 - Element-selector components with no `:host` style.
+- Host `display` rules not wrapped in `:where(...)`, which would outrank
+  GOV.UK's own rules on the root.
 - Site summaries in `components.data.ts` that differ from the first line
   of the component's JSDoc. A JSDoc that says the same and adds to it is
   fine; report only where they say different things.

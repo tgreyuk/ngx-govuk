@@ -54,7 +54,7 @@ export interface NgxGovukErrorSummaryItem {
     '(click)': 'focusDescriptionLink($event)',
   },
   // Custom elements are inline by default; GOV.UK's styles expect a block.
-  styles: ':host(:not([hidden])) { display: block; }',
+  styles: ':where(:host:not([hidden])) { display: block; }',
 })
 export class NgxGovukErrorSummary {
   private document = inject(DOCUMENT);

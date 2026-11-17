@@ -18,7 +18,7 @@ import { NGX_GOVUK_ACCORDION } from './accordion.token';
     '[class.govuk-accordion__section--expanded]': 'expanded()',
   },
   // Custom elements are inline by default; GOV.UK's styles expect a block.
-  styles: ':host(:not([hidden])) { display: block; }',
+  styles: ':where(:host:not([hidden])) { display: block; }',
 })
 export class NgxGovukAccordionPanel {
   private utilsService = inject(NgxGovukUtilsService);

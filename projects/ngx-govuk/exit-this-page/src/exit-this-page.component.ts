@@ -37,7 +37,7 @@ const TIMEOUT = 5000;
   templateUrl: './exit-this-page.component.html',
   host: { class: 'govuk-exit-this-page' },
   // Custom elements are inline by default; GOV.UK's styles expect a block.
-  styles: ':host(:not([hidden])) { display: block; }',
+  styles: ':where(:host:not([hidden])) { display: block; }',
 })
 export class NgxGovukExitThisPage implements ExitThisPageButton {
   private document = inject(DOCUMENT);

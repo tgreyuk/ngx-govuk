@@ -77,8 +77,10 @@ its Design System URL.
   never a wrapper around it: set the root's classes and attributes with
   `host` and leave it out of the template, so a consumer's `id`, classes and
   attributes land where GOV.UK's CSS expects them. Add
-  `styles: ':host(:not([hidden])) { display: block; }'`, as custom elements
-  are inline, unless GOV.UK's CSS already sets the root's `display`. Where
+  `styles: ':where(:host:not([hidden])) { display: block; }'`, as custom
+  elements are inline, unless GOV.UK's CSS already sets the root's
+  `display`. The `:where` keeps the rule's specificity at 0, so GOV.UK's own
+  rules on the root, such as one that hides it, still win. Where
   the root is an element a custom element can't stand in for, such as a
   `fieldset` or `nav`, and the native element adds little, keep the element
   selector and render the root in the template (`ngx-govuk-fieldset`,

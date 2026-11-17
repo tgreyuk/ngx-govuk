@@ -21,7 +21,7 @@ import { NgxGovukButtonGroup } from 'ngx-govuk/button';
   },
   styles: `
     /* Custom elements are inline by default; GOV.UK's styles expect a block. */
-    :host(:not([hidden])) {
+    :where(:host:not([hidden])) {
       display: block;
     }
 
