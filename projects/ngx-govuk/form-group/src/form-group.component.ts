@@ -64,12 +64,12 @@ export class NgxGovukFormGroup {
   hint = input<string>();
 
   /**
-   * Text shown before the field, such as `£`.
+   * Text shown before the field, such as `£`. Use it with text inputs only.
    */
   prefix = input<string>();
 
   /**
-   * Text shown after the field, such as `per item`.
+   * Text shown after the field, such as `per item`. Use it with text inputs only.
    */
   suffix = input<string>();
 
