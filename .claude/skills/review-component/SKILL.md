@@ -1,6 +1,6 @@
 ---
 name: review-component
-description: Review one ngx-govuk component — its library code against GOV.UK Frontend, and its docs page — then fix what's agreed. Use when asked to review a component, such as "/review-component button" or "next component - tabs".
+description: Review one ngx-govuk component — its library code against GOV.UK Frontend, and its docs page — then fix what's agreed. With `all`, sweep every component for the checks a search can do, and find which components a GOV.UK Frontend release changed. Use when asked to review a component, such as "/review-component button" or "next component - tabs", or to check all components, such as after a new GOV.UK Frontend release.
 ---
 
 # Review a component
@@ -8,7 +8,8 @@ description: Review one ngx-govuk component — its library code against GOV.UK 
 Review one component end to end: the library code in
 `projects/ngx-govuk/<id>/` and its page on the docs site. The argument is the
 component's id, as in its GOV.UK Design System URL, such as `button` or
-`character-count`.
+`character-count`. With `all`, follow "Review all components" at the end
+instead.
 
 Follow AGENTS.md throughout. Its "Components and directives" section holds
 the conventions this review checks against.
@@ -69,7 +70,8 @@ the conventions this review checks against.
   `[class.…]` bindings would do.
 - True/false inputs without `booleanAttribute`.
 - Input names that differ from GOV.UK's option or modifier, or from the
-  library's other components (`inverse`, `headingLevel`, `labelText`).
+  library's other components (`inverse`, `headingLevel`, and GOV.UK's own
+  name for a landmark's label).
 - Members that are public but aren't part of the API (see AGENTS.md's
   "Public API").
 
@@ -82,6 +84,13 @@ the conventions this review checks against.
   description of how to get it. Don't propose an example only to show an
   input, or one that needs a demo-only wrapper, such as a dark background
   for `inverse`.
+- No example hard-codes a GOV.UK component's classes, such as
+  `govuk-table__cell` or `govuk-notification-banner__link`. Use the
+  library's directive for them, such as `td ngxGovukTableCell`. Where
+  there isn't one, propose a directive that adds the class. Check the
+  component's examples for other components' classes too, such as a
+  table inside a tab. Classes for laying out page content, such as
+  `govuk-body` and `govuk-link`, are fine.
 - The JSDoc reads well in the API tab: what the component is for, then how
   to use it, and what each input does in plain English.
 
@@ -121,3 +130,67 @@ Only when asked. Split the work so the changelog reads well:
 - Mark breaking changes with `!` and a `BREAKING CHANGE:` footer that says
   what users need to change.
 - End each message with the `Assisted-by: Claude Code` trailer.
+
+## Review all components
+
+Run this when GOV.UK Frontend releases a new version, or now and then to
+catch conventions that have slipped. A full review of every component at
+once costs too much and gives too many findings to act on, so this mode
+does two cheaper things and then hands over to single reviews.
+
+### 1. Sweep the library
+
+Run `npm run website:api`, then:
+
+```bash
+python3 .claude/skills/review-component/sweep.py
+```
+
+It checks every component for what a search can find:
+
+- Examples that hard-code a component's classes instead of using its
+  directive.
+- `@HostBinding`, `@HostListener`, `@Input`, `@Output`, `CommonModule` and
+  `ngClass`.
+- True/false inputs without `booleanAttribute`.
+- Element-selector components with no `:host` style.
+- Site summaries in `components.data.ts` that differ from the first line
+  of the component's JSDoc. A JSDoc that says the same and adds to it is
+  fine; report only where they say different things.
+- GOV.UK Frontend components the docs site doesn't list, or lists as
+  `to-do` or `in-progress`. One it doesn't list is new in GOV.UK Frontend:
+  add it to `components.data.ts` as `to-do`, and ask before building it.
+
+Its findings are leads: read the code before reporting one. Add a check to
+the script when a new convention can be found by a search.
+
+### 2. Find what a GOV.UK Frontend release changed
+
+Skip this unless GOV.UK Frontend has a new version. Get the installed
+version from `node_modules/govuk-frontend/package.json` and the latest
+with `npm view govuk-frontend version`, then compare them:
+
+```bash
+.claude/skills/review-component/govuk-diff.sh <installed> <latest> <scratchpad>/govuk-diff
+```
+
+It lists components GOV.UK added, removed and changed, and writes a diff
+of each changed file. Read the release notes on GitHub too, as some
+changes, such as new options, are clearer there. For each changed
+component that ngx-govuk documents, say what changed and whether the
+library needs to follow it. For each added component, say what it is
+from its Design System page, and that the library doesn't have it yet.
+The sweep's last check finds these too, once the new version is
+installed.
+
+Upgrading GOV.UK Frontend itself is separate work: ask before changing
+the peer dependency, and follow AGENTS.md's "Supported versions" when
+you do.
+
+### 3. Report
+
+Report the sweep's findings grouped by check, then the release's changes
+by component, leading with ones that break markup or behaviour. Say which
+fixes can be made across the library in one pass, and which components
+need a full single review. Then ask what to fix, and fix as in "4. Fix"
+above.
