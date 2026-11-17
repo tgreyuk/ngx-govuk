@@ -116,11 +116,21 @@
 
 <ng-template #link let-item>
   @if (item.routerLink !== undefined) {
-    <a class="govuk-footer__link" [routerLink]="item.routerLink">
+    <a
+      class="govuk-footer__link"
+      [routerLink]="item.routerLink"
+      [attr.hreflang]="item.hreflang"
+      [attr.lang]="item.lang"
+    >
       {{ item.text }}
     </a>
   } @else {
-    <a class="govuk-footer__link" [attr.href]="item.href">
+    <a
+      class="govuk-footer__link"
+      [attr.href]="item.href"
+      [attr.hreflang]="item.hreflang"
+      [attr.lang]="item.lang"
+    >
       {{ item.text }}
     </a>
   }

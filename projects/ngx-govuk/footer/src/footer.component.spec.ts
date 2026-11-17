@@ -99,6 +99,29 @@ describe('NgxGovukFooter', () => {
     expect(texts('.govuk-footer__inline-list-item')).toEqual(['Cookies']);
   });
 
+  it('sets the language of a link and the page it goes to', () => {
+    const { fixture, element } = setup();
+    fixture.componentInstance.metaLinks.set([
+      {
+        text: 'Rhestr o Wasanaethau Cymraeg',
+        href: 'https://www.gov.uk/cymraeg',
+        lang: 'cy',
+        hreflang: 'cy',
+      },
+      { text: 'Help', routerLink: '/help', lang: 'en', hreflang: 'en' },
+      { text: 'Cookies', routerLink: '/cookies' },
+    ]);
+    fixture.detectChanges();
+    const links = Array.from(
+      element.querySelectorAll('.govuk-footer__inline-list-item a'),
+    ).map((a) => [a.getAttribute('lang'), a.getAttribute('hreflang')]);
+    expect(links).toEqual([
+      ['cy', 'cy'],
+      ['en', 'en'],
+      [null, null],
+    ]);
+  });
+
   it('leaves out the navigation and its section break without sections', () => {
     const { fixture, element } = setup();
     fixture.componentInstance.navigation.set([]);

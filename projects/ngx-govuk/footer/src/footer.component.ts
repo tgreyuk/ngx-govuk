@@ -22,6 +22,18 @@ export interface NgxGovukFooterLink {
    * `https://www.gov.uk/help`. Used when `routerLink` isn't set.
    */
   href?: string;
+  /**
+   * The language of the page the link goes to, if it isn't the language of
+   * the current page, such as `cy` for a Welsh-language page. Sets the
+   * link's `hreflang`.
+   */
+  hreflang?: string;
+  /**
+   * The language of the link's text, if it isn't the language of the
+   * current page, such as `cy` for a link to Welsh-language pages written
+   * in Welsh. Sets the link's `lang`.
+   */
+  lang?: string;
 }
 
 /** A section of links in the footer's navigation, under a heading. */
