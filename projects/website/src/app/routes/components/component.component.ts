@@ -38,7 +38,7 @@ export class ComponentComponent {
       Promise.all(
         params.map(async (example) => ({
           ...example,
-          component: await example.load(),
+          component: await example.load?.(),
         })),
       ),
   });

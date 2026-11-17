@@ -580,16 +580,22 @@ pre {
     margin-bottom: 0;
   }
 
-  // The code hangs off the bottom of the frame: one box, split by single
-  // lines.
   ngx-govuk-example-code {
     pre {
       margin: 0;
       border-color: var(--app-border);
     }
-    > :first-child,
-    > app-code-block:first-child pre,
+    // A label between two code blocks shares the block's border.
     > app-code-block + .app-code-label {
+      border-top: 0;
+    }
+  }
+
+  // The code hangs off the bottom of the demo's frame: one box, split by
+  // single lines. Code-only examples keep their top border.
+  .app-example + ngx-govuk-example-code {
+    > :first-child,
+    > app-code-block:first-child pre {
       border-top: 0;
     }
   }

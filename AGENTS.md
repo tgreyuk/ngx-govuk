@@ -216,7 +216,9 @@ warns past 2 kB per component.
 Each example is a small standalone component in
 `projects/website/src/app/routes/components/examples/<component>/<name>.component.{ts,html}`,
 listed for its component in `examples.ts`. The page renders it live, with
-its template underneath as code, labelled "Template".
+its template underneath as code, labelled "Template". An example that can't
+run on the site, such as one that needs routes of its own, leaves out `load`
+and shows as code only; its description says so.
 
 - The code shown is the example's `.html` file itself: the build copies the
   `examples/` folder to the site, and the page fetches the template from

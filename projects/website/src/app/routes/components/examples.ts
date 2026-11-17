@@ -10,8 +10,10 @@ export interface Example {
   /**
    * Loads the demo component. Each loads only when its page opens, so the
    * site's first download doesn't hold every example and library component.
+   * Leave it out to show the example as code only, such as one that needs
+   * routes of its own.
    */
-  load: () => Promise<Type<unknown>>;
+  load?: () => Promise<Type<unknown>>;
   /** Not needed for the first example, which shows the default. */
   title?: string;
   /**
@@ -560,6 +562,12 @@ export const EXAMPLES: Record<string, Example[]> = {
         import('./examples/tabs/default.component').then(
           (m) => m.TabsDemoComponent,
         ),
+    },
+    {
+      path: 'tabs/routed',
+      title: 'Tabs that open routes',
+      description:
+        'Set each tab\'s "link" to a child route, as you would a "routerLink", and put a "router-outlet" after the tabs. The tab for the active route is open, and the route shows below the tabs. Shown as code only, as it needs routes.',
     },
   ],
   tag: [
