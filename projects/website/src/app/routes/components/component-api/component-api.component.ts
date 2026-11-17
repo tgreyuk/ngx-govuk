@@ -119,25 +119,52 @@ export class ComponentApiComponent {
   );
 
   /**
-   * One import for everything in this entry point, to paste alongside the
-   * example's template. Wrapped one name per line when too long for one line,
-   * as Prettier would.
+   * One import for the components and directives, to paste alongside the
+   * example's template, shown under their heading.
    */
-  importCode = computed(() => {
-    if (!this.api.hasValue()) {
-      return undefined;
-    }
-    const { classes, importPath } = this.api.value();
-    const names = classes.map((apiClass) => apiClass.name);
-    if (!names.length) {
-      return undefined;
-    }
-    const from = `from '${importPath}';`;
-    const oneLine = `import { ${names.join(', ')} } ${from}`;
-    return oneLine.length <= 80
-      ? oneLine
-      : `import {\n${names.map((name) => `  ${name},`).join('\n')}\n} ${from}`;
-  });
+  protected classImport = computed(() =>
+    this.api.hasValue()
+      ? importStatement(
+          this.api.value().classes.map((apiClass) => apiClass.name),
+          this.api.value().importPath,
+        )
+      : undefined,
+  );
+
+  /**
+   * One type-only import for the interfaces and type aliases, shown under
+   * their heading. It names this entry point even for a type it re-exports
+   * from another, so it's imported alongside what uses it.
+   */
+  protected typeImport = computed(() =>
+    this.api.hasValue()
+      ? importStatement(
+          this.api.value().types.map((apiType) => apiType.name),
+          this.api.value().importPath,
+          'type',
+        )
+      : undefined,
+  );
+}
+
+/**
+ * An import of the given names, or undefined when there are none. Wrapped
+ * one name per line when too long for one line, as Prettier would.
+ */
+function importStatement(
+  names: string[],
+  importPath: string,
+  kind?: 'type',
+): string | undefined {
+  if (!names.length) {
+    return undefined;
+  }
+  const keyword = kind ? 'import type' : 'import';
+  const from = `from '${importPath}';`;
+  const oneLine = `${keyword} { ${names.join(', ')} } ${from}`;
+  return oneLine.length <= 80
+    ? oneLine
+    : `${keyword} {\n${names.map((name) => `  ${name},`).join('\n')}\n} ${from}`;
 }
 
 /**

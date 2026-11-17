@@ -6,6 +6,8 @@ import {
 import { TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { ApiEntryPoint } from './api-docs';
+import { By } from '@angular/platform-browser';
+import { CodeBlockComponent } from '../component-code/code-block.component';
 import { ComponentApiComponent, typeParts } from './component-api.component';
 
 const api: ApiEntryPoint = {
@@ -99,6 +101,10 @@ async function render(
   data: ApiEntryPoint,
   headingLevel: 2 | 3,
 ): Promise<HTMLElement> {
+  return (await renderFixture(data, headingLevel)).nativeElement;
+}
+
+async function renderFixture(data: ApiEntryPoint, headingLevel: 2 | 3) {
   TestBed.configureTestingModule({
     imports: [ComponentApiComponent],
     providers: [
@@ -116,7 +122,7 @@ async function render(
     .flush(data);
   await fixture.whenStable();
   fixture.detectChanges();
-  return fixture.nativeElement;
+  return fixture;
 }
 
 /** Each heading as its tag and text, such as `h3 NgxGovukFooter Component`. */
@@ -218,6 +224,34 @@ describe('ComponentApiComponent', () => {
       expect(link?.textContent).toBe('NgxGovukFooterSection');
       expect(link?.getAttribute('href')).toBe('/#NgxGovukFooterSection');
       expect(element.querySelector('h3#NgxGovukFooterSection')).not.toBeNull();
+    });
+  });
+
+  it('shows an import under each group, with the types as types', async () => {
+    const fixture = await renderFixture(api, 2);
+    const element = fixture.nativeElement as HTMLElement;
+    const blocks = fixture.debugElement.queryAll(
+      By.directive(CodeBlockComponent),
+    );
+    expect(
+      blocks.map((block) =>
+        (block.componentInstance as CodeBlockComponent).code(),
+      ),
+    ).toEqual([
+      "import { NgxGovukFooter } from 'ngx-govuk/footer';",
+      'import type {\n' +
+        '  NgxGovukFooterLink,\n' +
+        '  NgxGovukFooterSection,\n' +
+        '  NgxGovukFooterWidth,\n' +
+        "} from 'ngx-govuk/footer';",
+    ]);
+    // Each straight after its group's heading.
+    const groups = element.querySelectorAll('.app-api-group');
+    blocks.forEach((block, index) => {
+      const heading = groups[index].querySelector('h2');
+      expect(block.nativeElement.parentElement.previousElementSibling).toBe(
+        heading,
+      );
     });
   });
 

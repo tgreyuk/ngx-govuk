@@ -1,10 +1,3 @@
-@if (importCode(); as code) {
-  <!-- Space before the contents list or the first group. -->
-  <div class="govuk-!-margin-bottom-6">
-    <app-code-block [code]="code" lang="angular-ts" />
-  </div>
-}
-
 <!-- A link to every item on the page, in its group. Not needed for one. -->
 @if (showContents()) {
   <nav class="app-api-contents" aria-label="API contents">
@@ -37,6 +30,9 @@
         groupHeading;
         context: { $implicit: 'Components and directives' }
       "
+    />
+    <ng-container
+      *ngTemplateOutlet="importBlock; context: { $implicit: classImport() }"
     />
 
     @for (apiClass of classes(); track apiClass.name) {
@@ -92,6 +88,9 @@
     <ng-container
       *ngTemplateOutlet="groupHeading; context: { $implicit: 'Types' }"
     />
+    <ng-container
+      *ngTemplateOutlet="importBlock; context: { $implicit: typeImport() }"
+    />
 
     @for (apiType of types(); track apiType.name) {
       @if (!$first) {
@@ -135,6 +134,15 @@
     }
   </section>
 }
+
+<!-- The import for a group, under its heading. -->
+<ng-template #importBlock let-code>
+  @if (code) {
+    <div class="govuk-!-margin-bottom-6">
+      <app-code-block [code]="code" lang="angular-ts" />
+    </div>
+  }
+</ng-template>
 
 <!-- "Components and directives" or "Types": at headingLevel. -->
 <ng-template #groupHeading let-title>
