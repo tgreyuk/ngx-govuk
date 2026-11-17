@@ -258,7 +258,7 @@ export const COMPONENTS: ComponentEntry[] = [
     id: 'skip-link',
     status: 'documented',
     description:
-      'Helps keyboard users skip straight to the main content on a page.',
+      'Helps keyboard-only users skip to the main content on a page.',
   },
   {
     name: 'Summary list',

@@ -18,4 +18,20 @@ describe('AppComponent', () => {
       'ngx-govuk',
     );
   });
+
+  it('moves focus to the main content from the skip link', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    const link = compiled.querySelector('.app-skip-link') as HTMLAnchorElement;
+    const main = compiled.querySelector('#main-content') as HTMLElement;
+    const click = new MouseEvent('click', { bubbles: true, cancelable: true });
+    link.dispatchEvent(click);
+
+    expect(click.defaultPrevented).toBe(true);
+    expect(document.activeElement).toBe(main);
+
+    main.blur();
+    expect(main.hasAttribute('tabindex')).toBe(false);
+  });
 });

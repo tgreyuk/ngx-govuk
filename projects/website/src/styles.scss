@@ -103,6 +103,12 @@ pre {
   -webkit-font-smoothing: antialiased;
 }
 
+// The skip link focuses the main content, which only takes focus so screen
+// readers move there: it needs no outline.
+#main-content[tabindex='-1']:focus {
+  outline: none;
+}
+
 .app-skip-link {
   position: absolute;
   left: -9999px;
