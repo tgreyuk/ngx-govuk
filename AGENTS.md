@@ -95,6 +95,11 @@ its Design System URL.
   the same way across components: `inverse` for dark backgrounds,
   `headingLevel` for a heading's level (an `input<1 | 2 | 3 | 4 | 5 | 6>`
   rendered with `@switch`), `labelText` for a landmark's label.
+- When an input departs from GOV.UK's option in a way the docs site's
+  "Using components" guide doesn't cover (flattened text options, projected
+  content instead of `html`, element `classes` and `attributes`, projected
+  components), say so in its JSDoc and name the option it replaces, as the
+  error summary's `fieldId` does for `href`.
 - Never move, wrap or create elements around content Angular rendered, such
   as wrapping a projected link in an `li`. Angular loses track of them when
   the content comes from `@for`, and hydration fails. When a parent needs
