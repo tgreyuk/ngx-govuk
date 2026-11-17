@@ -113,4 +113,13 @@ describe('NgxGovukPasswordInput', () => {
     expect(input.classList).toContain('govuk-password-input__input');
     expect(input.getAttribute('autocomplete')).toBe('current-password');
   });
+
+  it('has no space around the button text or the status', () => {
+    const { button, status, click } = setup();
+    expect(button.textContent).toBe('Show');
+    expect(status.textContent).toBe('');
+    click();
+    expect(button.textContent).toBe('Hide');
+    expect(status.textContent).toBe('Your password is visible');
+  });
 });
