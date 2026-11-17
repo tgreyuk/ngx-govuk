@@ -1,5 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { NgxGovukErrorMessage } from 'ngx-govuk/error-message';
 import { NgxGovukFormGroup } from 'ngx-govuk/form-group';
 import { NgxGovukEnhancedFileUpload } from './enhanced-file-upload.component';
@@ -19,7 +20,7 @@ import { NgxGovukFileUpload } from './file-upload.directive';
     @if (errorMessage()) {
       <p ngxGovukErrorMessage>{{ errorMessage() }}</p>
     }
-    <ngx-govuk-enhanced-file-upload>
+    <ngx-govuk-enhanced-file-upload class="app-upload" data-test="upload">
       <input
         id="photo"
         type="file"
@@ -61,6 +62,63 @@ async function setup() {
   return { fixture, element, $, button, input, choose, status, announcement };
 }
 
+@Component({
+  imports: [
+    ReactiveFormsModule,
+    NgxGovukFormGroup,
+    NgxGovukFileUpload,
+    NgxGovukEnhancedFileUpload,
+  ],
+  template: `<form>
+    <ngx-govuk-form-group label="Upload a file">
+      <ngx-govuk-enhanced-file-upload>
+        <input
+          id="photo"
+          type="file"
+          ngxGovukFileUpload
+          [formControl]="photo"
+        />
+      </ngx-govuk-enhanced-file-upload>
+    </ngx-govuk-form-group>
+  </form>`,
+})
+class FormHostComponent {
+  photo = new FormControl('');
+}
+
+async function setupForm() {
+  const fixture = TestBed.createComponent(FormHostComponent);
+  document.body.appendChild(fixture.nativeElement);
+  fixture.detectChanges();
+  await fixture.whenStable();
+  fixture.detectChanges();
+  const element = fixture.nativeElement as HTMLElement;
+  const input = element.querySelector('input') as HTMLInputElement;
+  // jsdom can't make a FileList, so fake the input's files, and clear them
+  // when the value is cleared, as browsers do.
+  let files: File[] = [];
+  Object.defineProperty(input, 'files', {
+    get: () => files,
+    set: (value: File[]) => (files = value),
+  });
+  Object.defineProperty(input, 'value', {
+    get: () => (files.length ? `C:\\fakepath\\${files[0].name}` : ''),
+    set: (value: string) => {
+      if (value === '') {
+        files = [];
+      }
+    },
+  });
+  const choose = (name: string) => {
+    input.files = [new File([''], name)] as never;
+    input.dispatchEvent(new Event('change'));
+    fixture.detectChanges();
+  };
+  const status = () =>
+    element.querySelector('.govuk-file-upload-button__status')?.textContent;
+  return { fixture, element, input, choose, status };
+}
+
 /** jsdom has no DragEvent or DataTransfer, so fake the parts used. */
 function drag(type: string, target: Element, names: string[]) {
   const files = names.map((name) => new File([''], name));
@@ -81,6 +139,27 @@ describe('NgxGovukEnhancedFileUpload', () => {
 
   it('matches the GOV.UK markup snapshot', async () => {
     expect((await setup()).element).toMatchSnapshot();
+  });
+
+  it('is the wrapper, with the classes and attributes given to it', async () => {
+    const { $ } = await setup();
+    const wrapper = $('ngx-govuk-enhanced-file-upload');
+    expect(wrapper.classList).toContain('govuk-file-upload-wrapper');
+    expect(wrapper.classList).toContain('app-upload');
+    expect(wrapper.getAttribute('data-test')).toBe('upload');
+    expect(wrapper.querySelector('.govuk-file-upload-wrapper')).toBeNull();
+  });
+
+  it('is hidden by the hidden attribute, despite the wrapper class', async () => {
+    const style = document.createElement('style');
+    style.textContent = '.govuk-file-upload-wrapper { display: block; }';
+    document.head.appendChild(style);
+    const { $ } = await setup();
+    const wrapper = $('ngx-govuk-enhanced-file-upload');
+    expect(getComputedStyle(wrapper).display).toBe('block');
+    wrapper.setAttribute('hidden', '');
+    expect(getComputedStyle(wrapper).display).toBe('none');
+    style.remove();
   });
 
   it('hides the input behind a button the label points to', async () => {
@@ -188,5 +267,28 @@ describe('NgxGovukEnhancedFileUpload', () => {
     expect($('.govuk-file-upload-wrapper').classList).toContain(
       'govuk-file-upload-wrapper--disabled',
     );
+  });
+
+  it('shows no file when its form control is reset', async () => {
+    const { fixture, choose, status } = await setupForm();
+    choose('photo.jpg');
+    expect(status()).toBe('photo.jpg');
+
+    fixture.componentInstance.photo.reset();
+    fixture.detectChanges();
+    expect(status()).toBe('No file chosen');
+  });
+
+  it('shows no file when its form is reset', async () => {
+    const { fixture, element, input, choose, status } = await setupForm();
+    choose('photo.jpg');
+
+    // The reset event comes before the browser clears the input.
+    element.querySelector('form')?.dispatchEvent(new Event('reset'));
+    input.files = [] as never;
+    expect(status()).toBe('photo.jpg');
+    await new Promise((resolve) => setTimeout(resolve));
+    fixture.detectChanges();
+    expect(status()).toBe('No file chosen');
   });
 });
