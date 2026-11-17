@@ -46,7 +46,7 @@ class TestHostComponent {}
 
 @Component({
   imports: [NgxGovukTable, NgxGovukTableCaption],
-  template: `<table ngxGovukTable>
+  template: `<table ngxGovukTable smallTextUntilTablet>
     <caption ngxGovukTableCaption [captionSize]="size()">
       Dates and amounts
     </caption>
@@ -74,6 +74,15 @@ describe('NgxGovukTable', () => {
       'col',
       'row',
     ]);
+  });
+
+  it('adds the small text modifier', () => {
+    const fixture = TestBed.createComponent(OptionsHostComponent);
+    fixture.detectChanges();
+    const table: HTMLElement = fixture.nativeElement.querySelector('table');
+    expect(table.className).toBe(
+      'govuk-table govuk-table--small-text-until-tablet',
+    );
   });
 
   it('changes the caption size, and leaves the modifier out when unset', () => {

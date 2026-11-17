@@ -1,4 +1,4 @@
-import { Directive, inject, input } from '@angular/core';
+import { booleanAttribute, Directive, inject, input } from '@angular/core';
 
 /**
  * Styles a `table` element as a GOV.UK table, to make information easier to
@@ -11,9 +11,18 @@ import { Directive, inject, input } from '@angular/core';
  */
 @Directive({
   selector: 'table[ngxGovukTable]',
-  host: { class: 'govuk-table' },
+  host: {
+    class: 'govuk-table',
+    '[class.govuk-table--small-text-until-tablet]': 'smallTextUntilTablet()',
+  },
 })
-export class NgxGovukTable {}
+export class NgxGovukTable {
+  /**
+   * Uses smaller text on screens narrower than a tablet, for a table with a
+   * lot of data.
+   */
+  smallTextUntilTablet = input(false, { transform: booleanAttribute });
+}
 
 /**
  * Styles a table's `caption`, which describes what the table is about.
