@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
+import { NgxGovukSummaryActionLink } from './summary-action-link.component';
 import { NgxGovukSummaryListAction } from './summary-list-action.directive';
 import { NgxGovukSummaryListRow } from './summary-list-row.component';
 import { NgxGovukSummaryList } from './summary-list.directive';
@@ -8,12 +9,13 @@ const imports = [
   NgxGovukSummaryList,
   NgxGovukSummaryListRow,
   NgxGovukSummaryListAction,
+  NgxGovukSummaryActionLink,
 ];
 
 @Component({
   imports: [NgxGovukSummaryList, NgxGovukSummaryListRow],
   template: `<dl ngxGovukSummaryList>
-    <div ngxGovukSummaryListRow key="Name">Sarah Philips</div>
+    <div ngxGovukSummaryListRow key="Name">Sarah Phillips</div>
     <div ngxGovukSummaryListRow key="Date of birth">5 January 1978</div>
   </dl>`,
 })
@@ -23,24 +25,49 @@ class DefaultHostComponent {}
   imports,
   template: `<dl ngxGovukSummaryList>
     <div ngxGovukSummaryListRow key="Name">
-      Sarah Philips
-      <a *ngxGovukSummaryListAction class="govuk-link" href="/name"
-        >Change<span class="govuk-visually-hidden"> name</span></a
+      Sarah Phillips
+      <a
+        *ngxGovukSummaryListAction
+        ngxGovukSummaryActionLink
+        visuallyHiddenText="name"
+        href="/name"
+        >Change</a
       >
     </div>
     <div ngxGovukSummaryListRow key="Contact details">
       <p class="govuk-body">sarah.phillips&#64;example.com</p>
-      <a *ngxGovukSummaryListAction class="govuk-link" href="/contact/edit"
-        >Edit<span class="govuk-visually-hidden"> contact details</span></a
+      <a
+        *ngxGovukSummaryListAction
+        ngxGovukSummaryActionLink
+        visuallyHiddenText="contact details"
+        href="/contact/edit"
+        >Edit</a
       >
-      <a *ngxGovukSummaryListAction class="govuk-link" href="/contact/delete"
-        >Delete<span class="govuk-visually-hidden"> contact details</span></a
+      <a
+        *ngxGovukSummaryListAction
+        ngxGovukSummaryActionLink
+        visuallyHiddenText="contact details"
+        href="/contact/delete"
+        >Delete</a
       >
     </div>
     <div ngxGovukSummaryListRow key="Reference">ABC123</div>
   </dl>`,
 })
 class ActionsHostComponent {}
+
+@Component({
+  imports,
+  template: `<dl ngxGovukSummaryList>
+    <div ngxGovukSummaryListRow key="Name">
+      Sarah Phillips
+      <a *ngxGovukSummaryListAction ngxGovukSummaryActionLink href="/name"
+        >Change name</a
+      >
+    </div>
+  </dl>`,
+})
+class NoHiddenTextHostComponent {}
 
 function render<T>(host: new () => T) {
   const fixture = TestBed.createComponent(host);
@@ -68,6 +95,30 @@ describe('NgxGovukSummaryList', () => {
     expect(
       contact.querySelectorAll('.govuk-summary-list__actions-list-item a'),
     ).toHaveLength(2);
+  });
+
+  it('leaves the hidden text as it is outside a card', () => {
+    const hidden = render(ActionsHostComponent).querySelectorAll(
+      '.govuk-visually-hidden',
+    );
+    expect(Array.from(hidden).map((span) => span.textContent)).toEqual([
+      ' name',
+      ' contact details',
+      ' contact details',
+    ]);
+  });
+
+  it('adds the govuk-link class to action links', () => {
+    const links = render(ActionsHostComponent).querySelectorAll('a');
+    for (const link of Array.from(links)) {
+      expect(link.classList).toContain('govuk-link');
+    }
+  });
+
+  it('leaves out the hidden text when there is none', () => {
+    const link = render(NoHiddenTextHostComponent).querySelector('a');
+    expect(link?.querySelector('.govuk-visually-hidden')).toBeNull();
+    expect(link?.textContent).toBe('Change name');
   });
 
   it('marks rows without actions only when another row has them', () => {

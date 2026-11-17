@@ -22,6 +22,7 @@ exports[`NgxGovukSummaryCard > matches the GOV.UK markup snapshot 1`] = `
           <a
             class="govuk-link"
             href="/delete"
+            ngxgovuksummaryactionlink=""
           >
             Delete job history
             <span
@@ -37,6 +38,7 @@ exports[`NgxGovukSummaryCard > matches the GOV.UK markup snapshot 1`] = `
           <a
             class="govuk-link"
             href="/withdraw"
+            ngxgovuksummaryactionlink=""
           >
             Withdraw job history
             <span
@@ -82,13 +84,14 @@ exports[`NgxGovukSummaryCard > matches the GOV.UK markup snapshot 1`] = `
                 <a
                   class="govuk-link"
                   href="/name/edit"
+                  ngxgovuksummaryactionlink=""
+                  visuallyhiddentext="name"
                 >
                   Edit
                   <span
                     class="govuk-visually-hidden"
                   >
-                     name
-                     (Undergraduate teaching assistant)
+                     name (Undergraduate teaching assistant)
                   </span>
                 </a>
               </li>
@@ -98,13 +101,14 @@ exports[`NgxGovukSummaryCard > matches the GOV.UK markup snapshot 1`] = `
                 <a
                   class="govuk-link"
                   href="/name/delete"
+                  ngxgovuksummaryactionlink=""
+                  visuallyhiddentext="name"
                 >
                   Delete
                   <span
                     class="govuk-visually-hidden"
                   >
-                     name
-                     (Undergraduate teaching assistant)
+                     name (Undergraduate teaching assistant)
                   </span>
                 </a>
               </li>
@@ -132,13 +136,14 @@ exports[`NgxGovukSummaryCard > matches the GOV.UK markup snapshot 1`] = `
             <a
               class="govuk-link"
               href="/dob"
+              ngxgovuksummaryactionlink=""
+              visuallyhiddentext="date of birth"
             >
               Change
               <span
                 class="govuk-visually-hidden"
               >
-                 date of birth
-                 (Undergraduate teaching assistant)
+                 date of birth (Undergraduate teaching assistant)
               </span>
             </a>
           </dd>
@@ -169,6 +174,7 @@ exports[`NgxGovukSummaryCard > matches the GOV.UK markup snapshot with one card 
         <a
           class="govuk-link"
           href="/delete"
+          ngxgovuksummaryactionlink=""
         >
           Delete
           <span

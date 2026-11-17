@@ -19,7 +19,7 @@ exports[`NgxGovukSummaryList > matches the GOV.UK markup snapshot 1`] = `
       <dd
         class="govuk-summary-list__value"
       >
-        Sarah Philips
+        Sarah Phillips
       </dd>
     </div>
     <div
@@ -61,7 +61,7 @@ exports[`NgxGovukSummaryList > matches the GOV.UK markup snapshot with actions 1
       <dd
         class="govuk-summary-list__value"
       >
-         Sarah Philips 
+         Sarah Phillips 
       </dd>
       <dd
         class="govuk-summary-list__actions"
@@ -69,6 +69,8 @@ exports[`NgxGovukSummaryList > matches the GOV.UK markup snapshot with actions 1
         <a
           class="govuk-link"
           href="/name"
+          ngxgovuksummaryactionlink=""
+          visuallyhiddentext="name"
         >
           Change
           <span
@@ -110,6 +112,8 @@ exports[`NgxGovukSummaryList > matches the GOV.UK markup snapshot with actions 1
             <a
               class="govuk-link"
               href="/contact/edit"
+              ngxgovuksummaryactionlink=""
+              visuallyhiddentext="contact details"
             >
               Edit
               <span
@@ -125,6 +129,8 @@ exports[`NgxGovukSummaryList > matches the GOV.UK markup snapshot with actions 1
             <a
               class="govuk-link"
               href="/contact/delete"
+              ngxgovuksummaryactionlink=""
+              visuallyhiddentext="contact details"
             >
               Delete
               <span
