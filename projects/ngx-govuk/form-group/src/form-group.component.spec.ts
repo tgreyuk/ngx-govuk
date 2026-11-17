@@ -179,9 +179,9 @@ describe('NgxGovukFormGroup', () => {
     expect($('.govuk-input__wrapper')).toBeNull();
     host.prefix.set('£');
     fixture.detectChanges();
-    expect(
-      $('.govuk-input__wrapper > .govuk-input__prefix')?.textContent?.trim(),
-    ).toBe('£');
+    expect($('.govuk-input__wrapper > .govuk-input__prefix')?.textContent).toBe(
+      '£',
+    );
     expect($('.govuk-input__wrapper > input#email')).not.toBeNull();
   });
 
