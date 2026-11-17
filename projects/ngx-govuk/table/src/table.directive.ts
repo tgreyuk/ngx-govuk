@@ -27,10 +27,10 @@ export class NgxGovukTable {}
 })
 export class NgxGovukTableCaption {
   /**
-   * The caption's size. Use a size like the page's headings, such as `m`.
-   * When unset, the caption is bold body text.
+   * The caption's size, to match the page's headings, such as `m`. When
+   * unset, the caption is bold body text, the size of a small heading.
    */
-  captionSize = input<'s' | 'm' | 'l' | 'xl'>();
+  captionSize = input<'m' | 'l' | 'xl'>();
 
   protected sizeClass = computed(() => {
     const size = this.captionSize();
