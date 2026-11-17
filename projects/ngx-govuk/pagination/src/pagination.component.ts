@@ -32,6 +32,7 @@ type PageItem = { number: number } | { ellipsis: true };
   selector: 'ngx-govuk-pagination',
   imports: [NgTemplateOutlet, RouterLink],
   templateUrl: './pagination.component.html',
+  styles: ':host(:not([hidden])) { display: block; }',
 })
 export class NgxGovukPagination {
   /**

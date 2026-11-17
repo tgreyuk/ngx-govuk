@@ -59,6 +59,7 @@ export interface NgxGovukLanguageNavigationItem {
   selector: 'ngx-govuk-language-navigation',
   imports: [NgTemplateOutlet, RouterLink],
   templateUrl: './language-navigation.component.html',
+  styles: ':host(:not([hidden])) { display: block; }',
 })
 export class NgxGovukLanguageNavigation {
   /** The languages to list. */

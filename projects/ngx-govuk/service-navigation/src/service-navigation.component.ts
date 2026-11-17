@@ -43,6 +43,7 @@ const TABLET_BREAKPOINT = '40.0625rem';
   selector: 'ngx-govuk-service-navigation',
   imports: [NgTemplateOutlet, RouterLink],
   templateUrl: './service-navigation.component.html',
+  styles: ':host(:not([hidden])) { display: block; }',
 })
 export class NgxGovukServiceNavigation {
   private router = inject(Router);

@@ -122,4 +122,11 @@ describe('NgxGovukServiceNavigation', () => {
     expect($('.govuk-service-navigation__toggle')).toBeNull();
     expect($('#navigation').hasAttribute('hidden')).toBe(false);
   });
+
+  it('displays as a block', async () => {
+    const { $ } = await setup('/licences');
+    expect(getComputedStyle($('ngx-govuk-service-navigation')).display).toBe(
+      'block',
+    );
+  });
 });

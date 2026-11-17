@@ -106,4 +106,10 @@ describe('NgxGovukPagination', () => {
     ).map((title) => title.textContent);
     expect(titles).toEqual(['Previous page', 'Next page']);
   });
+
+  it('displays as a block', () => {
+    const { element } = setup(NumberedHostComponent);
+    const host = element.querySelector('ngx-govuk-pagination') as HTMLElement;
+    expect(getComputedStyle(host).display).toBe('block');
+  });
 });

@@ -99,4 +99,11 @@ describe('NgxGovukLanguageNavigation', () => {
       'govuk-language-navigation--inverse',
     );
   });
+
+  it('displays as a block', () => {
+    const host = setup().element.querySelector(
+      'ngx-govuk-language-navigation',
+    ) as HTMLElement;
+    expect(getComputedStyle(host).display).toBe('block');
+  });
 });
