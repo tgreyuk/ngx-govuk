@@ -67,6 +67,24 @@ export class NgxGovukPasswordInput {
    */
   hint = input<string>();
 
+  /** The button's text when the password is hidden. */
+  showPasswordText = input<string>('Show');
+
+  /** The button's text when the password is shown. */
+  hidePasswordText = input<string>('Hide');
+
+  /** What screen readers announce for the button when the password is hidden. */
+  showPasswordAriaLabelText = input<string>('Show password');
+
+  /** What screen readers announce for the button when the password is shown. */
+  hidePasswordAriaLabelText = input<string>('Hide password');
+
+  /** What screen readers announce when the password is shown. */
+  passwordShownAnnouncementText = input<string>('Your password is visible');
+
+  /** What screen readers announce when the password is hidden. */
+  passwordHiddenAnnouncementText = input<string>('Your password is hidden');
+
   protected fieldId = signal('');
   protected hintId = computed(() => `${this.fieldId()}-hint`);
   protected errorId = computed(() => `${this.fieldId()}-error`);
@@ -87,8 +105,23 @@ export class NgxGovukPasswordInput {
   });
 
   protected shown = signal(false);
-  /** Empty until users first press the button, so nothing is announced on load. */
-  protected announcement = signal('');
+
+  /**
+   * Whether the status announces the password as shown or hidden. Unset
+   * until users first press the button, so nothing is announced on load.
+   */
+  private announced = signal<'shown' | 'hidden' | undefined>(undefined);
+
+  protected announcement = computed(() => {
+    switch (this.announced()) {
+      case 'shown':
+        return this.passwordShownAnnouncementText();
+      case 'hidden':
+        return this.passwordHiddenAnnouncementText();
+      default:
+        return '';
+    }
+  });
 
   /** Any aria-describedby the input already had, kept first as GOV.UK does. */
   private initialDescribedBy = signal('');
@@ -138,7 +171,7 @@ export class NgxGovukPasswordInput {
       // as a form that posts can leave the page before Angular updates it.
       const hide = () => {
         if (this.shown()) {
-          this.announcement.set('Your password is hidden');
+          this.announced.set('hidden');
         }
         this.shown.set(false);
         this.renderer.setAttribute(element, 'type', 'password');
@@ -186,8 +219,6 @@ export class NgxGovukPasswordInput {
   protected toggle() {
     const shown = !this.shown();
     this.shown.set(shown);
-    this.announcement.set(
-      shown ? 'Your password is visible' : 'Your password is hidden',
-    );
+    this.announced.set(shown ? 'shown' : 'hidden');
   }
 }

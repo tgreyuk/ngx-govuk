@@ -37,6 +37,22 @@ class LateInputHostComponent {
   showInput = signal(false);
 }
 
+@Component({
+  imports: [NgxGovukPasswordInput, NgxGovukTextInput],
+  template: `<ngx-govuk-password-input
+    label="Cyfrinair"
+    showPasswordText="Dangos"
+    hidePasswordText="Cuddio"
+    showPasswordAriaLabelText="Dangos cyfrinair"
+    hidePasswordAriaLabelText="Cuddio cyfrinair"
+    passwordShownAnnouncementText="Mae eich cyfrinair yn weladwy"
+    passwordHiddenAnnouncementText="Mae eich cyfrinair wedi'i guddio"
+  >
+    <input id="cyfrinair" ngxGovukTextInput />
+  </ngx-govuk-password-input>`,
+})
+class WelshHostComponent {}
+
 function setup() {
   const fixture = TestBed.createComponent(TestHostComponent);
   fixture.detectChanges();
@@ -140,5 +156,27 @@ describe('NgxGovukPasswordInput', () => {
       .dispatchEvent(new Event('submit', { cancelable: true }));
     fixture.detectChanges();
     expect(status.textContent).toBe('');
+  });
+
+  it('takes its text in another language', () => {
+    const fixture = TestBed.createComponent(WelshHostComponent);
+    fixture.detectChanges();
+    const element = fixture.nativeElement as HTMLElement;
+    const button = element.querySelector('button') as HTMLButtonElement;
+    const status = element.querySelector(
+      '.govuk-password-input__sr-status',
+    ) as HTMLElement;
+    expect(button.textContent).toBe('Dangos');
+    expect(button.getAttribute('aria-label')).toBe('Dangos cyfrinair');
+
+    button.click();
+    fixture.detectChanges();
+    expect(button.textContent).toBe('Cuddio');
+    expect(button.getAttribute('aria-label')).toBe('Cuddio cyfrinair');
+    expect(status.textContent).toBe('Mae eich cyfrinair yn weladwy');
+
+    button.click();
+    fixture.detectChanges();
+    expect(status.textContent).toBe("Mae eich cyfrinair wedi'i guddio");
   });
 });
