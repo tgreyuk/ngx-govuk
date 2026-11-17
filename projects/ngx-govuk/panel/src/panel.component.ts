@@ -7,8 +7,9 @@ import { NgxGovukButtonGroup } from 'ngx-govuk/button';
  * continue.
  *
  * Put the body text inside it. For an interruption panel, add the actions in
- * an `ngx-govuk-button-group`, with each button `inverse` and each link
- * styled `govuk-link govuk-link--inverse`.
+ * an `ngx-govuk-button-group` directly inside the panel, with each button
+ * `inverse` and each link styled `govuk-link govuk-link--inverse`. A
+ * confirmation panel has no actions.
  */
 @Component({
   selector: 'ngx-govuk-panel',
@@ -18,8 +19,25 @@ import { NgxGovukButtonGroup } from 'ngx-govuk/button';
     '[class.govuk-panel--confirmation]': "panelType() === 'confirmation'",
     '[class.govuk-panel--interruption]': "panelType() === 'interruption'",
   },
-  // Custom elements are inline by default; GOV.UK's styles expect a block.
-  styles: ':host(:not([hidden])) { display: block; }',
+  styles: `
+    /* Custom elements are inline by default; GOV.UK's styles expect a block. */
+    :host(:not([hidden])) {
+      display: block;
+    }
+
+    /*
+     * GOV.UK leaves out the body when there's no content, and then the
+     * title, as the last child, has no bottom margin. The body here is
+     * always rendered, so hide it when empty and remove the margin too.
+     */
+    .govuk-panel__body:empty {
+      display: none;
+    }
+
+    .govuk-panel__title:has(+ .govuk-panel__body:empty:last-child) {
+      margin-bottom: 0;
+    }
+  `,
 })
 export class NgxGovukPanel {
   /**
@@ -40,5 +58,7 @@ export class NgxGovukPanel {
    */
   panelType = input<'confirmation' | 'interruption'>('confirmation');
 
-  protected actions = contentChild(NgxGovukButtonGroup);
+  protected actions = contentChild(NgxGovukButtonGroup, {
+    descendants: false,
+  });
 }

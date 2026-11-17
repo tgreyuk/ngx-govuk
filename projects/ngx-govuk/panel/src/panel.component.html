@@ -21,7 +21,7 @@
 <div class="govuk-panel__body">
   <ng-content></ng-content>
 </div>
-@if (actions()) {
+@if (actions() && panelType() === 'interruption') {
   <div class="govuk-panel__actions">
     <ng-content select="ngx-govuk-button-group"></ng-content>
   </div>
