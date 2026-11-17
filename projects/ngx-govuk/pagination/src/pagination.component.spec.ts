@@ -30,6 +30,29 @@ class BlockHostComponent {
   next: NgxGovukPaginationLink = { routerLink: '/guide/how-to-apply' };
 }
 
+@Component({
+  imports: [NgxGovukPagination],
+  template: `<ngx-govuk-pagination
+    currentPage="2"
+    totalPages="12"
+    previousText="Blaenorol"
+    nextText="Nesaf"
+    pageVisuallyHiddenText="Tudalen %{number}"
+  />`,
+})
+class WelshHostComponent {}
+
+@Component({
+  imports: [NgxGovukPagination],
+  template: `<ngx-govuk-pagination
+    [previous]="{ routerLink: '/a', text: 'Back to the start' }"
+    [next]="{ routerLink: '/b' }"
+    previousText="Blaenorol"
+    nextText="Nesaf"
+  />`,
+})
+class WelshBlockHostComponent {}
+
 function setup<T>(host: new () => T) {
   TestBed.configureTestingModule({ providers: [provideRouter([])] });
   const fixture = TestBed.createComponent(host);
@@ -105,6 +128,37 @@ describe('NgxGovukPagination', () => {
       element.querySelectorAll('.govuk-pagination__link-title'),
     ).map((title) => title.textContent);
     expect(titles).toEqual(['Previous page', 'Next page']);
+  });
+
+  it('takes its text in another language', () => {
+    const { element } = setup(WelshHostComponent);
+    const text = (selector: string) =>
+      element.querySelector(selector)?.textContent;
+    expect(text('[rel="prev"] .govuk-pagination__link-title')).toBe(
+      'Blaenorol',
+    );
+    expect(text('[rel="next"] .govuk-pagination__link-title')).toBe('Nesaf');
+    expect(
+      element
+        .querySelector('[aria-current="page"]')
+        ?.getAttribute('aria-label'),
+    ).toBe('Tudalen 2');
+  });
+
+  it("uses a block link's own text before the pagination's", () => {
+    const { element } = setup(WelshBlockHostComponent);
+    const titles = Array.from(
+      element.querySelectorAll('.govuk-pagination__link-title'),
+    ).map((title) => title.textContent);
+    expect(titles).toEqual(['Back to the start', 'Nesaf']);
+  });
+
+  it('takes page numbers as strings', () => {
+    const { element, pages } = setup(WelshHostComponent);
+    expect(pages()).toEqual(['1', '2', '3', '⋯', '12']);
+    expect(element.querySelector('[rel="next"]')?.getAttribute('href')).toBe(
+      '/?page=3',
+    );
   });
 
   it('displays as a block', () => {

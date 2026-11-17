@@ -15,9 +15,12 @@
             [queryParamsHandling]="'merge'"
           >
             <ng-container *ngTemplateOutlet="arrowPrevious" />
-            <span class="govuk-pagination__link-title"
-              >Previous<span class="govuk-visually-hidden"> page</span></span
-            >
+            <ng-container
+              *ngTemplateOutlet="
+                linkTitle;
+                context: { $implicit: previousText(), word: 'Previous' }
+              "
+            />
           </a>
         } @else if (previous(); as link) {
           <a
@@ -29,7 +32,11 @@
             <ng-container
               *ngTemplateOutlet="
                 blockText;
-                context: { $implicit: link, word: 'Previous' }
+                context: {
+                  $implicit: link,
+                  word: 'Previous',
+                  text: previousText(),
+                }
               "
             />
           </a>
@@ -52,7 +59,7 @@
                 [routerLink]="[]"
                 [queryParams]="pageParams(item.number)"
                 [queryParamsHandling]="'merge'"
-                [attr.aria-label]="'Page ' + item.number"
+                [attr.aria-label]="pageLabel(item.number)"
                 [attr.aria-current]="
                   item.number === currentPage() ? 'page' : null
                 "
@@ -78,9 +85,12 @@
             [queryParams]="pageParams(currentPage() + 1)"
             [queryParamsHandling]="'merge'"
           >
-            <span class="govuk-pagination__link-title"
-              >Next<span class="govuk-visually-hidden"> page</span></span
-            >
+            <ng-container
+              *ngTemplateOutlet="
+                linkTitle;
+                context: { $implicit: nextText(), word: 'Next' }
+              "
+            />
             <ng-container *ngTemplateOutlet="arrowNext" />
           </a>
         } @else if (next(); as link) {
@@ -93,7 +103,7 @@
             <ng-container
               *ngTemplateOutlet="
                 blockText;
-                context: { $implicit: link, word: 'Next' }
+                context: { $implicit: link, word: 'Next', text: nextText() }
               "
             />
           </a>
@@ -103,17 +113,30 @@
   </nav>
 }
 
-<ng-template #blockText let-link let-word="word">
-  <!-- On one line, so the link text has no space at each end. -->
-  <!-- prettier-ignore -->
-  <span
-    class="govuk-pagination__link-title"
-    [class.govuk-pagination__link-title--decorated]="!link.labelText"
-  >@if (link.text) {{{ link.text }}} @else {{{ word }}<span class="govuk-visually-hidden"> page</span>}</span>
+<ng-template #blockText let-link let-word="word" let-text="text">
+  <ng-container
+    *ngTemplateOutlet="
+      linkTitle;
+      context: {
+        $implicit: link.text ?? text,
+        word: word,
+        decorated: !link.labelText,
+      }
+    "
+  />
   @if (link.labelText) {
     <span class="govuk-visually-hidden">:</span>
     <span class="govuk-pagination__link-label">{{ link.labelText }}</span>
   }
+</ng-template>
+
+<ng-template #linkTitle let-text let-word="word" let-decorated="decorated">
+  <!-- On one line, so the link text has no space at each end. -->
+  <!-- prettier-ignore -->
+  <span
+    class="govuk-pagination__link-title"
+    [class.govuk-pagination__link-title--decorated]="decorated"
+  >@if (text) {{{ text }}} @else {{{ word }}<span class="govuk-visually-hidden"> page</span>}</span>
 </ng-template>
 
 <ng-template #arrowPrevious>
