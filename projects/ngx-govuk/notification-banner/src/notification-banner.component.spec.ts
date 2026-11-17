@@ -1,26 +1,33 @@
 import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { NgxGovukNotificationBanner } from './notification-banner.component';
+import {
+  NgxGovukNotificationBannerHeading,
+  NgxGovukNotificationBannerLink,
+} from './notification-banner-content.directives';
 
 @Component({
-  imports: [NgxGovukNotificationBanner],
+  imports: [
+    NgxGovukNotificationBanner,
+    NgxGovukNotificationBannerHeading,
+    NgxGovukNotificationBannerLink,
+  ],
   template: `<ngx-govuk-notification-banner titleId="banner-title">
-    <p class="govuk-notification-banner__heading">
+    <p ngxGovukNotificationBannerHeading>
       This publication was withdrawn on 7 March 2014.
+      <a ngxGovukNotificationBannerLink href="/withdrawn">Find out why</a>
     </p>
   </ngx-govuk-notification-banner>`,
 })
 class ImportantHostComponent {}
 
 @Component({
-  imports: [NgxGovukNotificationBanner],
+  imports: [NgxGovukNotificationBanner, NgxGovukNotificationBannerHeading],
   template: `<ngx-govuk-notification-banner
     bannerType="success"
     titleId="banner-title"
   >
-    <p class="govuk-notification-banner__heading">
-      Email sent to example&#64;email.com
-    </p>
+    <p ngxGovukNotificationBannerHeading>Email sent to example&#64;email.com</p>
   </ngx-govuk-notification-banner>`,
 })
 class SuccessHostComponent {}
@@ -90,6 +97,19 @@ describe('NgxGovukNotificationBanner', () => {
     const fixture = await render(NoFocusHostComponent);
     const banner = fixture.nativeElement.querySelector('[role="alert"]');
     expect(document.activeElement).not.toBe(banner);
+  });
+
+  it('styles the heading and links inside it', async () => {
+    const fixture = await render(ImportantHostComponent);
+    const content: HTMLElement = fixture.nativeElement.querySelector(
+      '.govuk-notification-banner__content',
+    );
+    expect(content.querySelector('p')?.className).toBe(
+      'govuk-notification-banner__heading',
+    );
+    expect(content.querySelector('a')?.className).toBe(
+      'govuk-notification-banner__link',
+    );
   });
 
   it('takes its role from role, and focuses it when that is alert', async () => {

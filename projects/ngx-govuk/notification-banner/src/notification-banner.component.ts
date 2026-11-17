@@ -14,7 +14,8 @@ import { NgxGovukUtilsService } from 'ngx-govuk';
  * page, or confirms the outcome of something they've just done.
  *
  * Put the content inside it. For a single line, use a
- * `p class="govuk-notification-banner__heading"`.
+ * `p ngxGovukNotificationBannerHeading`, and style links with
+ * `a ngxGovukNotificationBannerLink`.
  */
 @Component({
   selector: 'ngx-govuk-notification-banner',

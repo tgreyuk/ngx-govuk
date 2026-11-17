@@ -23,8 +23,16 @@ exports[`NgxGovukNotificationBanner > matches the GOV.UK markup snapshot 1`] = `
     >
       <p
         class="govuk-notification-banner__heading"
+        ngxgovuknotificationbannerheading=""
       >
          This publication was withdrawn on 7 March 2014. 
+        <a
+          class="govuk-notification-banner__link"
+          href="/withdrawn"
+          ngxgovuknotificationbannerlink=""
+        >
+          Find out why
+        </a>
       </p>
     </div>
   </ngx-govuk-notification-banner>
@@ -55,8 +63,9 @@ exports[`NgxGovukNotificationBanner > matches the GOV.UK markup snapshot for a s
     >
       <p
         class="govuk-notification-banner__heading"
+        ngxgovuknotificationbannerheading=""
       >
-         Email sent to example@email.com 
+        Email sent to example@email.com
       </p>
     </div>
   </ngx-govuk-notification-banner>
