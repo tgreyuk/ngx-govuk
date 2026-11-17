@@ -22,7 +22,7 @@ import { NgxGovukUtilsService } from 'ngx-govuk';
   host: {
     class: 'govuk-notification-banner',
     '[class.govuk-notification-banner--success]': 'isSuccess()',
-    '[attr.role]': "isSuccess() ? 'alert' : 'region'",
+    '[attr.role]': 'bannerRole()',
     '[attr.aria-labelledby]': 'titleId()',
   },
   // Custom elements are inline by default; GOV.UK's styles expect a block.
@@ -56,8 +56,17 @@ export class NgxGovukNotificationBanner {
   );
 
   /**
-   * Stops a success banner taking focus when the page loads. Only use it if
-   * something else on the page needs focus.
+   * The banner's `role`. Defaults to `alert` for a success banner, so it's
+   * announced straight away, and `region` otherwise, so users can find it
+   * as a landmark. A banner with the role `alert` takes focus when the page
+   * loads.
+   */
+  role = input<string>();
+
+  /**
+   * Stops a banner with the role `alert`, such as a success banner, taking
+   * focus when the page loads. Only use it if something else on the page
+   * needs focus.
    */
   disableAutoFocus = input(false, { transform: booleanAttribute });
 
@@ -65,15 +74,19 @@ export class NgxGovukNotificationBanner {
 
   protected isSuccess = computed(() => this.bannerType() === 'success');
 
+  protected bannerRole = computed(
+    () => this.role() || (this.isSuccess() ? 'alert' : 'region'),
+  );
+
   protected title = computed(
     () => this.titleText() ?? (this.isSuccess() ? 'Success' : 'Important'),
   );
 
   constructor() {
-    // As GOV.UK Frontend does: focus a success banner, so screen reader users
-    // hear it and keyboard users start from it.
+    // As GOV.UK Frontend does: focus an alert, such as a success banner, so
+    // screen reader users hear it and keyboard users start from it.
     afterNextRender(() => {
-      if (this.isSuccess() && !this.disableAutoFocus()) {
+      if (this.bannerRole() === 'alert' && !this.disableAutoFocus()) {
         this.focus(this.banner.nativeElement);
       }
     });

@@ -38,6 +38,17 @@ class NoFocusHostComponent {}
 
 @Component({
   imports: [NgxGovukNotificationBanner],
+  template: `<ngx-govuk-notification-banner role="alert">
+      Your session will end in 2 minutes
+    </ngx-govuk-notification-banner>
+    <ngx-govuk-notification-banner bannerType="success" role="status">
+      Saved
+    </ngx-govuk-notification-banner>`,
+})
+class RoleHostComponent {}
+
+@Component({
+  imports: [NgxGovukNotificationBanner],
   template: `<ngx-govuk-notification-banner>One</ngx-govuk-notification-banner>
     <ngx-govuk-notification-banner>Two</ngx-govuk-notification-banner>`,
 })
@@ -79,6 +90,21 @@ describe('NgxGovukNotificationBanner', () => {
     const fixture = await render(NoFocusHostComponent);
     const banner = fixture.nativeElement.querySelector('[role="alert"]');
     expect(document.activeElement).not.toBe(banner);
+  });
+
+  it('takes its role from role, and focuses it when that is alert', async () => {
+    const fixture = await render(RoleHostComponent);
+    const banners: HTMLElement[] = Array.from(
+      fixture.nativeElement.querySelectorAll('.govuk-notification-banner'),
+    );
+    expect(banners.map((banner) => banner.getAttribute('role'))).toEqual([
+      'alert',
+      'status',
+    ]);
+    expect(banners[1].classList).toContain(
+      'govuk-notification-banner--success',
+    );
+    expect(document.activeElement).toBe(banners[0]);
   });
 
   it('gives each banner its own title id', async () => {
