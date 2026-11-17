@@ -25,32 +25,11 @@ import { NgxGovukUtilsService } from 'ngx-govuk';
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'li[ngxGovukTaskListItem]',
   imports: [RouterLink],
+  templateUrl: './task-list-item.component.html',
   host: {
     class: 'govuk-task-list__item',
     '[class.govuk-task-list__item--with-link]': '!!link()',
   },
-  template: `<div class="govuk-task-list__name-and-hint">
-      @if (link(); as link) {
-        <a
-          class="govuk-link govuk-task-list__link"
-          [routerLink]="link"
-          [attr.aria-describedby]="describedBy()"
-          >{{ titleText() }}</a
-        >
-      } @else {
-        <div>{{ titleText() }}</div>
-      }
-      @if (hint()) {
-        <div [id]="hintId" class="govuk-task-list__hint">{{ hint() }}</div>
-      }
-    </div>
-    <div
-      class="govuk-task-list__status"
-      [class.govuk-task-list__status--cannot-start-yet]="cannotStartYet()"
-      [id]="statusId"
-    >
-      <ng-content></ng-content>
-    </div>`,
 })
 export class NgxGovukTaskListItem {
   private id = inject(NgxGovukUtilsService).randomId('task-list');

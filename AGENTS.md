@@ -119,6 +119,8 @@ its Design System URL.
 - Add the behaviour GOV.UK Frontend's JavaScript adds, in Angular, rather
   than loading its JavaScript: for example, the accordion's
   `hidden="until-found"`.
+- Put a component's template in its own `.html` file with `templateUrl`.
+  Keep it inline only when it is a single line, such as `<ng-content />`.
 - Don't set `changeDetection`: OnPush is the default in Angular 22, which
   the library requires.
 - Form fields are directives that provide themselves as `NGX_GOVUK_FIELD`
