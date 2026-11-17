@@ -47,6 +47,30 @@ describe('NgxGovukExitThisPageSkipLink', () => {
     expect(location.hash).toBe('#exited');
   });
 
+  it('uses another button on the page once one is removed', () => {
+    @Component({
+      imports: [NgxGovukExitThisPage, NgxGovukExitThisPageSkipLink],
+      template: `
+        <a ngxGovukExitThisPageSkipLink>Exit this page</a>
+        <ngx-govuk-exit-this-page redirectUrl="#first" />
+        @if (second()) {
+          <ngx-govuk-exit-this-page redirectUrl="#second" />
+        }
+      `,
+    })
+    class TwoButtonsHostComponent {
+      second = signal(true);
+    }
+
+    const fixture = TestBed.createComponent(TwoButtonsHostComponent);
+    fixture.detectChanges();
+    const link = (fixture.nativeElement as HTMLElement).querySelector('a');
+    expect(link?.getAttribute('href')).toBe('#second');
+    fixture.componentInstance.second.set(false);
+    fixture.detectChanges();
+    expect(link?.getAttribute('href')).toBe('#first');
+  });
+
   it('is an ordinary link to the BBC weather forecast without a button', () => {
     const { fixture, link } = setup();
     fixture.componentInstance.button.set(false);

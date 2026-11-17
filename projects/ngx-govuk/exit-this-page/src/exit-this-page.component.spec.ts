@@ -18,6 +18,20 @@ class TestHostComponent {
   customText = signal(false);
 }
 
+@Component({
+  imports: [NgxGovukExitThisPage],
+  template: `
+    <ngx-govuk-exit-this-page [redirectUrl]="redirectUrl()" />
+    @if (second()) {
+      <ngx-govuk-exit-this-page redirectUrl="#second" />
+    }
+  `,
+})
+class TwoButtonsHostComponent {
+  redirectUrl = signal('#first');
+  second = signal(true);
+}
+
 async function setup() {
   const fixture = TestBed.createComponent(TestHostComponent);
   fixture.detectChanges();
@@ -58,6 +72,58 @@ describe('NgxGovukExitThisPage', () => {
     expect(overlay().getAttribute('role')).toBe('alert');
     expect(overlay().textContent).toBe('Loading.');
     expect(location.hash).toBe('#exited');
+  });
+
+  it('leaves the page when users press Space on it', async () => {
+    const { $ } = await setup();
+    const event = new KeyboardEvent('keydown', {
+      key: ' ',
+      cancelable: true,
+    });
+    $('a').dispatchEvent(event);
+    expect(event.defaultPrevented).toBe(true);
+    expect(overlay().textContent).toBe('Loading.');
+    expect(location.hash).toBe('#exited');
+  });
+
+  it('goes to the BBC weather forecast if redirectUrl is empty', async () => {
+    const fixture = TestBed.createComponent(TwoButtonsHostComponent);
+    fixture.componentInstance.redirectUrl.set('');
+    fixture.componentInstance.second.set(false);
+    fixture.detectChanges();
+    const link = (fixture.nativeElement as HTMLElement).querySelector('a');
+    expect(link?.getAttribute('href')).toBe('https://www.bbc.co.uk/weather');
+  });
+
+  it('counts Shift presses once with two buttons on the page', async () => {
+    const fixture = TestBed.createComponent(TwoButtonsHostComponent);
+    fixture.detectChanges();
+    await fixture.whenStable();
+    const element = fixture.nativeElement as HTMLElement;
+    const press = () => {
+      document.dispatchEvent(new KeyboardEvent('keyup', { key: 'Shift' }));
+      fixture.detectChanges();
+    };
+
+    press();
+    expect(
+      element.querySelectorAll('.govuk-exit-this-page__indicator--visible'),
+    ).toHaveLength(1);
+    press();
+    press();
+    expect(
+      document.querySelectorAll('.govuk-exit-this-page-overlay'),
+    ).toHaveLength(1);
+    expect(location.hash).toBe('#second');
+
+    history.replaceState(null, '', '#');
+    window.dispatchEvent(new Event('pageshow'));
+    fixture.componentInstance.second.set(false);
+    fixture.detectChanges();
+    press();
+    press();
+    press();
+    expect(location.hash).toBe('#first');
   });
 
   it('shows the page again when users come back to it', async () => {
