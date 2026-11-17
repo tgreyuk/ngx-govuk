@@ -129,4 +129,12 @@ describe('NgxGovukServiceNavigation', () => {
       'block',
     );
   });
+
+  it('has no space around the button and link text', async () => {
+    const { $, element } = await setup('/licences', false);
+    expect($('.govuk-service-navigation__toggle').textContent).toBe('Menu');
+    expect(
+      Array.from(element.querySelectorAll('li a')).map((a) => a.textContent),
+    ).toEqual(['Home', 'Your licences', 'Your account']);
+  });
 });

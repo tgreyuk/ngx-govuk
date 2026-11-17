@@ -33,6 +33,8 @@
           class="govuk-service-navigation__wrapper"
         >
           @if (collapses()) {
+            <!-- On one line, so the button text has no space at each end. -->
+            <!-- prettier-ignore -->
             <button
               type="button"
               class="govuk-service-navigation__toggle"
@@ -46,9 +48,7 @@
               [attr.aria-hidden]="isWide() ? 'true' : null"
               [attr.aria-expanded]="isWide() ? null : menuIsOpen()"
               (click)="toggleMenu()"
-            >
-              {{ menuButtonText() }}
-            </button>
+            >{{ menuButtonText() }}</button>
           }
 
           <ul
@@ -68,11 +68,9 @@
                     [attr.aria-current]="
                       item.current ? 'page' : item.active ? 'true' : null
                     "
-                  >
-                    <ng-container
+                    ><ng-container
                       *ngTemplateOutlet="text; context: { $implicit: item }"
-                    />
-                  </a>
+                  /></a>
                 } @else {
                   <span class="govuk-service-navigation__text">{{
                     item.text
@@ -88,13 +86,7 @@
 </ng-template>
 
 <!-- Active items are wrapped in strong, so users who override colours or
-     styles can still tell which item is active. -->
-<ng-template #text let-item>
-  @if (item.active) {
-    <strong class="govuk-service-navigation__active-fallback">{{
-      item.text
-    }}</strong>
-  } @else {
-    {{ item.text }}
-  }
-</ng-template>
+     styles can still tell which item is active. On one line, so the text has
+     no space at each end. -->
+<!-- prettier-ignore -->
+<ng-template #text let-item>@if (item.active) {<strong class="govuk-service-navigation__active-fallback">{{ item.text }}</strong>} @else {<ng-container>{{ item.text }}</ng-container>}</ng-template>
