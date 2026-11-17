@@ -369,6 +369,16 @@ export const EXAMPLES: Record<string, Example[]> = {
           (m) => m.NotificationBannerDemoComponent,
         ),
     },
+    {
+      path: 'notification-banner/success',
+      load: () =>
+        import('./examples/notification-banner/success.component').then(
+          (m) => m.NotificationBannerSuccessDemoComponent,
+        ),
+      title: 'Success banner',
+      description:
+        'Set "bannerType" to "success". A success banner takes focus when the page loads; "disableAutoFocus" stops that here only because this page shows several examples.',
+    },
   ],
   pagination: [
     {

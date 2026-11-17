@@ -203,7 +203,7 @@ export const COMPONENTS: ComponentEntry[] = [
     id: 'notification-banner',
     status: 'documented',
     description:
-      'Tells users about something important, such as the result of an action.',
+      "Tells the user about something they need to know about, but that's not directly related to the page content.",
   },
   {
     name: 'Pagination',

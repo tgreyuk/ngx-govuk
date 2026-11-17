@@ -10,10 +10,11 @@ import {
 import { NgxGovukUtilsService } from 'ngx-govuk';
 
 /**
- * Tells users about something important that isn't directly related to the
- * page, or confirms the outcome of something they've just done.
+ * Tells the user about something they need to know about, but that's not
+ * directly related to the page content.
  *
- * Put the content inside it. For a single line, use a
+ * Set `bannerType` to `success` to confirm the outcome of something they've
+ * just done. Put the content inside it. For a single line, use a
  * `p ngxGovukNotificationBannerHeading`, and style links with
  * `a ngxGovukNotificationBannerLink`.
  */
