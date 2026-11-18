@@ -14,7 +14,7 @@ export const SITE_URL = 'https://www.ngx-govuk.org';
 const SITE_NAME = 'ngx-govuk';
 const HOME_TITLE = 'ngx-govuk: Angular components for the GOV.UK Design System';
 const DEFAULT_DESCRIPTION =
-  "Angular components and directives for the GOV.UK Design System, using GOV.UK Frontend's markup and styles. Built for Angular 22 and GOV.UK Frontend 6.";
+  "Angular components and directives for the GOV.UK Design System, using GOV.UK Frontend's markup and styles. Built for Angular 22 and GOV.UK Frontend 6.6 or later.";
 
 interface PageMeta {
   title: string;

@@ -57,7 +57,7 @@
     "autoprefixer": "^10.4.17",
     "eslint": "^10.14.0",
     "eslint-config-prettier": "10.1.8",
-    "govuk-frontend": "^6.1.0",
+    "govuk-frontend": "^6.6.0",
     "husky": "^9.1.7",
     "jsdom": "^26.1.0",
     "lint-staged": "^17.6.0",
