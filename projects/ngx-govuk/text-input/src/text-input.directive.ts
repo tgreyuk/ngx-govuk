@@ -1,4 +1,5 @@
 import {
+  booleanAttribute,
   Directive,
   ElementRef,
   computed,
@@ -7,9 +8,14 @@ import {
   input,
   signal,
 } from '@angular/core';
-import { InputWidth, NGX_GOVUK_FIELD, NgxGovukField } from 'ngx-govuk';
+import {
+  addErrorSummaryTarget,
+  NgxGovukInputWidth,
+  NGX_GOVUK_FIELD,
+  NgxGovukField,
+} from 'ngx-govuk';
 
-const WIDTH_CLASSES: Record<InputWidth, string> = {
+const WIDTH_CLASSES: Record<NgxGovukInputWidth, string> = {
   '2': 'govuk-input--width-2',
   '3': 'govuk-input--width-3',
   '4': 'govuk-input--width-4',
@@ -37,6 +43,7 @@ const WIDTH_CLASSES: Record<InputWidth, string> = {
     class: 'govuk-input',
     '[class]': 'widthClass()',
     '[class.govuk-input--error]': 'hasError()',
+    '[class.govuk-input--extra-letter-spacing]': 'extraLetterSpacing()',
   },
   providers: [
     {
@@ -56,12 +63,22 @@ export class NgxGovukTextInput implements NgxGovukField {
    */
   hasError = signal(false);
 
+  constructor() {
+    addErrorSummaryTarget(() => this.elementRef.nativeElement.id || null);
+  }
+
   /**
    * The input's width. Use a number of characters, such as `10`, when you know
    * how long the answer will be, or a fraction, such as `one-half`, for a width
    * relative to the input's container.
    */
-  inputWidth = input<InputWidth>();
+  inputWidth = input<NgxGovukInputWidth>();
+
+  /**
+   * Adds space between the characters, so users can check a code or sequence
+   * they've entered, such as a reference number.
+   */
+  extraLetterSpacing = input(false, { transform: booleanAttribute });
 
   protected widthClass = computed(() => {
     const width = this.inputWidth();

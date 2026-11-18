@@ -5,10 +5,22 @@ import { CodeBlockComponent } from '../components/component-code/code-block.comp
 /** Guide to building form fields with `ngx-govuk-form-group`. */
 @Component({
   selector: 'ngx-govuk-forms-guide',
+  host: { class: 'app-numbered-sections' },
   imports: [RouterLink, CodeBlockComponent],
   templateUrl: './forms-guide.component.html',
 })
 export class FormsGuideComponent {
+  contents = [
+    { id: 'how-a-field-is-built', heading: 'How a field is built' },
+    { id: 'other-fields', heading: 'Other fields' },
+    { id: 'groups-of-fields', heading: 'Groups of fields' },
+    { id: 'showing-errors', heading: 'Showing errors' },
+    { id: 'error-summary', heading: 'Error summary' },
+    { id: 'labels', heading: 'Labels' },
+    { id: 'prefixes-and-suffixes', heading: 'Prefixes and suffixes' },
+    { id: 'ids-and-screen-readers', heading: 'Ids and screen readers' },
+  ];
+
   FIELD_CODE = `<ngx-govuk-form-group
   label="What is your email address?"
   hint="We'll only use this to send you a receipt"
@@ -23,12 +35,12 @@ export class FormsGuideComponent {
   />
 </ngx-govuk-form-group>`;
 
-  ERROR_CODE = `<ngx-govuk-form-group
-  label="What is your email address?"
-  [errorMessage]="submitted() && email.invalid
-    ? 'Enter an email address in the correct format, like name@example.com'
-    : null"
->
+  ERROR_CODE = `<ngx-govuk-form-group label="What is your email address?">
+  @if (submitted() && email.invalid) {
+    <p ngxGovukErrorMessage>
+      Enter an email address in the correct format, like name@example.com
+    </p>
+  }
   <input id="email" formControlName="email" ngxGovukTextInput />
 </ngx-govuk-form-group>`;
 
@@ -39,10 +51,10 @@ export class FormsGuideComponent {
 <h1 class="govuk-heading-l">Contact details</h1>
 
 <form [formGroup]="form" (ngSubmit)="continue()" novalidate>
-  <ngx-govuk-form-group
-    label="What is your email address?"
-    [errorMessage]="submitted() ? emailError() : null"
-  >
+  <ngx-govuk-form-group label="What is your email address?">
+    @if (submitted() && emailError(); as error) {
+      <p ngxGovukErrorMessage>{{ error }}</p>
+    }
     <input id="email" type="email" formControlName="email" ngxGovukTextInput />
   </ngx-govuk-form-group>
 
@@ -51,6 +63,7 @@ export class FormsGuideComponent {
 
   SUMMARY_TS_CODE = `export class ContactDetailsComponent {
   private title = inject(Title);
+  private errorSummary = viewChild(NgxGovukErrorSummary);
 
   form = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -65,13 +78,17 @@ export class FormsGuideComponent {
 
   errors(): NgxGovukErrorSummaryItem[] {
     const email = this.emailError();
-    return email ? [{ text: email, href: '#email' }] : [];
+    return email ? [{ text: email, control: this.form.controls.email }] : [];
   }
 
   continue() {
     this.submitted.set(true);
     const prefix = this.errors().length ? 'Error: ' : '';
     this.title.setTitle(\`\${prefix}Contact details – Your service\`);
+
+    // The first time, the summary appears and takes focus itself. After
+    // that, it's already showing, so move focus to it.
+    this.errorSummary()?.focus();
   }
 }`;
 

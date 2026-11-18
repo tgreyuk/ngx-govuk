@@ -7,8 +7,9 @@
  * comes from the `@Component` / `@Directive` decorator, and inputs, models and
  * outputs from their `input()`, `model()` and `output()` initialisers. Public
  * methods are listed only when they have a JSDoc comment. Other properties are
- * left out: they are a component's state, not its API. So is anything tagged
- * `@internal`.
+ * left out: they are a component's state, not its API. Exported interfaces and
+ * type aliases are listed too, with their types as written. Anything tagged
+ * `@internal` is left out.
  *
  * Run with `npm run website:api`; Node strips the types.
  */
@@ -23,6 +24,8 @@ import type {
   ApiInput,
   ApiOutput,
   ApiMethod,
+  ApiProperty,
+  ApiType,
 } from '../projects/website/src/app/routes/components/component-api/api-docs.ts';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -53,7 +56,10 @@ export function createProgram(tsconfigPath: string): ts.Program {
   return ts.createProgram(config.fileNames, config.options);
 }
 
-/** The components and directives exported from one entry point's index file. */
+/**
+ * The components, directives, interfaces and type aliases exported from one
+ * entry point's index file.
+ */
 export function extractEntryPoint(
   program: ts.Program,
   indexFile: string,
@@ -68,22 +74,83 @@ export function extractEntryPoint(
   const exports = moduleSymbol ? checker.getExportsOfModule(moduleSymbol) : [];
 
   const classes: ApiClass[] = [];
+  const types: ApiType[] = [];
   for (const exported of exports) {
     const symbol =
       exported.flags & ts.SymbolFlags.Alias
         ? checker.getAliasedSymbol(exported)
         : exported;
-    const declaration = symbol.declarations?.find(ts.isClassDeclaration);
-    if (declaration) {
-      const apiClass = extractClass(checker, declaration);
-      if (apiClass) {
-        classes.push(apiClass);
+    for (const declaration of symbol.declarations ?? []) {
+      if (ts.isClassDeclaration(declaration)) {
+        const apiClass = extractClass(checker, declaration);
+        if (apiClass) {
+          classes.push(apiClass);
+        }
+      } else if (
+        ts.isInterfaceDeclaration(declaration) ||
+        ts.isTypeAliasDeclaration(declaration)
+      ) {
+        if (!isInternal(declaration)) {
+          types.push(extractType(declaration));
+        }
       }
     }
   }
   classes.sort((a, b) => a.name.localeCompare(b.name));
+  types.sort((a, b) => a.name.localeCompare(b.name));
 
-  return { name, importPath: `ngx-govuk/${name}`, classes };
+  return { name, importPath: `ngx-govuk/${name}`, classes, types };
+}
+
+/**
+ * An interface with its properties, or a type alias with its definition.
+ * Types are as written in the source, such as `NgxGovukFooterLink[]`, rather
+ * than expanded, so they name the library's other types.
+ */
+function extractType(
+  declaration: ts.InterfaceDeclaration | ts.TypeAliasDeclaration,
+): ApiType {
+  const apiType: ApiType = {
+    name: declaration.name.text,
+    kind: ts.isInterfaceDeclaration(declaration) ? 'Interface' : 'Type',
+    description: description(declaration),
+  };
+  if (ts.isTypeAliasDeclaration(declaration)) {
+    apiType.type = typeText(declaration.type);
+    return apiType;
+  }
+  apiType.properties = [];
+  for (const member of declaration.members) {
+    if (isInternal(member) || !member.name || !ts.isIdentifier(member.name)) {
+      continue;
+    }
+    let type = 'unknown';
+    if (ts.isPropertySignature(member) && member.type) {
+      type = typeText(member.type);
+    } else if (ts.isMethodSignature(member)) {
+      const parameters = member.parameters.map((p) => p.getText()).join(', ');
+      type = `(${parameters}) => ${member.type ? typeText(member.type) : 'void'}`;
+    }
+    const property: ApiProperty = {
+      name: member.name.text,
+      description: description(member),
+      type,
+      optional: !!member.questionToken,
+    };
+    apiType.properties.push(property);
+  }
+  return apiType;
+}
+
+/**
+ * A type node's source text on one line, without the leading `|` that
+ * Prettier adds to a union wrapped over several lines.
+ */
+function typeText(node: ts.TypeNode): string {
+  return node
+    .getText()
+    .replace(/\s*\n\s*/g, ' ')
+    .replace(/^\|\s*/, '');
 }
 
 function extractClass(
@@ -143,13 +210,7 @@ function addInputOrOutput(
   member: ts.PropertyDeclaration,
   name: ts.Identifier,
 ) {
-  // The declared type in full, such as `InputSignal<string | undefined>` or
-  // `ModelSignal<boolean>`: it tells Angular developers how to use the member.
-  const type = checker.typeToString(
-    checker.getTypeAtLocation(name),
-    undefined,
-    TYPE_FORMAT,
-  );
+  const signalType = checker.getTypeAtLocation(name);
   const initializer = member.initializer;
   const call =
     initializer && ts.isCallExpression(initializer) ? initializer : undefined;
@@ -162,9 +223,20 @@ function addInputOrOutput(
     const options = required ? call.arguments[0] : call.arguments[1];
     const input: ApiInput = {
       name: alias(options) ?? name.text,
+      kind: fn,
       description: description(member),
-      type,
-      default: initialValue?.getText(),
+      // An optional input's `undefined` is left out: not being required
+      // already says it can be left unset.
+      type:
+        writtenType(checker, call, { omitUndefined: !required }) ??
+        valueType(checker, signalType, { omitUndefined: !required }),
+      // A default worked out by a call, such as a generated id, is code
+      // rather than a value, so it's left out: the input's JSDoc says what
+      // it defaults to.
+      default:
+        initialValue && !ts.isCallExpression(initialValue)
+          ? initialValue.getText()
+          : undefined,
       required,
     };
     if (input.default === undefined) {
@@ -178,10 +250,105 @@ function addInputOrOutput(
     const output: ApiOutput = {
       name: alias(call.arguments[0]) ?? name.text,
       description: description(member),
-      type,
+      type: writtenType(checker, call) ?? valueType(checker, signalType),
     };
     apiClass.outputs.push(output);
   }
+}
+
+/**
+ * The type of value an input, model or output holds, such as `string` for
+ * `InputSignal<string>`, rather than the signal's own type. For an input with
+ * a transform, such as `booleanAttribute`, this is the type after the
+ * transform, `boolean`, not the `unknown` it accepts.
+ */
+function valueType(
+  checker: ts.TypeChecker,
+  signalType: ts.Type,
+  { omitUndefined = false } = {},
+): string {
+  const [value] =
+    signalType.aliasTypeArguments ??
+    (isTypeReference(signalType) ? checker.getTypeArguments(signalType) : []);
+  if (!value) {
+    return checker.typeToString(signalType, undefined, TYPE_FORMAT);
+  }
+  if (omitUndefined && value.isUnion()) {
+    // TypeScript puts `null` first; write it last, as in `string | null`.
+    const isNull = (member: ts.Type) => !!(member.flags & ts.TypeFlags.Null);
+    const defined = value.types
+      .filter((member) => !(member.flags & ts.TypeFlags.Undefined))
+      .sort((a, b) => Number(isNull(a)) - Number(isNull(b)));
+    // `boolean` is the union `true | false`: keep it as one word.
+    if (defined.length !== value.types.length) {
+      return defined
+        .map((member) => checker.typeToString(member, undefined, TYPE_FORMAT))
+        .join(' | ')
+        .replace(/\bfalse \| true\b|\btrue \| false\b/, 'boolean');
+    }
+  }
+  return checker.typeToString(value, undefined, TYPE_FORMAT);
+}
+
+/**
+ * The value's type from the type argument written in the call, as in
+ * `input<NgxGovukPluralText>()`, or undefined when there isn't one and the
+ * type is inferred.
+ *
+ * TypeScript loses some of the library's type names: it expands an alias of
+ * another generic type, such as `NgxGovukPluralText`, an alias of `Partial`,
+ * and flattens a union alias, such as `NgxGovukInputWidth`, when it adds
+ * `undefined`. So a type that names another type, such as
+ * `NgxGovukFooterLink[]`, is kept as written. Other types, such as
+ * `'s' | 'm'`, come from the checker, so they're written as everywhere
+ * else, as in `"s" | "m"`.
+ */
+function writtenType(
+  checker: ts.TypeChecker,
+  call: ts.CallExpression,
+  { omitUndefined = false } = {},
+): string | undefined {
+  const [node] = call.typeArguments ?? [];
+  if (!node) {
+    return undefined;
+  }
+  const isKeyword = (member: ts.TypeNode, kind: ts.SyntaxKind) =>
+    member.kind === kind ||
+    (ts.isLiteralTypeNode(member) && member.literal.kind === kind);
+  const members = (ts.isUnionTypeNode(node) ? [...node.types] : [node])
+    .filter(
+      (member) =>
+        !(omitUndefined && isKeyword(member, ts.SyntaxKind.UndefinedKeyword)),
+    )
+    // `null` last, as in `string | null`.
+    .sort(
+      (a, b) =>
+        Number(isKeyword(a, ts.SyntaxKind.NullKeyword)) -
+        Number(isKeyword(b, ts.SyntaxKind.NullKeyword)),
+    );
+  return members
+    .map((member) =>
+      namesAType(member)
+        ? typeText(member)
+        : checker.typeToString(
+            checker.getTypeFromTypeNode(member),
+            undefined,
+            TYPE_FORMAT,
+          ),
+    )
+    .join(' | ');
+}
+
+/** Whether a type node refers to a type by name, such as `UrlTree`. */
+function namesAType(node: ts.Node): boolean {
+  return ts.isTypeReferenceNode(node) || !!ts.forEachChild(node, namesAType);
+}
+
+function isTypeReference(type: ts.Type): type is ts.TypeReference {
+  return (
+    !!(type.flags & ts.TypeFlags.Object) &&
+    !!((type as ts.ObjectType).objectFlags & ts.ObjectFlags.Reference)
+  );
 }
 
 /** `input`, `model` or `output` when called as `input(...)`, `input.required(...)`, etc. */

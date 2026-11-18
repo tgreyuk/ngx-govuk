@@ -19,7 +19,21 @@
       </a>
     </ng-template>
 
-    <ul class="app-subnav__list">
+    <button
+      type="button"
+      class="app-subnav__toggle"
+      [attr.aria-expanded]="expanded()"
+      aria-controls="app-components-menu"
+      (click)="expanded.set(!expanded())"
+    >
+      All components
+    </button>
+
+    <ul
+      id="app-components-menu"
+      class="app-subnav__list"
+      [class.app-subnav__list--collapsed]="!expanded()"
+    >
       @for (component of components; track component.id) {
         <li>
           <ng-container

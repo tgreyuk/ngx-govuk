@@ -7,8 +7,8 @@ import {
 import { NgxGovukSummaryListRow } from './summary-list-row.component';
 
 /**
- * Summarises information as a list of keys and values, such as a user's
- * answers at the end of a form.
+ * Summarises information, for example, a user's responses at the end of a
+ * form.
  *
  * Add it to a `dl` element, and add each row as a
  * `div ngxGovukSummaryListRow` inside it. For a list with no borders, also

@@ -1,4 +1,5 @@
 import { Component, signal } from '@angular/core';
+import { Location } from '@angular/common';
 import { TestBed } from '@angular/core/testing';
 import { NgxGovukTab } from './tab.component';
 import { NgxGovukTabs } from './tabs.component';
@@ -43,11 +44,12 @@ describe('NgxGovukTabs', () => {
   beforeEach(() => {
     // matchMedia isn't in every test DOM, so give spyOn something to replace.
     window.matchMedia ??= (() => undefined) as never;
+    document.body.classList.add('govuk-frontend-supported');
   });
 
   afterEach(() => {
     vi.restoreAllMocks();
-    history.replaceState(null, '', location.pathname);
+    document.body.classList.remove('govuk-frontend-supported');
   });
 
   it('matches the GOV.UK markup snapshot on a wide screen', () => {
@@ -103,21 +105,60 @@ describe('NgxGovukTabs', () => {
     expect(document.activeElement).toBe(links()[2]);
   });
 
-  it('scrolls to a section instead of opening it on a small screen', () => {
+  it('leaves the links as plain links on a small screen', () => {
     stubScreen(false);
-    const { fixture, element, links, hidden } = setup();
-    const panel = element.querySelector<HTMLElement>('#past-month')!;
-    panel.scrollIntoView = vi.fn();
-    links()[2].click();
+    const { fixture, links, hidden } = setup();
+    const click = new MouseEvent('click', { bubbles: true, cancelable: true });
+    links()[2].dispatchEvent(click);
     fixture.detectChanges();
-    expect(panel.scrollIntoView).toHaveBeenCalled();
+    expect(click.defaultPrevented).toBe(false);
     expect(fixture.componentInstance.selected()).toBe(0);
     expect(hidden()).toEqual([false, true, true]);
   });
 
+  it('links to each section on the current page, not the base URL', () => {
+    stubScreen(false);
+    TestBed.inject(Location).go('/apply/answers?step=2');
+    const { links } = setup();
+    expect(links()[1].getAttribute('href')).toBe(
+      '/apply/answers?step=2#past-week',
+    );
+  });
+
+  it('shows a list of links without govuk-frontend-supported', () => {
+    stubScreen(true);
+    document.body.classList.remove('govuk-frontend-supported');
+    const { element, links } = setup();
+    expect(element.querySelector('[role="tablist"]')).toBeNull();
+    expect(links()[1].hasAttribute('tabindex')).toBe(false);
+  });
+
+  it('adds a history entry when a tab opens', () => {
+    stubScreen(true);
+    const { fixture, links } = setup();
+    const go = vi.spyOn(TestBed.inject(Location), 'go');
+    links()[1].click();
+    fixture.detectChanges();
+    expect(go).toHaveBeenCalledWith('#past-week');
+  });
+
+  it('opens and focuses the tab when the URL goes back', async () => {
+    stubScreen(true);
+    const { fixture, links } = setup();
+    await fixture.whenStable();
+    links()[1].click();
+    links()[2].click();
+    fixture.detectChanges();
+    TestBed.inject(Location).back();
+    await fixture.whenStable();
+    fixture.detectChanges();
+    expect(fixture.componentInstance.selected()).toBe(1);
+    expect(document.activeElement).toBe(links()[1]);
+  });
+
   it('opens the tab the URL fragment points to', async () => {
     stubScreen(true);
-    history.replaceState(null, '', '#past-week');
+    TestBed.inject(Location).go('/#past-week');
     const { fixture } = setup();
     await fixture.whenStable();
     expect(fixture.componentInstance.selected()).toBe(1);

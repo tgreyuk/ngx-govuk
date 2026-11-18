@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import {
+  NgxGovukSummaryActionLink,
   NgxGovukSummaryCard,
   NgxGovukSummaryCardAction,
   NgxGovukSummaryList,
@@ -15,6 +16,7 @@ import {
     NgxGovukSummaryCardAction,
     NgxGovukSummaryList,
     NgxGovukSummaryListRow,
+    NgxGovukSummaryActionLink,
   ],
   templateUrl: './card.component.html',
 })

@@ -1,5 +1,11 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { Component, contentChild, Directive, input } from '@angular/core';
+import {
+  Component,
+  contentChild,
+  Directive,
+  input,
+  booleanAttribute,
+} from '@angular/core';
 import { RouterLink, UrlTree } from '@angular/router';
 
 /** A link in the footer. */
@@ -7,7 +13,7 @@ export interface NgxGovukFooterLink {
   /** The link's text. */
   text: string;
   /**
-   * Where the link goes in your app, as you'd give it to `routerLink`, such
+   * Where the link goes in your app, in any form `routerLink` accepts, such
    * as `/cookies`.
    */
   routerLink?: string | readonly unknown[] | UrlTree;
@@ -16,13 +22,25 @@ export interface NgxGovukFooterLink {
    * `https://www.gov.uk/help`. Used when `routerLink` isn't set.
    */
   href?: string;
+  /**
+   * The language of the page the link goes to, if it isn't the language of
+   * the current page, such as `cy` for a Welsh-language page. Sets the
+   * link's `hreflang`.
+   */
+  hreflang?: string;
+  /**
+   * The language of the link's text, if it isn't the language of the
+   * current page, such as `cy` for a link to Welsh-language pages written
+   * in Welsh. Sets the link's `lang`.
+   */
+  lang?: string;
 }
 
 /** A section of links in the footer's navigation, under a heading. */
 export interface NgxGovukFooterSection {
   /** The section's heading. */
   title: string;
-  /** The section's links. */
+  /** The section's links. Links without a `routerLink` or `href` are left out. */
   items: NgxGovukFooterLink[];
   /**
    * How wide the section is, as a GOV.UK grid width, such as `one-half` or
@@ -53,18 +71,29 @@ export interface NgxGovukFooterSection {
 export class NgxGovukFooterMeta {}
 
 /**
- * The footer at the bottom of every page, with the crown, links to support
- * pages such as cookies and privacy, and the content licence and copyright.
+ * The GOV.UK footer provides copyright, licensing and other information
+ * about your service.
  *
- * Put it at the bottom of every page. Set the support links as
- * `metaLinks`, and add your own content in an element with
- * `ngxGovukFooterMeta`. Set `navigation` for sections of links under
- * headings, as GOV.UK has.
+ * Put it at the bottom of every page, inside a `footer` element with the
+ * `govuk-template__footer` class. Set the support links as `metaLinks`,
+ * and add your own content in an element with `ngxGovukFooterMeta`. Set
+ * `navigation` for sections of links under headings, as GOV.UK has.
+ *
+ * GOV.UK's styles show the Royal Arms above the copyright notice from
+ * `/assets/images/govuk-crest.svg`, so copy GOV.UK Frontend's images into
+ * your app's assets.
+ *
+ * Only services on GOV.UK may use it.
  */
 @Component({
   selector: 'ngx-govuk-footer',
   imports: [NgTemplateOutlet, RouterLink],
   templateUrl: './footer.component.html',
+  host: {
+    class: 'govuk-footer',
+  },
+  // Custom elements are inline by default; GOV.UK's styles expect a block.
+  styles: ':where(:host:not([hidden])) { display: block; }',
 })
 export class NgxGovukFooter {
   /**
@@ -74,7 +103,7 @@ export class NgxGovukFooter {
 
   /**
    * Links to support pages, such as help, cookies, accessibility statement
-   * and privacy notice.
+   * and privacy notice. Links without a `routerLink` or `href` are left out.
    */
   metaLinks = input<NgxGovukFooterLink[]>([]);
 
@@ -87,7 +116,7 @@ export class NgxGovukFooter {
    * Shows that content is available under the Open Government Licence.
    * Set it to `false` if your content isn't.
    */
-  contentLicence = input<boolean>(true);
+  contentLicence = input(true, { transform: booleanAttribute });
 
   /**
    * The copyright notice, which links to The National Archives' page on

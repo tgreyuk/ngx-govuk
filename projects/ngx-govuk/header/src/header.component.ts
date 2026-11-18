@@ -1,11 +1,12 @@
-import { Component, input } from '@angular/core';
+import { Component, input, booleanAttribute } from '@angular/core';
 
 /**
  * The header that tells users they're using a GOV.UK service, with the
  * GOV.UK logo linking to the GOV.UK homepage.
  *
- * Put it at the top of every page, after the skip link. Put the service's
- * name and navigation in `ngx-govuk-service-navigation` straight after it.
+ * Put it at the top of every page, after the skip link, inside a `header`
+ * element with the `govuk-template__header` class. Put the service's name
+ * and navigation in `ngx-govuk-service-navigation` straight after it.
  *
  * Only services on GOV.UK may use it. Other services should use the generic
  * header.
@@ -13,6 +14,11 @@ import { Component, input } from '@angular/core';
 @Component({
   selector: 'ngx-govuk-header',
   templateUrl: './header.component.html',
+  host: {
+    class: 'govuk-header',
+  },
+  // Custom elements are inline by default; GOV.UK's styles expect a block.
+  styles: ':where(:host:not([hidden])) { display: block; }',
 })
 export class NgxGovukHeader {
   /**
@@ -31,5 +37,5 @@ export class NgxGovukHeader {
    * Makes the header's content span the full width of the page, rather than
    * the width of the page's content.
    */
-  fullWidth = input<boolean>(false);
+  fullWidth = input(false, { transform: booleanAttribute });
 }

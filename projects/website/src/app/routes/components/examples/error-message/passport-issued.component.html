@@ -1,0 +1,8 @@
+<ngx-govuk-date-input
+  name="passport-issued"
+  legend="When was your passport issued?"
+  hint="For example, 27 3 2007"
+  asPageHeading
+  [formControl]="passportIssuedControl">
+  <p ngxGovukErrorMessage>The date your passport was issued must be in the past</p>
+</ngx-govuk-date-input>

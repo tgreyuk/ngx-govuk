@@ -1,55 +1,42 @@
-<div
-  class="govuk-form-group"
-  [class.govuk-form-group--error]="!!errorMessage()"
+<fieldset
+  class="govuk-fieldset"
+  role="group"
+  [attr.aria-describedby]="describedBy()"
 >
-  <fieldset
-    class="govuk-fieldset"
-    role="group"
-    [attr.aria-describedby]="describedBy()"
-  >
-    <legend [class]="legendClasses()">
-      @if (asPageHeading()) {
-        <h1 class="govuk-fieldset__heading">{{ legend() }}</h1>
-      } @else {
-        {{ legend() }}
-      }
-    </legend>
-
-    @if (hint()) {
-      <div [id]="hintId()" class="govuk-hint">{{ hint() }}</div>
+  <legend [class]="legendClasses()">
+    @if (asPageHeading()) {
+      <h1 class="govuk-fieldset__heading">{{ legend() }}</h1>
+    } @else {
+      <ng-container>{{ legend() }}</ng-container>
     }
+  </legend>
 
-    @if (errorMessage()) {
-      <p [id]="errorId()" class="govuk-error-message">
-        <span class="govuk-visually-hidden">Error:</span> {{ errorMessage() }}
-      </p>
-    }
+  @if (hint()) {
+    <div [id]="hintId()" class="govuk-hint">{{ hint() }}</div>
+  }
 
-    <div class="govuk-date-input" [id]="baseName()">
-      @for (part of parts; track part.key) {
-        <div class="govuk-date-input__item">
-          <div class="govuk-form-group">
-            <label
-              class="govuk-label govuk-date-input__label"
-              [for]="baseName() + '-' + part.key"
-            >
-              {{ part.label }}
-            </label>
-            <input
-              [class]="inputClasses(part)"
-              [id]="baseName() + '-' + part.key"
-              [name]="baseName() + '-' + part.key"
-              type="text"
-              inputmode="numeric"
-              [attr.autocomplete]="dateOfBirth() ? 'bday-' + part.key : null"
-              [value]="value()[part.key]"
-              [disabled]="disabled()"
-              (input)="update(part.key, $event)"
-              (blur)="onTouched()"
-            />
-          </div>
+  <ng-content select="[ngxGovukErrorMessage]"></ng-content>
+
+  <div class="govuk-date-input" [id]="baseName()" (focusout)="focusOut($event)">
+    @for (field of fields(); track field.key) {
+      <div class="govuk-date-input__item">
+        <div class="govuk-form-group">
+          <label class="govuk-label govuk-date-input__label" [for]="field.id">{{
+            field.label
+          }}</label>
+          <input
+            [class]="inputClasses(field.key, field.width)"
+            [id]="field.id"
+            [name]="field.id"
+            type="text"
+            inputmode="numeric"
+            [attr.autocomplete]="dateOfBirth() ? 'bday-' + field.key : null"
+            [value]="value()[field.key]"
+            [disabled]="disabled()"
+            (input)="update(field.key, $event)"
+          />
         </div>
-      }
-    </div>
-  </fieldset>
-</div>
+      </div>
+    }
+  </div>
+</fieldset>

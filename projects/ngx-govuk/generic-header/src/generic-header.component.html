@@ -1,16 +1,22 @@
-<div class="govuk-generic-header">
-  <div
-    class="govuk-generic-header__container"
-    [class.govuk-width-container]="!fullWidth()"
-    [class.govuk-generic-header__container--full-width]="fullWidth()"
-  >
-    <div class="govuk-generic-header__logo">
+<div
+  class="govuk-generic-header__container"
+  [class.govuk-width-container]="!fullWidth()"
+  [class.govuk-generic-header__container--full-width]="fullWidth()"
+>
+  <div class="govuk-generic-header__logo">
+    @if (homepageUrl(); as url) {
+      <a [attr.href]="url" class="govuk-generic-header__homepage-link">
+        <ng-container [ngTemplateOutlet]="logo" />
+      </a>
+    } @else {
       <a
         [routerLink]="homepageLink()"
         class="govuk-generic-header__homepage-link"
       >
-        <ng-content />
+        <ng-container [ngTemplateOutlet]="logo" />
       </a>
-    </div>
+    }
   </div>
 </div>
+
+<ng-template #logo><ng-content /></ng-template>

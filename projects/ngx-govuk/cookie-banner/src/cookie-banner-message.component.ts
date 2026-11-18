@@ -1,5 +1,5 @@
 import {
-  afterNextRender,
+  afterRenderEffect,
   booleanAttribute,
   Component,
   ElementRef,
@@ -23,13 +23,14 @@ import {
     class: 'govuk-cookie-banner__message govuk-width-container',
     '[attr.role]': 'confirmation() ? "alert" : null',
     '[attr.tabindex]': 'confirmation() ? "-1" : null',
+    '[attr.hidden]': 'hidden() ? "" : null',
   },
 })
 export class NgxGovukCookieBannerMessage {
   private element = inject<ElementRef<HTMLElement>>(ElementRef);
 
   /** The message's heading, such as "Cookies on [service name]". */
-  heading = input<string>();
+  headingText = input<string>();
 
   /**
    * Marks the message as confirming users' choice. Screen readers announce
@@ -37,9 +38,18 @@ export class NgxGovukCookieBannerMessage {
    */
   confirmation = input(false, { transform: booleanAttribute });
 
+  /**
+   * Hides the message. Use it to keep a message in the page and show it
+   * later, such as the confirmation once users have chosen.
+   */
+  hidden = input(false, { transform: booleanAttribute });
+
   constructor() {
-    afterNextRender(() => {
-      if (this.confirmation()) {
+    // Runs again whenever either changes, so focus moves to a confirmation
+    // when it's first rendered, when it's unhidden, or when a message
+    // becomes one.
+    afterRenderEffect(() => {
+      if (this.confirmation() && !this.hidden()) {
         this.element.nativeElement.focus();
       }
     });

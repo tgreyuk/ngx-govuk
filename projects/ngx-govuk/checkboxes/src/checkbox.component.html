@@ -3,6 +3,7 @@
   [id]="inputId()"
   [name]="group.groupName()"
   type="checkbox"
+  [attr.value]="value() ?? null"
   [checked]="checked()"
   [disabled]="isDisabled()"
   [attr.aria-describedby]="hint() ? hintId() : null"
@@ -16,9 +17,9 @@
   <ng-content></ng-content>
 </label>
 @if (hint()) {
-  <div [id]="hintId()" class="govuk-hint govuk-checkboxes__hint">
-    {{ hint() }}
-  </div>
+  <!-- On one line, so the hint text has no space at each end. -->
+  <!-- prettier-ignore -->
+  <div [id]="hintId()" class="govuk-hint govuk-checkboxes__hint">{{ hint() }}</div>
 }
 
 <ng-template #reveal>

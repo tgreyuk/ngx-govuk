@@ -1,8 +1,8 @@
 import { computed, Directive, inject } from '@angular/core';
-import { ExitThisPageRegistry } from './exit-this-page-registry';
-
-/** Where GOV.UK Frontend sends users, if the page has no button. */
-const DEFAULT_REDIRECT_URL = 'https://www.bbc.co.uk/weather';
+import {
+  DEFAULT_REDIRECT_URL,
+  ExitThisPageRegistry,
+} from './exit-this-page-registry';
 
 /**
  * A skip link that lets keyboard users leave the page as soon as they
@@ -26,7 +26,7 @@ export class NgxGovukExitThisPageSkipLink {
   private registry = inject(ExitThisPageRegistry);
 
   protected href = computed(
-    () => this.registry.button()?.redirectUrl() ?? DEFAULT_REDIRECT_URL,
+    () => this.registry.button()?.href() ?? DEFAULT_REDIRECT_URL,
   );
 
   protected exit(event: MouseEvent) {

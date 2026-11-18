@@ -1,27 +1,31 @@
 import { Component, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { NgxGovukErrorMessage } from 'ngx-govuk/error-message';
 import { NgxGovukUtilsService } from 'ngx-govuk';
 import { MockProvider } from 'ng-mocks';
 import {
-  DateInputPart,
-  DateInputValue,
+  NgxGovukDateInputPart,
+  NgxGovukDateInputValue,
   NgxGovukDateInput,
 } from './date-input.component';
 
 @Component({
-  imports: [NgxGovukDateInput, ReactiveFormsModule],
+  imports: [NgxGovukErrorMessage, NgxGovukDateInput, ReactiveFormsModule],
   template: `
     <ngx-govuk-date-input
       id="issued"
       name="passport-issued"
       legend="When was your passport issued?"
       hint="For example, 27 3 2007"
-      [errorMessage]="errorMessage()"
       [errorParts]="errorParts()"
       [asPageHeading]="asPageHeading()"
       [formControl]="control"
-    />
+    >
+      @if (errorMessage()) {
+        <p ngxGovukErrorMessage>{{ errorMessage() }}</p>
+      }
+    </ngx-govuk-date-input>
 
     <ngx-govuk-date-input
       id="birth"
@@ -29,14 +33,28 @@ import {
       [dateOfBirth]="true"
       [(value)]="birthday"
     />
+
+    <ngx-govuk-date-input
+      name="expiry"
+      legend="Pryd mae'r cerdyn yn dod i ben?"
+      [parts]="['year', 'month']"
+      monthLabel="Mis"
+      yearLabel="Blwyddyn"
+      [(value)]="expiry"
+    />
   `,
 })
 class HostComponent {
-  control = new FormControl<DateInputValue | null>(null);
+  control = new FormControl<NgxGovukDateInputValue | null>(null);
   errorMessage = signal<string | null>(null);
-  errorParts = signal<DateInputPart[] | undefined>(undefined);
+  errorParts = signal<NgxGovukDateInputPart[] | undefined>(undefined);
   asPageHeading = signal(false);
-  birthday = signal<DateInputValue>({ day: '1', month: '2', year: '1990' });
+  birthday = signal<NgxGovukDateInputValue>({
+    day: '1',
+    month: '2',
+    year: '1990',
+  });
+  expiry = signal<NgxGovukDateInputValue>({ day: '', month: '', year: '' });
 }
 
 describe('NgxGovukDateInput', () => {
@@ -70,6 +88,11 @@ describe('NgxGovukDateInput', () => {
     host.asPageHeading.set(true);
     fixture.detectChanges();
     expect($('#issued')).toMatchSnapshot();
+  });
+
+  it('renders the legend text with no space around it', () => {
+    const { $ } = setup();
+    expect($('legend').textContent).toBe('When was your passport issued?');
   });
 
   it('bases the ids and names on the name, as GOV.UK Frontend does', () => {
@@ -117,9 +140,43 @@ describe('NgxGovukDateInput', () => {
     host.control.setValue(null);
     fixture.detectChanges();
     expect(input('passport-issued-day').value).toBe('');
+  });
 
-    input('passport-issued-day').dispatchEvent(new Event('blur'));
+  it('marks the form control touched only when focus leaves all the fields', () => {
+    const { host, input } = setup();
+    const leave = (id: string, to: HTMLElement | null) =>
+      input(id).dispatchEvent(
+        new FocusEvent('focusout', { bubbles: true, relatedTarget: to }),
+      );
+
+    leave('passport-issued-day', input('passport-issued-month'));
+    expect(host.control.touched).toBe(false);
+
+    leave('passport-issued-year', input('date-generated-day'));
     expect(host.control.touched).toBe(true);
+  });
+
+  it('asks only for the parts it is given, in day, month, year order', () => {
+    const { host, $, input, type } = setup();
+    const ids = Array.from(
+      $('#expiry').querySelectorAll('input'),
+      (field) => field.id,
+    );
+    expect(ids).toEqual(['expiry-month', 'expiry-year']);
+
+    type('expiry-month', '9');
+    expect(host.expiry()).toEqual({ day: '', month: '9', year: '' });
+    expect(input('expiry-year').classList).toContain('govuk-input--width-4');
+  });
+
+  it('takes its own labels, such as for Welsh', () => {
+    const { $ } = setup();
+    const labels = Array.from(
+      $('#expiry').querySelectorAll('label'),
+      (label) => label.textContent,
+    );
+    expect(labels).toEqual(['Mis', 'Blwyddyn']);
+    expect($('label[for="passport-issued-day"]').textContent).toBe('Day');
   });
 
   it('binds both ways to a signal', () => {
@@ -151,7 +208,7 @@ describe('NgxGovukDateInput', () => {
     host.errorMessage.set('Enter a real date');
     fixture.detectChanges();
     expect(errorFields()).toEqual(['day', 'month', 'year']);
-    expect($('#issued .govuk-form-group').classList).toContain(
+    expect($('#issued.govuk-form-group').classList).toContain(
       'govuk-form-group--error',
     );
     expect($('#issued fieldset').getAttribute('aria-describedby')).toBe(

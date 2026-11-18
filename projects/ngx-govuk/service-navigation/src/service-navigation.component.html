@@ -1,21 +1,37 @@
-<!-- As GOV.UK Frontend does: with a service name, a section is the landmark
-     around it; without one, the nav inside is landmark enough. -->
-@if (serviceName()) {
-  <section class="govuk-service-navigation" [attr.aria-label]="ariaLabel()">
+<!-- As GOV.UK Frontend does: with a service name or slot content, a section
+     is the landmark around it; without, the nav inside is landmark enough. -->
+@if (isRegion()) {
+  <section
+    class="govuk-service-navigation"
+    [class.govuk-service-navigation--inverse]="inverse()"
+    [attr.aria-label]="ariaLabel()"
+  >
     <ng-container *ngTemplateOutlet="content" />
   </section>
 } @else {
-  <div class="govuk-service-navigation">
+  <div
+    class="govuk-service-navigation"
+    [class.govuk-service-navigation--inverse]="inverse()"
+  >
     <ng-container *ngTemplateOutlet="content" />
   </div>
 }
 
 <ng-template #content>
-  <div class="govuk-width-container">
+  <div
+    class="govuk-width-container"
+    [class.govuk-service-navigation__inlining-container]="endSlot()?.inline()"
+  >
+    <ng-content select="[ngxGovukServiceNavigationStart]" />
+
     <div class="govuk-service-navigation__container">
       @if (serviceName()) {
         <span class="govuk-service-navigation__service-name">
-          @if (serviceLink(); as link) {
+          @if (serviceUrl(); as url) {
+            <a [href]="url" class="govuk-service-navigation__link">{{
+              serviceName()
+            }}</a>
+          } @else if (serviceLink(); as link) {
             <a [routerLink]="link" class="govuk-service-navigation__link">{{
               serviceName()
             }}</a>
@@ -27,12 +43,14 @@
         </span>
       }
 
-      @if (items().length) {
+      @if (hasList()) {
         <nav
           [attr.aria-label]="navigationLabel() ?? menuButtonText()"
           class="govuk-service-navigation__wrapper"
         >
           @if (collapses()) {
+            <!-- On one line, so the button text has no space at each end. -->
+            <!-- prettier-ignore -->
             <button
               type="button"
               class="govuk-service-navigation__toggle"
@@ -46,9 +64,7 @@
               [attr.aria-hidden]="isWide() ? 'true' : null"
               [attr.aria-expanded]="isWide() ? null : menuIsOpen()"
               (click)="toggleMenu()"
-            >
-              {{ menuButtonText() }}
-            </button>
+            >{{ menuButtonText() }}</button>
           }
 
           <ul
@@ -56,45 +72,52 @@
             [id]="navigationId()"
             [attr.hidden]="menuHidden() ? '' : null"
           >
+            <ng-content select="li[ngxGovukServiceNavigationStartItem]" />
+
             @for (item of items(); track $index) {
               <li
                 class="govuk-service-navigation__item"
                 [class.govuk-service-navigation__item--active]="item.active"
               >
-                @if (item.routerLink !== undefined) {
+                @if (item.href !== undefined) {
+                  <a
+                    class="govuk-service-navigation__link"
+                    [href]="item.href"
+                    [attr.aria-current]="ariaCurrent(item)"
+                    ><ng-container
+                      *ngTemplateOutlet="text; context: { $implicit: item }"
+                  /></a>
+                } @else if (item.routerLink !== undefined) {
                   <a
                     class="govuk-service-navigation__link"
                     [routerLink]="item.routerLink"
-                    [attr.aria-current]="
-                      item.current ? 'page' : item.active ? 'true' : null
-                    "
-                  >
-                    <ng-container
+                    [attr.aria-current]="ariaCurrent(item)"
+                    ><ng-container
                       *ngTemplateOutlet="text; context: { $implicit: item }"
-                    />
-                  </a>
+                  /></a>
                 } @else {
-                  <span class="govuk-service-navigation__text">{{
-                    item.text
-                  }}</span>
+                  <span
+                    class="govuk-service-navigation__text"
+                    [attr.aria-current]="ariaCurrent(item)"
+                    ><ng-container
+                      *ngTemplateOutlet="text; context: { $implicit: item }"
+                  /></span>
                 }
               </li>
             }
+
+            <ng-content select="li[ngxGovukServiceNavigationEndItem]" />
           </ul>
         </nav>
       }
     </div>
+
+    <ng-content select="[ngxGovukServiceNavigationEnd]" />
   </div>
 </ng-template>
 
 <!-- Active items are wrapped in strong, so users who override colours or
-     styles can still tell which item is active. -->
-<ng-template #text let-item>
-  @if (item.active) {
-    <strong class="govuk-service-navigation__active-fallback">{{
-      item.text
-    }}</strong>
-  } @else {
-    {{ item.text }}
-  }
-</ng-template>
+     styles can still tell which item is active. On one line, so the text has
+     no space at each end. -->
+<!-- prettier-ignore -->
+<ng-template #text let-item>@if (item.active) {<strong class="govuk-service-navigation__active-fallback">{{ item.text }}</strong>} @else {<ng-container>{{ item.text }}</ng-container>}</ng-template>

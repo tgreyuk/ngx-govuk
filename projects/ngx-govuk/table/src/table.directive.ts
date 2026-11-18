@@ -1,8 +1,8 @@
-import { computed, Directive, inject, input } from '@angular/core';
+import { booleanAttribute, Directive, inject, input } from '@angular/core';
 
 /**
  * Styles a `table` element as a GOV.UK table, to make information easier to
- * compare and scan.
+ * compare and scan for users.
  *
  * Add the table's parts as native elements with their own directives:
  * `caption ngxGovukTableCaption`, `thead ngxGovukTableHead`,
@@ -11,9 +11,18 @@ import { computed, Directive, inject, input } from '@angular/core';
  */
 @Directive({
   selector: 'table[ngxGovukTable]',
-  host: { class: 'govuk-table' },
+  host: {
+    class: 'govuk-table',
+    '[class.govuk-table--small-text-until-tablet]': 'smallTextUntilTablet()',
+  },
 })
-export class NgxGovukTable {}
+export class NgxGovukTable {
+  /**
+   * Uses smaller text on screens narrower than a tablet, for a table with a
+   * lot of data.
+   */
+  smallTextUntilTablet = input(false, { transform: booleanAttribute });
+}
 
 /**
  * Styles a table's `caption`, which describes what the table is about.
@@ -22,20 +31,17 @@ export class NgxGovukTable {}
   selector: 'caption[ngxGovukTableCaption]',
   host: {
     class: 'govuk-table__caption',
-    '[class]': 'sizeClass()',
+    '[class.govuk-table__caption--m]': "captionSize() === 'm'",
+    '[class.govuk-table__caption--l]': "captionSize() === 'l'",
+    '[class.govuk-table__caption--xl]': "captionSize() === 'xl'",
   },
 })
 export class NgxGovukTableCaption {
   /**
-   * The caption's size. Use a size like the page's headings, such as `m`.
-   * When unset, the caption is bold body text.
+   * The caption's size, to match the page's headings, such as `m`. When
+   * unset, the caption is bold body text, the size of a small heading.
    */
-  captionSize = input<'s' | 'm' | 'l' | 'xl'>();
-
-  protected sizeClass = computed(() => {
-    const size = this.captionSize();
-    return size ? `govuk-table__caption--${size}` : '';
-  });
+  captionSize = input<'m' | 'l' | 'xl'>();
 }
 
 /**

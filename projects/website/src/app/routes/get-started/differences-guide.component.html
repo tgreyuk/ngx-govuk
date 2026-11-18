@@ -1,0 +1,109 @@
+<span class="govuk-caption-xl">Get started</span>
+<h1 class="govuk-heading-xl">Differences from GOV.UK Frontend</h1>
+
+<p class="govuk-body-l">
+  ngx-govuk renders the same markup as GOV.UK Frontend, so GOV.UK Frontend's
+  styles apply unchanged. How you set components up, and how they behave, is
+  done the Angular way instead.
+</p>
+
+<div class="govuk-!-margin-bottom-8">
+  <h2 class="govuk-heading-m">Contents</h2>
+  <ol class="govuk-list govuk-list--number">
+    @for (item of contents; track item.id) {
+      <li>
+        <a
+          class="govuk-link govuk-link--no-visited-state"
+          routerLink="."
+          [fragment]="item.id"
+          >{{ item.heading }}</a
+        >
+      </li>
+    }
+  </ol>
+</div>
+
+<h2 class="govuk-heading-m" id="javascript">GOV.UK Frontend's JavaScript</h2>
+<p class="govuk-body">
+  Components with behaviour, such as the accordion, tabs, character count and
+  exit this page, implement it in Angular. They do not use GOV.UK Frontend's
+  JavaScript.
+</p>
+<p class="govuk-body">
+  GOV.UK's page template adds classes to the page, including
+  <code class="app-inline-code">govuk-frontend-supported</code>, which it sets
+  with a small inline script and some of GOV.UK Frontend's styles depend on.
+  <code class="app-inline-code">provideNgxGovuk()</code> adds them instead. See
+  <a
+    class="govuk-link"
+    routerLink="/get-started/installation"
+    fragment="provider"
+    >Add the ngx-govuk provider</a
+  >.
+</p>
+<p class="govuk-body">
+  GOV.UK Frontend's JavaScript configuration, such as the text it adds for
+  screen readers, is a set of inputs on the component instead.
+</p>
+
+<h2 class="govuk-heading-m" id="options">Options</h2>
+<p class="govuk-body">
+  The options of GOV.UK Frontend's Nunjucks macros are inputs with the same
+  names, with a few changes:
+</p>
+<ul class="govuk-list govuk-list--bullet">
+  <li>
+    Nested text options are a single input, such as
+    <code class="app-inline-code">label</code> for
+    <code class="app-inline-code">label.text</code>.
+  </li>
+  <li>
+    Content goes inside the component instead of in an
+    <code class="app-inline-code">html</code> option.
+  </li>
+  <li>
+    You set classes and attributes on the element instead of with
+    <code class="app-inline-code">classes</code> and
+    <code class="app-inline-code">attributes</code>.
+  </li>
+  <li>
+    Where GOV.UK's markup is a single element, such as a button, you add a
+    directive to your own element instead of using a component.
+  </li>
+  <li>
+    Components the GOV.UK Design System documents on their own, such as the
+    error message, go inside the components that use them.
+  </li>
+</ul>
+<p class="govuk-body">
+  <a class="govuk-link" routerLink="/get-started/components"
+    >Using components</a
+  >
+  explains each of these. Any other input that differs from GOV.UK's option says
+  so in its component's API tab.
+</p>
+
+<h2 class="govuk-heading-m" id="forms">Forms</h2>
+<p class="govuk-body">
+  Fields work with reactive and template-driven forms. Text inputs, textareas,
+  file uploads and selects go inside a form group, a component ngx-govuk adds,
+  which renders their label, hint and error message. Checkboxes, radios and the
+  date input are form controls themselves. See
+  <a class="govuk-link" routerLink="/get-started/forms">Working with forms</a>.
+</p>
+
+<h2 class="govuk-heading-m" id="links">Links</h2>
+<p class="govuk-body">
+  Components that render their own links, such as the service navigation,
+  pagination and task list, take a
+  <code class="app-inline-code">routerLink</code> value for each link, where
+  GOV.UK Frontend takes an <code class="app-inline-code">href</code>. Some also
+  take an <code class="app-inline-code">href</code> for links outside your app.
+  See
+  <a
+    class="govuk-link"
+    routerLink="/get-started/components"
+    fragment="links-and-the-router"
+    >Links and the router</a
+  >.
+</p>

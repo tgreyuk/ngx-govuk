@@ -1,5 +1,5 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { Component, input } from '@angular/core';
+import { Component, input, booleanAttribute } from '@angular/core';
 import { RouterLink, UrlTree } from '@angular/router';
 
 /** A language in the language navigation. */
@@ -26,8 +26,10 @@ export interface NgxGovukLanguageNavigationItem {
    */
   dir?: 'ltr' | 'rtl';
   /**
-   * The page in this language, as you'd give it to `routerLink`, when your
-   * app switches language itself.
+   * The page in this language, in any form `routerLink` accepts, when your
+   * app switches language itself. Your app must then also set the `lang`
+   * attribute on the `html` element, and `dir` for a right-to-left language,
+   * to the language the page is in.
    */
   routerLink?: string | readonly unknown[] | UrlTree;
   /**
@@ -37,8 +39,8 @@ export interface NgxGovukLanguageNavigationItem {
    */
   href?: string;
   /**
-   * Marks the language the page is in. Defaults to `true` for an item
-   * without a `routerLink` or `href`.
+   * Marks the language the page is in. An item without a `routerLink` or
+   * `href` is always marked.
    */
   current?: boolean;
   /**
@@ -49,7 +51,7 @@ export interface NgxGovukLanguageNavigationItem {
 }
 
 /**
- * Lets users switch the language a page is shown in.
+ * Helps users choose and switch between languages when using a service.
  *
  * Set the languages as `items`, each with its name written in that
  * language. Mark the language the page is in as `current`, or leave out
@@ -59,6 +61,7 @@ export interface NgxGovukLanguageNavigationItem {
   selector: 'ngx-govuk-language-navigation',
   imports: [NgTemplateOutlet, RouterLink],
   templateUrl: './language-navigation.component.html',
+  styles: ':where(:host:not([hidden])) { display: block; }',
 })
 export class NgxGovukLanguageNavigation {
   /** The languages to list. */
@@ -71,11 +74,9 @@ export class NgxGovukLanguageNavigation {
   ariaLabel = input<string>('Language');
 
   /** Shows the navigation in white, for use on a dark background. */
-  inverse = input<boolean>(false);
+  inverse = input(false, { transform: booleanAttribute });
 
   protected isCurrent(item: NgxGovukLanguageNavigationItem) {
-    return (
-      item.current ?? (item.routerLink === undefined && item.href === undefined)
-    );
+    return item.current || (item.routerLink === undefined && !item.href);
   }
 }

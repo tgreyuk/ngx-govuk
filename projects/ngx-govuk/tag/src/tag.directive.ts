@@ -1,5 +1,16 @@
 import { Directive, computed, input } from '@angular/core';
 
+/** A tag's colour, other than the default blue. */
+export type NgxGovukTagColour =
+  | 'grey'
+  | 'green'
+  | 'teal'
+  | 'purple'
+  | 'magenta'
+  | 'red'
+  | 'orange'
+  | 'yellow';
+
 /**
  * Shows users the status of something, such as "Completed" or "In progress".
  *
@@ -14,16 +25,7 @@ export class NgxGovukTag {
    * The tag's colour. Leave it unset for blue. Use colours consistently, so
    * each one always means the same status.
    */
-  colour = input<
-    | 'grey'
-    | 'green'
-    | 'teal'
-    | 'purple'
-    | 'magenta'
-    | 'red'
-    | 'orange'
-    | 'yellow'
-  >();
+  colour = input<NgxGovukTagColour>();
 
   protected classes = computed(() =>
     this.colour() ? `govuk-tag govuk-tag--${this.colour()}` : 'govuk-tag',

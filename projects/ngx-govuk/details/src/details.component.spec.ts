@@ -1,15 +1,22 @@
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NgxGovukDetails } from './details.component';
 
 @Component({
   imports: [NgxGovukDetails],
-  template: `<ngx-govuk-details summaryText="Summary text">
+  template: `<details
+    ngxGovukDetails
+    id="help"
+    summaryText="Summary text"
+    [open]="open()"
+  >
     Summary details
-  </ngx-govuk-details>`,
+  </details>`,
 })
-class TestHostComponent {}
+class TestHostComponent {
+  open = signal(false);
+}
 
 describe('NgxGovukDetailsComponent', () => {
   let fixture: ComponentFixture<TestHostComponent>;
@@ -35,5 +42,21 @@ describe('NgxGovukDetailsComponent', () => {
 
   it('should render default state', () => {
     expect(debugElement.nativeNode).toMatchSnapshot();
+  });
+
+  it('is the details element, keeping its own attributes', () => {
+    const details: HTMLDetailsElement = debugElement.nativeElement;
+    expect(details.tagName).toBe('DETAILS');
+    expect(details.id).toBe('help');
+    expect(details.className).toBe('govuk-details');
+    expect(details.querySelector(':scope > summary')).not.toBeNull();
+  });
+
+  it('opens with the native open property', () => {
+    const details: HTMLDetailsElement = debugElement.nativeElement;
+    expect(details.open).toBe(false);
+    fixture.componentInstance.open.set(true);
+    fixture.detectChanges();
+    expect(details.open).toBe(true);
   });
 });

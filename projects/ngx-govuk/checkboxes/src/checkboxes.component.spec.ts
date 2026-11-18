@@ -1,12 +1,18 @@
 import { Component, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { NgxGovukErrorMessage } from 'ngx-govuk/error-message';
 import { NgxGovukUtilsService } from 'ngx-govuk';
 import { MockProvider } from 'ng-mocks';
 import { NgxGovukCheckbox, NgxGovukCheckboxes } from './checkboxes.component';
 
 @Component({
-  imports: [NgxGovukCheckboxes, NgxGovukCheckbox, ReactiveFormsModule],
+  imports: [
+    NgxGovukErrorMessage,
+    NgxGovukCheckboxes,
+    NgxGovukCheckbox,
+    ReactiveFormsModule,
+  ],
   template: `
     <form [formGroup]="form">
       <ngx-govuk-checkboxes
@@ -14,11 +20,13 @@ import { NgxGovukCheckbox, NgxGovukCheckboxes } from './checkboxes.component';
         name="nationality"
         legend="What is your nationality?"
         [hint]="hint()"
-        [errorMessage]="errorMessage()"
         [asPageHeading]="asPageHeading()"
         formGroupName="nationality"
       >
-        <ngx-govuk-checkbox formControlName="british"
+        @if (errorMessage()) {
+          <p ngxGovukErrorMessage>{{ errorMessage() }}</p>
+        }
+        <ngx-govuk-checkbox formControlName="british" value="british"
           >British</ngx-govuk-checkbox
         >
         <ngx-govuk-checkbox
@@ -77,6 +85,11 @@ describe('NgxGovukCheckboxes', () => {
     expect($('#nationality-checkboxes')).toMatchSnapshot();
   });
 
+  it('renders the legend text with no space around it', () => {
+    const { $ } = setup();
+    expect($('legend').textContent).toBe('What is your nationality?');
+  });
+
   it('bases the ids on the name, as GOV.UK Frontend does', () => {
     const { $, input } = setup();
     expect(input('nationality').name).toBe('nationality');
@@ -86,8 +99,17 @@ describe('NgxGovukCheckboxes', () => {
     expect(input('checkboxes-generated-2')).not.toBeNull();
   });
 
+  it('sets the value attribute only when a value is given', () => {
+    const { input } = setup();
+    expect(input('nationality').getAttribute('value')).toBe('british');
+    expect(input('nationality-2').hasAttribute('value')).toBe(false);
+  });
+
   it('links checkbox hints to their input', () => {
     const { $, input } = setup();
+    expect($('#nationality-2-item-hint').textContent).toBe(
+      'Including Northern Ireland',
+    );
     expect(input('nationality-2').getAttribute('aria-describedby')).toBe(
       'nationality-2-item-hint',
     );
@@ -141,7 +163,7 @@ describe('NgxGovukCheckboxes', () => {
 
     host.errorMessage.set('Select your nationality');
     fixture.detectChanges();
-    expect($('#nationality-checkboxes .govuk-form-group').classList).toContain(
+    expect($('#nationality-checkboxes.govuk-form-group').classList).toContain(
       'govuk-form-group--error',
     );
     expect(fieldset().getAttribute('aria-describedby')).toBe(

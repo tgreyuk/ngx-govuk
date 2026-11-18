@@ -21,6 +21,11 @@ export interface ComponentEntry {
   /** A short note shown at the top of the component's page. */
   note?: string;
   /**
+   * A page on this site with more on setting the component up, linked at
+   * the end of the note as "See <text>."
+   */
+  noteLink?: { text: string; routerLink: string; fragment?: string };
+  /**
    * `ngx-govuk` for a component the library adds, which isn't in the GOV.UK
    * Design System. Its page and menu item carry a badge, and it has no GOV.UK
    * guidance to link to.
@@ -66,20 +71,21 @@ export const COMPONENTS: ComponentEntry[] = [
     id: 'character-count',
     status: 'documented',
     description:
-      'Tells users how many characters or words they can still enter.',
+      'Helps users know how much text they can enter when there is a limit on the number of characters.',
   },
   {
     name: 'Checkboxes',
     id: 'checkboxes',
     status: 'documented',
-    description: 'Lets users select one or more options from a list.',
+    description:
+      'Lets users select one or more options by using the checkboxes component.',
   },
   {
     name: 'Cookie banner',
     id: 'cookie-banner',
     status: 'documented',
     description:
-      'Lets users accept or reject cookies that are not essential to the service.',
+      'Lets users accept or reject cookies which are not essential to making your service work.',
   },
   {
     name: 'Date input',
@@ -92,49 +98,60 @@ export const COMPONENTS: ComponentEntry[] = [
     id: 'details',
     status: 'documented',
     description:
-      'Makes a page easier to scan by letting users reveal more detail when they need it.',
+      'Makes a page easier to scan by letting users reveal more detailed information only if they need it.',
   },
   {
     name: 'Error message',
     id: 'error-message',
     status: 'documented',
-    api: 'form-group',
-    note: 'There is no separate error message to import. Set "errorMessage" on the form group, or on the radios, checkboxes, date input, character count or password input. Show an error summary at the top of the page too.',
+    note: 'Put it inside the form group, radios, checkboxes, date input, character count or password input, which place it and connect it to the field. Show an error summary at the top of the page too.',
+    noteLink: {
+      text: 'Working with forms',
+      routerLink: '/get-started/forms',
+      fragment: 'showing-errors',
+    },
     description: 'Explains what went wrong with an answer and how to fix it.',
   },
   {
     name: 'Error summary',
     id: 'error-summary',
     status: 'documented',
+    note: 'Show it only when there are errors, with the same messages as the fields. Link each error to its field by its form control, and move focus to the summary when users try to continue again.',
+    noteLink: {
+      text: 'Working with forms',
+      routerLink: '/get-started/forms',
+      fragment: 'error-summary',
+    },
     description:
-      'Lists the errors on a page when validation fails, linking to each one.',
+      'Summarises any errors a user has made, at the top of the page.',
   },
   {
     name: 'Exit this page',
     id: 'exit-this-page',
     status: 'documented',
-    note: 'The examples on this page work: selecting the button or the skip link, or pressing Shift 3 times, takes you to the BBC weather forecast.',
+    note: 'The examples on this page are live: selecting the button or the skip link, or pressing Shift 3 times, opens the BBC weather forecast.',
     description:
-      'Gives users a quick way to leave a page that shows sensitive information.',
+      'Gives users a way to quickly and safely exit a service, website or application.',
   },
   {
     name: 'Feedback',
     id: 'feedback',
     status: 'documented',
-    description: 'Invites users to give feedback on the service.',
+    description:
+      'Ask users to give feedback about their experience using your service.',
   },
   {
     name: 'Fieldset',
     id: 'fieldset',
     status: 'documented',
-    description:
-      'Groups related form inputs together, such as the parts of an address.',
+    description: 'Groups related form inputs.',
   },
   {
     name: 'File upload',
     id: 'file-upload',
     status: 'documented',
     isField: true,
+    note: "Angular's forms can't hold files: a form control on a file input only receives a placeholder path, not the file. Read the files from the input's files property when it fires a change event. A form control can clear the input, with reset() or an empty value, but can't set it: the browser throws an error for any other value.",
     description: 'Helps users select and upload a file.',
   },
   {
@@ -151,13 +168,15 @@ export const COMPONENTS: ComponentEntry[] = [
     id: 'generic-header',
     status: 'documented',
     description:
-      'A header for services that are not on GOV.UK, without GOV.UK branding.',
+      'The header that tells users they are using a government service that is not part of the GOV.UK website.',
   },
   {
     name: 'GOV.UK footer',
     id: 'footer',
     status: 'documented',
-    description: 'The footer at the bottom of every page on GOV.UK.',
+    note: 'Only services on GOV.UK may use the GOV.UK footer.',
+    description:
+      'The GOV.UK footer provides copyright, licensing and other information about your service.',
   },
   {
     name: 'GOV.UK header',
@@ -176,14 +195,15 @@ export const COMPONENTS: ComponentEntry[] = [
     name: 'Language navigation',
     id: 'language-navigation',
     status: 'documented',
-    description: 'Lets users switch the language a page is shown in.',
+    description:
+      'Helps users choose and switch between languages when using a service.',
   },
   {
     name: 'Notification banner',
     id: 'notification-banner',
     status: 'documented',
     description:
-      'Tells users about something important, such as the result of an action.',
+      "Tells the user about something they need to know about, but that's not directly related to the page content.",
   },
   {
     name: 'Pagination',
@@ -231,34 +251,34 @@ export const COMPONENTS: ComponentEntry[] = [
     id: 'service-navigation',
     status: 'documented',
     description:
-      'Shows users which service they are using and helps them move around it.',
+      "Service navigation helps users understand that they're using your service and lets them navigate around your service.",
   },
   {
     name: 'Skip link',
     id: 'skip-link',
     status: 'documented',
     description:
-      'Helps keyboard users skip straight to the main content on a page.',
+      'Helps keyboard-only users skip to the main content on a page.',
   },
   {
     name: 'Summary list',
     id: 'summary-list',
     status: 'documented',
     description:
-      "Summarises information, such as a user's answers at the end of a form.",
+      "Summarises information, for example, a user's responses at the end of a form.",
   },
   {
     name: 'Table',
     id: 'table',
     status: 'documented',
-    description: 'Makes information easier to compare and scan.',
+    description: 'Makes information easier to compare and scan for users.',
   },
   {
     name: 'Tabs',
     id: 'tabs',
     status: 'documented',
     description:
-      'Lets users move between related sections of content, one at a time.',
+      'Lets users navigate between related sections of content, displaying one section at a time.',
   },
   {
     name: 'Tag',
@@ -271,7 +291,7 @@ export const COMPONENTS: ComponentEntry[] = [
     id: 'task-list',
     status: 'documented',
     description:
-      'Shows users the tasks they need to complete and the status of each.',
+      'Displays all the tasks a user needs to do, and lets users see which ones are done and which they still need to do.',
   },
   {
     name: 'Text input',
@@ -292,7 +312,7 @@ export const COMPONENTS: ComponentEntry[] = [
     id: 'warning-text',
     status: 'documented',
     description:
-      'Warns users about something important, such as the consequences of an action.',
+      'Warns users about something important, such as legal consequences of an action, or lack of action, that they might take.',
   },
 ];
 

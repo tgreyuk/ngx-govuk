@@ -121,4 +121,70 @@ describe('NgxGovukAccordionPanel expanded', () => {
     expect(host.firstExpanded()).toBe(true);
     expect(showAllText()).toBe('Hide all sections');
   });
+
+  it('hides closed content until found, so find in page can reach it', () => {
+    const first = sections()[0];
+    const content = first.querySelector('.govuk-accordion__section-content')!;
+    expect(content.getAttribute('hidden')).toBe('until-found');
+    content.dispatchEvent(new Event('beforematch'));
+    fixture.detectChanges();
+    expect(host.firstExpanded()).toBe(true);
+    expect(content.hasAttribute('hidden')).toBe(false);
+  });
+});
+
+@Component({
+  imports: [NgxGovukAccordion, NgxGovukAccordionPanel],
+  template: `<ngx-govuk-accordion [headingLevel]="3">
+    <ngx-govuk-accordion-panel heading="First" summary="A short summary" />
+    <ngx-govuk-accordion-panel heading="Second" [(expanded)]="secondExpanded" />
+  </ngx-govuk-accordion>`,
+})
+class OptionsHostComponent {
+  secondExpanded = signal(false);
+}
+
+describe('NgxGovukAccordion options', () => {
+  let fixture: ComponentFixture<OptionsHostComponent>;
+
+  const sections = (): HTMLElement[] =>
+    Array.from(
+      fixture.nativeElement.querySelectorAll('ngx-govuk-accordion-panel'),
+    );
+  const button = (section: HTMLElement) =>
+    section.querySelector<HTMLButtonElement>(
+      '.govuk-accordion__section-button',
+    )!;
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(OptionsHostComponent);
+    fixture.detectChanges();
+  });
+
+  it('uses the heading level for every section', () => {
+    expect(
+      sections().map(
+        (section) =>
+          section.querySelector('.govuk-accordion__section-heading')!.tagName,
+      ),
+    ).toEqual(['H3', 'H3']);
+  });
+
+  it('includes the summary in the button and its label', () => {
+    const [first, second] = sections();
+    expect(
+      button(first)
+        .querySelector('.govuk-accordion__section-summary')!
+        .textContent!.trim(),
+    ).toBe('A short summary');
+    expect(button(first).getAttribute('aria-label')).toBe(
+      'First , A short summary , Show this section',
+    );
+    expect(
+      second.querySelector('.govuk-accordion__section-summary'),
+    ).toBeNull();
+    expect(button(second).getAttribute('aria-label')).toBe(
+      'Second , Show this section',
+    );
+  });
 });

@@ -1,16 +1,19 @@
 import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { NgxGovukErrorMessage } from 'ngx-govuk/error-message';
 import { NgxGovukFormGroup } from 'ngx-govuk/form-group';
 import { NgxGovukSelect } from './select.directive';
 
 @Component({
-  imports: [NgxGovukFormGroup, NgxGovukSelect],
+  imports: [NgxGovukErrorMessage, NgxGovukFormGroup, NgxGovukSelect],
   template: `<ngx-govuk-form-group
     label="Sort by"
     hint="Choose how to order the results"
-    [errorMessage]="errorMessage"
   >
+    @if (errorMessage) {
+      <p ngxGovukErrorMessage>{{ errorMessage }}</p>
+    }
     <select id="sort" name="sort" ngxGovukSelect>
       <option value="published">Recently published</option>
       <option value="updated">Recently updated</option>

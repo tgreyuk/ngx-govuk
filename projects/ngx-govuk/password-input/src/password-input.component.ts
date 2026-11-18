@@ -1,6 +1,5 @@
 import { DOCUMENT } from '@angular/common';
 import {
-  AfterContentInit,
   Component,
   computed,
   contentChild,
@@ -9,16 +8,20 @@ import {
   input,
   Renderer2,
   signal,
+  untracked,
+  booleanAttribute,
 } from '@angular/core';
 import { NgxGovukUtilsService } from 'ngx-govuk';
 import { NgxGovukTextInput } from 'ngx-govuk/text-input';
+import { NgxGovukErrorMessage } from 'ngx-govuk/error-message';
 
 /**
  * Helps users enter a password, with a button to show it.
  *
  * Use it in place of `ngx-govuk-form-group`: put an `input` with
- * `ngxGovukTextInput` inside it, and it adds the label, hint, error message
- * and "Show" button. It makes the input a password field, turns off spell
+ * `ngxGovukTextInput` inside it, and it adds the label, hint and "Show"
+ * button. To show an error, put a `p` with `ngxGovukErrorMessage` inside it
+ * too. It makes the input a password field, turns off spell
  * checking and capitalisation, and sets `autocomplete` to `current-password`
  * unless the input has its own. Use `new-password` when users are creating
  * one.
@@ -29,8 +32,14 @@ import { NgxGovukTextInput } from 'ngx-govuk/text-input';
 @Component({
   selector: 'ngx-govuk-password-input',
   templateUrl: './password-input.component.html',
+  host: {
+    class: 'govuk-form-group govuk-password-input',
+    '[class.govuk-form-group--error]': '!!errorMessage()',
+  },
+  // Custom elements are inline by default; GOV.UK's styles expect a block.
+  styles: ':where(:host:not([hidden])) { display: block; }',
 })
-export class NgxGovukPasswordInput implements AfterContentInit {
+export class NgxGovukPasswordInput {
   private renderer = inject(Renderer2);
   private document = inject(DOCUMENT);
   private utilsService = inject(NgxGovukUtilsService);
@@ -48,26 +57,47 @@ export class NgxGovukPasswordInput implements AfterContentInit {
   labelSize = input<'s' | 'm' | 'l' | 'xl'>();
 
   /**
-   * Makes the label the page heading. Use it when the page asks just one
+   * Makes the label the page heading. Use it when the page asks only one
    * question.
    */
-  asPageHeading = input<boolean>(false);
+  asPageHeading = input(false, { transform: booleanAttribute });
 
   /**
    * Hint text, to help users answer the question.
    */
   hint = input<string>();
 
-  /**
-   * The error message. When it's set, the password input shows its error
-   * styles. Set it when validation fails, such as after the form is
-   * submitted.
-   */
-  errorMessage = input<string | null>();
+  /** The button's text when the password is hidden. */
+  showPasswordText = input<string>('Show');
+
+  /** The button's text when the password is shown. */
+  hidePasswordText = input<string>('Hide');
+
+  /** What screen readers announce for the button when the password is hidden. */
+  showPasswordAriaLabelText = input<string>('Show password');
+
+  /** What screen readers announce for the button when the password is shown. */
+  hidePasswordAriaLabelText = input<string>('Hide password');
+
+  /** What screen readers announce when the password is shown. */
+  passwordShownAnnouncementText = input<string>('Your password is visible');
+
+  /** What screen readers announce when the password is hidden. */
+  passwordHiddenAnnouncementText = input<string>('Your password is hidden');
 
   protected fieldId = signal('');
   protected hintId = computed(() => `${this.fieldId()}-hint`);
   protected errorId = computed(() => `${this.fieldId()}-error`);
+
+  /** The projected error message, if there is one. */
+  protected errorMessage = contentChild(NgxGovukErrorMessage, {
+    descendants: false,
+  });
+
+  /** Gives the projected error message the id GOV.UK Frontend uses. */
+  private linkErrorMessage = effect(() =>
+    this.errorMessage()?.fieldErrorId.set(this.errorId()),
+  );
 
   protected labelClasses = computed(() => {
     const size = this.labelSize() ?? (this.asPageHeading() ? 'l' : undefined);
@@ -75,8 +105,23 @@ export class NgxGovukPasswordInput implements AfterContentInit {
   });
 
   protected shown = signal(false);
-  /** Empty until users first press the button, so nothing is announced on load. */
-  protected announcement = signal('');
+
+  /**
+   * Whether the status announces the password as shown or hidden. Unset
+   * until users first press the button, so nothing is announced on load.
+   */
+  private announced = signal<'shown' | 'hidden' | undefined>(undefined);
+
+  protected announcement = computed(() => {
+    switch (this.announced()) {
+      case 'shown':
+        return this.passwordShownAnnouncementText();
+      case 'hidden':
+        return this.passwordHiddenAnnouncementText();
+      default:
+        return '';
+    }
+  });
 
   /** Any aria-describedby the input already had, kept first as GOV.UK does. */
   private initialDescribedBy = signal('');
@@ -85,11 +130,69 @@ export class NgxGovukPasswordInput implements AfterContentInit {
     [
       this.initialDescribedBy(),
       this.hint() ? this.hintId() : '',
-      this.errorMessage() ? this.errorId() : '',
+      this.errorMessage()?.id() ?? '',
     ]
       .filter(Boolean)
       .join(' '),
   );
+
+  /**
+   * Sets up the input once it's rendered, which can be after the password
+   * input, such as when it's inside `@if`.
+   */
+  private setUpInput = effect((onCleanup) => {
+    const element = this.textInput()?.elementRef.nativeElement;
+    if (!element) {
+      return;
+    }
+    untracked(() => {
+      this.initialDescribedBy.set(
+        element.getAttribute('aria-describedby') ?? '',
+      );
+      if (!element.id) {
+        this.renderer.setAttribute(
+          element,
+          'id',
+          this.utilsService.randomId('field'),
+        );
+      }
+      this.fieldId.set(element.id);
+
+      // The attributes GOV.UK Frontend's macro gives a password input.
+      this.renderer.addClass(element, 'govuk-password-input__input');
+      this.renderer.setAttribute(element, 'spellcheck', 'false');
+      this.renderer.setAttribute(element, 'autocapitalize', 'none');
+      if (!element.hasAttribute('autocomplete')) {
+        this.renderer.setAttribute(element, 'autocomplete', 'current-password');
+      }
+
+      // Hide the password before the form is sent, and when users come back
+      // to the page from the browser's cache. The type is set straight away,
+      // as a form that posts can leave the page before Angular updates it.
+      const hide = () => {
+        if (this.shown()) {
+          this.announced.set('hidden');
+        }
+        this.shown.set(false);
+        this.renderer.setAttribute(element, 'type', 'password');
+      };
+      if (element.form) {
+        onCleanup(this.renderer.listen(element.form, 'submit', hide));
+      }
+      const view = this.document.defaultView;
+      if (view) {
+        onCleanup(
+          this.renderer.listen(
+            view,
+            'pageshow',
+            (event: PageTransitionEvent) => {
+              if (event.persisted) hide();
+            },
+          ),
+        );
+      }
+    });
+  });
 
   constructor() {
     effect(() => {
@@ -113,52 +216,9 @@ export class NgxGovukPasswordInput implements AfterContentInit {
     });
   }
 
-  ngAfterContentInit(): void {
-    const element = this.textInput()?.elementRef.nativeElement;
-    if (!element) {
-      return;
-    }
-    this.initialDescribedBy.set(element.getAttribute('aria-describedby') ?? '');
-    if (!element.id) {
-      this.renderer.setAttribute(
-        element,
-        'id',
-        this.utilsService.randomId('field'),
-      );
-    }
-    this.fieldId.set(element.id);
-
-    // The attributes GOV.UK Frontend's macro gives a password input.
-    this.renderer.addClass(element, 'govuk-password-input__input');
-    this.renderer.setAttribute(element, 'spellcheck', 'false');
-    this.renderer.setAttribute(element, 'autocapitalize', 'none');
-    if (!element.hasAttribute('autocomplete')) {
-      this.renderer.setAttribute(element, 'autocomplete', 'current-password');
-    }
-
-    // Hide the password before the form is sent, and when users come back
-    // to the page from the browser's cache. The type is set straight away,
-    // as a form that posts can leave the page before Angular updates it.
-    const hide = () => {
-      this.shown.set(false);
-      this.renderer.setAttribute(element, 'type', 'password');
-    };
-    if (element.form) {
-      this.renderer.listen(element.form, 'submit', hide);
-    }
-    const view = this.document.defaultView;
-    if (view) {
-      this.renderer.listen(view, 'pageshow', (event: PageTransitionEvent) => {
-        if (event.persisted) hide();
-      });
-    }
-  }
-
   protected toggle() {
     const shown = !this.shown();
     this.shown.set(shown);
-    this.announcement.set(
-      shown ? 'Your password is visible' : 'Your password is hidden',
-    );
+    this.announced.set(shown ? 'shown' : 'hidden');
   }
 }

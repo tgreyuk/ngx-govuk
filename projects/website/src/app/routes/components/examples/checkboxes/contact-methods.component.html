@@ -1,0 +1,42 @@
+<ngx-govuk-checkboxes
+  name="contact-checkboxes"
+  legend="How would you prefer to be contacted?"
+  hint="Select all that apply.">
+  <ngx-govuk-checkbox [formControl]="byEmailControl">
+    Email
+    <ngx-govuk-form-group *ngxGovukCheckboxConditional label="Email address">
+      <input
+        id="contact-checkbox-by-email"
+        type="email"
+        autocomplete="email"
+        spellcheck="false"
+        [formControl]="emailControl"
+        ngxGovukTextInput
+        inputWidth="20" />
+    </ngx-govuk-form-group>
+  </ngx-govuk-checkbox>
+  <ngx-govuk-checkbox [formControl]="byPhoneControl">
+    Phone
+    <ngx-govuk-form-group *ngxGovukCheckboxConditional label="Phone number">
+      <input
+        id="contact-checkbox-by-phone"
+        type="tel"
+        autocomplete="tel"
+        [formControl]="phoneControl"
+        ngxGovukTextInput
+        inputWidth="20" />
+    </ngx-govuk-form-group>
+  </ngx-govuk-checkbox>
+  <ngx-govuk-checkbox [formControl]="byTextControl">
+    Text message
+    <ngx-govuk-form-group *ngxGovukCheckboxConditional label="Mobile phone number">
+      <input
+        id="contact-checkbox-by-text"
+        type="tel"
+        autocomplete="tel"
+        [formControl]="mobileControl"
+        ngxGovukTextInput
+        inputWidth="20" />
+    </ngx-govuk-form-group>
+  </ngx-govuk-checkbox>
+</ngx-govuk-checkboxes>

@@ -5,7 +5,7 @@ import { NgxGovukBackLink } from './back-link.directive';
 @Component({
   imports: [NgxGovukBackLink],
   template: `<a ngxGovukBackLink>Default</a>
-    <a ngxGovukBackLink [inversed]="true">Inversed</a>`,
+    <a ngxGovukBackLink inverse>Inverse</a>`,
 })
 class TestHostComponent {}
 

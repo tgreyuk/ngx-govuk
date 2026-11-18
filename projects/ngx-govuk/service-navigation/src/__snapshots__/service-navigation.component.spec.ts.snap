@@ -37,7 +37,7 @@ exports[`NgxGovukServiceNavigation > matches the GOV.UK markup snapshot 1`] = `
               hidden=""
               type="button"
             >
-               Menu 
+              Menu
             </button>
             <ul
               class="govuk-service-navigation__list"
@@ -50,7 +50,7 @@ exports[`NgxGovukServiceNavigation > matches the GOV.UK markup snapshot 1`] = `
                   class="govuk-service-navigation__link"
                   href="/"
                 >
-                   Home 
+                  Home
                 </a>
               </li>
               <li
@@ -75,7 +75,7 @@ exports[`NgxGovukServiceNavigation > matches the GOV.UK markup snapshot 1`] = `
                   class="govuk-service-navigation__link"
                   href="/account"
                 >
-                   Your account 
+                  Your account
                 </a>
               </li>
             </ul>

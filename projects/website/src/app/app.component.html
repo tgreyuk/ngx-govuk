@@ -1,4 +1,6 @@
-<a href="#main-content" class="app-skip-link">Skip to main content</a>
+<a href="#main-content" class="app-skip-link" (click)="skipToMain($event, main)"
+  >Skip to main content</a
+>
 <header class="app-header">
   <div class="govuk-width-container app-header__inner">
     <div class="app-header__brand">
@@ -62,7 +64,7 @@
 </nav>
 <div class="app-main">
   <div class="govuk-width-container">
-    <main class="govuk-main-wrapper" id="main-content">
+    <main class="govuk-main-wrapper" id="main-content" #main>
       <router-outlet></router-outlet>
     </main>
   </div>
@@ -70,7 +72,7 @@
 <footer class="app-footer">
   <div class="govuk-width-container">
     <p class="app-footer__text">
-      ngx-govuk is a community resource and is not part of the GOV.UK Design
+      ngx-govuk is a community project and is not part of the GOV.UK Design
       System.
     </p>
     <p class="app-footer__text">
@@ -82,7 +84,7 @@
         href="https://github.com/tgreyuk/ngx-govuk/blob/main/projects/ngx-govuk/CHANGELOG.md"
         >changelog</a
       >
-      for what's new.
+      for the changes in each release.
     </p>
   </div>
 </footer>

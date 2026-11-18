@@ -1,3 +1,4 @@
+export * from './summary-action-link.component';
 export * from './summary-card-action.directive';
 export * from './summary-card.component';
 export * from './summary-list-action.directive';

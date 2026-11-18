@@ -1,23 +1,31 @@
 import { Component, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { NgxGovukErrorMessage } from 'ngx-govuk/error-message';
 import { NgxGovukUtilsService } from 'ngx-govuk';
 import { NgxGovukTextarea } from 'ngx-govuk/textarea';
 import { MockProvider } from 'ng-mocks';
 import { NgxGovukCharacterCount } from './character-count.component';
 
 @Component({
-  imports: [NgxGovukCharacterCount, NgxGovukTextarea, ReactiveFormsModule],
+  imports: [
+    NgxGovukErrorMessage,
+    NgxGovukCharacterCount,
+    NgxGovukTextarea,
+    ReactiveFormsModule,
+  ],
   template: `
     <ngx-govuk-character-count
       id="detail-count"
       label="Can you provide more detail?"
       [hint]="hint()"
-      [errorMessage]="errorMessage()"
       [asPageHeading]="asPageHeading()"
       [maxLength]="10"
       [threshold]="threshold()"
     >
+      @if (errorMessage()) {
+        <p ngxGovukErrorMessage>{{ errorMessage() }}</p>
+      }
       <textarea
         id="detail"
         ngxGovukTextarea
@@ -37,6 +45,20 @@ class HostComponent {
   errorMessage = signal<string | null>(null);
   asPageHeading = signal(false);
   threshold = signal<number | undefined>(undefined);
+}
+
+@Component({
+  imports: [NgxGovukCharacterCount, NgxGovukTextarea],
+  template: `
+    <ngx-govuk-character-count label="More detail" [maxLength]="10">
+      @if (showTextarea()) {
+        <textarea id="late-detail" ngxGovukTextarea></textarea>
+      }
+    </ngx-govuk-character-count>
+  `,
+})
+class LateTextareaHostComponent {
+  showTextarea = signal(false);
 }
 
 describe('NgxGovukCharacterCount', () => {
@@ -100,7 +122,7 @@ describe('NgxGovukCharacterCount', () => {
       'own-help detail-info detail-hint detail-error',
     );
     expect(textarea.classList).toContain('govuk-textarea--error');
-    expect($('#detail-count > .govuk-form-group').classList).toContain(
+    expect($('#detail-count.govuk-form-group').classList).toContain(
       'govuk-form-group--error',
     );
   });
@@ -175,5 +197,26 @@ describe('NgxGovukCharacterCount', () => {
       'govuk-character-count__message--disabled',
     );
     expect(srStatus().hasAttribute('aria-hidden')).toBe(false);
+  });
+
+  it('sets up a textarea that is rendered after the character count', () => {
+    const fixture = TestBed.createComponent(LateTextareaHostComponent);
+    fixture.detectChanges();
+    fixture.componentInstance.showTextarea.set(true);
+    fixture.detectChanges();
+    const element = fixture.nativeElement as HTMLElement;
+    const textarea = element.querySelector('textarea') as HTMLTextAreaElement;
+
+    expect(element.querySelector('label')?.getAttribute('for')).toBe(
+      'late-detail',
+    );
+    expect(textarea.getAttribute('aria-describedby')).toBe('late-detail-info');
+
+    textarea.value = 'Hello';
+    textarea.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+    expect(
+      element.querySelector('.govuk-character-count__status')?.textContent,
+    ).toContain('You have 5 characters remaining');
   });
 });

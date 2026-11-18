@@ -1,30 +1,16 @@
-import {
-  AfterViewInit,
-  Directive,
-  ElementRef,
-  Renderer2,
-  inject,
-} from '@angular/core';
+import { Directive, TemplateRef, inject } from '@angular/core';
 
 /**
- * One link in the breadcrumbs, inside `ngx-govuk-breadcrumbs`.
+ * One link in the breadcrumbs, inside `nav[ngxGovukBreadcrumbs]`.
  *
- * Add it to an `a` element. It wraps the link in the list item the
- * breadcrumbs need.
+ * Add it to an `a` element with a `*`, as in
+ * `<a *ngxGovukBreadcrumbsItem routerLink="/">Home</a>`. The breadcrumbs put
+ * each link in its own list item and style it.
  */
 @Directive({
-  selector: 'a[ngxGovukBreadcrumbsItem]',
-  host: { class: 'govuk-breadcrumbs__link' },
+  selector: '[ngxGovukBreadcrumbsItem]',
 })
-export class NgxGovukBreadcrumbsItem implements AfterViewInit {
-  private renderer = inject(Renderer2);
-  private elementRef = inject(ElementRef);
-
-  ngAfterViewInit(): void {
-    const el = this.elementRef.nativeElement;
-    const wrapper = this.renderer.createElement('li');
-    wrapper.className = 'govuk-breadcrumbs__list-item';
-    el.parentNode.insertBefore(wrapper, el);
-    wrapper.appendChild(el);
-  }
+export class NgxGovukBreadcrumbsItem {
+  /** @internal */
+  readonly template = inject(TemplateRef);
 }

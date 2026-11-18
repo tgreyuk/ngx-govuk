@@ -34,6 +34,34 @@ describe('NgxGovukSkipLink', () => {
     expect(main.classList).toContain('govuk-skip-link-focused-element');
   });
 
+  it.each(['ctrlKey', 'metaKey', 'shiftKey', 'altKey'])(
+    'leaves a click with %s to the browser',
+    (key) => {
+      const { link, main } = setup();
+      const click = new MouseEvent('click', {
+        bubbles: true,
+        cancelable: true,
+        [key]: true,
+      });
+      link.dispatchEvent(click);
+
+      expect(click.defaultPrevented).toBe(false);
+      expect(document.activeElement).not.toBe(main);
+      click.preventDefault();
+    },
+  );
+
+  it('leaves nothing behind when the main content cannot take focus', () => {
+    const { link, main } = setup();
+    // jsdom doesn't lay out the page, so stand in for content that's hidden.
+    vi.spyOn(main, 'focus').mockImplementation(() => undefined);
+    link.click();
+
+    expect(document.activeElement).not.toBe(main);
+    expect(main.hasAttribute('tabindex')).toBe(false);
+    expect(main.classList).not.toContain('govuk-skip-link-focused-element');
+  });
+
   it('tidies up when the main content loses focus', () => {
     const { link, main } = setup();
     link.click();

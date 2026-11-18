@@ -1,0 +1,17 @@
+<dt class="govuk-summary-list__key">{{ key() }}</dt>
+<dd class="govuk-summary-list__value"><ng-content></ng-content></dd>
+@if (actions().length === 1) {
+  <dd class="govuk-summary-list__actions">
+    <ng-container [ngTemplateOutlet]="actions()[0].template" />
+  </dd>
+} @else if (actions().length) {
+  <dd class="govuk-summary-list__actions">
+    <ul class="govuk-summary-list__actions-list">
+      @for (action of actions(); track action) {
+        <li class="govuk-summary-list__actions-list-item">
+          <ng-container [ngTemplateOutlet]="action.template" />
+        </li>
+      }
+    </ul>
+  </dd>
+}

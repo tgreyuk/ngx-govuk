@@ -1,44 +1,86 @@
 <div class="govuk-accordion__section-header">
-  <h2 class="govuk-accordion__section-heading">
-    <button
-      type="button"
-      class="govuk-accordion__section-button"
-      [attr.aria-controls]="contentId"
-      [attr.aria-expanded]="expanded()"
-      [attr.aria-label]="
-        heading() +
-        ' , ' +
-        (expanded() ? 'Hide this section' : 'Show this section')
-      "
-      (click)="toggle()"
-    >
-      <span class="govuk-accordion__section-heading-text" [attr.id]="headingId"
-        ><span class="govuk-accordion__section-heading-text-focus">
-          {{ heading() }}
-        </span></span
-      ><span
-        class="govuk-visually-hidden govuk-accordion__section-heading-divider"
-        >, </span
-      ><span class="govuk-accordion__section-toggle"
-        ><span class="govuk-accordion__section-toggle-focus"
-          ><span
-            class="govuk-accordion-nav__chevron"
-            [ngClass]="{
-              'govuk-accordion-nav__chevron--down': !expanded(),
-            }"
-          ></span
-          ><span class="govuk-accordion__section-toggle-text">{{
-            expanded() ? 'Hide' : 'Show'
-          }}</span></span
-        ></span
-      >
-    </button>
-  </h2>
+  @switch (headingLevel()) {
+    @case (1) {
+      <h1 class="govuk-accordion__section-heading">
+        <ng-container *ngTemplateOutlet="button" />
+      </h1>
+    }
+    @case (3) {
+      <h3 class="govuk-accordion__section-heading">
+        <ng-container *ngTemplateOutlet="button" />
+      </h3>
+    }
+    @case (4) {
+      <h4 class="govuk-accordion__section-heading">
+        <ng-container *ngTemplateOutlet="button" />
+      </h4>
+    }
+    @case (5) {
+      <h5 class="govuk-accordion__section-heading">
+        <ng-container *ngTemplateOutlet="button" />
+      </h5>
+    }
+    @case (6) {
+      <h6 class="govuk-accordion__section-heading">
+        <ng-container *ngTemplateOutlet="button" />
+      </h6>
+    }
+    @default {
+      <h2 class="govuk-accordion__section-heading">
+        <ng-container *ngTemplateOutlet="button" />
+      </h2>
+    }
+  }
 </div>
+<!-- Open the section when the browser's find in page matches its content. -->
 <div
   [attr.id]="contentId"
   class="govuk-accordion__section-content"
-  [attr.aria-labelledby]="headingId"
+  [attr.hidden]="expanded() ? null : 'until-found'"
+  (beforematch)="expanded.set(true)"
 >
   <ng-content></ng-content>
 </div>
+
+<ng-template #button>
+  <button
+    type="button"
+    class="govuk-accordion__section-button"
+    [attr.aria-controls]="contentId"
+    [attr.aria-expanded]="expanded()"
+    [attr.aria-label]="ariaLabel()"
+    (click)="toggle()"
+  >
+    <span class="govuk-accordion__section-heading-text" [attr.id]="headingId"
+      ><span class="govuk-accordion__section-heading-text-focus">{{
+        heading()
+      }}</span></span
+    ><span
+      class="govuk-visually-hidden govuk-accordion__section-heading-divider"
+      >,
+    </span>
+    @if (summary()) {
+      <span
+        class="govuk-accordion__section-summary govuk-body"
+        [attr.id]="summaryId"
+        ><span class="govuk-accordion__section-summary-focus">{{
+          summary()
+        }}</span></span
+      ><span
+        class="govuk-visually-hidden govuk-accordion__section-heading-divider"
+        >,
+      </span>
+    }
+    <span class="govuk-accordion__section-toggle" data-nosnippet
+      ><span class="govuk-accordion__section-toggle-focus"
+        ><span
+          class="govuk-accordion-nav__chevron"
+          [class.govuk-accordion-nav__chevron--down]="!expanded()"
+        ></span
+        ><span class="govuk-accordion__section-toggle-text">{{
+          expanded() ? 'Hide' : 'Show'
+        }}</span></span
+      ></span
+    >
+  </button>
+</ng-template>

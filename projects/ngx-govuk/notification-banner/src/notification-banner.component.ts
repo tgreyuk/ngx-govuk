@@ -5,20 +5,30 @@ import {
   ElementRef,
   inject,
   input,
-  viewChild,
+  booleanAttribute,
 } from '@angular/core';
 import { NgxGovukUtilsService } from 'ngx-govuk';
 
 /**
- * Tells users about something important that isn't directly related to the
- * page, or confirms the outcome of something they've just done.
+ * Tells the user about something they need to know about, but that's not
+ * directly related to the page content.
  *
- * Put the content inside it. For a single line, use a
- * `p class="govuk-notification-banner__heading"`.
+ * Set `bannerType` to `success` to confirm the outcome of something they've
+ * just done. Put the content inside it. For a single line, use a
+ * `p ngxGovukNotificationBannerHeading`, and style links with
+ * `a ngxGovukNotificationBannerLink`.
  */
 @Component({
   selector: 'ngx-govuk-notification-banner',
   templateUrl: './notification-banner.component.html',
+  host: {
+    class: 'govuk-notification-banner',
+    '[class.govuk-notification-banner--success]': 'isSuccess()',
+    '[attr.role]': 'bannerRole()',
+    '[attr.aria-labelledby]': 'titleId()',
+  },
+  // Custom elements are inline by default; GOV.UK's styles expect a block.
+  styles: ':where(:host:not([hidden])) { display: block; }',
 })
 export class NgxGovukNotificationBanner {
   /**
@@ -48,31 +58,38 @@ export class NgxGovukNotificationBanner {
   );
 
   /**
-   * Stops a success banner taking focus when the page loads. Only use it if
-   * something else on the page needs focus.
+   * The banner's `role`. Defaults to `alert` for a success banner, so it's
+   * announced straight away, and `region` otherwise, so users can find it
+   * as a landmark. A banner with the role `alert` takes focus when the page
+   * loads.
    */
-  disableAutoFocus = input<boolean>(false);
+  role = input<string>();
 
-  private banner = viewChild.required<ElementRef<HTMLElement>>('banner');
+  /**
+   * Stops a banner with the role `alert`, such as a success banner, taking
+   * focus when the page loads. Only use it if something else on the page
+   * needs focus.
+   */
+  disableAutoFocus = input(false, { transform: booleanAttribute });
+
+  private banner = inject<ElementRef<HTMLElement>>(ElementRef);
 
   protected isSuccess = computed(() => this.bannerType() === 'success');
+
+  protected bannerRole = computed(
+    () => this.role() || (this.isSuccess() ? 'alert' : 'region'),
+  );
 
   protected title = computed(
     () => this.titleText() ?? (this.isSuccess() ? 'Success' : 'Important'),
   );
 
-  protected classes = computed(() =>
-    this.isSuccess()
-      ? 'govuk-notification-banner govuk-notification-banner--success'
-      : 'govuk-notification-banner',
-  );
-
   constructor() {
-    // As GOV.UK Frontend does: focus a success banner, so screen reader users
-    // hear it and keyboard users start from it.
+    // As GOV.UK Frontend does: focus an alert, such as a success banner, so
+    // screen reader users hear it and keyboard users start from it.
     afterNextRender(() => {
-      if (this.isSuccess() && !this.disableAutoFocus()) {
-        this.focus(this.banner().nativeElement);
+      if (this.bannerRole() === 'alert' && !this.disableAutoFocus()) {
+        this.focus(this.banner.nativeElement);
       }
     });
   }

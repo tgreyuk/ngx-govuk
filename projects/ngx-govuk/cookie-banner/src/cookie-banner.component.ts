@@ -12,6 +12,14 @@ import { Component, input } from '@angular/core';
 @Component({
   selector: 'ngx-govuk-cookie-banner',
   templateUrl: './cookie-banner.component.html',
+  host: {
+    class: 'govuk-cookie-banner',
+    'data-nosnippet': '',
+    role: 'region',
+    '[attr.aria-label]': 'ariaLabel()',
+  },
+  // Custom elements are inline by default; GOV.UK's styles expect a block.
+  styles: ':where(:host:not([hidden])) { display: block; }',
 })
 export class NgxGovukCookieBanner {
   /** Labels the banner for screen reader users. */

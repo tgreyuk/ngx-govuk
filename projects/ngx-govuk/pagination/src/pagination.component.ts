@@ -1,12 +1,15 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { Component, computed, input } from '@angular/core';
+import { Component, computed, input, numberAttribute } from '@angular/core';
 import { RouterLink, UrlTree } from '@angular/router';
 
 /** A previous or next link in block pagination. */
 export interface NgxGovukPaginationLink {
-  /** Where the link goes, as you'd give it to `routerLink`. */
+  /** Where the link goes, in any form `routerLink` accepts. */
   routerLink: string | readonly unknown[] | UrlTree;
-  /** The link text. Defaults to "Previous page" or "Next page". */
+  /**
+   * The link text. Defaults to `previousText` or `nextText` on the
+   * pagination.
+   */
   text?: string;
   /** A label shown under the link text, such as the page's title. */
   labelText?: string;
@@ -32,17 +35,23 @@ type PageItem = { number: number } | { ellipsis: true };
   selector: 'ngx-govuk-pagination',
   imports: [NgTemplateOutlet, RouterLink],
   templateUrl: './pagination.component.html',
+  styles: ':where(:host:not([hidden])) { display: block; }',
 })
 export class NgxGovukPagination {
   /**
    * The page users are on, starting from 1.
    */
-  currentPage = input<number>(1);
+  currentPage = input(1, { transform: numberAttribute });
 
   /**
    * How many pages there are. Set it for numbered pages.
    */
-  totalPages = input<number>();
+  totalPages = input<number | undefined, unknown>(undefined, {
+    transform: (value: unknown) =>
+      value === undefined || value === null
+        ? undefined
+        : numberAttribute(value),
+  });
 
   /**
    * The query parameter that holds the page number.
@@ -64,6 +73,25 @@ export class NgxGovukPagination {
    * pagination, so users can tell them apart.
    */
   landmarkLabel = input<string>('Pagination');
+
+  /**
+   * The previous link's text, in place of "Previous page". In block
+   * pagination, the link's own `text` takes its place.
+   */
+  previousText = input<string>();
+
+  /**
+   * The next link's text, in place of "Next page". In block pagination, the
+   * link's own `text` takes its place.
+   */
+  nextText = input<string>();
+
+  /**
+   * Labels each page number's link for screen reader users. `%{number}` is
+   * replaced with the page number. Replaces GOV.UK's `visuallyHiddenText`
+   * on each item.
+   */
+  pageVisuallyHiddenText = input<string>('Page %{number}');
 
   protected isNumbered = computed(() => this.totalPages() !== undefined);
 
@@ -105,6 +133,10 @@ export class NgxGovukPagination {
     });
     return items;
   });
+
+  protected pageLabel(page: number) {
+    return this.pageVisuallyHiddenText().replaceAll('%{number}', String(page));
+  }
 
   protected pageParams(page: number) {
     return { [this.queryParam()]: page };

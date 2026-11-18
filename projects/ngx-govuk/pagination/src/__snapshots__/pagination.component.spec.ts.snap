@@ -147,7 +147,7 @@ exports[`NgxGovukPagination > matches the GOV.UK markup snapshot for block pagin
           <span
             class="govuk-pagination__link-title"
           >
-             Previous
+            Previous
             <span
               class="govuk-visually-hidden"
             >
@@ -190,7 +190,7 @@ exports[`NgxGovukPagination > matches the GOV.UK markup snapshot for block pagin
           <span
             class="govuk-pagination__link-title govuk-pagination__link-title--decorated"
           >
-             Next
+            Next
             <span
               class="govuk-visually-hidden"
             >

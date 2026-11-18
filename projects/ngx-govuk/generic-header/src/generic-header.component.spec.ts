@@ -7,12 +7,14 @@ import { NgxGovukGenericHeader } from './generic-header.component';
   imports: [NgxGovukGenericHeader],
   template: `<ngx-govuk-generic-header
     [homepageLink]="homepageLink()"
+    [homepageUrl]="homepageUrl()"
     [fullWidth]="fullWidth()"
     >My cool service</ngx-govuk-generic-header
   >`,
 })
 class TestHostComponent {
   homepageLink = signal<string>('/');
+  homepageUrl = signal<string | undefined>(undefined);
   fullWidth = signal(false);
 }
 
@@ -38,6 +40,17 @@ describe('NgxGovukGenericHeader', () => {
     fixture.componentInstance.homepageLink.set('/start');
     fixture.detectChanges();
     expect(link?.getAttribute('href')).toBe('/start');
+  });
+
+  it('links its content to a homepage outside the app', () => {
+    const { fixture, element } = setup();
+    fixture.componentInstance.homepageUrl.set('https://www.example.com');
+    fixture.detectChanges();
+    const links = element.querySelectorAll('a');
+    expect(links).toHaveLength(1);
+    expect(links[0].getAttribute('href')).toBe('https://www.example.com');
+    expect(links[0].classList).toContain('govuk-generic-header__homepage-link');
+    expect(links[0].textContent).toBe('My cool service');
   });
 
   it('spans the full width', () => {

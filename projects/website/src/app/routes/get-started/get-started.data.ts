@@ -17,12 +17,17 @@ export const GUIDES: Guide[] = [
     name: 'Using components',
     path: '/get-started/components',
     description:
-      'Import components into your own, set their inputs, bind their values and use them with the router.',
+      'Import components, set their inputs, bind their values and use them with the router.',
   },
   {
     name: 'Working with forms',
     path: '/get-started/forms',
     description:
       'Build form fields with labels, hints and error messages, and show errors the way GOV.UK recommends.',
+  },
+  {
+    name: 'Differences from GOV.UK Frontend',
+    path: '/get-started/differences',
+    description: 'What ngx-govuk does differently from GOV.UK Frontend.',
   },
 ];

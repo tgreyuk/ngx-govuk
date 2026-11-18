@@ -1,6 +1,6 @@
+import { NgTemplateOutlet } from '@angular/common';
 import { Component, contentChildren, input } from '@angular/core';
 import { NgxGovukSummaryCardAction } from './summary-card-action.directive';
-import { NgxGovukSummaryActionOutlet } from './summary-action-outlet.directive';
 
 /**
  * Shows a summary list as a card with a title, to summarise several
@@ -8,13 +8,18 @@ import { NgxGovukSummaryActionOutlet } from './summary-action-outlet.directive';
  *
  * Put a `dl ngxGovukSummaryList` inside it. Add actions for the whole card,
  * such as "Delete", with `*ngxGovukSummaryCardAction`. The card's title is
- * added to the visually hidden text of every action in it, including the
- * rows' actions.
+ * added to the visually hidden text of every `ngxGovukSummaryActionLink` in
+ * it, including the rows' actions.
  */
 @Component({
   selector: 'ngx-govuk-summary-card',
-  imports: [NgxGovukSummaryActionOutlet],
+  imports: [NgTemplateOutlet],
   templateUrl: './summary-card.component.html',
+  host: {
+    class: 'govuk-summary-card',
+  },
+  // Custom elements are inline by default; GOV.UK's styles expect a block.
+  styles: ':where(:host:not([hidden])) { display: block; }',
 })
 export class NgxGovukSummaryCard {
   /**

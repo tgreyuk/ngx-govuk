@@ -9,6 +9,8 @@ import { NgxGovukFieldset } from './fieldset.component';
       legend="What is your address?"
       [legendSize]="legendSize()"
       [asPageHeading]="asPageHeading()"
+      [describedBy]="describedBy()"
+      [role]="role()"
     >
       <p id="content">Fields</p>
     </ngx-govuk-fieldset>
@@ -17,6 +19,8 @@ import { NgxGovukFieldset } from './fieldset.component';
 class HostComponent {
   legendSize = signal<'s' | 'm' | 'l' | 'xl' | undefined>(undefined);
   asPageHeading = signal(false);
+  describedBy = signal<string | undefined>(undefined);
+  role = signal<string | undefined>(undefined);
 }
 
 describe('NgxGovukFieldset', () => {
@@ -25,7 +29,14 @@ describe('NgxGovukFieldset', () => {
     fixture.detectChanges();
     const element: HTMLElement = fixture.nativeElement;
     const legend = () => element.querySelector('legend') as HTMLElement;
-    return { fixture, host: fixture.componentInstance, element, legend };
+    const fieldset = () => element.querySelector('fieldset') as HTMLElement;
+    return {
+      fixture,
+      host: fixture.componentInstance,
+      element,
+      legend,
+      fieldset,
+    };
   }
 
   it('matches the GOV.UK markup snapshot', () => {
@@ -45,7 +56,7 @@ describe('NgxGovukFieldset', () => {
   it('has a body-size legend by default', () => {
     const { legend } = setup();
     expect(legend().className).toBe('govuk-fieldset__legend');
-    expect(legend().textContent?.trim()).toBe('What is your address?');
+    expect(legend().textContent).toBe('What is your address?');
   });
 
   it('makes the legend a large page heading', () => {
@@ -61,5 +72,27 @@ describe('NgxGovukFieldset', () => {
     host.legendSize.set('m');
     fixture.detectChanges();
     expect(legend().classList).toContain('govuk-fieldset__legend--m');
+  });
+
+  it('links the fieldset to the elements that describe it', () => {
+    const { fixture, host, fieldset } = setup();
+    expect(fieldset().hasAttribute('aria-describedby')).toBe(false);
+    host.describedBy.set('address-hint');
+    fixture.detectChanges();
+    expect(fieldset().getAttribute('aria-describedby')).toBe('address-hint');
+  });
+
+  it('sets the role on the fieldset', () => {
+    const { fixture, host, fieldset } = setup();
+    expect(fieldset().hasAttribute('role')).toBe(false);
+    host.role.set('group');
+    fixture.detectChanges();
+    expect(fieldset().getAttribute('role')).toBe('group');
+  });
+
+  it('displays as a block', () => {
+    const { element } = setup();
+    const host = element.querySelector('ngx-govuk-fieldset') as HTMLElement;
+    expect(getComputedStyle(host).display).toBe('block');
   });
 });

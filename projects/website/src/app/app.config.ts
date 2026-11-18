@@ -5,7 +5,10 @@ import {
   withComponentInputBinding,
   withInMemoryScrolling,
   withRouterConfig,
+  TitleStrategy,
 } from '@angular/router';
+import { provideNgxGovuk } from 'ngx-govuk';
+import { PageMetaStrategy } from './page-meta.strategy';
 import { appRoutes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
@@ -28,5 +31,8 @@ export const appConfig: ApplicationConfig = {
         anchorScrolling: 'enabled',
       }),
     ),
+    provideNgxGovuk(),
+    // Sets each page's title, description and canonical link.
+    { provide: TitleStrategy, useClass: PageMetaStrategy },
   ],
 };

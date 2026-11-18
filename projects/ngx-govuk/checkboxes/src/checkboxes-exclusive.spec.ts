@@ -68,11 +68,18 @@ describe('NgxGovukCheckbox exclusive', () => {
     ).toMatchSnapshot();
   });
 
+  it('counts the divider when numbering the ids, as GOV.UK Frontend does', () => {
+    const ids = Array.from(
+      setup().element.querySelectorAll<HTMLInputElement>('input'),
+    ).map((input) => input.id);
+    expect(ids).toEqual(['waste', 'waste-2', 'waste-4']);
+  });
+
   it('unchecks the others when users check "None"', () => {
     const { host, input, click, element } = setup();
-    expect(input('waste-3').getAttribute('data-behaviour')).toBe('exclusive');
+    expect(input('waste-4').getAttribute('data-behaviour')).toBe('exclusive');
 
-    click('waste-3');
+    click('waste-4');
     expect(host.none()).toBe(true);
     expect(host.form.value.waste).toEqual({ animal: false, mines: false });
     expect(input('waste').checked).toBe(false);
@@ -86,10 +93,10 @@ describe('NgxGovukCheckbox exclusive', () => {
 
   it('unchecks "None" when users check another', () => {
     const { host, input, click } = setup();
-    click('waste-3');
+    click('waste-4');
     click('waste-2');
     expect(host.none()).toBe(false);
-    expect(input('waste-3').checked).toBe(false);
+    expect(input('waste-4').checked).toBe(false);
     expect(host.form.value.waste).toEqual({ animal: false, mines: true });
   });
 

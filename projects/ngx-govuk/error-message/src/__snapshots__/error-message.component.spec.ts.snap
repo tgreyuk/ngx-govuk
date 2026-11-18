@@ -1,0 +1,17 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`NgxGovukErrorMessage > matches the GOV.UK markup snapshot 1`] = `
+<p
+  class="govuk-error-message"
+  id="full-name-error"
+  ngxgovukerrormessage=""
+>
+  <span
+    class="govuk-visually-hidden"
+  >
+    Error:
+  </span>
+   
+   Enter your full name 
+</p>
+`;

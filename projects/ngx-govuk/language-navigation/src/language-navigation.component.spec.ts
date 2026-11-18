@@ -77,6 +77,20 @@ describe('NgxGovukLanguageNavigation', () => {
     expect(element.querySelectorAll('a').length).toBe(1);
   });
 
+  it('marks a language without a link as current even when not set', () => {
+    const { fixture, element } = setup();
+    fixture.componentInstance.items.set([
+      { text: 'English', lang: 'en', current: false },
+      { text: 'Cymraeg', lang: 'cy', href: '' },
+      { text: 'Gàidhlig', lang: 'gd', href: '/gd/' },
+    ]);
+    fixture.detectChanges();
+    const current = Array.from(element.querySelectorAll('[aria-current]'));
+    expect(current.map((el) => el.tagName)).toEqual(['SPAN', 'SPAN']);
+    expect(current.map((el) => el.textContent)).toEqual(['English', 'Cymraeg']);
+    expect(element.querySelectorAll('a').length).toBe(1);
+  });
+
   it('can be shown on a dark background', () => {
     const { fixture, element } = setup();
     fixture.componentInstance.inverse.set(true);
@@ -84,5 +98,12 @@ describe('NgxGovukLanguageNavigation', () => {
     expect(element.querySelector('nav')?.classList).toContain(
       'govuk-language-navigation--inverse',
     );
+  });
+
+  it('displays as a block', () => {
+    const host = setup().element.querySelector(
+      'ngx-govuk-language-navigation',
+    ) as HTMLElement;
+    expect(getComputedStyle(host).display).toBe('block');
   });
 });

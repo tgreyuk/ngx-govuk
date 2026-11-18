@@ -1,5 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
+import { NgxGovukSummaryActionLink } from './summary-action-link.component';
 import { NgxGovukSummaryCardAction } from './summary-card-action.directive';
 import { NgxGovukSummaryCard } from './summary-card.component';
 import { NgxGovukSummaryListAction } from './summary-list-action.directive';
@@ -12,31 +13,44 @@ const imports = [
   NgxGovukSummaryList,
   NgxGovukSummaryListRow,
   NgxGovukSummaryListAction,
+  NgxGovukSummaryActionLink,
 ];
 
 @Component({
   imports,
   template: `<ngx-govuk-summary-card [titleText]="title()">
-    <a *ngxGovukSummaryCardAction class="govuk-link" href="/delete"
+    <a *ngxGovukSummaryCardAction ngxGovukSummaryActionLink href="/delete"
       >Delete job history</a
     >
-    <a *ngxGovukSummaryCardAction class="govuk-link" href="/withdraw"
+    <a *ngxGovukSummaryCardAction ngxGovukSummaryActionLink href="/withdraw"
       >Withdraw job history</a
     >
     <dl ngxGovukSummaryList>
       <div ngxGovukSummaryListRow key="Name">
         Firstname Lastname
-        <a *ngxGovukSummaryListAction class="govuk-link" href="/name/edit"
-          >Edit<span class="govuk-visually-hidden"> name</span></a
+        <a
+          *ngxGovukSummaryListAction
+          ngxGovukSummaryActionLink
+          visuallyHiddenText="name"
+          href="/name/edit"
+          >Edit</a
         >
-        <a *ngxGovukSummaryListAction class="govuk-link" href="/name/delete"
-          >Delete<span class="govuk-visually-hidden"> name</span></a
+        <a
+          *ngxGovukSummaryListAction
+          ngxGovukSummaryActionLink
+          visuallyHiddenText="name"
+          href="/name/delete"
+          >Delete</a
         >
       </div>
       <div ngxGovukSummaryListRow key="Date of birth">
         13/08/1980
-        <a *ngxGovukSummaryListAction class="govuk-link" href="/dob"
-          >Change<span class="govuk-visually-hidden"> date of birth</span></a
+        <a
+          *ngxGovukSummaryListAction
+          ngxGovukSummaryActionLink
+          visuallyHiddenText="date of birth"
+          href="/dob"
+          >Change</a
         >
       </div>
     </dl>
@@ -52,12 +66,15 @@ class ActionsHostComponent {
     NgxGovukSummaryCardAction,
     NgxGovukSummaryList,
     NgxGovukSummaryListRow,
+    NgxGovukSummaryActionLink,
   ],
   template: `<ngx-govuk-summary-card
     titleText="University of Gloucestershire"
     [titleHeadingLevel]="3"
   >
-    <a *ngxGovukSummaryCardAction class="govuk-link" href="/delete">Delete</a>
+    <a *ngxGovukSummaryCardAction ngxGovukSummaryActionLink href="/delete"
+      >Delete</a
+    >
     <dl ngxGovukSummaryList>
       <div ngxGovukSummaryListRow key="Course">English</div>
     </dl>
@@ -107,6 +124,17 @@ describe('NgxGovukSummaryCard', () => {
       ' name (Lab technician)',
       ' date of birth (Lab technician)',
     ]);
+  });
+
+  it('keeps the same links when the title changes', () => {
+    const fixture = render(ActionsHostComponent);
+    const element: HTMLElement = fixture.nativeElement;
+    const links = Array.from(element.querySelectorAll('a'));
+    links[0].focus();
+    fixture.componentInstance.title.set('Lab technician');
+    fixture.detectChanges();
+    expect(Array.from(element.querySelectorAll('a'))).toEqual(links);
+    expect(document.activeElement).toBe(links[0]);
   });
 
   it('sets the heading level', () => {

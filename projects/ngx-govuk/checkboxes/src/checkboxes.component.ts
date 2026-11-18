@@ -10,6 +10,7 @@ import {
   EmbeddedViewRef,
   forwardRef,
   inject,
+  InjectionToken,
   input,
   model,
   signal,
@@ -18,7 +19,15 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { NgxGovukUtilsService } from 'ngx-govuk';
+import { addErrorSummaryTarget, NgxGovukUtilsService } from 'ngx-govuk';
+import { NgxGovukErrorMessage } from 'ngx-govuk/error-message';
+
+/**
+ * The checkboxes and dividers in `ngx-govuk-checkboxes`, in order. GOV.UK
+ * Frontend counts dividers when it numbers the ids, so they're queried
+ * together.
+ */
+const CHECKBOXES_ITEM = new InjectionToken<unknown>('CHECKBOXES_ITEM');
 
 /**
  * Content shown under a checkbox only while it's checked, such as a question
@@ -46,6 +55,12 @@ export class NgxGovukCheckboxConditional {
 @Directive({
   selector: 'div[ngxGovukCheckboxesDivider]',
   host: { class: 'govuk-checkboxes__divider' },
+  providers: [
+    {
+      provide: CHECKBOXES_ITEM,
+      useExisting: forwardRef(() => NgxGovukCheckboxesDivider),
+    },
+  ],
 })
 export class NgxGovukCheckboxesDivider {}
 
@@ -70,6 +85,10 @@ export class NgxGovukCheckboxesDivider {}
       useExisting: forwardRef(() => NgxGovukCheckbox),
       multi: true,
     },
+    {
+      provide: CHECKBOXES_ITEM,
+      useExisting: forwardRef(() => NgxGovukCheckbox),
+    },
   ],
 })
 export class NgxGovukCheckbox implements ControlValueAccessor {
@@ -81,6 +100,12 @@ export class NgxGovukCheckbox implements ControlValueAccessor {
   checked = model<boolean>(false);
 
   /**
+   * The input's `value` attribute, sent when a form is submitted without
+   * Angular. The form control's value is still `true` or `false`.
+   */
+  value = input<string>();
+
+  /**
    * Hint text for this checkbox.
    */
   hint = input<string>();
@@ -89,7 +114,7 @@ export class NgxGovukCheckbox implements ControlValueAccessor {
    * Stops users changing this checkbox. With a form control, disable the
    * control instead.
    */
-  disabled = input<boolean>(false);
+  disabled = input(false, { transform: booleanAttribute });
 
   /**
    * Makes this a "None" option: checking it unchecks the others, and
@@ -109,6 +134,8 @@ export class NgxGovukCheckbox implements ControlValueAccessor {
   private revealView?: EmbeddedViewRef<unknown>;
 
   constructor() {
+    addErrorSummaryTarget(() => this.inputId());
+
     // GOV.UK Frontend puts the conditional content straight after the item,
     // not inside it, so render it into the item's own view container.
     const container = inject(ViewContainerRef);
@@ -166,18 +193,26 @@ export class NgxGovukCheckbox implements ControlValueAccessor {
  * Lets users select one or more options from a list.
  *
  * Put an `ngx-govuk-checkbox` inside it for each option. It adds the fieldset,
- * legend, hint and error message. To keep the checkboxes' form controls
+ * legend and hint. To show an error, put a `p` with `ngxGovukErrorMessage`
+ * inside it too. To keep the checkboxes' form controls
  * together, put `formGroupName` on it.
  *
  * For a "None" option, put a `div` with `ngxGovukCheckboxesDivider` after the
  * other checkboxes, then a checkbox with `exclusive`.
  *
  * The first checkbox's id is the `name`, so an error summary can link to it.
- * The others are `<name>-2`, `<name>-3` and so on, as in GOV.UK Frontend.
+ * The others are `<name>-2`, `<name>-3` and so on, as in GOV.UK Frontend,
+ * which counts a divider as an item.
  */
 @Component({
   selector: 'ngx-govuk-checkboxes',
   templateUrl: './checkboxes.component.html',
+  host: {
+    class: 'govuk-form-group',
+    '[class.govuk-form-group--error]': '!!errorMessage()',
+  },
+  // Custom elements are inline by default; GOV.UK's styles expect a block.
+  styles: ':where(:host:not([hidden])) { display: block; }',
 })
 export class NgxGovukCheckboxes {
   /**
@@ -192,21 +227,15 @@ export class NgxGovukCheckboxes {
   legendSize = input<'s' | 'm' | 'l' | 'xl'>();
 
   /**
-   * Makes the legend the page heading. Use it when the page asks just one
+   * Makes the legend the page heading. Use it when the page asks only one
    * question.
    */
-  asPageHeading = input<boolean>(false);
+  asPageHeading = input(false, { transform: booleanAttribute });
 
   /**
    * Hint text, to help users answer the question.
    */
   hint = input<string>();
-
-  /**
-   * The error message. When it's set, the checkboxes show their error styles.
-   * Set it when validation fails, such as after the form is submitted.
-   */
-  errorMessage = input<string | null>();
 
   /**
    * The checkboxes' `name`, which their ids are based on. When unset, one is
@@ -217,10 +246,11 @@ export class NgxGovukCheckboxes {
   /**
    * Shows smaller checkboxes.
    */
-  small = input<boolean>(false);
+  small = input(false, { transform: booleanAttribute });
 
   private generatedName = inject(NgxGovukUtilsService).randomId('checkboxes');
   private checkboxes = contentChildren(NgxGovukCheckbox, { descendants: true });
+  private items = contentChildren(CHECKBOXES_ITEM, { descendants: true });
 
   /** @internal */
   groupName = computed(() => this.name() ?? this.generatedName);
@@ -228,12 +258,19 @@ export class NgxGovukCheckboxes {
   protected hintId = computed(() => `${this.groupName()}-hint`);
   protected errorId = computed(() => `${this.groupName()}-error`);
 
+  /** The projected error message, if there is one. */
+  protected errorMessage = contentChild(NgxGovukErrorMessage, {
+    descendants: false,
+  });
+
+  /** Gives the projected error message the id GOV.UK Frontend uses. */
+  private linkErrorMessage = effect(() =>
+    this.errorMessage()?.fieldErrorId.set(this.errorId()),
+  );
+
   protected describedBy = computed(
     () =>
-      [
-        this.hint() ? this.hintId() : '',
-        this.errorMessage() ? this.errorId() : '',
-      ]
+      [this.hint() ? this.hintId() : '', this.errorMessage()?.id() ?? '']
         .filter(Boolean)
         .join(' ') || null,
   );
@@ -261,7 +298,7 @@ export class NgxGovukCheckboxes {
 
   /** @internal */
   checkboxId(checkbox: NgxGovukCheckbox): string {
-    const index = this.checkboxes().indexOf(checkbox);
+    const index = this.items().indexOf(checkbox);
     return index > 0 ? `${this.groupName()}-${index + 1}` : this.groupName();
   }
 }

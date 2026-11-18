@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import {
   NgxGovukTable,
@@ -44,6 +44,18 @@ import {
 })
 class TestHostComponent {}
 
+@Component({
+  imports: [NgxGovukTable, NgxGovukTableCaption],
+  template: `<table ngxGovukTable smallTextUntilTablet>
+    <caption ngxGovukTableCaption [captionSize]="size()">
+      Dates and amounts
+    </caption>
+  </table>`,
+})
+class OptionsHostComponent {
+  size = signal<'m' | 'l' | 'xl' | undefined>('l');
+}
+
 function render() {
   const fixture = TestBed.createComponent(TestHostComponent);
   fixture.detectChanges();
@@ -62,5 +74,27 @@ describe('NgxGovukTable', () => {
       'col',
       'row',
     ]);
+  });
+
+  it('adds the small text modifier', () => {
+    const fixture = TestBed.createComponent(OptionsHostComponent);
+    fixture.detectChanges();
+    const table: HTMLElement = fixture.nativeElement.querySelector('table');
+    expect(table.className).toBe(
+      'govuk-table govuk-table--small-text-until-tablet',
+    );
+  });
+
+  it('changes the caption size, and leaves the modifier out when unset', () => {
+    const fixture = TestBed.createComponent(OptionsHostComponent);
+    fixture.detectChanges();
+    const caption: HTMLElement = fixture.nativeElement.querySelector('caption');
+    expect(caption.className).toBe(
+      'govuk-table__caption govuk-table__caption--l',
+    );
+
+    fixture.componentInstance.size.set(undefined);
+    fixture.detectChanges();
+    expect(caption.className).toBe('govuk-table__caption');
   });
 });

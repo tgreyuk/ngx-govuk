@@ -6,27 +6,36 @@ import {
   input,
   model,
   signal,
+  booleanAttribute,
+  contentChild,
+  effect,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { NgxGovukUtilsService } from 'ngx-govuk';
+import { addErrorSummaryTarget, NgxGovukUtilsService } from 'ngx-govuk';
+import { NgxGovukErrorMessage } from 'ngx-govuk/error-message';
 
 /** A date as users typed it, one string for each part. */
-export interface DateInputValue {
+export interface NgxGovukDateInputValue {
+  /**
+   * The day, such as `27`. Empty when the field is empty or not shown.
+   */
   day: string;
+  /**
+   * The month, such as `3`. Empty when the field is empty or not shown.
+   */
   month: string;
+  /**
+   * The year, such as `2007`. Empty when the field is empty or not shown.
+   */
   year: string;
 }
 
 /** A part of the date: `day`, `month` or `year`. */
-export type DateInputPart = keyof DateInputValue;
+export type NgxGovukDateInputPart = 'day' | 'month' | 'year';
 
-const EMPTY: DateInputValue = { day: '', month: '', year: '' };
+const EMPTY: NgxGovukDateInputValue = { day: '', month: '', year: '' };
 
-const PARTS: { key: DateInputPart; label: string; width: 2 | 4 }[] = [
-  { key: 'day', label: 'Day', width: 2 },
-  { key: 'month', label: 'Month', width: 2 },
-  { key: 'year', label: 'Year', width: 4 },
-];
+const ALL_PARTS: NgxGovukDateInputPart[] = ['day', 'month', 'year'];
 
 /**
  * Helps users enter a date they know or can find easily, such as their date
@@ -35,8 +44,8 @@ const PARTS: { key: DateInputPart; label: string; width: 2 | 4 }[] = [
  * Bind it to a form control with `formControlName`, `[formControl]` or
  * `[(ngModel)]`, or to a signal with `[(value)]`. Its value has the day, month
  * and year as users typed them, so you can check each part and say which one
- * is wrong, as GOV.UK recommends. It adds the fieldset, legend, hint and error
- * message.
+ * is wrong, as GOV.UK recommends. It adds the fieldset, legend and hint. To
+ * show an error, put a `p` with `ngxGovukErrorMessage` inside it.
  *
  * The fields' ids are `<name>-day`, `<name>-month` and `<name>-year`. Link an
  * error summary to the first field with an error.
@@ -44,6 +53,12 @@ const PARTS: { key: DateInputPart; label: string; width: 2 | 4 }[] = [
 @Component({
   selector: 'ngx-govuk-date-input',
   templateUrl: './date-input.component.html',
+  host: {
+    class: 'govuk-form-group',
+    '[class.govuk-form-group--error]': '!!errorMessage()',
+  },
+  // Custom elements are inline by default; GOV.UK's styles expect a block.
+  styles: ':where(:host:not([hidden])) { display: block; }',
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -65,10 +80,10 @@ export class NgxGovukDateInput implements ControlValueAccessor {
   legendSize = input<'s' | 'm' | 'l' | 'xl'>();
 
   /**
-   * Makes the legend the page heading. Use it when the page asks just one
+   * Makes the legend the page heading. Use it when the page asks only one
    * question.
    */
-  asPageHeading = input<boolean>(false);
+  asPageHeading = input(false, { transform: booleanAttribute });
 
   /**
    * Hint text, such as `For example, 27 3 2007`.
@@ -76,16 +91,33 @@ export class NgxGovukDateInput implements ControlValueAccessor {
   hint = input<string>();
 
   /**
-   * The error message. When it's set, the date input shows its error styles.
-   * Set it when validation fails, such as after the form is submitted.
+   * The parts of the date the error message is about, such as `['year']`.
+   * While there's an error message, only those fields show their error
+   * styles. When unset, all of them do.
    */
-  errorMessage = input<string | null>();
+  errorParts = input<NgxGovukDateInputPart[]>();
 
   /**
-   * The parts of the date the error message is about, such as `['year']`.
-   * Only those fields show their error styles. When unset, all three do.
+   * The parts of the date to ask for, such as `['month', 'year']` for a card's
+   * expiry date. They're always shown in the order day, month, year. The
+   * value keeps an empty string for each part that isn't shown.
    */
-  errorParts = input<DateInputPart[]>();
+  parts = input<NgxGovukDateInputPart[]>(['day', 'month', 'year']);
+
+  /**
+   * The day field's label, such as `Diwrnod` in Welsh.
+   */
+  dayLabel = input('Day');
+
+  /**
+   * The month field's label, such as `Mis` in Welsh.
+   */
+  monthLabel = input('Month');
+
+  /**
+   * The year field's label, such as `Blwyddyn` in Welsh.
+   */
+  yearLabel = input('Year');
 
   /**
    * The base for the fields' `name` and `id`, such as `passport-issued`. When
@@ -97,30 +129,64 @@ export class NgxGovukDateInput implements ControlValueAccessor {
    * Tells browsers the date is the user's date of birth, so they can fill it
    * in.
    */
-  dateOfBirth = input<boolean>(false);
+  dateOfBirth = input(false, { transform: booleanAttribute });
 
   /**
-   * The day, month and year as users typed them. Each is an empty string
-   * until they type something.
+   * The date as users typed it: an object with a `day`, `month` and `year`
+   * string, such as `{ day: '27', month: '3', year: '2007' }`. Each part is an
+   * empty string until users type in it, and isn't checked or converted, so
+   * `'3'`, `'03'` and `'March'` all come through as typed.
    */
-  value = model<DateInputValue>(EMPTY);
+  value = model<NgxGovukDateInputValue>({ day: '', month: '', year: '' });
 
   private generatedName = inject(NgxGovukUtilsService).randomId('date');
-  private onChange: (value: DateInputValue) => void = () => {};
+  private onChange: (value: NgxGovukDateInputValue) => void = () => {};
+  private onTouched: () => void = () => {};
 
-  protected onTouched: () => void = () => {};
   protected disabled = signal(false);
-  protected parts = PARTS;
   protected baseName = computed(() => this.name() ?? this.generatedName);
   protected hintId = computed(() => `${this.baseName()}-hint`);
   protected errorId = computed(() => `${this.baseName()}-error`);
 
+  /** The projected error message, if there is one. */
+  protected errorMessage = contentChild(NgxGovukErrorMessage, {
+    descendants: false,
+  });
+
+  /** Gives the projected error message the id GOV.UK Frontend uses. */
+  private linkErrorMessage = effect(() =>
+    this.errorMessage()?.fieldErrorId.set(this.errorId()),
+  );
+
+  constructor() {
+    // As GOV.UK recommends: link an error to the first part that's wrong.
+    addErrorSummaryTarget(() => {
+      const fields = this.fields();
+      const errorParts = this.errorParts();
+      const field =
+        fields.find((f) => errorParts?.includes(f.key)) ?? fields[0];
+      return field?.id ?? null;
+    });
+  }
+
+  protected fields = computed(() => {
+    const labels = {
+      day: this.dayLabel(),
+      month: this.monthLabel(),
+      year: this.yearLabel(),
+    };
+    const shown = this.parts();
+    return ALL_PARTS.filter((part) => shown.includes(part)).map((part) => ({
+      key: part,
+      id: `${this.baseName()}-${part}`,
+      label: labels[part],
+      width: part === 'year' ? 4 : 2,
+    }));
+  });
+
   protected describedBy = computed(
     () =>
-      [
-        this.hint() ? this.hintId() : '',
-        this.errorMessage() ? this.errorId() : '',
-      ]
+      [this.hint() ? this.hintId() : '', this.errorMessage()?.id() ?? '']
         .filter(Boolean)
         .join(' ') || null,
   );
@@ -132,21 +198,21 @@ export class NgxGovukDateInput implements ControlValueAccessor {
       : 'govuk-fieldset__legend';
   });
 
-  protected inputClasses(part: (typeof PARTS)[number]): string {
+  protected inputClasses(part: NgxGovukDateInputPart, width: number): string {
     const parts = this.errorParts();
     const hasError =
-      !!this.errorMessage() && (!parts?.length || parts.includes(part.key));
+      !!this.errorMessage() && (!parts?.length || parts.includes(part));
     return [
       'govuk-input',
       'govuk-date-input__input',
-      `govuk-input--width-${part.width}`,
+      `govuk-input--width-${width}`,
       hasError ? 'govuk-input--error' : '',
     ]
       .filter(Boolean)
       .join(' ');
   }
 
-  protected update(part: DateInputPart, event: Event): void {
+  protected update(part: NgxGovukDateInputPart, event: Event): void {
     const value = {
       ...this.value(),
       [part]: (event.target as HTMLInputElement).value,
@@ -155,11 +221,23 @@ export class NgxGovukDateInput implements ControlValueAccessor {
     this.onChange(value);
   }
 
-  writeValue(value: DateInputValue | null): void {
+  /**
+   * Marks the form control touched only when focus leaves all the fields, not
+   * when users move from one field to the next.
+   */
+  protected focusOut(event: FocusEvent): void {
+    const container = event.currentTarget as HTMLElement;
+    const next = event.relatedTarget as Node | null;
+    if (!next || !container.contains(next)) {
+      this.onTouched();
+    }
+  }
+
+  writeValue(value: NgxGovukDateInputValue | null): void {
     this.value.set({ ...EMPTY, ...value });
   }
 
-  registerOnChange(fn: (value: DateInputValue) => void): void {
+  registerOnChange(fn: (value: NgxGovukDateInputValue) => void): void {
     this.onChange = fn;
   }
 

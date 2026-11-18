@@ -1,0 +1,10 @@
+<ngx-govuk-error-summary [errorList]="errors" />
+
+<ngx-govuk-form-group label="What is the name of the event?">
+  <p ngxGovukErrorMessage>Enter the name of the event</p>
+  <input
+    id="event-name"
+    type="text"
+    [formControl]="eventNameControl"
+    ngxGovukTextInput />
+</ngx-govuk-form-group>

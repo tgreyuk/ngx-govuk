@@ -1,16 +1,16 @@
 import { Component, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
+import { NgxGovukErrorMessage } from 'ngx-govuk/error-message';
 import { NgxGovukTextInput } from 'ngx-govuk/text-input';
 import { NgxGovukPasswordInput } from './password-input.component';
 
 @Component({
-  imports: [NgxGovukPasswordInput, NgxGovukTextInput],
+  imports: [NgxGovukErrorMessage, NgxGovukPasswordInput, NgxGovukTextInput],
   template: `<form (submit)="$event.preventDefault()">
-    <ngx-govuk-password-input
-      label="Password"
-      [hint]="hint()"
-      [errorMessage]="errorMessage()"
-    >
+    <ngx-govuk-password-input label="Password" [hint]="hint()">
+      @if (errorMessage()) {
+        <p ngxGovukErrorMessage>{{ errorMessage() }}</p>
+      }
       <input id="password" name="password" ngxGovukTextInput />
     </ngx-govuk-password-input>
     <ngx-govuk-password-input label="New password">
@@ -22,6 +22,36 @@ class TestHostComponent {
   hint = signal<string | undefined>(undefined);
   errorMessage = signal<string | null>(null);
 }
+
+@Component({
+  imports: [NgxGovukPasswordInput, NgxGovukTextInput],
+  template: `
+    <ngx-govuk-password-input label="Password">
+      @if (showInput()) {
+        <input id="late-password" ngxGovukTextInput />
+      }
+    </ngx-govuk-password-input>
+  `,
+})
+class LateInputHostComponent {
+  showInput = signal(false);
+}
+
+@Component({
+  imports: [NgxGovukPasswordInput, NgxGovukTextInput],
+  template: `<ngx-govuk-password-input
+    label="Cyfrinair"
+    showPasswordText="Dangos"
+    hidePasswordText="Cuddio"
+    showPasswordAriaLabelText="Dangos cyfrinair"
+    hidePasswordAriaLabelText="Cuddio cyfrinair"
+    passwordShownAnnouncementText="Mae eich cyfrinair yn weladwy"
+    passwordHiddenAnnouncementText="Mae eich cyfrinair wedi'i guddio"
+  >
+    <input id="cyfrinair" ngxGovukTextInput />
+  </ngx-govuk-password-input>`,
+})
+class WelshHostComponent {}
 
 function setup() {
   const fixture = TestBed.createComponent(TestHostComponent);
@@ -82,5 +112,71 @@ describe('NgxGovukPasswordInput', () => {
       .querySelector('form')!
       .dispatchEvent(new Event('submit', { cancelable: true }));
     expect(input.type).toBe('password');
+  });
+
+  it('sets up an input that is rendered after the password input', () => {
+    const fixture = TestBed.createComponent(LateInputHostComponent);
+    fixture.detectChanges();
+    fixture.componentInstance.showInput.set(true);
+    fixture.detectChanges();
+    const element = fixture.nativeElement as HTMLElement;
+    const input = element.querySelector('input') as HTMLInputElement;
+
+    expect(element.querySelector('label')?.getAttribute('for')).toBe(
+      'late-password',
+    );
+    expect(input.type).toBe('password');
+    expect(input.classList).toContain('govuk-password-input__input');
+    expect(input.getAttribute('autocomplete')).toBe('current-password');
+  });
+
+  it('has no space around the button text or the status', () => {
+    const { button, status, click } = setup();
+    expect(button.textContent).toBe('Show');
+    expect(status.textContent).toBe('');
+    click();
+    expect(button.textContent).toBe('Hide');
+    expect(status.textContent).toBe('Your password is visible');
+  });
+
+  it('tells screen readers when submitting the form hides the password', () => {
+    const { fixture, element, status, click } = setup();
+    click();
+    element
+      .querySelector('form')!
+      .dispatchEvent(new Event('submit', { cancelable: true }));
+    fixture.detectChanges();
+    expect(status.textContent).toBe('Your password is hidden');
+  });
+
+  it('says nothing when submitting the form with the password hidden', () => {
+    const { fixture, element, status } = setup();
+    element
+      .querySelector('form')!
+      .dispatchEvent(new Event('submit', { cancelable: true }));
+    fixture.detectChanges();
+    expect(status.textContent).toBe('');
+  });
+
+  it('takes its text in another language', () => {
+    const fixture = TestBed.createComponent(WelshHostComponent);
+    fixture.detectChanges();
+    const element = fixture.nativeElement as HTMLElement;
+    const button = element.querySelector('button') as HTMLButtonElement;
+    const status = element.querySelector(
+      '.govuk-password-input__sr-status',
+    ) as HTMLElement;
+    expect(button.textContent).toBe('Dangos');
+    expect(button.getAttribute('aria-label')).toBe('Dangos cyfrinair');
+
+    button.click();
+    fixture.detectChanges();
+    expect(button.textContent).toBe('Cuddio');
+    expect(button.getAttribute('aria-label')).toBe('Cuddio cyfrinair');
+    expect(status.textContent).toBe('Mae eich cyfrinair yn weladwy');
+
+    button.click();
+    fixture.detectChanges();
+    expect(status.textContent).toBe("Mae eich cyfrinair wedi'i guddio");
   });
 });

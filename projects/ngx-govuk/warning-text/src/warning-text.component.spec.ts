@@ -13,7 +13,22 @@ import { NgxGovukWarningText } from './warning-text.component';
 })
 class TestHostComponent {}
 
+@Component({
+  imports: [NgxGovukWarningText],
+  template: `<ngx-govuk-warning-text
+    >You can be fined.</ngx-govuk-warning-text
+  >`,
+})
+class OneLineHostComponent {}
+
 describe('NgxGovukWarningText', () => {
+  it('separates the hidden text from a warning written on one line', () => {
+    const fixture = TestBed.createComponent(OneLineHostComponent);
+    fixture.detectChanges();
+    const text = fixture.nativeElement.querySelector('strong').textContent;
+    expect(text).toBe('Warning You can be fined.');
+  });
+
   it('matches the GOV.UK markup snapshot', () => {
     const fixture = TestBed.createComponent(TestHostComponent);
     fixture.detectChanges();

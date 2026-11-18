@@ -16,23 +16,33 @@ with two projects:
 `scripts/extract-api.mts` builds the docs site's API reference from the
 library source.
 
+`projects/ngx-govuk/README.md` is the README published to npm. It is a copy
+of the root `README.md`: edit the root one, then copy it over unchanged.
+Keep its links absolute so they work on npm. The README's opening paragraph
+("ngx-govuk is a community resource of the GOV.UK Design System…") is the
+standard disclaimer from GOV.UK's
+[contribution criteria](https://design-system.service.gov.uk/community/contribution-criteria/),
+which a resource needs to be listed on the Design System's community
+resources page. Don't reword it.
+
 ## Commands
 
-| Command                    | Does                                                |
-| -------------------------- | --------------------------------------------------- |
-| `npm run lib:build`        | Builds the library into `dist/ngx-govuk`            |
-| `npm run lib:test`         | Runs the library's tests once                       |
-| `npm run lib:test:update`  | Runs them and rewrites changed snapshots            |
-| `npm run lib:lint`         | Lints the library                                   |
-| `npm run website:start`    | Writes the API reference, then serves the docs site |
-| `npm run website:build`    | Writes the API reference, then builds the docs site |
-| `npm run website:test`     | Runs the docs site's tests once                     |
-| `npm run website:lint`     | Lints the docs site                                 |
-| `npm run website:api`      | Writes the API reference only                       |
-| `npm run website:api:test` | Tests the API extractor                             |
-| `npm run lint`             | Lints the whole repository with ESLint              |
-| `npm run format`           | Formats the whole repository with Prettier          |
-| `npm run format:check`     | Checks formatting without changing files            |
+| Command                    | Does                                                            |
+| -------------------------- | --------------------------------------------------------------- |
+| `npm run lib:build`        | Builds the library into `dist/ngx-govuk`                        |
+| `npm run lib:test`         | Runs the library's tests once                                   |
+| `npm run lib:test:update`  | Runs them and rewrites changed snapshots                        |
+| `npm run lib:lint`         | Lints the library                                               |
+| `npm run website:start`    | Writes the API reference and sitemap, then serves the docs site |
+| `npm run website:build`    | Writes the API reference and sitemap, then builds the docs site |
+| `npm run website:test`     | Runs the docs site's tests once                                 |
+| `npm run website:lint`     | Lints the docs site                                             |
+| `npm run website:api`      | Writes the API reference only                                   |
+| `npm run website:sitemap`  | Writes the docs site's sitemap only                             |
+| `npm run website:api:test` | Tests the API extractor                                         |
+| `npm run lint`             | Lints the whole repository with ESLint                          |
+| `npm run format`           | Formats the whole repository with Prettier                      |
+| `npm run format:check`     | Checks formatting without changing files                        |
 
 CI runs on every push and pull request: it lints the whole repository, builds
 and tests the library, and runs the docs site's and API extractor's tests. On
@@ -64,16 +74,77 @@ its Design System URL.
   selectors `ngx-govuk-` and attribute selectors `ngxGovuk`. Lint enforces
   the selectors.
 - Use a directive on the native element where GOV.UK's markup is a single
-  element (`a[ngxGovukButton]`, `input[ngxGovukTextInput]`), so it keeps all
-  its own attributes, and a component where GOV.UK wraps content.
+  element (`a[ngxGovukBackLink]`, `input[ngxGovukTextInput]`), so it keeps all
+  its own attributes, and a component where GOV.UK wraps content. If the
+  native element needs markup of its own inside it, such as the start
+  button's icon, make it a component with the same attribute selector
+  (`a[ngxGovukButton]`) and render that markup from its template, never by
+  editing the DOM. Do the same where the native element brings behaviour or
+  content of its own (`details[ngxGovukDetails]` opens and closes,
+  `nav[ngxGovukBreadcrumbs]` wraps projected links). Lint only allows element
+  selectors for components, so disable the rule on that line and say why.
+- Otherwise, make the component's own element GOV.UK's outermost element,
+  never a wrapper around it: set the root's classes and attributes with
+  `host` and leave it out of the template, so a consumer's `id`, classes and
+  attributes land where GOV.UK's CSS expects them. Add
+  `styles: ':where(:host:not([hidden])) { display: block; }'`, as custom
+  elements are inline, unless GOV.UK's CSS already sets the root's
+  `display`. The `:where` keeps the rule's specificity at 0, so GOV.UK's own
+  rules on the root, such as one that hides it, still win. Where
+  the root is an element a custom element can't stand in for, such as a
+  `fieldset` or `nav`, and the native element adds little, keep the element
+  selector and render the root in the template (`ngx-govuk-fieldset`,
+  `ngx-govuk-language-navigation`).
 - Use `input()`, `input.required()`, `model()` and `output()`, not
   decorators. Use `model()` for state a consumer may want to bind both ways,
   such as the accordion panel's `expanded`.
+- Set host classes and attributes with the `host` property, such as
+  `'[class.govuk-button--inverse]': 'inverse()'`, not `@HostBinding`.
+- Give every true/false input `booleanAttribute`, as in
+  `input(false, { transform: booleanAttribute })`, so it can be written as a
+  bare attribute. Models can't take a transform.
+- Name inputs after GOV.UK's options and modifiers where there is one, and
+  the same way across components: `inverse` for dark backgrounds,
+  `headingLevel` for a heading's level (an `input<1 | 2 | 3 | 4 | 5 | 6>`
+  rendered with `@switch`). A landmark's label takes GOV.UK's name for it,
+  which varies: `labelText` on the breadcrumbs, `ariaLabel` on the cookie
+  banner, language navigation and service navigation.
+- Don't give an input the name of a native HTML attribute unless it means
+  the same thing, as `disabled`, `name` and `value` do on the radios. Written
+  bare, it stays in the DOM as that attribute, where the browser or
+  assistive technology may act on it, and it reads as HTML's own. Where
+  GOV.UK's option has such a name, name the input for what it does instead,
+  as `inline` on the service navigation's end slot does for GOV.UK's
+  `align: 'inline'`.
+- When an input departs from GOV.UK's option in a way the docs site's
+  "Using components" guide doesn't cover (flattened text options, projected
+  content instead of `html`, element `classes` and `attributes`, projected
+  components), say so in its JSDoc and name the option it replaces, as the
+  error summary's `fieldId` does for `href`.
+- Never move, wrap or create elements around content Angular rendered, such
+  as wrapping a projected link in an `li`. Angular loses track of them when
+  the content comes from `@for`, and hydration fails. When a parent needs
+  to wrap each item, make the item a structural directive
+  (`*ngxGovukBreadcrumbsItem`) that exposes its `TemplateRef`, and have the
+  parent render the wrapper and the template. See the breadcrumbs and the
+  summary list's actions.
+- Add the behaviour GOV.UK Frontend's JavaScript adds, in Angular, rather
+  than loading its JavaScript: for example, the accordion's
+  `hidden="until-found"`.
+- Put a component's template in its own `.html` file with `templateUrl`.
+  Keep it inline only when it is a single line, such as `<ng-content />`.
 - Don't set `changeDetection`: OnPush is the default in Angular 22, which
   the library requires.
 - Form fields are directives that provide themselves as `NGX_GOVUK_FIELD`
-  and go inside `ngx-govuk-form-group`, which adds the label, hint and error
-  message. See the text input and textarea.
+  and go inside `ngx-govuk-form-group`, which adds the label and hint. See
+  the text input and textarea.
+- Components the GOV.UK Design System documents on their own, such as the
+  error message, have their own entry point and are projected into the
+  components that use them. Label, hint and legend are only options of other
+  components there, so they stay string inputs. A parent finds a projected
+  error message with `contentChild(..., { descendants: false })`, places it
+  with `ng-content select`, and gives it its id through an `@internal`
+  signal.
 
 ### Public API
 
@@ -129,6 +200,17 @@ GOV.UK Frontend today, and ideas for testing it automatically.
   lists the selector, inputs (including models), outputs and documented
   methods; other properties are deliberately left out.
 
+### Search engines
+
+`PageMetaStrategy` (`projects/website/src/app/page-meta.strategy.ts`) sets
+each page's title, meta description, canonical link and Open Graph tags. A
+route gives its `title` and `data.description`; component pages take both
+from `components.data.ts`, and pages for components that aren't documented
+are marked `noindex`. `npm run website:sitemap` writes `sitemap.xml` from the
+guides and documented components, so new pages are listed without editing
+it. The site's address is `https://www.ngx-govuk.org`: the bare domain
+redirects there.
+
 ### Styling
 
 The site has two looks, kept apart on purpose:
@@ -155,16 +237,23 @@ warns past 2 kB per component.
 Each example is a small standalone component in
 `projects/website/src/app/routes/components/examples/<component>/<name>.component.{ts,html}`,
 listed for its component in `examples.ts`. The page renders it live, with
-its template underneath as code.
+its template underneath as code, labelled "Template". An example that can't
+run on the site, such as one that needs routes of its own, leaves out `load`
+and shows as code only; its description says so.
 
 - The code shown is the example's `.html` file itself: the build copies the
   `examples/` folder to the site, and the page fetches the template from
   there. So the template is exactly what readers copy. Keep it realistic and
   self-contained, with no demo-only wrappers, and give links a real target
   with `routerLink="."`, not `href="#"`.
-- The `.ts` file isn't shown on component pages, since the API section gives
-  the import. It only needs to import what the template uses. A guide can
-  show it too with `showComponentCode`, when the class does real work.
+- The `.ts` file is shown only when the template uses members of the class,
+  such as the cookie banner's signals: set `showComponentCode` on its entry
+  in `examples.ts`, and the page shows it under the template, labelled
+  "Component". Otherwise the API section gives the import, so the class
+  only needs to import what the template uses. When it is shown, name it and
+  its files as real code would be: `CookieBannerComponent` in
+  `cookie-banner.component.ts`, not `…DemoComponent` in
+  `default.component.ts`.
 - The first example shows the default and has no title. Each later one has a
   `title` and a `description`: a short, factual line on how to get that
   variant, such as which input to set. Guidance on when to use it belongs to
@@ -178,9 +267,10 @@ its template underneath as code.
 The supported versions of Angular and GOV.UK Frontend are in two places: the
 compatibility table in `README.md` and the Supported versions section of the
 docs site's Help and support page (`projects/website/src/app/routes/support/`).
-When the library's peer dependencies change, add a row to both, and update
-the versions named on the home page, the Get started overview and the
-Installing ngx-govuk guide.
+When the library's peer dependencies change, add an identical row to both,
+giving the ngx-govuk minor versions and the exact peer dependency ranges,
+copy the README to the library, and update the versions named on the home
+page, the Get started overview and the Installing ngx-govuk guide.
 
 ## Branches and releases
 

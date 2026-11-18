@@ -5,6 +5,7 @@ import { CodeBlockComponent } from '../components/component-code/code-block.comp
 /** Guide to installing ngx-govuk and GOV.UK Frontend. */
 @Component({
   selector: 'ngx-govuk-get-started',
+  host: { class: 'app-numbered-sections' },
   imports: [RouterLink, CodeBlockComponent],
   templateUrl: './get-started.component.html',
   styleUrl: './get-started.component.scss',
@@ -14,18 +15,28 @@ export class GetStartedComponent {
   contents = [
     { id: 'requirements', heading: 'Requirements' },
     { id: 'install', heading: 'Install packages from npm' },
-    { id: 'page-classes', heading: 'Add GOV.UK classes to the page' },
+    { id: 'provider', heading: 'Add the ngx-govuk provider' },
+    { id: 'layout', heading: 'Page layout' },
     { id: 'styles', heading: 'Include GOV.UK styles' },
     { id: 'font', heading: 'Choose a font' },
   ];
 
   INSTALL_CODE = `npm install ngx-govuk govuk-frontend`;
 
-  BODY_CSS_CODE = `<html lang="en" class="govuk-template">
-  <body class="govuk-template__body govuk-frontend-supported">`;
+  PROVIDER_CODE = `import { ApplicationConfig } from '@angular/core';
+import { provideRouter } from '@angular/router';
+import { provideNgxGovuk } from 'ngx-govuk';
+import { routes } from './app.routes';
+
+export const appConfig: ApplicationConfig = {
+  providers: [provideRouter(routes), provideNgxGovuk()],
+};`;
 
   LAYOUT_CODE = `<a href="#main-content" ngxGovukSkipLink>Skip to main content</a>
-<!-- Your header, such as ngx-govuk-header or ngx-govuk-generic-header -->
+<header class="govuk-template__header">
+  <!-- Your header, such as ngx-govuk-header or ngx-govuk-generic-header,
+       and ngx-govuk-service-navigation -->
+</header>
 
 <div class="govuk-width-container">
   <main class="govuk-main-wrapper" id="main-content">
@@ -33,13 +44,24 @@ export class GetStartedComponent {
   </main>
 </div>
 
-<!-- Your footer, such as ngx-govuk-footer -->`;
+<footer class="govuk-template__footer">
+  <!-- Your footer, such as ngx-govuk-footer -->
+</footer>`;
 
   SASS_ALL_CODE = `// styles.scss
 // On service.gov.uk, leave out "with (...)" to keep GDS Transport.
 @use 'govuk-frontend' with (
   $govuk-font-family: ("Helvetica Neue", Helvetica, Arial, sans-serif)
 );`;
+
+  IMAGES_CODE = `// angular.json, in your project's build options
+"assets": [
+  {
+    "glob": "**/*",
+    "input": "node_modules/govuk-frontend/dist/govuk/assets/images",
+    "output": "assets/images"
+  }
+]`;
 
   SASS_CHERRY_PICK_CODE = `// styles.scss
 // On service.gov.uk, leave out "with (...)" to keep GDS Transport.

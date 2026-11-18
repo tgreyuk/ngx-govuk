@@ -4,8 +4,9 @@ import { CodeBlockComponent } from './code-block.component';
 
 /**
  * Shows the template of a component's demo, which the build copies to
- * `examples/`. Component pages need only the template: the API section has
- * the imports. Guides whose demo class does real work can show it too.
+ * `examples/`. Most demos need only the template: the API section has the
+ * imports. When the template uses members of the class, the class is shown
+ * too. Each block is labelled.
  */
 @Component({
   selector: 'ngx-govuk-example-code',
@@ -16,7 +17,7 @@ export class ComponentCodeComponent {
   /** The demo's path under `examples/`, such as "button/secondary". */
   path = input<string>('');
 
-  /** Also shows the demo's component class, for demos where it does real work. */
+  /** Also shows the demo's class, for demos whose template uses its members. */
   showComponentCode = input(false, { transform: booleanAttribute });
 
   // Both reload when path changes: the router reuses the page when

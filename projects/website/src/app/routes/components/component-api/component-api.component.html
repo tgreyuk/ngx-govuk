@@ -1,81 +1,237 @@
-@if (importCode(); as code) {
-  <!-- Space before the first class, which has no line above it. -->
-  <div class="govuk-!-margin-bottom-6">
-    <app-code-block [code]="code" lang="angular-ts" />
-  </div>
-}
-
-@for (apiClass of classes(); track apiClass.name) {
-  <!-- A heavy line between classes, not above the first. -->
-  @if (!$first) {
-    <hr
-      class="govuk-section-break govuk-section-break--l govuk-section-break--visible app-api-class-break"
-    />
-  }
-  <ng-template #className>
-    {{ apiClass.name }}
-    <strong class="govuk-tag app-api-kind">{{ apiClass.kind }}</strong>
-  </ng-template>
-  @if (headingLevel() === 2) {
-    <h2 class="govuk-heading-m">
-      <ng-container *ngTemplateOutlet="className" />
-    </h2>
-  } @else {
-    <h3 class="govuk-heading-m">
-      <ng-container *ngTemplateOutlet="className" />
-    </h3>
-  }
-
-  @for (paragraph of apiClass.description; track $index) {
-    <p class="govuk-body" [innerHTML]="paragraph"></p>
-  }
-
-  <ng-container
-    *ngTemplateOutlet="subheading; context: { $implicit: 'Selector' }"
-  />
-
-  <p class="govuk-body app-api-under-heading">
-    <code class="app-api-code">{{ apiClass.selector }}</code>
-  </p>
-
-  <!-- Only sections with something in them: no empty "None" sections. -->
-  @for (section of apiClass.sections; track section.title) {
-    @if (section.entries.length) {
-      <ng-container
-        *ngTemplateOutlet="subheading; context: { $implicit: section.title }"
-      />
-      <dl class="app-api-list govuk-body">
-        @for (entry of section.entries; track entry.name) {
-          <div class="app-api-list__item">
-            <dt>
-              <span class="app-api-name">{{ entry.name }}</span>
-              <code class="app-api-code">{{ entry.type }}</code>
-              @if (entry.required) {
-                <strong class="app-api-required">Required</strong>
-              }
-            </dt>
-            <dd>
-              @for (paragraph of entry.description; track $index) {
-                <p class="govuk-body" [innerHTML]="paragraph"></p>
-              }
-              @if (entry.default !== undefined) {
-                <p class="govuk-body app-api-default">
-                  Default <code class="app-api-code">{{ entry.default }}</code>
-                </p>
-              }
-            </dd>
-          </div>
-        }
-      </dl>
+<!-- A link to every item on the page, in its group. Not needed for one. -->
+@if (showContents()) {
+  <nav class="app-api-contents" aria-label="API contents">
+    @for (group of contents(); track group.title) {
+      <div class="app-api-contents__group">
+        <p class="app-api-contents__title" [id]="'api-contents-' + $index">
+          {{ group.title }}
+        </p>
+        <ul
+          class="app-api-contents__list"
+          [attr.aria-labelledby]="'api-contents-' + $index"
+        >
+          @for (name of group.items; track name) {
+            <li>
+              <a class="govuk-link" routerLink="." [fragment]="name">{{
+                name
+              }}</a>
+            </li>
+          }
+        </ul>
+      </div>
     }
-  }
+  </nav>
 }
 
-<!-- One level under the class name: Selector, Inputs and so on. -->
+@if (classes().length) {
+  <section class="app-api-group">
+    <ng-container
+      *ngTemplateOutlet="
+        groupHeading;
+        context: { $implicit: 'Components and directives' }
+      "
+    />
+    <ng-container
+      *ngTemplateOutlet="importBlock; context: { $implicit: classImport() }"
+    />
+
+    @for (apiClass of classes(); track apiClass.name) {
+      <!-- A line between items, not above the first. -->
+      @if (!$first) {
+        <hr
+          class="govuk-section-break govuk-section-break--l govuk-section-break--visible"
+        />
+      }
+      <ng-container
+        *ngTemplateOutlet="
+          itemHeading;
+          context: { $implicit: apiClass.name, kind: apiClass.kind }
+        "
+      />
+
+      @for (paragraph of apiClass.description; track $index) {
+        <p class="govuk-body" [innerHTML]="paragraph"></p>
+      }
+
+      <ng-container
+        *ngTemplateOutlet="subheading; context: { $implicit: 'Selector' }"
+      />
+
+      <p class="govuk-body app-api-under-heading">
+        <code class="app-api-code">{{ apiClass.selector }}</code>
+      </p>
+
+      <!-- Only sections with something in them: no empty "None" sections. -->
+      @for (section of apiClass.sections; track section.title) {
+        @if (section.entries.length) {
+          <ng-container
+            *ngTemplateOutlet="
+              subheading;
+              context: { $implicit: section.title }
+            "
+          />
+          <ng-container
+            *ngTemplateOutlet="
+              entryList;
+              context: { $implicit: section.entries }
+            "
+          />
+        }
+      }
+    }
+  </section>
+}
+
+<!-- The interfaces and type aliases, after the classes. -->
+@if (types().length) {
+  <section class="app-api-group">
+    <ng-container
+      *ngTemplateOutlet="groupHeading; context: { $implicit: 'Types' }"
+    />
+    <ng-container
+      *ngTemplateOutlet="importBlock; context: { $implicit: typeImport() }"
+    />
+
+    @for (apiType of types(); track apiType.name) {
+      @if (!$first) {
+        <hr
+          class="govuk-section-break govuk-section-break--l govuk-section-break--visible"
+        />
+      }
+      <ng-container
+        *ngTemplateOutlet="
+          itemHeading;
+          context: { $implicit: apiType.name, kind: apiType.kind }
+        "
+      />
+
+      @for (paragraph of apiType.description; track $index) {
+        <p class="govuk-body" [innerHTML]="paragraph"></p>
+      }
+
+      @if (apiType.type) {
+        <ng-container
+          *ngTemplateOutlet="subheading; context: { $implicit: 'Type' }"
+        />
+        <p class="govuk-body app-api-under-heading">
+          <ng-container
+            *ngTemplateOutlet="typeCode; context: { $implicit: apiType.type }"
+          />
+        </p>
+      }
+
+      @if (apiType.properties.length) {
+        <ng-container
+          *ngTemplateOutlet="subheading; context: { $implicit: 'Properties' }"
+        />
+        <ng-container
+          *ngTemplateOutlet="
+            entryList;
+            context: { $implicit: apiType.properties }
+          "
+        />
+      }
+    }
+  </section>
+}
+
+<!-- The import for a group, under its heading. -->
+<ng-template #importBlock let-code>
+  @if (code) {
+    <div class="govuk-!-margin-bottom-6">
+      <app-code-block [code]="code" lang="angular-ts" />
+    </div>
+  }
+</ng-template>
+
+<!-- "Components and directives" or "Types": at headingLevel. -->
+<ng-template #groupHeading let-title>
+  @if (headingLevel() === 2) {
+    <h2 class="govuk-heading-l app-api-group__heading">{{ title }}</h2>
+  } @else {
+    <h3 class="govuk-heading-l app-api-group__heading">{{ title }}</h3>
+  }
+</ng-template>
+
+<!-- A class or type's name, with its kind as a tag: one level under its
+     group. The name is its id, for the contents list and the links from
+     types that use it. -->
+<ng-template #itemHeading let-name let-kind="kind">
+  @if (headingLevel() === 2) {
+    <h3 class="govuk-heading-m" [id]="name">
+      {{ name }}
+      <span class="app-badge app-badge--large app-badge--strong">{{
+        kind
+      }}</span>
+    </h3>
+  } @else {
+    <h4 class="govuk-heading-m" [id]="name">
+      {{ name }}
+      <span class="app-badge app-badge--large app-badge--strong">{{
+        kind
+      }}</span>
+    </h4>
+  }
+</ng-template>
+
+<!-- Inputs, outputs, methods or properties: each name and type, with its
+     description underneath. -->
+<ng-template #entryList let-entries>
+  <dl class="app-api-list govuk-body">
+    @for (entry of entries; track entry.name) {
+      <div class="app-api-list__item">
+        <dt>
+          <span class="app-api-name">{{ entry.name }}</span>
+          <ng-container
+            *ngTemplateOutlet="typeCode; context: { $implicit: entry.type }"
+          />
+          @if (entry.required) {
+            <strong class="app-api-required">Required</strong>
+          }
+        </dt>
+        <dd>
+          @for (paragraph of entry.description; track $index) {
+            <p class="govuk-body" [innerHTML]="paragraph"></p>
+          }
+          @if (entry.default !== undefined) {
+            <p class="govuk-body app-api-default">
+              Default <code class="app-api-code">{{ entry.default }}</code>
+            </p>
+          }
+        </dd>
+      </div>
+    }
+  </dl>
+</ng-template>
+
+<!-- A type as code, with the entry point's own type names linked to them.
+     A union's members are each their own code, with the | between them as
+     plain text. Each part is wrapped, with no whitespace beside its text, so
+     Angular adds no spaces between the parts. -->
+<ng-template #typeCode let-members>
+  @for (parts of members; track $index) {
+    @if (!$first) {
+      |
+    }
+    <code class="app-api-code">
+      @for (part of parts; track $index) {
+        @if (part.link) {
+          <a class="govuk-link" routerLink="." [fragment]="part.link">{{
+            part.text
+          }}</a>
+        } @else {
+          <ng-container>{{ part.text }}</ng-container>
+        }
+      }
+    </code>
+  }
+</ng-template>
+
+<!-- One level under an item's name: Selector, Inputs and so on. -->
 <ng-template #subheading let-title>
   @if (headingLevel() === 2) {
-    <h3 class="govuk-heading-s app-api-heading">{{ title }}</h3>
-  } @else {
     <h4 class="govuk-heading-s app-api-heading">{{ title }}</h4>
+  } @else {
+    <h5 class="govuk-heading-s app-api-heading">{{ title }}</h5>
   }
 </ng-template>

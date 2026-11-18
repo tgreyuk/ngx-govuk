@@ -52,14 +52,14 @@ exports[`NgxGovukRadiosDivider > matches the GOV.UK markup snapshot 1`] = `
   >
     <input
       class="govuk-radios__input"
-      id="where-3"
+      id="where-4"
       name="where"
       type="radio"
       value="abroad"
     />
     <label
       class="govuk-label govuk-radios__label"
-      for="where-3"
+      for="where-4"
     >
       I am a British citizen living abroad
     </label>

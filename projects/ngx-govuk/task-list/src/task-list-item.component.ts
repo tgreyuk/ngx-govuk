@@ -1,4 +1,10 @@
-import { Component, computed, inject, input } from '@angular/core';
+import {
+  Component,
+  computed,
+  inject,
+  input,
+  booleanAttribute,
+} from '@angular/core';
 import { RouterLink, UrlTree } from '@angular/router';
 import { NgxGovukUtilsService } from 'ngx-govuk';
 
@@ -19,32 +25,11 @@ import { NgxGovukUtilsService } from 'ngx-govuk';
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'li[ngxGovukTaskListItem]',
   imports: [RouterLink],
+  templateUrl: './task-list-item.component.html',
   host: {
     class: 'govuk-task-list__item',
     '[class.govuk-task-list__item--with-link]': '!!link()',
   },
-  template: `<div class="govuk-task-list__name-and-hint">
-      @if (link(); as link) {
-        <a
-          class="govuk-link govuk-task-list__link"
-          [routerLink]="link"
-          [attr.aria-describedby]="describedBy()"
-          >{{ titleText() }}</a
-        >
-      } @else {
-        <div>{{ titleText() }}</div>
-      }
-      @if (hint()) {
-        <div [id]="hintId" class="govuk-task-list__hint">{{ hint() }}</div>
-      }
-    </div>
-    <div
-      class="govuk-task-list__status"
-      [class.govuk-task-list__status--cannot-start-yet]="cannotStartYet()"
-      [id]="statusId"
-    >
-      <ng-content></ng-content>
-    </div>`,
 })
 export class NgxGovukTaskListItem {
   private id = inject(NgxGovukUtilsService).randomId('task-list');
@@ -57,7 +42,7 @@ export class NgxGovukTaskListItem {
   titleText = input.required<string>();
 
   /**
-   * Where the task's link goes, as you'd give it to `routerLink`. Leave it
+   * Where the task's link goes, in any form `routerLink` accepts. Leave it
    * unset while users can't start the task, to show its name as text.
    */
   link = input<string | readonly unknown[] | UrlTree>();
@@ -71,7 +56,7 @@ export class NgxGovukTaskListItem {
    * Greys out the status, for a task users can't start yet, such as one
    * that depends on another task.
    */
-  cannotStartYet = input<boolean>(false);
+  cannotStartYet = input(false, { transform: booleanAttribute });
 
   protected describedBy = computed(() =>
     this.hint() ? `${this.hintId} ${this.statusId}` : this.statusId,

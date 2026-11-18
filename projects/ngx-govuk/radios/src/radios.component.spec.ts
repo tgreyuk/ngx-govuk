@@ -1,23 +1,37 @@
 import { Component, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { NgxGovukErrorMessage } from 'ngx-govuk/error-message';
 import { NgxGovukUtilsService } from 'ngx-govuk';
 import { MockProvider } from 'ng-mocks';
-import { NgxGovukRadio, NgxGovukRadios } from './radios.component';
+import { NgxGovukFormGroup } from 'ngx-govuk/form-group';
+import { NgxGovukTextInput } from 'ngx-govuk/text-input';
+import {
+  NgxGovukRadio,
+  NgxGovukRadioConditional,
+  NgxGovukRadios,
+} from './radios.component';
 
 @Component({
-  imports: [NgxGovukRadios, NgxGovukRadio, ReactiveFormsModule],
+  imports: [
+    NgxGovukErrorMessage,
+    NgxGovukRadios,
+    NgxGovukRadio,
+    ReactiveFormsModule,
+  ],
   template: `
     <ngx-govuk-radios
       id="contact-radios"
       name="contact"
       legend="How would you like to be contacted?"
       [hint]="hint()"
-      [errorMessage]="errorMessage()"
       [asPageHeading]="asPageHeading()"
       [inline]="inline()"
       [formControl]="control"
     >
+      @if (errorMessage()) {
+        <p ngxGovukErrorMessage>{{ errorMessage() }}</p>
+      }
       <ngx-govuk-radio value="email">Email</ngx-govuk-radio>
       <ngx-govuk-radio value="phone" hint="We'll call in office hours">
         Phone
@@ -39,6 +53,29 @@ class HostComponent {
   inline = signal(false);
   choice = signal<string | null>('no');
 }
+
+@Component({
+  imports: [
+    NgxGovukErrorMessage,
+    NgxGovukFormGroup,
+    NgxGovukRadio,
+    NgxGovukRadioConditional,
+    NgxGovukRadios,
+    NgxGovukTextInput,
+  ],
+  template: `
+    <ngx-govuk-radios name="contact" legend="How should we contact you?">
+      <ngx-govuk-radio value="email">
+        Email
+        <ngx-govuk-form-group *ngxGovukRadioConditional label="Email address">
+          <p ngxGovukErrorMessage>Enter an email address</p>
+          <input id="contact-email" ngxGovukTextInput />
+        </ngx-govuk-form-group>
+      </ngx-govuk-radio>
+    </ngx-govuk-radios>
+  `,
+})
+class ConditionalErrorHostComponent {}
 
 describe('NgxGovukRadios', () => {
   function setup() {
@@ -64,6 +101,11 @@ describe('NgxGovukRadios', () => {
     host.asPageHeading.set(true);
     fixture.detectChanges();
     expect($('#contact-radios')).toMatchSnapshot();
+  });
+
+  it('renders the legend text with no space around it', () => {
+    const { $ } = setup();
+    expect($('legend').textContent).toBe('How would you like to be contacted?');
   });
 
   it('bases the ids on the name, as GOV.UK Frontend does', () => {
@@ -135,7 +177,7 @@ describe('NgxGovukRadios', () => {
 
     host.errorMessage.set('Select how you would like to be contacted');
     fixture.detectChanges();
-    expect($('#contact-radios .govuk-form-group').classList).toContain(
+    expect($('#contact-radios.govuk-form-group').classList).toContain(
       'govuk-form-group--error',
     );
     expect($('#contact-error').textContent?.replace(/\s+/g, ' ').trim()).toBe(
@@ -158,5 +200,18 @@ describe('NgxGovukRadios', () => {
     expect($('#contact-radios .govuk-radios').classList).toContain(
       'govuk-radios--inline',
     );
+  });
+
+  it("leaves out an error message in an option's conditional content", () => {
+    const fixture = TestBed.createComponent(ConditionalErrorHostComponent);
+    fixture.detectChanges();
+    const element = fixture.nativeElement as HTMLElement;
+    expect(element.querySelector('ngx-govuk-radios')?.classList).not.toContain(
+      'govuk-form-group--error',
+    );
+    expect(
+      element.querySelector('fieldset')?.hasAttribute('aria-describedby'),
+    ).toBe(false);
+    expect(element.querySelector('#contact-email-error')).not.toBeNull();
   });
 });

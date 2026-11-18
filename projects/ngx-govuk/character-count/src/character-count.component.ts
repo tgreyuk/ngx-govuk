@@ -1,19 +1,26 @@
 import {
-  AfterContentInit,
   Component,
   DestroyRef,
   Renderer2,
+  afterEveryRender,
+  afterNextRender,
   computed,
   contentChild,
   effect,
   inject,
   input,
   signal,
+  untracked,
+  booleanAttribute,
 } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NgControl } from '@angular/forms';
-import { NgxGovukUtilsService } from 'ngx-govuk';
+import {
+  NgxGovukPluralText,
+  NgxGovukUtilsService,
+  formatPluralText,
+} from 'ngx-govuk';
 import { NgxGovukTextarea } from 'ngx-govuk/textarea';
+import { NgxGovukErrorMessage } from 'ngx-govuk/error-message';
 
 /** How long users stop typing before screen readers hear the count. */
 const SCREEN_READER_DELAY = 1000;
@@ -30,10 +37,11 @@ export type NgxGovukCountType = 'length' | 'characters' | 'words';
  * textarea.
  *
  * Use it in place of `ngx-govuk-form-group`: put a `textarea` with
- * `ngxGovukTextarea` inside it, and it adds the label, hint, error message
- * and count. Users can type past the limit, and the count tells them how many
- * characters or words to remove, as GOV.UK recommends. Check the length when
- * the form is submitted too, counting the same way.
+ * `ngxGovukTextarea` inside it, and it adds the label, hint and count. To
+ * show an error, put a `p` with `ngxGovukErrorMessage` inside it too. Users can type past the limit, and the count tells them how many
+ * characters or words to remove, as GOV.UK recommends, so a `maxlength`
+ * attribute on the textarea is removed. Check the length when the form is
+ * submitted too, counting the same way.
  *
  * The textarea keeps its own `id`, or one is generated. The hint, error
  * message and count get ids based on it.
@@ -41,8 +49,14 @@ export type NgxGovukCountType = 'length' | 'characters' | 'words';
 @Component({
   selector: 'ngx-govuk-character-count',
   templateUrl: './character-count.component.html',
+  host: {
+    class: 'govuk-form-group govuk-character-count',
+    '[class.govuk-form-group--error]': '!!errorMessage()',
+  },
+  // Custom elements are inline by default; GOV.UK's styles expect a block.
+  styles: ':where(:host:not([hidden])) { display: block; }',
 })
-export class NgxGovukCharacterCount implements AfterContentInit {
+export class NgxGovukCharacterCount {
   private renderer = inject(Renderer2);
   private destroyRef = inject(DestroyRef);
   private utilsService = inject(NgxGovukUtilsService);
@@ -61,22 +75,15 @@ export class NgxGovukCharacterCount implements AfterContentInit {
   labelSize = input<'s' | 'm' | 'l' | 'xl'>();
 
   /**
-   * Makes the label the page heading. Use it when the page asks just one
+   * Makes the label the page heading. Use it when the page asks only one
    * question.
    */
-  asPageHeading = input<boolean>(false);
+  asPageHeading = input(false, { transform: booleanAttribute });
 
   /**
    * Hint text, to help users answer the question.
    */
   hint = input<string>();
-
-  /**
-   * The error message. When it's set, the character count and its textarea
-   * show their error styles. Set it when validation fails, such as after the
-   * form is submitted.
-   */
-  errorMessage = input<string | null>();
 
   /**
    * The most characters users should enter, or words when `countType` is
@@ -97,9 +104,76 @@ export class NgxGovukCharacterCount implements AfterContentInit {
    */
   threshold = input<number>();
 
+  /**
+   * Classes to add to the count message.
+   */
+  countMessageClasses = input<string>();
+
+  /**
+   * What screen readers hear about the limit, such as `You can enter up to
+   * %{count} characters`. `%{count}` is replaced with `maxLength`.
+   */
+  textareaDescriptionText = input<string>();
+
+  /**
+   * The count when users are under the character limit. `%{count}` is
+   * replaced with the number of characters left.
+   */
+  charactersUnderLimitText = input<NgxGovukPluralText>({
+    one: 'You have %{count} character remaining',
+    other: 'You have %{count} characters remaining',
+  });
+
+  /**
+   * The count when users reach the character limit.
+   */
+  charactersAtLimitText = input('You have 0 characters remaining');
+
+  /**
+   * The count when users are over the character limit. `%{count}` is
+   * replaced with the number of characters to remove.
+   */
+  charactersOverLimitText = input<NgxGovukPluralText>({
+    one: 'You have %{count} character too many',
+    other: 'You have %{count} characters too many',
+  });
+
+  /**
+   * The count when users are under the word limit. `%{count}` is replaced
+   * with the number of words left.
+   */
+  wordsUnderLimitText = input<NgxGovukPluralText>({
+    one: 'You have %{count} word remaining',
+    other: 'You have %{count} words remaining',
+  });
+
+  /**
+   * The count when users reach the word limit.
+   */
+  wordsAtLimitText = input('You have 0 words remaining');
+
+  /**
+   * The count when users are over the word limit. `%{count}` is replaced
+   * with the number of words to remove.
+   */
+  wordsOverLimitText = input<NgxGovukPluralText>({
+    one: 'You have %{count} word too many',
+    other: 'You have %{count} words too many',
+  });
+
   protected fieldId = signal('');
   protected hintId = computed(() => `${this.fieldId()}-hint`);
   protected errorId = computed(() => `${this.fieldId()}-error`);
+
+  /** The projected error message, if there is one. */
+  protected errorMessage = contentChild(NgxGovukErrorMessage, {
+    descendants: false,
+  });
+
+  /** Gives the projected error message the id GOV.UK Frontend uses. */
+  private linkErrorMessage = effect(() =>
+    this.errorMessage()?.fieldErrorId.set(this.errorId()),
+  );
   protected infoId = computed(() => `${this.fieldId()}-info`);
 
   protected labelClasses = computed(() => {
@@ -108,6 +182,7 @@ export class NgxGovukCharacterCount implements AfterContentInit {
   });
 
   private element?: HTMLTextAreaElement;
+  private pluralRules = signal(new Intl.PluralRules('en'));
   private segmenters = new Map<NgxGovukCountType, Intl.Segmenter>();
   private value = signal('');
   private screenReaderValue = signal('');
@@ -120,16 +195,18 @@ export class NgxGovukCharacterCount implements AfterContentInit {
     const threshold = this.threshold();
     return !!threshold && this.length() < (this.maxLength() * threshold) / 100;
   });
-  protected unit = computed(() =>
-    this.countType() === 'words' ? 'words' : 'characters',
+  protected description = computed(() =>
+    (
+      this.textareaDescriptionText() ??
+      `You can enter up to %{count} ${
+        this.countType() === 'words' ? 'words' : 'characters'
+      }`
+    ).replace('%{count}', String(this.maxLength())),
   );
-  protected message = computed(() =>
-    countMessage(this.remaining(), this.unit()),
-  );
+  protected message = computed(() => this.countMessage(this.remaining()));
   protected screenReaderMessage = computed(() =>
-    countMessage(
+    this.countMessage(
       this.maxLength() - this.countOf(this.screenReaderValue()),
-      this.unit(),
     ),
   );
 
@@ -141,11 +218,47 @@ export class NgxGovukCharacterCount implements AfterContentInit {
       this.initialDescribedBy(),
       this.infoId(),
       this.hint() ? this.hintId() : '',
-      this.errorMessage() ? this.errorId() : '',
+      this.errorMessage()?.id() ?? '',
     ]
       .filter(Boolean)
       .join(' '),
   );
+
+  /**
+   * Sets up the textarea once it's rendered, which can be after the
+   * character count, such as when it's inside `@if`.
+   */
+  private setUpTextarea = effect((onCleanup) => {
+    const element = this.textarea()?.elementRef.nativeElement;
+    if (!element) {
+      return;
+    }
+    untracked(() => {
+      this.initialDescribedBy.set(
+        element.getAttribute('aria-describedby') ?? '',
+      );
+      if (!element.id) {
+        this.renderer.setAttribute(
+          element,
+          'id',
+          this.utilsService.randomId('field'),
+        );
+      }
+      this.fieldId.set(element.id);
+      this.removeMaxLength(element);
+      const lang = element.closest('[lang]')?.getAttribute('lang') || 'en';
+      this.pluralRules.set(new Intl.PluralRules(lang));
+
+      this.element = element;
+      const count = () => this.count(element.value);
+      onCleanup(this.renderer.listen(element, 'input', count));
+      // A form control can change the value without an input event.
+      const subscription = this.control()?.valueChanges?.subscribe(count);
+      onCleanup(() => subscription?.unsubscribe());
+      this.value.set(element.value);
+      this.screenReaderValue.set(element.value);
+    });
+  });
 
   constructor() {
     effect(() => {
@@ -162,32 +275,54 @@ export class NgxGovukCharacterCount implements AfterContentInit {
     });
 
     this.destroyRef.onDestroy(() => clearTimeout(this.screenReaderTimer));
+
+    // Bindings, signal forms and the browser can set the value without an
+    // input event, so check it after each render.
+    afterEveryRender(() => this.checkValue());
+    // A page restored from the back/forward cache isn't rendered again.
+    afterNextRender(() => {
+      const unlisten = this.renderer.listen('window', 'pageshow', () =>
+        this.checkValue(),
+      );
+      this.destroyRef.onDestroy(unlisten);
+    });
   }
 
-  ngAfterContentInit(): void {
-    const element = this.textarea()?.elementRef.nativeElement;
+  /** Counts the value again if it changed without an input event. */
+  private checkValue(): void {
+    const element = this.element;
     if (!element) {
       return;
     }
-    this.initialDescribedBy.set(element.getAttribute('aria-describedby') ?? '');
-    if (!element.id) {
-      this.renderer.setAttribute(
-        element,
-        'id',
-        this.utilsService.randomId('field'),
-      );
+    // Angular's maxlength validator can add the attribute back.
+    this.removeMaxLength(element);
+    if (element.value !== this.value()) {
+      this.count(element.value);
     }
-    this.fieldId.set(element.id);
+  }
 
-    this.element = element;
-    const count = () => this.count(element.value);
-    this.renderer.listen(element, 'input', count);
-    // A form control can change the value without an input event.
-    this.control()
-      ?.valueChanges?.pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(count);
-    this.value.set(element.value);
-    this.screenReaderValue.set(element.value);
+  /** Lets users type past the limit, as GOV.UK Frontend does. */
+  private removeMaxLength(element: HTMLTextAreaElement): void {
+    if (element.hasAttribute('maxlength')) {
+      this.renderer.removeAttribute(element, 'maxlength');
+    }
+  }
+
+  /** The count message for the count type, such as `You have 5 characters remaining`. */
+  private countMessage(remaining: number): string {
+    const words = this.countType() === 'words';
+    if (remaining === 0) {
+      return words ? this.wordsAtLimitText() : this.charactersAtLimitText();
+    }
+    const texts =
+      remaining < 0
+        ? words
+          ? this.wordsOverLimitText()
+          : this.charactersOverLimitText()
+        : words
+          ? this.wordsUnderLimitText()
+          : this.charactersUnderLimitText();
+    return formatPluralText(texts, Math.abs(remaining), this.pluralRules());
   }
 
   private count(value: string): void {
@@ -237,13 +372,4 @@ export class NgxGovukCharacterCount implements AfterContentInit {
     }
     return segmenter;
   }
-}
-
-/** GOV.UK Frontend's count message, such as `You have 5 characters remaining`. */
-function countMessage(remaining: number, unit: 'characters' | 'words'): string {
-  const count = Math.abs(remaining);
-  const units = count === 1 ? unit.slice(0, -1) : unit;
-  return remaining < 0
-    ? `You have ${count} ${units} too many`
-    : `You have ${count} ${units} remaining`;
 }

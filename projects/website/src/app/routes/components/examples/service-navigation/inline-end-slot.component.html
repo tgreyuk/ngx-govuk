@@ -1,0 +1,15 @@
+<ngx-govuk-service-navigation
+  serviceName="Service name"
+  serviceLink="."
+  [navigation]="[
+    { text: 'Item 1', routerLink: '.' },
+    { text: 'Item 2', routerLink: '.', active: true },
+  ]">
+  <ngx-govuk-language-navigation
+    ngxGovukServiceNavigationEnd
+    inline
+    [items]="[
+      { text: 'English', lang: 'en' },
+      { text: 'Cymraeg', lang: 'cy', routerLink: '.' },
+    ]" />
+</ngx-govuk-service-navigation>

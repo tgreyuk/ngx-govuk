@@ -5,7 +5,11 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import { NGX_GOVUK_FIELD, NgxGovukField } from 'ngx-govuk';
+import {
+  addErrorSummaryTarget,
+  NGX_GOVUK_FIELD,
+  NgxGovukField,
+} from 'ngx-govuk';
 
 /**
  * Styles a `select` element as a GOV.UK select, to let users choose an
@@ -37,4 +41,8 @@ export class NgxGovukSelect implements NgxGovukField {
    * @internal
    */
   hasError = signal(false);
+
+  constructor() {
+    addErrorSummaryTarget(() => this.elementRef.nativeElement.id || null);
+  }
 }

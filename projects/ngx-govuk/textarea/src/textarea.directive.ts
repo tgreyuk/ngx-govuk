@@ -7,7 +7,11 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import { NGX_GOVUK_FIELD, NgxGovukField } from 'ngx-govuk';
+import {
+  addErrorSummaryTarget,
+  NGX_GOVUK_FIELD,
+  NgxGovukField,
+} from 'ngx-govuk';
 
 /**
  * Styles a `textarea` element as a GOV.UK textarea.
@@ -40,7 +44,11 @@ export class NgxGovukTextarea implements NgxGovukField, OnInit {
    */
   hasError = signal(false);
 
-  get field(): HTMLTextAreaElement {
+  constructor() {
+    addErrorSummaryTarget(() => this.elementRef.nativeElement.id || null);
+  }
+
+  private get field(): HTMLTextAreaElement {
     return this.elementRef.nativeElement;
   }
 

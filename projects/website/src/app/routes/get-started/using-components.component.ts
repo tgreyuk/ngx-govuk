@@ -5,10 +5,23 @@ import { CodeBlockComponent } from '../components/component-code/code-block.comp
 /** Guide to importing components and using their inputs, outputs and methods. */
 @Component({
   selector: 'ngx-govuk-using-components',
+  host: { class: 'app-numbered-sections' },
   imports: [RouterLink, CodeBlockComponent],
   templateUrl: './using-components.component.html',
 })
 export class UsingComponentsComponent {
+  contents = [
+    { id: 'import-components', heading: 'Import components' },
+    { id: 'native-elements', heading: 'Native elements' },
+    { id: 'classes-and-attributes', heading: 'Classes and attributes' },
+    { id: 'components-with-parts', heading: 'Components with parts' },
+    { id: 'inputs', heading: 'Inputs' },
+    { id: 'two-way-binding', heading: 'Two-way binding' },
+    { id: 'methods', heading: 'Methods' },
+    { id: 'links-and-the-router', heading: 'Links and the router' },
+    { id: 'form-fields', heading: 'Form fields' },
+  ];
+
   IMPORT_CODE = `import { Component } from '@angular/core';
 import { NgxGovukButton } from 'ngx-govuk/button';
 import { NgxGovukDetails } from 'ngx-govuk/details';
@@ -17,9 +30,9 @@ import { NgxGovukDetails } from 'ngx-govuk/details';
   selector: 'app-example',
   imports: [NgxGovukButton, NgxGovukDetails],
   template: \`
-    <ngx-govuk-details summaryText="Help with this page">
+    <details ngxGovukDetails summaryText="Help with this page">
       Contact us if you need help.
-    </ngx-govuk-details>
+    </details>
     <button ngxGovukButton>Save and continue</button>
   \`,
 })
@@ -32,6 +45,19 @@ export class ExampleComponent {}`;
 <a ngxGovukButton routerLink="/apply">Start now</a>
 
 <a ngxGovukBackLink routerLink="/apply/address">Back</a>`;
+
+  NATIVE_CODE = `<details ngxGovukDetails summaryText="Help with nationality" [open]="showHelp()">
+  We need to know your nationality so we can work out which elections you can vote in.
+</details>
+
+<nav ngxGovukBreadcrumbs>
+  <a *ngxGovukBreadcrumbsItem routerLink="/">Home</a>
+  <a *ngxGovukBreadcrumbsItem routerLink="/passports">Passports</a>
+</nav>`;
+
+  CLASSES_CODE = `<ngx-govuk-panel id="confirmation" class="govuk-!-margin-bottom-0" titleText="Application complete">
+  Your reference number<br /><strong>HDJ2123F</strong>
+</ngx-govuk-panel>`;
 
   PARTS_CODE = `import { NgxGovukAccordion, NgxGovukAccordionPanel } from 'ngx-govuk/accordion';
 

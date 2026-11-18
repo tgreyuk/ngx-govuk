@@ -63,13 +63,13 @@ exports[`NgxGovukCheckbox exclusive > matches the GOV.UK markup snapshot 1`] = `
     <input
       class="govuk-checkboxes__input"
       data-behaviour="exclusive"
-      id="waste-3"
+      id="waste-4"
       name="waste"
       type="checkbox"
     />
     <label
       class="govuk-label govuk-checkboxes__label"
-      for="waste-3"
+      for="waste-4"
     >
        None of these 
     </label>

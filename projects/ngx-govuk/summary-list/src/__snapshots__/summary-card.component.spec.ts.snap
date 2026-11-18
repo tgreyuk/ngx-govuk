@@ -2,150 +2,153 @@
 
 exports[`NgxGovukSummaryCard > matches the GOV.UK markup snapshot 1`] = `
 <div>
-  <ngx-govuk-summary-card>
+  <ngx-govuk-summary-card
+    class="govuk-summary-card"
+  >
     <div
-      class="govuk-summary-card"
+      class="govuk-summary-card__title-wrapper"
     >
-      <div
-        class="govuk-summary-card__title-wrapper"
+      <h2
+        class="govuk-summary-card__title"
       >
-        <h2
-          class="govuk-summary-card__title"
+        Undergraduate teaching assistant
+      </h2>
+      <ul
+        class="govuk-summary-card__actions"
+      >
+        <li
+          class="govuk-summary-card__action"
         >
-          Undergraduate teaching assistant
-        </h2>
-        <ul
-          class="govuk-summary-card__actions"
+          <a
+            class="govuk-link"
+            href="/delete"
+            ngxgovuksummaryactionlink=""
+          >
+            Delete job history
+            <span
+              class="govuk-visually-hidden"
+            >
+               (Undergraduate teaching assistant)
+            </span>
+          </a>
+        </li>
+        <li
+          class="govuk-summary-card__action"
         >
-          <li
-            class="govuk-summary-card__action"
+          <a
+            class="govuk-link"
+            href="/withdraw"
+            ngxgovuksummaryactionlink=""
+          >
+            Withdraw job history
+            <span
+              class="govuk-visually-hidden"
+            >
+               (Undergraduate teaching assistant)
+            </span>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div
+      class="govuk-summary-card__content"
+    >
+      <dl
+        class="govuk-summary-list"
+        ngxgovuksummarylist=""
+      >
+        <div
+          class="govuk-summary-list__row"
+          key="Name"
+          ngxgovuksummarylistrow=""
+        >
+          <dt
+            class="govuk-summary-list__key"
+          >
+            Name
+          </dt>
+          <dd
+            class="govuk-summary-list__value"
+          >
+             Firstname Lastname 
+          </dd>
+          <dd
+            class="govuk-summary-list__actions"
+          >
+            <ul
+              class="govuk-summary-list__actions-list"
+            >
+              <li
+                class="govuk-summary-list__actions-list-item"
+              >
+                <a
+                  class="govuk-link"
+                  href="/name/edit"
+                  ngxgovuksummaryactionlink=""
+                  visuallyhiddentext="name"
+                >
+                  Edit
+                  <span
+                    class="govuk-visually-hidden"
+                  >
+                     name (Undergraduate teaching assistant)
+                  </span>
+                </a>
+              </li>
+              <li
+                class="govuk-summary-list__actions-list-item"
+              >
+                <a
+                  class="govuk-link"
+                  href="/name/delete"
+                  ngxgovuksummaryactionlink=""
+                  visuallyhiddentext="name"
+                >
+                  Delete
+                  <span
+                    class="govuk-visually-hidden"
+                  >
+                     name (Undergraduate teaching assistant)
+                  </span>
+                </a>
+              </li>
+            </ul>
+          </dd>
+        </div>
+        <div
+          class="govuk-summary-list__row"
+          key="Date of birth"
+          ngxgovuksummarylistrow=""
+        >
+          <dt
+            class="govuk-summary-list__key"
+          >
+            Date of birth
+          </dt>
+          <dd
+            class="govuk-summary-list__value"
+          >
+             13/08/1980 
+          </dd>
+          <dd
+            class="govuk-summary-list__actions"
           >
             <a
               class="govuk-link"
-              href="/delete"
+              href="/dob"
+              ngxgovuksummaryactionlink=""
+              visuallyhiddentext="date of birth"
             >
-              Delete job history
+              Change
               <span
                 class="govuk-visually-hidden"
               >
-                 (Undergraduate teaching assistant)
+                 date of birth (Undergraduate teaching assistant)
               </span>
             </a>
-          </li>
-          <li
-            class="govuk-summary-card__action"
-          >
-            <a
-              class="govuk-link"
-              href="/withdraw"
-            >
-              Withdraw job history
-              <span
-                class="govuk-visually-hidden"
-              >
-                 (Undergraduate teaching assistant)
-              </span>
-            </a>
-          </li>
-        </ul>
-      </div>
-      <div
-        class="govuk-summary-card__content"
-      >
-        <dl
-          class="govuk-summary-list"
-          ngxgovuksummarylist=""
-        >
-          <div
-            class="govuk-summary-list__row"
-            key="Name"
-            ngxgovuksummarylistrow=""
-          >
-            <dt
-              class="govuk-summary-list__key"
-            >
-              Name
-            </dt>
-            <dd
-              class="govuk-summary-list__value"
-            >
-               Firstname Lastname 
-            </dd>
-            <dd
-              class="govuk-summary-list__actions"
-            >
-              <ul
-                class="govuk-summary-list__actions-list"
-              >
-                <li
-                  class="govuk-summary-list__actions-list-item"
-                >
-                  <a
-                    class="govuk-link"
-                    href="/name/edit"
-                  >
-                    Edit
-                    <span
-                      class="govuk-visually-hidden"
-                    >
-                       name
-                       (Undergraduate teaching assistant)
-                    </span>
-                  </a>
-                </li>
-                <li
-                  class="govuk-summary-list__actions-list-item"
-                >
-                  <a
-                    class="govuk-link"
-                    href="/name/delete"
-                  >
-                    Delete
-                    <span
-                      class="govuk-visually-hidden"
-                    >
-                       name
-                       (Undergraduate teaching assistant)
-                    </span>
-                  </a>
-                </li>
-              </ul>
-            </dd>
-          </div>
-          <div
-            class="govuk-summary-list__row"
-            key="Date of birth"
-            ngxgovuksummarylistrow=""
-          >
-            <dt
-              class="govuk-summary-list__key"
-            >
-              Date of birth
-            </dt>
-            <dd
-              class="govuk-summary-list__value"
-            >
-               13/08/1980 
-            </dd>
-            <dd
-              class="govuk-summary-list__actions"
-            >
-              <a
-                class="govuk-link"
-                href="/dob"
-              >
-                Change
-                <span
-                  class="govuk-visually-hidden"
-                >
-                   date of birth
-                   (Undergraduate teaching assistant)
-                </span>
-              </a>
-            </dd>
-          </div>
-        </dl>
-      </div>
+          </dd>
+        </div>
+      </dl>
     </div>
   </ngx-govuk-summary-card>
 </div>
@@ -154,60 +157,58 @@ exports[`NgxGovukSummaryCard > matches the GOV.UK markup snapshot 1`] = `
 exports[`NgxGovukSummaryCard > matches the GOV.UK markup snapshot with one card action 1`] = `
 <div>
   <ngx-govuk-summary-card
+    class="govuk-summary-card"
     titletext="University of Gloucestershire"
   >
     <div
-      class="govuk-summary-card"
+      class="govuk-summary-card__title-wrapper"
     >
-      <div
-        class="govuk-summary-card__title-wrapper"
+      <h3
+        class="govuk-summary-card__title"
       >
-        <h3
-          class="govuk-summary-card__title"
+        University of Gloucestershire
+      </h3>
+      <div
+        class="govuk-summary-card__actions"
+      >
+        <a
+          class="govuk-link"
+          href="/delete"
+          ngxgovuksummaryactionlink=""
         >
-          University of Gloucestershire
-        </h3>
+          Delete
+          <span
+            class="govuk-visually-hidden"
+          >
+             (University of Gloucestershire)
+          </span>
+        </a>
+      </div>
+    </div>
+    <div
+      class="govuk-summary-card__content"
+    >
+      <dl
+        class="govuk-summary-list"
+        ngxgovuksummarylist=""
+      >
         <div
-          class="govuk-summary-card__actions"
+          class="govuk-summary-list__row"
+          key="Course"
+          ngxgovuksummarylistrow=""
         >
-          <a
-            class="govuk-link"
-            href="/delete"
+          <dt
+            class="govuk-summary-list__key"
           >
-            Delete
-            <span
-              class="govuk-visually-hidden"
-            >
-               (University of Gloucestershire)
-            </span>
-          </a>
+            Course
+          </dt>
+          <dd
+            class="govuk-summary-list__value"
+          >
+            English
+          </dd>
         </div>
-      </div>
-      <div
-        class="govuk-summary-card__content"
-      >
-        <dl
-          class="govuk-summary-list"
-          ngxgovuksummarylist=""
-        >
-          <div
-            class="govuk-summary-list__row"
-            key="Course"
-            ngxgovuksummarylistrow=""
-          >
-            <dt
-              class="govuk-summary-list__key"
-            >
-              Course
-            </dt>
-            <dd
-              class="govuk-summary-list__value"
-            >
-              English
-            </dd>
-          </div>
-        </dl>
-      </div>
+      </dl>
     </div>
   </ngx-govuk-summary-card>
 </div>

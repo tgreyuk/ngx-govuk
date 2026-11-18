@@ -1,5 +1,11 @@
 <span class="govuk-caption-xl">Get started</span>
 <h1 class="govuk-heading-xl">Installing ngx-govuk</h1>
+
+<p class="govuk-body-l">
+  Add ngx-govuk and GOV.UK Frontend to your Angular app, then set up the page,
+  styles and font that GOV.UK's components expect.
+</p>
+
 <div class="govuk-!-margin-bottom-8">
   <h2 class="govuk-heading-m">Contents</h2>
   <ol class="govuk-list govuk-list--number">
@@ -23,7 +29,8 @@
       <li>Angular 22</li>
       <li>
         GOV.UK Frontend (the
-        <code class="app-inline-code">govuk-frontend</code> package) 6
+        <code class="app-inline-code">govuk-frontend</code> package) 6.6 or
+        later
       </li>
     </ul>
   </div>
@@ -35,34 +42,44 @@
       Frontend's markup, and GOV.UK Frontend provides the styles.
     </p>
     <app-code-block [code]="INSTALL_CODE" lang="shellscript" />
+  </div>
+
+  <div class="govuk-!-margin-bottom-8">
+    <h2 class="govuk-heading-m" id="provider">Add the ngx-govuk provider</h2>
+    <p class="govuk-body">
+      Add <code class="app-inline-code">provideNgxGovuk()</code> to the
+      <code class="app-inline-code">providers</code> in your app's config. It
+      takes the place of GOV.UK Frontend's
+      <code class="app-inline-code">initAll()</code>.
+    </p>
+    <app-code-block [code]="PROVIDER_CODE" lang="angular-ts" />
+    <p class="govuk-body">
+      It adds the classes GOV.UK Frontend's page template puts on the page:
+      <code class="app-inline-code">govuk-template</code> on the html element
+      and <code class="app-inline-code">govuk-template__body</code> on the body,
+      which set the page's background and text sizing. You do not need to add
+      them to your <code class="app-inline-code">index.html</code> file.
+    </p>
+    <p class="govuk-body">
+      When your app starts in the browser, it also adds
+      <code class="app-inline-code">govuk-frontend-supported</code> to the body,
+      as the page template does with a small inline script. The styles for the
+      accordion, tabs and conditionally revealed questions depend on it, and
+      without it they show their no-JavaScript fallback. With server-side
+      rendering, this class is only added in the browser, so users without
+      JavaScript still get the fallback.
+    </p>
     <p class="govuk-body">
       You only need GOV.UK Frontend's styles. Do not load its JavaScript or call
       <code class="app-inline-code">initAll()</code>: ngx-govuk components
-      handle their own behaviour, and GOV.UK Frontend's scripts would add a
-      second set of behaviour to the same elements.
+      handle their own behaviour, and they do not have the
+      <code class="app-inline-code">data-module</code> attributes GOV.UK
+      Frontend's scripts look for, so the scripts would do nothing.
     </p>
   </div>
 
   <div class="govuk-!-margin-bottom-8">
-    <h2 class="govuk-heading-m" id="page-classes">
-      Add GOV.UK classes to the page
-    </h2>
-    <p class="govuk-body">
-      In your <code class="app-inline-code">index.html</code> file, add
-      <code class="app-inline-code">govuk-template</code> to the html tag, and
-      <code class="app-inline-code">govuk-template__body</code> and
-      <code class="app-inline-code">govuk-frontend-supported</code> to the body
-      tag. GOV.UK Frontend's page template uses these classes to set the page
-      background and text sizing.
-    </p>
-    <p class="govuk-body">
-      GOV.UK's page template adds
-      <code class="app-inline-code">govuk-frontend-supported</code> with a small
-      inline script. The accordion and tabs styles depend on it, and without it
-      they show their no-JavaScript fallback. ngx-govuk components do not need
-      that script, so add the class directly.
-    </p>
-    <app-code-block [code]="BODY_CSS_CODE" lang="angular-html" />
+    <h2 class="govuk-heading-m" id="layout">Page layout</h2>
     <p class="govuk-body">
       In your root component's template, put the page's content in a
       <code class="app-inline-code">govuk-width-container</code> and a
@@ -70,6 +87,15 @@
       <code class="app-inline-code">govuk-main-wrapper</code>, as GOV.UK's page
       template does. These set the page's width and spacing. The header and
       footer go outside them, since they set their own width.
+    </p>
+    <p class="govuk-body">
+      Put the header and service navigation in a
+      <code class="app-inline-code">header</code> element with
+      <code class="app-inline-code">govuk-template__header</code>, and the
+      footer in a <code class="app-inline-code">footer</code> element with
+      <code class="app-inline-code">govuk-template__footer</code>. GOV.UK's
+      header and footer components don't include these elements, which tell
+      screen reader users where the page's header and footer are.
     </p>
     <app-code-block [code]="LAYOUT_CODE" lang="angular-html" />
   </div>
@@ -103,6 +129,14 @@
       <a class="govuk-link" routerLink="." fragment="font">Choose a font</a>.
     </p>
     <app-code-block [code]="SASS_ALL_CODE" lang="scss" />
+    <p class="govuk-body">
+      Copy GOV.UK Frontend's images with an
+      <code class="app-inline-code">assets</code> entry in
+      <code class="app-inline-code">angular.json</code>. The footer's styles
+      load the Royal Arms above the copyright notice from
+      <code class="app-inline-code">/assets/images/govuk-crest.svg</code>.
+    </p>
+    <app-code-block [code]="IMAGES_CODE" lang="jsonc" />
 
     <h3 class="govuk-heading-s" id="styles-selected">
       Load only the styles you use
@@ -131,7 +165,8 @@
       Angular's build warns about a CSS syntax error in this file,
       <code class="app-inline-code">Expected "&#123;" but found "("</code>. It
       comes from an old Internet Explorer workaround in GOV.UK Frontend's
-      details styles and is harmless. The Sass options don't cause it.
+      details styles and does not affect your app. The Sass options don't cause
+      it.
     </p>
   </div>
 

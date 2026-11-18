@@ -7,14 +7,30 @@
   and connects them to the field.
 </p>
 
-<h2 class="govuk-heading-m">How a field is built</h2>
+<div class="govuk-!-margin-bottom-8">
+  <h2 class="govuk-heading-m">Contents</h2>
+  <ol class="govuk-list govuk-list--number">
+    @for (item of contents; track item.id) {
+      <li>
+        <a
+          class="govuk-link govuk-link--no-visited-state"
+          routerLink="."
+          [fragment]="item.id"
+          >{{ item.heading }}</a
+        >
+      </li>
+    }
+  </ol>
+</div>
+
+<h2 class="govuk-heading-m" id="how-a-field-is-built">How a field is built</h2>
 <p class="govuk-body">
   Add a field directive, such as
   <code class="app-inline-code">ngxGovukTextInput</code>, to a native element
   and put it inside a
   <a class="govuk-link" routerLink="/components/form-group">form group</a>
-  (<code class="app-inline-code">ngx-govuk-form-group</code>). The element stays
-  yours: every native attribute and Angular forms directive works as usual.
+  (<code class="app-inline-code">ngx-govuk-form-group</code>). The element keeps
+  all its native attributes, and Angular forms directives work on it unchanged.
 </p>
 <p class="govuk-body">
   Reactive and template-driven forms both work. The examples here use
@@ -43,7 +59,7 @@
   </li>
 </ul>
 
-<h2 class="govuk-heading-m">Other fields</h2>
+<h2 class="govuk-heading-m" id="other-fields">Other fields</h2>
 <p class="govuk-body">
   The
   <a class="govuk-link" routerLink="/components/character-count"
@@ -53,9 +69,9 @@
   <a class="govuk-link" routerLink="/components/password-input"
     >password input</a
   >
-  take the form group's place: put a textarea or input with its field directive
-  inside them, and they add the label, hint and error message as well as their
-  own count or "Show" button.
+  are used instead of a form group: put a textarea or input with its field
+  directive inside them, and they add the label, hint and error message as well
+  as their own count or "Show" button.
 </p>
 <p class="govuk-body">
   <a class="govuk-link" routerLink="/components/checkboxes">Checkboxes</a>,
@@ -73,7 +89,7 @@
   >.
 </p>
 
-<h2 class="govuk-heading-m">Groups of fields</h2>
+<h2 class="govuk-heading-m" id="groups-of-fields">Groups of fields</h2>
 <p class="govuk-body">
   To group related fields under one question, such as the lines of an address,
   put them in a
@@ -82,12 +98,14 @@
   their own fieldset, so they don't need one.
 </p>
 
-<h2 class="govuk-heading-m">Showing errors</h2>
+<h2 class="govuk-heading-m" id="showing-errors">Showing errors</h2>
 <p class="govuk-body">
-  Set <code class="app-inline-code">errorMessage</code> when your validation
-  fails. The form group then shows the message and adds the error styles to
-  itself and the field. Leave it unset, or set it to null, when there is no
-  error.
+  When your validation fails, put a <code class="app-inline-code">p</code> with
+  <code class="app-inline-code">ngxGovukErrorMessage</code> inside the form
+  group, using <code class="app-inline-code">&#64;if</code>. The form group
+  shows it between the hint and the field, and adds the error styles to itself
+  and the field while it is shown. Import it from
+  <code class="app-inline-code">ngx-govuk/error-message</code>.
 </p>
 <p class="govuk-body">
   GOV.UK's
@@ -104,20 +122,25 @@
 </p>
 <app-code-block [code]="ERROR_CODE" lang="angular-html" />
 
-<h2 class="govuk-heading-m">Error summary</h2>
+<h2 class="govuk-heading-m" id="error-summary">Error summary</h2>
 <p class="govuk-body">
   When a form has errors, GOV.UK also shows an
   <a class="govuk-link" routerLink="/components/error-summary">error summary</a>
   at the top of the main content, with a link to each field that has an error.
   Show <code class="app-inline-code">ngx-govuk-error-summary</code> only when
-  there are errors, and give it the same messages as the fields. Each link's
-  <code class="app-inline-code">href</code> is
-  <code class="app-inline-code">#</code> and the field's
-  <code class="app-inline-code">id</code>.
+  there are errors, and give it the same messages as the fields. Link each error
+  to its field with <code class="app-inline-code">control</code>, the field's
+  form control. The summary finds the field wherever it is on the page. For a
+  field without a form control, use
+  <code class="app-inline-code">fieldId</code>, the field's
+  <code class="app-inline-code">id</code>, instead.
 </p>
 <p class="govuk-body">
   The summary takes focus when it appears, so screen reader users hear it.
-  Selecting a link moves focus to the field.
+  Selecting a link moves focus to the field. If users try to continue again
+  while the summary is showing, it doesn't appear again, so it doesn't take
+  focus. Call its <code class="app-inline-code">focus()</code> method then, as
+  <code class="app-inline-code">continue()</code> does in the code below.
 </p>
 <app-code-block [code]="SUMMARY_HTML_CODE" lang="angular-html" />
 <p class="govuk-body">
@@ -128,20 +151,22 @@
 </p>
 <app-code-block [code]="SUMMARY_TS_CODE" lang="angular-ts" />
 
-<h2 class="govuk-heading-m">Labels</h2>
+<h2 class="govuk-heading-m" id="labels">Labels</h2>
 <p class="govuk-body">
   Use <code class="app-inline-code">labelSize</code> (<code
     class="app-inline-code"
     >s</code
   >, <code class="app-inline-code">m</code>,
   <code class="app-inline-code">l</code> or
-  <code class="app-inline-code">xl</code>) for a bigger label. If a page asks
-  just one question, make the label the page heading with
+  <code class="app-inline-code">xl</code>) for a larger label. If a page asks
+  only one question, make the label the page heading with
   <code class="app-inline-code">asPageHeading</code>; it is large by default.
 </p>
 <app-code-block [code]="LABEL_CODE" lang="angular-html" />
 
-<h2 class="govuk-heading-m">Prefixes and suffixes</h2>
+<h2 class="govuk-heading-m" id="prefixes-and-suffixes">
+  Prefixes and suffixes
+</h2>
 <p class="govuk-body">
   Use <code class="app-inline-code">prefix</code> and
   <code class="app-inline-code">suffix</code> for units, such as currency.
@@ -149,7 +174,9 @@
 </p>
 <app-code-block [code]="AFFIX_CODE" lang="angular-html" />
 
-<h2 class="govuk-heading-m">Ids and screen readers</h2>
+<h2 class="govuk-heading-m" id="ids-and-screen-readers">
+  Ids and screen readers
+</h2>
 <p class="govuk-body">
   Give each field an <code class="app-inline-code">id</code>, so error summaries
   and labels can link to it. If a field has none, the form group generates one.

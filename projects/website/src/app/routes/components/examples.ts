@@ -10,8 +10,10 @@ export interface Example {
   /**
    * Loads the demo component. Each loads only when its page opens, so the
    * site's first download doesn't hold every example and library component.
+   * Leave it out to show the example as code only, such as one that needs
+   * routes of its own.
    */
-  load: () => Promise<Type<unknown>>;
+  load?: () => Promise<Type<unknown>>;
   /** Not needed for the first example, which shows the default. */
   title?: string;
   /**
@@ -19,6 +21,16 @@ export interface Example {
    * set. Guidance on when to use it belongs to the GOV.UK Design System.
    */
   description?: string;
+  /**
+   * Shows the demo's class under its template. Set it when the template
+   * uses members of the class, such as signals or methods.
+   */
+  showComponentCode?: boolean;
+  /**
+   * Adds a button that puts the demo back in its first state. Set it when
+   * the demo can end up empty, such as a cookie banner once it is hidden.
+   */
+  resettable?: boolean;
 }
 
 /** Each documented component's examples, in page order. */
@@ -30,6 +42,16 @@ export const EXAMPLES: Record<string, Example[]> = {
         import('./examples/accordion/default.component').then(
           (m) => m.AccordionDemoComponent,
         ),
+    },
+    {
+      path: 'accordion/summary',
+      load: () =>
+        import('./examples/accordion/summary.component').then(
+          (m) => m.AccordionSummaryDemoComponent,
+        ),
+      title: 'Summary lines',
+      description:
+        'Set "summary" on each panel to add a line under its heading.',
     },
   ],
   'back-link': [
@@ -93,7 +115,7 @@ export const EXAMPLES: Record<string, Example[]> = {
           (m) => m.ButtonDisabledDemoComponent,
         ),
       title: 'Disabled button',
-      description: 'Add the native "disabled" attribute.',
+      description: 'Add the "disabled" attribute.',
     },
     {
       path: 'button/group',
@@ -105,21 +127,33 @@ export const EXAMPLES: Record<string, Example[]> = {
       description:
         'Wrap buttons, and any links, in "ngx-govuk-button-group" to lay them out together.',
     },
+    {
+      path: 'button/prevent-double-click',
+      load: () =>
+        import('./examples/button/prevent-double-click.component').then(
+          (m) => m.ButtonPreventDoubleClickDemoComponent,
+        ),
+      title: 'Stop users submitting twice',
+      description:
+        'Set "preventDoubleClick" to ignore a second click within 1 second.',
+    },
   ],
   'character-count': [
     {
-      path: 'character-count/default',
+      path: 'character-count/more-detail',
       load: () =>
-        import('./examples/character-count/default.component').then(
-          (m) => m.CharacterCountDemoComponent,
+        import('./examples/character-count/more-detail.component').then(
+          (m) => m.MoreDetailComponent,
         ),
+      showComponentCode: true,
     },
     {
-      path: 'character-count/words',
+      path: 'character-count/job-description',
       load: () =>
-        import('./examples/character-count/words.component').then(
-          (m) => m.CharacterCountWordsDemoComponent,
+        import('./examples/character-count/job-description.component').then(
+          (m) => m.JobDescriptionComponent,
         ),
+      showComponentCode: true,
       title: 'Word count',
       description:
         'Set "countType" to "words" to count words, and "maxLength" to the most words users should enter.',
@@ -127,28 +161,31 @@ export const EXAMPLES: Record<string, Example[]> = {
   ],
   checkboxes: [
     {
-      path: 'checkboxes/default',
+      path: 'checkboxes/waste-types',
       load: () =>
-        import('./examples/checkboxes/default.component').then(
-          (m) => m.CheckboxesDemoComponent,
+        import('./examples/checkboxes/waste-types.component').then(
+          (m) => m.WasteTypesComponent,
         ),
+      showComponentCode: true,
     },
     {
-      path: 'checkboxes/conditional',
+      path: 'checkboxes/contact-methods',
       load: () =>
-        import('./examples/checkboxes/conditional.component').then(
-          (m) => m.CheckboxesConditionalDemoComponent,
+        import('./examples/checkboxes/contact-methods.component').then(
+          (m) => m.ContactMethodsComponent,
         ),
+      showComponentCode: true,
       title: 'Conditionally revealing a related question',
       description:
         'Add content inside "ngx-govuk-checkbox" with "*ngxGovukCheckboxConditional" to show it only while that checkbox is checked.',
     },
     {
-      path: 'checkboxes/none',
+      path: 'checkboxes/travel-countries',
       load: () =>
-        import('./examples/checkboxes/none.component').then(
-          (m) => m.CheckboxesNoneDemoComponent,
+        import('./examples/checkboxes/travel-countries.component').then(
+          (m) => m.TravelCountriesComponent,
         ),
+      showComponentCode: true,
       title: 'Add an option for "none"',
       description:
         'Add "exclusive" to the last checkbox, after a "div" with "ngxGovukCheckboxesDivider". Checking it unchecks the others, and checking another unchecks it.',
@@ -156,20 +193,23 @@ export const EXAMPLES: Record<string, Example[]> = {
   ],
   'cookie-banner': [
     {
-      path: 'cookie-banner/default',
+      path: 'cookie-banner/cookie-banner',
       load: () =>
-        import('./examples/cookie-banner/default.component').then(
-          (m) => m.CookieBannerDemoComponent,
+        import('./examples/cookie-banner/cookie-banner.component').then(
+          (m) => m.CookieBannerComponent,
         ),
+      showComponentCode: true,
+      resettable: true,
     },
   ],
   'date-input': [
     {
-      path: 'date-input/default',
+      path: 'date-input/passport-issued',
       load: () =>
-        import('./examples/date-input/default.component').then(
-          (m) => m.DateInputDemoComponent,
+        import('./examples/date-input/passport-issued.component').then(
+          (m) => m.PassportIssuedComponent,
         ),
+      showComponentCode: true,
     },
   ],
   details: [
@@ -183,20 +223,33 @@ export const EXAMPLES: Record<string, Example[]> = {
   ],
   'error-message': [
     {
-      path: 'error-message/default',
+      path: 'error-message/passport-issued',
       load: () =>
-        import('./examples/error-message/default.component').then(
-          (m) => m.ErrorMessageDemoComponent,
+        import('./examples/error-message/passport-issued.component').then(
+          (m) => m.PassportIssuedComponent,
         ),
+      showComponentCode: true,
+    },
+    {
+      path: 'error-message/full-name',
+      load: () =>
+        import('./examples/error-message/full-name.component').then(
+          (m) => m.FullNameComponent,
+        ),
+      showComponentCode: true,
+      title: 'Custom prefix',
+      description:
+        'Set "visuallyHiddenText" to change the hidden "Error" before the message, such as to "Gwall" in Welsh.',
     },
   ],
   'error-summary': [
     {
-      path: 'error-summary/default',
+      path: 'error-summary/error-summary',
       load: () =>
-        import('./examples/error-summary/default.component').then(
-          (m) => m.ErrorSummaryDemoComponent,
+        import('./examples/error-summary/error-summary.component').then(
+          (m) => m.ErrorSummaryComponent,
         ),
+      showComponentCode: true,
     },
   ],
   'exit-this-page': [
@@ -266,11 +319,12 @@ export const EXAMPLES: Record<string, Example[]> = {
   ],
   'form-group': [
     {
-      path: 'form-group/default',
+      path: 'form-group/cost-form',
       load: () =>
-        import('./examples/form-group/default.component').then(
-          (m) => m.FormGroupDemoComponent,
+        import('./examples/form-group/cost-form.component').then(
+          (m) => m.CostFormComponent,
         ),
+      showComponentCode: true,
     },
   ],
   'generic-header': [
@@ -317,6 +371,16 @@ export const EXAMPLES: Record<string, Example[]> = {
           (m) => m.NotificationBannerDemoComponent,
         ),
     },
+    {
+      path: 'notification-banner/success',
+      load: () =>
+        import('./examples/notification-banner/success.component').then(
+          (m) => m.NotificationBannerSuccessDemoComponent,
+        ),
+      title: 'Success banner',
+      description:
+        'Set "bannerType" to "success". A success banner takes focus when the page loads; "disableAutoFocus" stops that here only because this page shows several examples.',
+    },
   ],
   pagination: [
     {
@@ -348,11 +412,12 @@ export const EXAMPLES: Record<string, Example[]> = {
   ],
   'password-input': [
     {
-      path: 'password-input/default',
+      path: 'password-input/password',
       load: () =>
-        import('./examples/password-input/default.component').then(
-          (m) => m.PasswordInputDemoComponent,
+        import('./examples/password-input/password.component').then(
+          (m) => m.PasswordComponent,
         ),
+      showComponentCode: true,
     },
   ],
   'phase-banner': [
@@ -366,28 +431,41 @@ export const EXAMPLES: Record<string, Example[]> = {
   ],
   radios: [
     {
-      path: 'radios/default',
+      path: 'radios/where-do-you-live',
       load: () =>
-        import('./examples/radios/default.component').then(
-          (m) => m.RadiosDemoComponent,
+        import('./examples/radios/where-do-you-live.component').then(
+          (m) => m.WhereDoYouLiveComponent,
         ),
+      showComponentCode: true,
     },
     {
-      path: 'radios/conditional',
+      path: 'radios/changed-name',
       load: () =>
-        import('./examples/radios/conditional.component').then(
-          (m) => m.RadiosConditionalDemoComponent,
+        import('./examples/radios/changed-name.component').then(
+          (m) => m.ChangedNameComponent,
         ),
+      showComponentCode: true,
+      title: 'Inline radios',
+      description: 'Set "inline" to show the options side by side.',
+    },
+    {
+      path: 'radios/contact-preference',
+      load: () =>
+        import('./examples/radios/contact-preference.component').then(
+          (m) => m.ContactPreferenceComponent,
+        ),
+      showComponentCode: true,
       title: 'Conditionally revealing a related question',
       description:
         'Add content inside "ngx-govuk-radio" with "*ngxGovukRadioConditional" to show it only while that option is selected.',
     },
     {
-      path: 'radios/divider',
+      path: 'radios/where-do-you-live-or-abroad',
       load: () =>
-        import('./examples/radios/divider.component').then(
-          (m) => m.RadiosDividerDemoComponent,
+        import('./examples/radios/where-do-you-live-or-abroad.component').then(
+          (m) => m.WhereDoYouLiveOrAbroadComponent,
         ),
+      showComponentCode: true,
       title: 'Radio items with a text divider',
       description:
         'Put a "div" with "ngxGovukRadiosDivider" before the last option to set it apart.',
@@ -395,11 +473,12 @@ export const EXAMPLES: Record<string, Example[]> = {
   ],
   select: [
     {
-      path: 'select/default',
+      path: 'select/sort-by',
       load: () =>
-        import('./examples/select/default.component').then(
-          (m) => m.SelectDemoComponent,
+        import('./examples/select/sort-by.component').then(
+          (m) => m.SortByComponent,
         ),
+      showComponentCode: true,
     },
   ],
   'service-navigation': [
@@ -409,6 +488,34 @@ export const EXAMPLES: Record<string, Example[]> = {
         import('./examples/service-navigation/default.component').then(
           (m) => m.ServiceNavigationDemoComponent,
         ),
+    },
+    {
+      path: 'service-navigation/service-name',
+      load: () =>
+        import('./examples/service-navigation/service-name.component').then(
+          (m) => m.ServiceNavigationServiceNameDemoComponent,
+        ),
+      title: 'Showing your service name only',
+      description: 'Set "serviceName" and leave out "navigation".',
+    },
+    {
+      path: 'service-navigation/service-name-and-navigation',
+      load: () =>
+        import('./examples/service-navigation/service-name-and-navigation.component').then(
+          (m) => m.ServiceNavigationServiceNameAndNavigationDemoComponent,
+        ),
+      title: 'Showing service name and navigation links',
+      description: 'Set "serviceName" and "navigation".',
+    },
+    {
+      path: 'service-navigation/inline-end-slot',
+      load: () =>
+        import('./examples/service-navigation/inline-end-slot.component').then(
+          (m) => m.ServiceNavigationInlineEndSlotDemoComponent,
+        ),
+      title: 'Align the end slot with the navigation items',
+      description:
+        'Put content, such as language navigation, inside it with "ngxGovukServiceNavigationEnd", and add the "inline" attribute.',
     },
   ],
   'skip-link': [
@@ -456,6 +563,12 @@ export const EXAMPLES: Record<string, Example[]> = {
           (m) => m.TabsDemoComponent,
         ),
     },
+    {
+      path: 'tabs/routed',
+      title: 'Tabs that open routes',
+      description:
+        'Set each tab\'s "link" to a child route, in any form "routerLink" accepts, and put a "router-outlet" after the tabs. The tab for the active route is open, and the route shows below the tabs. Shown as code only, as it needs routes.',
+    },
   ],
   tag: [
     {
@@ -464,6 +577,15 @@ export const EXAMPLES: Record<string, Example[]> = {
         import('./examples/tag/default.component').then(
           (m) => m.TagDemoComponent,
         ),
+    },
+    {
+      path: 'tag/colours',
+      load: () =>
+        import('./examples/tag/colours.component').then(
+          (m) => m.TagColoursDemoComponent,
+        ),
+      title: 'Colours',
+      description: 'Set "colour" to one of these. Leave it unset for blue.',
     },
   ],
   'task-list': [
@@ -477,28 +599,31 @@ export const EXAMPLES: Record<string, Example[]> = {
   ],
   'text-input': [
     {
-      path: 'text-input/default',
+      path: 'text-input/text-input',
       load: () =>
-        import('./examples/text-input/default.component').then(
-          (m) => m.TextInputDemoComponent,
+        import('./examples/text-input/text-input.component').then(
+          (m) => m.TextInputComponent,
         ),
+      showComponentCode: true,
     },
     {
-      path: 'text-input/fixed-width',
+      path: 'text-input/fixed-width-inputs',
       load: () =>
-        import('./examples/text-input/fixed-width.component').then(
-          (m) => m.TextInputFixedWidthDemoComponent,
+        import('./examples/text-input/fixed-width-inputs.component').then(
+          (m) => m.FixedWidthInputsComponent,
         ),
+      showComponentCode: true,
       title: 'Fixed width inputs',
       description:
         'Set "inputWidth" to a number of characters: "30", "20", "10", "5", "4", "3" or "2".',
     },
     {
-      path: 'text-input/fluid-width',
+      path: 'text-input/fluid-width-inputs',
       load: () =>
-        import('./examples/text-input/fluid-width.component').then(
-          (m) => m.TextInputFluidWidthDemoComponent,
+        import('./examples/text-input/fluid-width-inputs.component').then(
+          (m) => m.FluidWidthInputsComponent,
         ),
+      showComponentCode: true,
       title: 'Fluid width inputs',
       description:
         'Set "inputWidth" to a fraction of its container: "full", "three-quarters", "two-thirds", "one-half", "one-third" or "one-quarter".',
@@ -506,19 +631,20 @@ export const EXAMPLES: Record<string, Example[]> = {
   ],
   textarea: [
     {
-      path: 'textarea/default',
+      path: 'textarea/textarea',
       load: () =>
-        import('./examples/textarea/default.component').then(
-          (m) => m.TextareaDemoComponent,
+        import('./examples/textarea/textarea.component').then(
+          (m) => m.TextareaComponent,
         ),
+      showComponentCode: true,
     },
   ],
   'warning-text': [
     {
-      path: 'warning-text/default',
+      path: 'warning-text/warning-text',
       load: () =>
-        import('./examples/warning-text/default.component').then(
-          (m) => m.WarningTextDemoComponent,
+        import('./examples/warning-text/warning-text.component').then(
+          (m) => m.WarningTextComponent,
         ),
     },
   ],

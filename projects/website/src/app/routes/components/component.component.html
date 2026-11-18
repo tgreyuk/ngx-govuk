@@ -6,42 +6,6 @@
   }
 </h1>
 
-@if (component()?.source === 'ngx-govuk') {
-  <p class="govuk-body govuk-!-margin-bottom-6">
-    The {{ component()?.name | lowercase }} is part of ngx-govuk, not the GOV.UK
-    Design System. It renders GOV.UK Frontend's markup and classes, but has no
-    GOV.UK guidance of its own.
-  </p>
-} @else {
-  <p class="govuk-body govuk-!-margin-bottom-6">
-    For design guidance, including when to use the "{{ component()?.name }}"
-    component, see the official
-    <a
-      class="govuk-link"
-      href="https://design-system.service.gov.uk/components/{{
-        componentId()
-      }}/"
-      target="_blank"
-      rel="noreferrer noopener"
-      >GOV.UK Design System documentation (opens in new tab)</a
-    >.
-  </p>
-}
-
-@if (component()?.note; as note) {
-  <div class="govuk-inset-text">{{ note }}</div>
-}
-
-@if (component()?.isField) {
-  <div class="govuk-inset-text">
-    This is a form field. Use it inside a
-    <a class="govuk-link" routerLink="/components/form-group">form group</a> to
-    add a label, hint and error message. See
-    <a class="govuk-link" routerLink="/get-started/forms">Working with forms</a
-    >.
-  </div>
-}
-
 <!-- The site's own tab bar, not GOV.UK's tabs: it's part of the docs. -->
 <nav class="app-tabs" aria-label="{{ component()?.name }}">
   <a
@@ -50,7 +14,7 @@
     routerLinkActive="app-tabs__link--current"
     [routerLinkActiveOptions]="{ exact: true }"
     ariaCurrentWhenActive="page"
-    >Examples</a
+    >Overview</a
   >
   <a
     class="app-tabs__link"
@@ -67,6 +31,51 @@
     [headingLevel]="2"
   />
 } @else {
+  <p class="app-summary">{{ component()?.description }}</p>
+  <p class="govuk-body govuk-!-margin-bottom-6">
+    @if (component()?.source === 'ngx-govuk') {
+      It's part of ngx-govuk, not the GOV.UK Design System, so it has no GOV.UK
+      guidance of its own.
+    } @else {
+      <span aria-hidden="true">»&nbsp;</span>
+      <a
+        class="govuk-link"
+        href="https://design-system.service.gov.uk/components/{{
+          componentId()
+        }}/"
+        target="_blank"
+        rel="noreferrer noopener"
+        >Read the GOV.UK "{{ component()?.name }}" guidance (opens in new
+        tab)</a
+      >
+    }
+  </p>
+
+  @if (component()?.note; as note) {
+    <div class="govuk-inset-text">
+      {{ note }}
+      @if (component()?.noteLink; as link) {
+        See
+        <a
+          class="govuk-link"
+          [routerLink]="link.routerLink"
+          [fragment]="link.fragment"
+          >{{ link.text }}</a>.
+      }
+    </div>
+  }
+
+  @if (component()?.isField) {
+    <div class="govuk-inset-text">
+      This is a form field. Use it inside a
+      <a class="govuk-link" routerLink="/components/form-group">form group</a>
+      to add a label, hint and error message. See
+      <a class="govuk-link" routerLink="/get-started/forms"
+        >Working with forms</a
+      >.
+    </div>
+  }
+
   @for (example of examples(); track example.path) {
     @if (example.title) {
       <h2 class="govuk-heading-m govuk-!-margin-top-8">
@@ -77,10 +86,27 @@
       <p class="govuk-body">{{ example.description }}</p>
     }
     <div class="app-example-group">
-      <div class="app-example">
-        <ng-container *ngComponentOutlet="example.component" />
-      </div>
-      <ngx-govuk-example-code [path]="example.path" />
+      @if (example.resettable) {
+        <button
+          type="button"
+          class="app-example__reset"
+          (click)="reset(example.path)"
+        >
+          Reset example
+        </button>
+      }
+      @if (example.component) {
+        <div class="app-example">
+          <!-- A new key renders the example afresh. -->
+          @for (run of [resets()[example.path] ?? 0]; track run) {
+            <ng-container *ngComponentOutlet="example.component" />
+          }
+        </div>
+      }
+      <ngx-govuk-example-code
+        [path]="example.path"
+        [showComponentCode]="!!example.showComponentCode"
+      />
     </div>
   }
 }
