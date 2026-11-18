@@ -48,7 +48,7 @@ export class NgxGovukTextarea implements NgxGovukField, OnInit {
     addErrorSummaryTarget(() => this.elementRef.nativeElement.id || null);
   }
 
-  get field(): HTMLTextAreaElement {
+  private get field(): HTMLTextAreaElement {
     return this.elementRef.nativeElement;
   }
 
