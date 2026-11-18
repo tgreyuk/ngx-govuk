@@ -1,4 +1,5 @@
 import {
+  booleanAttribute,
   Directive,
   ElementRef,
   computed,
@@ -42,6 +43,7 @@ const WIDTH_CLASSES: Record<NgxGovukInputWidth, string> = {
     class: 'govuk-input',
     '[class]': 'widthClass()',
     '[class.govuk-input--error]': 'hasError()',
+    '[class.govuk-input--extra-letter-spacing]': 'extraLetterSpacing()',
   },
   providers: [
     {
@@ -71,6 +73,12 @@ export class NgxGovukTextInput implements NgxGovukField {
    * relative to the input's container.
    */
   inputWidth = input<NgxGovukInputWidth>();
+
+  /**
+   * Adds space between the characters, so users can check a code or sequence
+   * they've entered, such as a reference number.
+   */
+  extraLetterSpacing = input(false, { transform: booleanAttribute });
 
   protected widthClass = computed(() => {
     const width = this.inputWidth();

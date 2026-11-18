@@ -14,11 +14,13 @@ import { NgxGovukTextInput } from './text-input.directive';
     ngxGovukTextInput
     [formControl]="control"
     [inputWidth]="width()"
+    [extraLetterSpacing]="extraLetterSpacing()"
   />`,
 })
 class TestHostComponent {
   control = new FormControl('hello');
   width = signal<NgxGovukInputWidth | undefined>('three-quarters');
+  extraLetterSpacing = signal(false);
 }
 
 function setup() {
@@ -76,5 +78,13 @@ describe('NgxGovukTextInput', () => {
     host.width.set(undefined);
     fixture.detectChanges();
     expect([...input.classList].some((c) => c.includes('width'))).toBe(false);
+  });
+
+  it('adds extra letter spacing only when set', () => {
+    const { fixture, host, input } = setup();
+    expect(input.classList).not.toContain('govuk-input--extra-letter-spacing');
+    host.extraLetterSpacing.set(true);
+    fixture.detectChanges();
+    expect(input.classList).toContain('govuk-input--extra-letter-spacing');
   });
 });
