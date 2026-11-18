@@ -383,16 +383,14 @@ pre {
 
 .app-subnav {
   font-family: var(--app-font);
-  padding-top: 30px;
   // On desktop, start level with the page heading, and pull the menu left by
   // its links' padding and marker so its text lines up with the header's.
   @media (min-width: 48.0625em) {
     margin-left: -14px;
-    padding-top: 0;
   }
   @media (max-width: 48.0525em) {
-    margin-bottom: 10px;
-    padding-bottom: 10px;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
     border-bottom: 1px solid var(--app-border);
   }
 }
@@ -401,6 +399,55 @@ pre {
   margin: 0 0 20px;
   padding: 0;
   list-style: none;
+}
+
+// On small screens a long menu is collapsed behind this button, so the page
+// isn't pushed below the fold. Desktop always shows the menu beside the page.
+.app-subnav__toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--app-border);
+  border-radius: 6px;
+  color: var(--app-text);
+  background: var(--app-slate-light);
+  font-family: var(--app-font);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  // A chevron that points down when closed and up when open.
+  &::after {
+    content: '';
+    width: 8px;
+    height: 8px;
+    margin-left: 12px;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: translateY(-2px) rotate(45deg);
+  }
+  &[aria-expanded='true']::after {
+    transform: translateY(2px) rotate(-135deg);
+  }
+  &:focus-visible {
+    outline: 3px solid var(--app-focus);
+    outline-offset: 0;
+    box-shadow: 0 0 0 6px var(--app-text);
+  }
+  @media (min-width: 48.0625em) {
+    display: none;
+  }
+}
+
+.app-subnav__toggle[aria-expanded='true'] + .app-subnav__list {
+  margin-top: 10px;
+}
+
+.app-subnav__list--collapsed {
+  @media (max-width: 48.0525em) {
+    display: none;
+  }
 }
 
 .app-subnav__heading {

@@ -1,6 +1,20 @@
 <div class="app-section-layout">
   <nav class="app-subnav" aria-label="Get started">
-    <ul class="app-subnav__list">
+    <button
+      type="button"
+      class="app-subnav__toggle"
+      [attr.aria-expanded]="expanded()"
+      aria-controls="app-get-started-menu"
+      (click)="expanded.set(!expanded())"
+    >
+      All guides
+    </button>
+
+    <ul
+      id="app-get-started-menu"
+      class="app-subnav__list"
+      [class.app-subnav__list--collapsed]="!expanded()"
+    >
       @for (guide of guides; track guide.path) {
         <li>
           <a
