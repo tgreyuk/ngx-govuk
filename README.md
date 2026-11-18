@@ -4,7 +4,7 @@
 
 > [GOV.UK Design System](https://design-system.service.gov.uk) components for Angular.
 
-ngx-govuk is a community project. It is not made or supported by the GOV.UK Design System team, who cannot help you with using it.
+ngx-govuk is a community resource of the GOV.UK Design System. The Design System team is not responsible for it and cannot support you with using it. Contact the ngx-govuk maintainers directly through [GitHub issues](https://github.com/tgreyuk/ngx-govuk/issues) if you need help or you want to request a feature.
 
 ## Installation
 

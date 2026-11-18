@@ -18,7 +18,12 @@ library source.
 
 `projects/ngx-govuk/README.md` is the README published to npm. It is a copy
 of the root `README.md`: edit the root one, then copy it over unchanged.
-Keep its links absolute so they work on npm.
+Keep its links absolute so they work on npm. The README's opening paragraph
+("ngx-govuk is a community resource of the GOV.UK Design System…") is the
+standard disclaimer from GOV.UK's
+[contribution criteria](https://design-system.service.gov.uk/community/contribution-criteria/),
+which a resource needs to be listed on the Design System's community
+resources page. Don't reword it.
 
 ## Commands
 
