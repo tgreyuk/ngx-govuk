@@ -15,6 +15,10 @@
     "type": "git",
     "url": "git+https://github.com/tgreyuk/ngx-govuk.git"
   },
+  "author": {
+    "name": "Tom Grey",
+    "url": "https://github.com/tgreyuk"
+  },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/tgreyuk/ngx-govuk/issues"
