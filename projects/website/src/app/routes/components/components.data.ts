@@ -291,7 +291,7 @@ export const COMPONENTS: ComponentEntry[] = [
     id: 'task-list',
     status: 'documented',
     description:
-      'Shows users the tasks they need to complete and the status of each.',
+      'Displays all the tasks a user needs to do, and lets users see which ones are done and which they still need to do.',
   },
   {
     name: 'Text input',
