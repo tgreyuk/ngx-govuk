@@ -3,10 +3,6 @@
 ## [0.7.0](https://github.com/tgreyuk/ngx-govuk/compare/v0.6.0...v0.7.0) (2026-11-18)
 
 
-### Upgrading
-
-* Add `provideNgxGovuk()` to the `providers` in your app's config. It adds GOV.UK Frontend's page template classes, so you can remove `govuk-template`, `govuk-template__body` and `govuk-frontend-supported` from your `index.html`. Apps that keep the classes in `index.html` still work.
-
 ### ⚠ BREAKING CHANGES
 
 * Update govuk-frontend to 6.6.0 or later.
@@ -50,37 +46,24 @@
 
 ### Bug Fixes
 
-* require GOV.UK Frontend 6.6.0 or later ([7f4c977](https://github.com/tgreyuk/ngx-govuk/commit/7f4c97718e9de099a33efcad0a3b9f436fb88b63))
-* render GOV.UK's root element as the component's own element ([2bfa942](https://github.com/tgreyuk/ngx-govuk/commit/2bfa9421e534ba7522853c2b717c4134c141a33e))
-* let GOV.UK's styles override components' block display ([2ecae94](https://github.com/tgreyuk/ngx-govuk/commit/2ecae946021a930fd793d5dd92667ec6d6ad5dd5))
+* remove stray spaces around text in legends, the form group's prefix and suffix, footer section headings, block pagination links, the password input and the service navigation, and add the missing space in the warning text ([d733c31](https://github.com/tgreyuk/ngx-govuk/commit/d733c31220f336debfadf03e90b1d65536e159c1), [0a0a287](https://github.com/tgreyuk/ngx-govuk/commit/0a0a287dce4fdb0afad67107e754a192d31b9e16), [57ed8d1](https://github.com/tgreyuk/ngx-govuk/commit/57ed8d1381b2b04c00f1b1315c73f99a4ebac4cd), [b732889](https://github.com/tgreyuk/ngx-govuk/commit/b732889d2cdab954ef72b4ab1268196182ebac79), [409aa17](https://github.com/tgreyuk/ngx-govuk/commit/409aa17201661e6555ab3f86b8852693044b9749), [b7aa746](https://github.com/tgreyuk/ngx-govuk/commit/b7aa7464280bc60840922805cd0d0873a3b541ba), [e333742](https://github.com/tgreyuk/ngx-govuk/commit/e3337421386026769a38d3a9d08e9637925e4e90))
+* display components as blocks in a way GOV.UK's styles can override ([128b3a9](https://github.com/tgreyuk/ngx-govuk/commit/128b3a94535ba820b27b7c8ea505fcd81a0817a3), [2ecae94](https://github.com/tgreyuk/ngx-govuk/commit/2ecae946021a930fd793d5dd92667ec6d6ad5dd5))
 * connect a field that is rendered after its form group ([e50446a](https://github.com/tgreyuk/ngx-govuk/commit/e50446a54ab2a54e4e4095813a24db7b6a8007ac))
-* remove the spaces around legend text ([d733c31](https://github.com/tgreyuk/ngx-govuk/commit/d733c31220f336debfadf03e90b1d65536e159c1))
-* display pagination and the navigations as blocks ([128b3a9](https://github.com/tgreyuk/ngx-govuk/commit/128b3a94535ba820b27b7c8ea505fcd81a0817a3))
 * **accordion:** let find in page open closed sections ([55f0fed](https://github.com/tgreyuk/ngx-govuk/commit/55f0fed4aa8aa87041cf7274f9308e121aeccf98))
-* **back-link:** rename `inversed` to `inverse` ([49d36ee](https://github.com/tgreyuk/ngx-govuk/commit/49d36ee1346cc22c3a72d6c8c01efa9e4fe4ace9))
-* **breadcrumbs:** render each item's list item from a template ([90f21a7](https://github.com/tgreyuk/ngx-govuk/commit/90f21a7223cd33b06713403b4cadd7a94dc2b8bc))
-* **button:** render the start icon from a template, match GOV.UK's link and disabled markup, and rename `inversed` to `inverse` ([7f87210](https://github.com/tgreyuk/ngx-govuk/commit/7f87210b23788b79431bc64ca3f744a46e6ecc73), [49d36ee](https://github.com/tgreyuk/ngx-govuk/commit/49d36ee1346cc22c3a72d6c8c01efa9e4fe4ace9))
 * **character-count:** count values set without an input event, remove `maxlength`, and export the `NgxGovukPluralText` type ([0611b2c](https://github.com/tgreyuk/ngx-govuk/commit/0611b2cd02f80fb384bf54bf3e4bc84c7ab33dc0), [5e10b77](https://github.com/tgreyuk/ngx-govuk/commit/5e10b77a856e71503fb8cfd69ae6aec6452878ec))
 * **checkboxes:** count a divider when numbering the ids, and trim the item hint ([db4ae50](https://github.com/tgreyuk/ngx-govuk/commit/db4ae504e465b4e14dece5e7531bbaeb12a13fbe))
-* **cookie-banner:** move focus to a confirmation when it's shown, and rename the message's `heading` input to `headingText` ([0092802](https://github.com/tgreyuk/ngx-govuk/commit/0092802e2e2918909683ce6dc8bcfd120a8f7873), [e64e077](https://github.com/tgreyuk/ngx-govuk/commit/e64e0776ca48771ad2a0d97e6fa74fa44c663d32))
-* **date-input:** mark the form control touched only when focus leaves the date, prefix the date input's types, and describe its value ([a2dd124](https://github.com/tgreyuk/ngx-govuk/commit/a2dd1242a2bf54a76c9f9191ebd71c552e6f399a), [34fdd39](https://github.com/tgreyuk/ngx-govuk/commit/34fdd39c5070014b9a3cd8bd75f4a6f6c6f408b7))
+* **cookie-banner:** move focus to a confirmation when it's shown ([0092802](https://github.com/tgreyuk/ngx-govuk/commit/0092802e2e2918909683ce6dc8bcfd120a8f7873))
+* **date-input:** mark the form control touched only when focus leaves the date ([a2dd124](https://github.com/tgreyuk/ngx-govuk/commit/a2dd1242a2bf54a76c9f9191ebd71c552e6f399a))
 * **exit-this-page:** handle an empty `redirectUrl` and more than one button ([4ba15a8](https://github.com/tgreyuk/ngx-govuk/commit/4ba15a846b5b68582450bbb52029f9a66f8798f1))
 * **file-upload:** make the enhanced file upload GOV.UK's wrapper ([6d8eee1](https://github.com/tgreyuk/ngx-govuk/commit/6d8eee1e3665b68c35848cf930f55a3ba5299515))
-* **footer:** remove the spaces around section headings, and leave out links with nowhere to go ([57ed8d1](https://github.com/tgreyuk/ngx-govuk/commit/57ed8d1381b2b04c00f1b1315c73f99a4ebac4cd))
-* **form-group:** remove the spaces around prefix and suffix text ([0a0a287](https://github.com/tgreyuk/ngx-govuk/commit/0a0a287dce4fdb0afad67107e754a192d31b9e16))
+* **footer:** leave out links with nowhere to go ([57ed8d1](https://github.com/tgreyuk/ngx-govuk/commit/57ed8d1381b2b04c00f1b1315c73f99a4ebac4cd))
 * **header:** link the logo to GOV.UK when `homepageUrl` is empty ([cb9c5ee](https://github.com/tgreyuk/ngx-govuk/commit/cb9c5eea593e9e98674867b7a808a4c6ce7023ec))
 * **language-navigation:** show a language without a link as current ([42420ab](https://github.com/tgreyuk/ngx-govuk/commit/42420ab67b328b57f6e7dfb775a9166a8385c90d))
-* **pagination:** trim the link text in block pagination ([b732889](https://github.com/tgreyuk/ngx-govuk/commit/b732889d2cdab954ef72b4ab1268196182ebac79))
 * **panel:** match GOV.UK's spacing and actions ([df637e8](https://github.com/tgreyuk/ngx-govuk/commit/df637e891a7a32e794cea663bc37ceb48df110b6))
-* **password-input:** announce the password as hidden after submitting, and trim the button text and status message ([0b753b8](https://github.com/tgreyuk/ngx-govuk/commit/0b753b8f10c2ac5e3b7bb0c26e31846539d64ae9), [409aa17](https://github.com/tgreyuk/ngx-govuk/commit/409aa17201661e6555ab3f86b8852693044b9749))
+* **password-input:** announce the password as hidden after submitting ([0b753b8](https://github.com/tgreyuk/ngx-govuk/commit/0b753b8f10c2ac5e3b7bb0c26e31846539d64ae9))
 * **radios:** count a divider when numbering the option ids ([344357a](https://github.com/tgreyuk/ngx-govuk/commit/344357a8a19721c9138336b50b6369347453f10d))
-* **service-navigation:** remove the spaces around the menu button and link text ([b7aa746](https://github.com/tgreyuk/ngx-govuk/commit/b7aa7464280bc60840922805cd0d0873a3b541ba))
 * **skip-link:** open the link elsewhere on a modified click, and tidy up when focus fails ([c8c426d](https://github.com/tgreyuk/ngx-govuk/commit/c8c426d71c51e64456aa419325cd64b1aab6fdc5))
-* **summary-list:** add action links' hidden text and card title from a template ([9f6d1b7](https://github.com/tgreyuk/ngx-govuk/commit/9f6d1b772e80b643569f95ee1f2076c55016dd15))
-* **table:** remove the caption's `s` size, which GOV.UK doesn't style ([c78fded](https://github.com/tgreyuk/ngx-govuk/commit/c78fdedabb1fc75e0b905e56ed354c29b544d741))
 * **tabs:** follow GOV.UK Frontend's links, history and supported check ([af6f973](https://github.com/tgreyuk/ngx-govuk/commit/af6f973bdf8d6295acbfefec1ee8d1f68c9a86e7))
-* **text-input:** rename the `InputWidth` type to `NgxGovukInputWidth`, and export it ([a29ec07](https://github.com/tgreyuk/ngx-govuk/commit/a29ec07cda0206c8ba6453da55386d62d923e2dd), [84c1fd2](https://github.com/tgreyuk/ngx-govuk/commit/84c1fd2da46d60a602ecc3915dd768cf85c22f85))
-* **warning-text:** add a space between the hidden text and the warning ([e333742](https://github.com/tgreyuk/ngx-govuk/commit/e3337421386026769a38d3a9d08e9637925e4e90))
 
 ## [0.6.0](https://github.com/tgreyuk/ngx-govuk/compare/v0.5.0...v0.6.0) (2026-11-14)
 
