@@ -53,7 +53,7 @@ export class NgxGovukFormGroup {
   labelSize = input<'s' | 'm' | 'l' | 'xl'>();
 
   /**
-   * Makes the label the page heading. Use it when the page asks just one
+   * Makes the label the page heading. Use it when the page asks only one
    * question.
    */
   asPageHeading = input(false, { transform: booleanAttribute });

@@ -13,7 +13,7 @@ export interface NgxGovukFooterLink {
   /** The link's text. */
   text: string;
   /**
-   * Where the link goes in your app, as you'd give it to `routerLink`, such
+   * Where the link goes in your app, in any form `routerLink` accepts, such
    * as `/cookies`.
    */
   routerLink?: string | readonly unknown[] | UrlTree;

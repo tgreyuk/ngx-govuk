@@ -42,7 +42,7 @@ export class NgxGovukTaskListItem {
   titleText = input.required<string>();
 
   /**
-   * Where the task's link goes, as you'd give it to `routerLink`. Leave it
+   * Where the task's link goes, in any form `routerLink` accepts. Leave it
    * unset while users can't start the task, to show its name as text.
    */
   link = input<string | readonly unknown[] | UrlTree>();

@@ -22,7 +22,7 @@ export interface NgxGovukServiceNavigationItem {
   /** The item's text. */
   text: string;
   /**
-   * Where the link goes, as you'd give it to `routerLink`, from the root,
+   * Where the link goes, in any form `routerLink` accepts, from the root,
    * such as `/apply`. Leave it and `href` unset for text that isn't a link.
    */
   routerLink?: string | readonly unknown[] | UrlTree;
@@ -134,7 +134,7 @@ export class NgxGovukServiceNavigation {
   serviceName = input<string>();
 
   /**
-   * Where the service name links to, as you'd give it to `routerLink`, such
+   * Where the service name links to, in any form `routerLink` accepts, such
    * as the service's start page. Leave it and `serviceUrl` unset for text.
    */
   serviceLink = input<string | readonly unknown[] | UrlTree>();

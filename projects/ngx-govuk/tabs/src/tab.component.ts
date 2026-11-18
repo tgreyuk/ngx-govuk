@@ -3,7 +3,7 @@ import { UrlTree } from '@angular/router';
 import { NgxGovukUtilsService } from 'ngx-govuk';
 import { NgxGovukTabs } from './tabs.component';
 
-/** Where a routed tab goes, as you'd give it to `routerLink`. */
+/** Where a routed tab goes, in any form `routerLink` accepts. */
 export type NgxGovukTabLink = string | readonly unknown[] | UrlTree;
 
 /**
@@ -43,7 +43,7 @@ export class NgxGovukTab {
   id = input<string>(inject(NgxGovukUtilsService).randomId('govuk-tabs-panel'));
 
   /**
-   * Where the tab goes, as you'd give it to `routerLink`, such as `day` for
+   * Where the tab goes, in any form `routerLink` accepts, such as `day` for
    * a child route. Set it on every tab in a set, and put a `router-outlet`
    * inside `ngx-govuk-tabs`: the route's content shows below the tabs. The
    * tab is open while its route, or a route below it, is active.

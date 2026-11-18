@@ -26,7 +26,7 @@ export interface NgxGovukLanguageNavigationItem {
    */
   dir?: 'ltr' | 'rtl';
   /**
-   * The page in this language, as you'd give it to `routerLink`, when your
+   * The page in this language, in any form `routerLink` accepts, when your
    * app switches language itself.
    */
   routerLink?: string | readonly unknown[] | UrlTree;

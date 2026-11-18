@@ -16,8 +16,8 @@ import { NgxGovukEnhancedFileUpload } from './enhanced-file-upload.component';
  * message. Add `multiple` to let users select more than one file.
  *
  * Angular's form controls can't hold files: a form control on a file input
- * only gets a made-up path, such as `C:\fakepath\photo.jpg`. To read the
- * files, use the input's `files` in its `change` event. A form control can
+ * only receives a placeholder path, such as `C:\fakepath\photo.jpg`. To read
+ * the files, use the input's `files` in its `change` event. A form control can
  * clear the input, with `reset()` or an empty value, but can't set it: the
  * browser throws an error for any other value.
  *

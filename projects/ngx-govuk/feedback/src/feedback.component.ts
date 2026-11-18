@@ -3,9 +3,9 @@ import { Component, input } from '@angular/core';
 /**
  * Asks users to give feedback about their experience using your service.
  *
- * Put it just before the footer, after `main` and outside the page's
- * `govuk-width-container`: it has its own. Put the body text inside it, with
- * the `govuk-body` class, and the link with the `govuk-link` class.
+ * Put it immediately before the footer, after `main` and outside the
+ * page's `govuk-width-container`: it has its own. Put the body text inside
+ * it, with the `govuk-body` class, and the link with the `govuk-link` class.
  */
 @Component({
   selector: 'ngx-govuk-feedback',

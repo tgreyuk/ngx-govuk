@@ -25,8 +25,8 @@ import { RouterLink, UrlTree } from '@angular/router';
 })
 export class NgxGovukGenericHeader {
   /**
-   * Where the name or logo links to in your app, as you'd give it to
-   * `routerLink`. Defaults to the root of your app.
+   * Where the name or logo links to in your app, in any form
+   * `routerLink` accepts. Defaults to the root of your app.
    */
   homepageLink = input<string | readonly unknown[] | UrlTree>('/');
 

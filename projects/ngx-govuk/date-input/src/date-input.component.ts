@@ -80,7 +80,7 @@ export class NgxGovukDateInput implements ControlValueAccessor {
   legendSize = input<'s' | 'm' | 'l' | 'xl'>();
 
   /**
-   * Makes the legend the page heading. Use it when the page asks just one
+   * Makes the legend the page heading. Use it when the page asks only one
    * question.
    */
   asPageHeading = input(false, { transform: booleanAttribute });

@@ -16,9 +16,10 @@ import {
  * Inside `ngx-govuk-form-group`, `ngx-govuk-radios`, `ngx-govuk-checkboxes`,
  * `ngx-govuk-date-input`, `ngx-govuk-character-count` or
  * `ngx-govuk-password-input`, it goes after the hint wherever you write it.
- * The field shows its error styles while it's there, and gets an id of
- * `<id>-error` that the field's `aria-describedby` points to. Anywhere else,
- * give it an `id` and add that to the field's `aria-describedby` yourself.
+ * The field shows its error styles while the message is shown, and gets an
+ * id of `<id>-error` that the field's `aria-describedby` points to. Anywhere
+ * else, give it an `id` and add that to the field's `aria-describedby`
+ * yourself.
  */
 @Component({
   // A component rather than a directive, so it can render the visually

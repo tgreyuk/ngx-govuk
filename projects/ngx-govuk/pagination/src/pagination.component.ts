@@ -4,7 +4,7 @@ import { RouterLink, UrlTree } from '@angular/router';
 
 /** A previous or next link in block pagination. */
 export interface NgxGovukPaginationLink {
-  /** Where the link goes, as you'd give it to `routerLink`. */
+  /** Where the link goes, in any form `routerLink` accepts. */
   routerLink: string | readonly unknown[] | UrlTree;
   /**
    * The link text. Defaults to `previousText` or `nextText` on the
