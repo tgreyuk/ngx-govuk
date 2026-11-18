@@ -205,20 +205,26 @@
 </ng-template>
 
 <!-- A type as code, with the entry point's own type names linked to them.
-     Each part is wrapped, with no whitespace beside its text, so Angular adds
-     no spaces between the parts. -->
-<ng-template #typeCode let-parts>
-  <code class="app-api-code">
-    @for (part of parts; track $index) {
-      @if (part.link) {
-        <a class="govuk-link" routerLink="." [fragment]="part.link">{{
-          part.text
-        }}</a>
-      } @else {
-        <ng-container>{{ part.text }}</ng-container>
-      }
+     A union's members are each their own code, with the | between them as
+     plain text. Each part is wrapped, with no whitespace beside its text, so
+     Angular adds no spaces between the parts. -->
+<ng-template #typeCode let-members>
+  @for (parts of members; track $index) {
+    @if (!$first) {
+      |
     }
-  </code>
+    <code class="app-api-code">
+      @for (part of parts; track $index) {
+        @if (part.link) {
+          <a class="govuk-link" routerLink="." [fragment]="part.link">{{
+            part.text
+          }}</a>
+        } @else {
+          <ng-container>{{ part.text }}</ng-container>
+        }
+      }
+    </code>
+  }
 </ng-template>
 
 <!-- One level under an item's name: Selector, Inputs and so on. -->

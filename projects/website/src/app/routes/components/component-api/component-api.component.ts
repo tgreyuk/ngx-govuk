@@ -19,12 +19,18 @@ type Paragraph = string;
 type TypeParts = { text: string; link?: string }[];
 
 /**
+ * A type split at the `|` of a top-level union, one item per member, so
+ * each member shows as its own code and the `|` as plain text.
+ */
+type TypeMembers = TypeParts[];
+
+/**
  * One entry of a section: a member's name and type, or a method's name and
  * call signature, such as `(): void`.
  */
 interface ApiEntry {
   name: string;
-  type: TypeParts;
+  type: TypeMembers;
   description: Paragraph[];
   default?: string;
   required?: boolean;
@@ -181,7 +187,7 @@ function sections(apiClass: ApiClass, typeNames: Set<string>): ApiSection[] {
       entries: apiClass.inputs.map((input) => ({
         ...input,
         name: input.kind === 'model' ? `[(${input.name})]` : `[${input.name}]`,
-        type: typeParts(input.type, typeNames),
+        type: typeMembers(input.type, typeNames),
         description: paragraphs(input.description),
         default: input.default ?? (input.required ? undefined : 'undefined'),
       })),
@@ -191,7 +197,7 @@ function sections(apiClass: ApiClass, typeNames: Set<string>): ApiSection[] {
       entries: apiClass.outputs.map((output) => ({
         ...output,
         name: `(${output.name})`,
-        type: typeParts(output.type, typeNames),
+        type: typeMembers(output.type, typeNames),
         description: paragraphs(output.description),
       })),
     },
@@ -200,7 +206,11 @@ function sections(apiClass: ApiClass, typeNames: Set<string>): ApiSection[] {
       entries: apiClass.methods.map((method) => ({
         ...method,
         description: paragraphs(method.description),
-        type: typeParts(method.signature.slice(method.name.length), typeNames),
+        // A signature is one piece of code, even where its return type is a
+        // union.
+        type: [
+          typeParts(method.signature.slice(method.name.length), typeNames),
+        ],
       })),
     },
   ];
@@ -215,14 +225,49 @@ function typeWithParts(apiType: ApiType, typeNames: Set<string>) {
     type:
       apiType.type === undefined
         ? undefined
-        : typeParts(apiType.type, typeNames),
+        : typeMembers(apiType.type, typeNames),
     properties: (apiType.properties ?? []).map((property): ApiEntry => ({
       name: property.name,
-      type: typeParts(property.type, typeNames),
+      type: typeMembers(property.type, typeNames),
       description: paragraphs(property.description),
       required: !property.optional,
     })),
   };
+}
+
+/** Splits a type into its union's members, each cut into parts. */
+export function typeMembers(type: string, typeNames: Set<string>): TypeMembers {
+  return unionMembers(type).map((member) => typeParts(member, typeNames));
+}
+
+/**
+ * Splits a type at each `|` that isn't inside brackets or quotes, such as
+ * `'a' | 'b'` but not `InputSignal<'a' | 'b'>`. A type that isn't a union
+ * comes back as its only member.
+ */
+export function unionMembers(type: string): string[] {
+  const members: string[] = [];
+  let depth = 0;
+  let quote = '';
+  let start = 0;
+  for (let i = 0; i < type.length; i++) {
+    const char = type[i];
+    if (quote) {
+      if (char === '\\') i++;
+      else if (char === quote) quote = '';
+    } else if (char === "'" || char === '"' || char === '`') {
+      quote = char;
+    } else if ('<([{'.includes(char)) {
+      depth++;
+    } else if (')]}'.includes(char) || (char === '>' && type[i - 1] !== '=')) {
+      depth--;
+    } else if (char === '|' && depth === 0) {
+      members.push(type.slice(start, i));
+      start = i + 1;
+    }
+  }
+  members.push(type.slice(start));
+  return members.map((member) => member.trim()).filter(Boolean);
 }
 
 /**

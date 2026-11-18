@@ -8,7 +8,11 @@ import { provideRouter } from '@angular/router';
 import { ApiEntryPoint } from './api-docs';
 import { By } from '@angular/platform-browser';
 import { CodeBlockComponent } from '../component-code/code-block.component';
-import { ComponentApiComponent, typeParts } from './component-api.component';
+import {
+  ComponentApiComponent,
+  typeParts,
+  unionMembers,
+} from './component-api.component';
 
 const api: ApiEntryPoint = {
   name: 'footer',
@@ -74,6 +78,33 @@ const api: ApiEntryPoint = {
     },
   ],
 };
+
+describe('unionMembers', () => {
+  it('splits a union at each top-level |', () => {
+    expect(unionMembers("'grey' | 'green' | 'teal'")).toEqual([
+      "'grey'",
+      "'green'",
+      "'teal'",
+    ]);
+  });
+
+  it('keeps a | inside brackets, quotes or an arrow function', () => {
+    expect(
+      unionMembers(
+        "InputSignal<'a' | 'b'> | (x: 'c' | 'd') => void | '|' | { e: 1 | 2 }",
+      ),
+    ).toEqual([
+      "InputSignal<'a' | 'b'>",
+      "(x: 'c' | 'd') => void",
+      "'|'",
+      '{ e: 1 | 2 }',
+    ]);
+  });
+
+  it('returns a type that is not a union as its only member', () => {
+    expect(unionMembers('NgxGovukTagColour')).toEqual(['NgxGovukTagColour']);
+  });
+});
 
 describe('typeParts', () => {
   it('links the names of the given types, and keeps the rest as text', () => {
@@ -208,11 +239,17 @@ describe('ComponentApiComponent', () => {
       ]);
     });
 
-    it("shows a type alias's definition", () => {
-      const codes = [...element.querySelectorAll('code')].map(
-        (code) => code.textContent,
+    it("shows a type alias's definition, each union member as its own code", () => {
+      const code = [...element.querySelectorAll('code')].find(
+        (code) => code.textContent === "'full'",
       );
-      expect(codes).toContain("'full' | 'one-half'");
+      const definition = code?.parentElement;
+      expect(
+        [...(definition?.querySelectorAll('code') ?? [])].map(
+          (code) => code.textContent,
+        ),
+      ).toEqual(["'full'", "'one-half'"]);
+      expect(definition?.textContent?.trim()).toBe("'full' | 'one-half'");
     });
 
     it('links a type to the interface it names, without adding spaces', () => {
