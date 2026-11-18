@@ -25,4 +25,10 @@ export const GUIDES: Guide[] = [
     description:
       'Build form fields with labels, hints and error messages, and show errors the way GOV.UK recommends.',
   },
+  {
+    name: 'Differences from GOV.UK Frontend',
+    path: '/get-started/differences',
+    description:
+      'What ngx-govuk does differently from GOV.UK Frontend, and what it leaves out.',
+  },
 ];

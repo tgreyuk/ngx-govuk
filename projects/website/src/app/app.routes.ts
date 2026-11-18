@@ -4,6 +4,7 @@ import { ComponentComponent } from './routes/components/component.component';
 import { isDocumented } from './routes/components/components.data';
 import { ComponentsLayoutComponent } from './routes/components/components-layout.component';
 import { ComponentsComponent } from './routes/components/components.component';
+import { DifferencesGuideComponent } from './routes/get-started/differences-guide.component';
 import { FormsGuideComponent } from './routes/get-started/forms-guide.component';
 import { GetStartedLayoutComponent } from './routes/get-started/get-started-layout.component';
 import { GetStartedOverviewComponent } from './routes/get-started/get-started-overview.component';
@@ -26,6 +27,7 @@ export const appRoutes: Route[] = [
       { path: 'installation', component: GetStartedComponent },
       { path: 'components', component: UsingComponentsComponent },
       { path: 'forms', component: FormsGuideComponent },
+      { path: 'differences', component: DifferencesGuideComponent },
     ],
   },
   {
