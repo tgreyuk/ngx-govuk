@@ -6,6 +6,7 @@ import {
   withInMemoryScrolling,
   withRouterConfig,
 } from '@angular/router';
+import { provideNgxGovuk } from 'ngx-govuk';
 import { appRoutes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
@@ -28,5 +29,6 @@ export const appConfig: ApplicationConfig = {
         anchorScrolling: 'enabled',
       }),
     ),
+    provideNgxGovuk(),
   ],
 };

@@ -15,15 +15,22 @@ export class GetStartedComponent {
   contents = [
     { id: 'requirements', heading: 'Requirements' },
     { id: 'install', heading: 'Install packages from npm' },
-    { id: 'page-classes', heading: 'Add GOV.UK classes to the page' },
+    { id: 'provider', heading: 'Add the ngx-govuk provider' },
+    { id: 'layout', heading: 'Lay out the page' },
     { id: 'styles', heading: 'Include GOV.UK styles' },
     { id: 'font', heading: 'Choose a font' },
   ];
 
   INSTALL_CODE = `npm install ngx-govuk govuk-frontend`;
 
-  BODY_CSS_CODE = `<html lang="en" class="govuk-template">
-  <body class="govuk-template__body govuk-frontend-supported">`;
+  PROVIDER_CODE = `import { ApplicationConfig } from '@angular/core';
+import { provideRouter } from '@angular/router';
+import { provideNgxGovuk } from 'ngx-govuk';
+import { routes } from './app.routes';
+
+export const appConfig: ApplicationConfig = {
+  providers: [provideRouter(routes), provideNgxGovuk()],
+};`;
 
   LAYOUT_CODE = `<a href="#main-content" ngxGovukSkipLink>Skip to main content</a>
 <header class="govuk-template__header">

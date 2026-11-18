@@ -41,6 +41,33 @@
       Frontend's markup, and GOV.UK Frontend provides the styles.
     </p>
     <app-code-block [code]="INSTALL_CODE" lang="shellscript" />
+  </div>
+
+  <div class="govuk-!-margin-bottom-8">
+    <h2 class="govuk-heading-m" id="provider">Add the ngx-govuk provider</h2>
+    <p class="govuk-body">
+      Add <code class="app-inline-code">provideNgxGovuk()</code> to the
+      <code class="app-inline-code">providers</code> in your app's config. It
+      takes the place of GOV.UK Frontend's
+      <code class="app-inline-code">initAll()</code>.
+    </p>
+    <app-code-block [code]="PROVIDER_CODE" lang="angular-ts" />
+    <p class="govuk-body">
+      It adds the classes GOV.UK Frontend's page template puts on the page:
+      <code class="app-inline-code">govuk-template</code> on the html element
+      and <code class="app-inline-code">govuk-template__body</code> on the body,
+      which set the page's background and text sizing. You do not need to add
+      them to your <code class="app-inline-code">index.html</code> file.
+    </p>
+    <p class="govuk-body">
+      When your app starts in the browser, it also adds
+      <code class="app-inline-code">govuk-frontend-supported</code> to the body,
+      as the page template does with a small inline script. The styles for the
+      accordion, tabs and conditionally revealed questions depend on it, and
+      without it they show their no-JavaScript fallback. With server-side
+      rendering, this class is only added in the browser, so users without
+      JavaScript still get the fallback.
+    </p>
     <p class="govuk-body">
       You only need GOV.UK Frontend's styles. Do not load its JavaScript or call
       <code class="app-inline-code">initAll()</code>: ngx-govuk components
@@ -51,25 +78,7 @@
   </div>
 
   <div class="govuk-!-margin-bottom-8">
-    <h2 class="govuk-heading-m" id="page-classes">
-      Add GOV.UK classes to the page
-    </h2>
-    <p class="govuk-body">
-      In your <code class="app-inline-code">index.html</code> file, add
-      <code class="app-inline-code">govuk-template</code> to the html tag, and
-      <code class="app-inline-code">govuk-template__body</code> and
-      <code class="app-inline-code">govuk-frontend-supported</code> to the body
-      tag. GOV.UK Frontend's page template uses these classes to set the page
-      background and text sizing.
-    </p>
-    <p class="govuk-body">
-      GOV.UK's page template adds
-      <code class="app-inline-code">govuk-frontend-supported</code> with a small
-      inline script. The accordion and tabs styles depend on it, and without it
-      they show their no-JavaScript fallback. ngx-govuk components do not need
-      that script, so add the class directly.
-    </p>
-    <app-code-block [code]="BODY_CSS_CODE" lang="angular-html" />
+    <h2 class="govuk-heading-m" id="layout">Lay out the page</h2>
     <p class="govuk-body">
       In your root component's template, put the page's content in a
       <code class="app-inline-code">govuk-width-container</code> and a

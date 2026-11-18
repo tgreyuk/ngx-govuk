@@ -33,15 +33,15 @@
   need its JavaScript or <code class="app-inline-code">initAll()</code>.
 </p>
 <p class="govuk-body">
-  GOV.UK's page template sets the
-  <code class="app-inline-code">govuk-frontend-supported</code> class with a
-  small inline script, and some of GOV.UK Frontend's styles depend on it. Add it
-  to the body yourself, as in
+  GOV.UK's page template adds classes to the page, including
+  <code class="app-inline-code">govuk-frontend-supported</code>, which it sets
+  with a small inline script and some of GOV.UK Frontend's styles depend on.
+  <code class="app-inline-code">provideNgxGovuk()</code> adds them instead. See
   <a
     class="govuk-link"
     routerLink="/get-started/installation"
-    fragment="page-classes"
-    >Add GOV.UK classes to the page</a
+    fragment="provider"
+    >Add the ngx-govuk provider</a
   >.
 </p>
 <p class="govuk-body">
@@ -128,9 +128,14 @@
 <h2 class="govuk-heading-m" id="not-included">Not included</h2>
 <ul class="govuk-list govuk-list--bullet">
   <li>
-    GOV.UK Frontend's page template. Set up the page yourself, as in
-    <a class="govuk-link" routerLink="/get-started/installation"
-      >Installing ngx-govuk</a
+    GOV.UK Frontend's page template.
+    <code class="app-inline-code">provideNgxGovuk()</code> adds its classes, and
+    you lay out the page in your root component, as in
+    <a
+      class="govuk-link"
+      routerLink="/get-started/installation"
+      fragment="layout"
+      >Lay out the page</a
     >.
   </li>
   <li>
