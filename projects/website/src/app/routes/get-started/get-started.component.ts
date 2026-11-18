@@ -16,7 +16,7 @@ export class GetStartedComponent {
     { id: 'requirements', heading: 'Requirements' },
     { id: 'install', heading: 'Install packages from npm' },
     { id: 'provider', heading: 'Add the ngx-govuk provider' },
-    { id: 'layout', heading: 'Lay out the page' },
+    { id: 'layout', heading: 'Page layout' },
     { id: 'styles', heading: 'Include GOV.UK styles' },
     { id: 'font', heading: 'Choose a font' },
   ];

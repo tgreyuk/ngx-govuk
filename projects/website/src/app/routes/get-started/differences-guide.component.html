@@ -23,14 +23,11 @@
   </ol>
 </div>
 
-<h2 class="govuk-heading-m" id="javascript">
-  GOV.UK Frontend's JavaScript is not used
-</h2>
+<h2 class="govuk-heading-m" id="javascript">GOV.UK Frontend's JavaScript</h2>
 <p class="govuk-body">
-  Components that do something, such as the accordion, tabs, character count and
-  exit this page, do it in Angular. They do not have GOV.UK Frontend's
-  <code class="app-inline-code">data-module</code> attributes, and they do not
-  need its JavaScript or <code class="app-inline-code">initAll()</code>.
+  Components with behaviour, such as the accordion, tabs, character count and
+  exit this page, implement it in Angular. They do not use GOV.UK Frontend's
+  JavaScript.
 </p>
 <p class="govuk-body">
   GOV.UK's page template adds classes to the page, including
@@ -46,11 +43,10 @@
 </p>
 <p class="govuk-body">
   GOV.UK Frontend's JavaScript configuration, such as the text it adds for
-  screen readers, is a set of inputs on the component instead. For example, the
-  password input's <code class="app-inline-code">showPasswordText</code>.
+  screen readers, is a set of inputs on the component instead.
 </p>
 
-<h2 class="govuk-heading-m" id="options">Options are Angular inputs</h2>
+<h2 class="govuk-heading-m" id="options">Options</h2>
 <p class="govuk-body">
   The options of GOV.UK Frontend's Nunjucks macros are inputs with the same
   names, with a few changes:
@@ -87,7 +83,7 @@
   so in its component's API tab.
 </p>
 
-<h2 class="govuk-heading-m" id="forms">Forms use Angular forms</h2>
+<h2 class="govuk-heading-m" id="forms">Forms</h2>
 <p class="govuk-body">
   Fields work with reactive and template-driven forms. Text inputs, textareas,
   file uploads and selects go inside a form group, a component ngx-govuk adds,
@@ -96,7 +92,7 @@
   <a class="govuk-link" routerLink="/get-started/forms">Working with forms</a>.
 </p>
 
-<h2 class="govuk-heading-m" id="links">Links use the router</h2>
+<h2 class="govuk-heading-m" id="links">Links</h2>
 <p class="govuk-body">
   Components that render their own links, such as the service navigation,
   pagination and task list, take a
@@ -109,53 +105,5 @@
     routerLink="/get-started/components"
     fragment="links-and-the-router"
     >Links and the router</a
-  >.
-</p>
-
-<h2 class="govuk-heading-m" id="behaviour">Behaviour that differs</h2>
-<ul class="govuk-list govuk-list--bullet">
-  <li>
-    The accordion does not remember which sections were open when the page
-    reloads, as GOV.UK Frontend does. Bind each section's
-    <code class="app-inline-code">expanded</code> to keep it yourself.
-  </li>
-  <li>
-    Tabs can open routes as well as panels on the page. See the
-    <a class="govuk-link" routerLink="/components/tabs">tabs</a> examples.
-  </li>
-</ul>
-
-<h2 class="govuk-heading-m" id="not-included">Not included</h2>
-<ul class="govuk-list govuk-list--bullet">
-  <li>
-    GOV.UK Frontend's page template.
-    <code class="app-inline-code">provideNgxGovuk()</code> adds its classes, and
-    you lay out the page in your root component, as in
-    <a
-      class="govuk-link"
-      routerLink="/get-started/installation"
-      fragment="layout"
-      >Lay out the page</a
-    >.
-  </li>
-  <li>
-    Options for the classes and attributes of a component's inner parts, such as
-    a radio's label classes or an item's attributes.
-  </li>
-  <li>
-    <code class="app-inline-code">…Html</code> versions of headings and other
-    short text, such as <code class="app-inline-code">titleHtml</code>.
-  </li>
-  <li>
-    <code class="app-inline-code">idPrefix</code> on radios and checkboxes. Item
-    ids come from the group's <code class="app-inline-code">name</code>, as they
-    do in GOV.UK Frontend when there is no prefix.
-  </li>
-  <li>Translations for the accordion's buttons, which are in English only.</li>
-</ul>
-<p class="govuk-body">
-  To ask for something that is missing,
-  <a class="govuk-link" href="https://github.com/tgreyuk/ngx-govuk/issues"
-    >raise an issue on GitHub</a
   >.
 </p>

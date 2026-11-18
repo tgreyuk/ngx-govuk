@@ -28,7 +28,6 @@ export const GUIDES: Guide[] = [
   {
     name: 'Differences from GOV.UK Frontend',
     path: '/get-started/differences',
-    description:
-      'What ngx-govuk does differently from GOV.UK Frontend, and what it leaves out.',
+    description: 'What ngx-govuk does differently from GOV.UK Frontend.',
   },
 ];
