@@ -381,6 +381,17 @@ pre {
   min-width: 0;
 }
 
+// Numbers a guide's section headings to match its numbered contents list.
+// Only headings with an id are sections; the contents heading has none.
+.app-numbered-sections {
+  counter-reset: app-section;
+
+  h2[id]::before {
+    counter-increment: app-section;
+    content: counter(app-section) '. ';
+  }
+}
+
 .app-subnav {
   font-family: var(--app-font);
   // On desktop, start level with the page heading, and pull the menu left by

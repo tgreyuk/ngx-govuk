@@ -5,6 +5,7 @@ import { CodeBlockComponent } from '../components/component-code/code-block.comp
 /** Guide to installing ngx-govuk and GOV.UK Frontend. */
 @Component({
   selector: 'ngx-govuk-get-started',
+  host: { class: 'app-numbered-sections' },
   imports: [RouterLink, CodeBlockComponent],
   templateUrl: './get-started.component.html',
   styleUrl: './get-started.component.scss',

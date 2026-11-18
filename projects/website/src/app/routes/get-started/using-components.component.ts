@@ -5,6 +5,7 @@ import { CodeBlockComponent } from '../components/component-code/code-block.comp
 /** Guide to importing components and using their inputs, outputs and methods. */
 @Component({
   selector: 'ngx-govuk-using-components',
+  host: { class: 'app-numbered-sections' },
   imports: [RouterLink, CodeBlockComponent],
   templateUrl: './using-components.component.html',
 })

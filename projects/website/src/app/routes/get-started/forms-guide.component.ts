@@ -5,6 +5,7 @@ import { CodeBlockComponent } from '../components/component-code/code-block.comp
 /** Guide to building form fields with `ngx-govuk-form-group`. */
 @Component({
   selector: 'ngx-govuk-forms-guide',
+  host: { class: 'app-numbered-sections' },
   imports: [RouterLink, CodeBlockComponent],
   templateUrl: './forms-guide.component.html',
 })
