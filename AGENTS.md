@@ -267,9 +267,10 @@ and shows as code only; its description says so.
 The supported versions of Angular and GOV.UK Frontend are in two places: the
 compatibility table in `README.md` and the Supported versions section of the
 docs site's Help and support page (`projects/website/src/app/routes/support/`).
-When the library's peer dependencies change, add a row to both, copy the
-README to the library, and update the versions named on the home page, the
-Get started overview and the Installing ngx-govuk guide.
+When the library's peer dependencies change, add an identical row to both,
+giving the ngx-govuk minor versions and the exact peer dependency ranges,
+copy the README to the library, and update the versions named on the home
+page, the Get started overview and the Installing ngx-govuk guide.
 
 ## Branches and releases
 
