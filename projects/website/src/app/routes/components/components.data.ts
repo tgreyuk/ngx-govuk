@@ -129,7 +129,7 @@ export const COMPONENTS: ComponentEntry[] = [
     name: 'Exit this page',
     id: 'exit-this-page',
     status: 'documented',
-    note: 'The examples on this page work: selecting the button or the skip link, or pressing Shift 3 times, takes you to the BBC weather forecast.',
+    note: 'The examples on this page are live: selecting the button or the skip link, or pressing Shift 3 times, opens the BBC weather forecast.',
     description:
       'Gives users a way to quickly and safely exit a service, website or application.',
   },
@@ -151,7 +151,7 @@ export const COMPONENTS: ComponentEntry[] = [
     id: 'file-upload',
     status: 'documented',
     isField: true,
-    note: "Angular's forms can't hold files: a form control on a file input only gets a made-up path. Read the files from the input's files property when it fires a change event. A form control can clear the input, with reset() or an empty value, but can't set it: the browser throws an error for any other value.",
+    note: "Angular's forms can't hold files: a form control on a file input only receives a placeholder path, not the file. Read the files from the input's files property when it fires a change event. A form control can clear the input, with reset() or an empty value, but can't set it: the browser throws an error for any other value.",
     description: 'Helps users select and upload a file.',
   },
   {

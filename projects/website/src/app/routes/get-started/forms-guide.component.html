@@ -29,8 +29,8 @@
   <code class="app-inline-code">ngxGovukTextInput</code>, to a native element
   and put it inside a
   <a class="govuk-link" routerLink="/components/form-group">form group</a>
-  (<code class="app-inline-code">ngx-govuk-form-group</code>). The element stays
-  yours: every native attribute and Angular forms directive works as usual.
+  (<code class="app-inline-code">ngx-govuk-form-group</code>). The element keeps
+  all its native attributes, and Angular forms directives work on it unchanged.
 </p>
 <p class="govuk-body">
   Reactive and template-driven forms both work. The examples here use
@@ -69,9 +69,9 @@
   <a class="govuk-link" routerLink="/components/password-input"
     >password input</a
   >
-  take the form group's place: put a textarea or input with its field directive
-  inside them, and they add the label, hint and error message as well as their
-  own count or "Show" button.
+  are used instead of a form group: put a textarea or input with its field
+  directive inside them, and they add the label, hint and error message as well
+  as their own count or "Show" button.
 </p>
 <p class="govuk-body">
   <a class="govuk-link" routerLink="/components/checkboxes">Checkboxes</a>,
@@ -104,7 +104,7 @@
   <code class="app-inline-code">ngxGovukErrorMessage</code> inside the form
   group, using <code class="app-inline-code">&#64;if</code>. The form group
   shows it between the hint and the field, and adds the error styles to itself
-  and the field while it's there. Import it from
+  and the field while it is shown. Import it from
   <code class="app-inline-code">ngx-govuk/error-message</code>.
 </p>
 <p class="govuk-body">
@@ -158,8 +158,8 @@
     >s</code
   >, <code class="app-inline-code">m</code>,
   <code class="app-inline-code">l</code> or
-  <code class="app-inline-code">xl</code>) for a bigger label. If a page asks
-  just one question, make the label the page heading with
+  <code class="app-inline-code">xl</code>) for a larger label. If a page asks
+  only one question, make the label the page heading with
   <code class="app-inline-code">asPageHeading</code>; it is large by default.
 </p>
 <app-code-block [code]="LABEL_CODE" lang="angular-html" />

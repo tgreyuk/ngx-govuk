@@ -567,7 +567,7 @@ export const EXAMPLES: Record<string, Example[]> = {
       path: 'tabs/routed',
       title: 'Tabs that open routes',
       description:
-        'Set each tab\'s "link" to a child route, as you would a "routerLink", and put a "router-outlet" after the tabs. The tab for the active route is open, and the route shows below the tabs. Shown as code only, as it needs routes.',
+        'Set each tab\'s "link" to a child route, in any form "routerLink" accepts, and put a "router-outlet" after the tabs. The tab for the active route is open, and the route shows below the tabs. Shown as code only, as it needs routes.',
     },
   ],
   tag: [

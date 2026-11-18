@@ -39,16 +39,16 @@
 <h2 class="govuk-heading-m" id="native-elements">Native elements</h2>
 <p class="govuk-body">
   Where GOV.UK's markup is a single element, such as a button, back link or text
-  input, ngx-govuk gives you a directive to add to your own element, rather than
-  a component that draws it. The element keeps all its own attributes, events
+  input, ngx-govuk provides a directive to add to your own element, rather than
+  a component that renders it. The element keeps all its own attributes, events
   and Angular directives.
 </p>
 <app-code-block [code]="DIRECTIVE_CODE" lang="angular-html" />
 <p class="govuk-body">
   The same goes for elements that do something of their own, such as a
   <code class="app-inline-code">details</code> element, which opens and closes,
-  and the <code class="app-inline-code">nav</code> around breadcrumbs. You write
-  the element, and ngx-govuk draws what goes inside it. Use the element's own
+  and the <code class="app-inline-code">nav</code> around breadcrumbs. You add
+  the element, and ngx-govuk renders its content. Use the element's own
   attributes and events, such as <code class="app-inline-code">open</code> and
   <code class="app-inline-code">toggle</code>.
 </p>
@@ -83,13 +83,13 @@
 </p>
 
 <h2 class="govuk-heading-m" id="inputs">Inputs</h2>
-<p class="govuk-body">Set inputs in the usual Angular way.</p>
+<p class="govuk-body">Set inputs as on any Angular component.</p>
 <app-code-block [code]="INPUT_CODE" lang="angular-html" />
 <p class="govuk-body">
   Inputs are named after the options of GOV.UK Frontend's macros, such as
   <code class="app-inline-code">titleText</code> and
   <code class="app-inline-code">disableAutoFocus</code>, so GOV.UK's guidance
-  carries over. Where Angular has its own way, ngx-govuk uses it instead:
+  applies. Where Angular has its own convention, ngx-govuk follows it instead:
 </p>
 <ul class="govuk-list govuk-list--bullet">
   <li>
@@ -113,7 +113,7 @@
   <li>
     Instead of <code class="app-inline-code">classes</code> and
     <code class="app-inline-code">attributes</code>, set classes and attributes
-    on the element as usual.
+    directly on the element.
   </li>
   <li>
     Components the GOV.UK Design System documents on their own go inside the
@@ -151,7 +151,7 @@
   <code class="app-inline-code">a</code> element yourself, as above.
 </p>
 <p class="govuk-body">
-  Components that draw their own links, such as the service navigation,
+  Components that render their own links, such as the service navigation,
   pagination, footer and task list, take a
   <code class="app-inline-code">routerLink</code> value for each link instead,
   in the same forms <code class="app-inline-code">routerLink</code> accepts.
