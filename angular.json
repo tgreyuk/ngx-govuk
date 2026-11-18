@@ -91,7 +91,12 @@
               },
               {
                 "input": "projects/website/src",
-                "glob": "favicon.svg",
+                "glob": "{favicon.svg,favicon.ico,favicon-48.png,apple-touch-icon.png,robots.txt}",
+                "output": "."
+              },
+              {
+                "input": "projects/website/generated",
+                "glob": "sitemap.xml",
                 "output": "."
               },
               {

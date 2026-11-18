@@ -27,21 +27,22 @@ resources page. Don't reword it.
 
 ## Commands
 
-| Command                    | Does                                                |
-| -------------------------- | --------------------------------------------------- |
-| `npm run lib:build`        | Builds the library into `dist/ngx-govuk`            |
-| `npm run lib:test`         | Runs the library's tests once                       |
-| `npm run lib:test:update`  | Runs them and rewrites changed snapshots            |
-| `npm run lib:lint`         | Lints the library                                   |
-| `npm run website:start`    | Writes the API reference, then serves the docs site |
-| `npm run website:build`    | Writes the API reference, then builds the docs site |
-| `npm run website:test`     | Runs the docs site's tests once                     |
-| `npm run website:lint`     | Lints the docs site                                 |
-| `npm run website:api`      | Writes the API reference only                       |
-| `npm run website:api:test` | Tests the API extractor                             |
-| `npm run lint`             | Lints the whole repository with ESLint              |
-| `npm run format`           | Formats the whole repository with Prettier          |
-| `npm run format:check`     | Checks formatting without changing files            |
+| Command                    | Does                                                            |
+| -------------------------- | --------------------------------------------------------------- |
+| `npm run lib:build`        | Builds the library into `dist/ngx-govuk`                        |
+| `npm run lib:test`         | Runs the library's tests once                                   |
+| `npm run lib:test:update`  | Runs them and rewrites changed snapshots                        |
+| `npm run lib:lint`         | Lints the library                                               |
+| `npm run website:start`    | Writes the API reference and sitemap, then serves the docs site |
+| `npm run website:build`    | Writes the API reference and sitemap, then builds the docs site |
+| `npm run website:test`     | Runs the docs site's tests once                                 |
+| `npm run website:lint`     | Lints the docs site                                             |
+| `npm run website:api`      | Writes the API reference only                                   |
+| `npm run website:sitemap`  | Writes the docs site's sitemap only                             |
+| `npm run website:api:test` | Tests the API extractor                                         |
+| `npm run lint`             | Lints the whole repository with ESLint                          |
+| `npm run format`           | Formats the whole repository with Prettier                      |
+| `npm run format:check`     | Checks formatting without changing files                        |
 
 CI runs on every push and pull request: it lints the whole repository, builds
 and tests the library, and runs the docs site's and API extractor's tests. On
@@ -198,6 +199,17 @@ GOV.UK Frontend today, and ideas for testing it automatically.
   `npm run website:api` writes from the library source. It is gitignored. It
   lists the selector, inputs (including models), outputs and documented
   methods; other properties are deliberately left out.
+
+### Search engines
+
+`PageMetaStrategy` (`projects/website/src/app/page-meta.strategy.ts`) sets
+each page's title, meta description, canonical link and Open Graph tags. A
+route gives its `title` and `data.description`; component pages take both
+from `components.data.ts`, and pages for components that aren't documented
+are marked `noindex`. `npm run website:sitemap` writes `sitemap.xml` from the
+guides and documented components, so new pages are listed without editing
+it. The site's address is `https://www.ngx-govuk.org`: the bare domain
+redirects there.
 
 ### Styling
 
