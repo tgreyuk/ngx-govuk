@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { NgxGovukWarningText } from 'ngx-govuk/warning-text';
 
 @Component({
-  selector: 'app-warning-text-demo',
+  selector: 'app-warning-text',
   imports: [NgxGovukWarningText],
-  templateUrl: './default.component.html',
+  templateUrl: './warning-text.component.html',
 })
-export class WarningTextDemoComponent {}
+export class WarningTextComponent {}

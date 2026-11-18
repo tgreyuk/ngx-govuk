@@ -312,7 +312,7 @@ export const COMPONENTS: ComponentEntry[] = [
     id: 'warning-text',
     status: 'documented',
     description:
-      'Warns users about something important, such as the consequences of an action.',
+      'Warns users about something important, such as legal consequences of an action, or lack of action, that they might take.',
   },
 ];
 

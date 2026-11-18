@@ -641,10 +641,10 @@ export const EXAMPLES: Record<string, Example[]> = {
   ],
   'warning-text': [
     {
-      path: 'warning-text/default',
+      path: 'warning-text/warning-text',
       load: () =>
-        import('./examples/warning-text/default.component').then(
-          (m) => m.WarningTextDemoComponent,
+        import('./examples/warning-text/warning-text.component').then(
+          (m) => m.WarningTextComponent,
         ),
     },
   ],

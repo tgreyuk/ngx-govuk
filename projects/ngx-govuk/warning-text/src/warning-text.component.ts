@@ -1,8 +1,8 @@
 import { Component, input } from '@angular/core';
 
 /**
- * Tells users about something important, such as a legal consequence of an
- * action, with a warning icon.
+ * Warns users about something important, such as legal consequences of an
+ * action, or lack of action, that they might take.
  *
  * Put the warning inside it.
  */
