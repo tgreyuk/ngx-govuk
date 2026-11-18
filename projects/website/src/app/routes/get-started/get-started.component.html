@@ -44,8 +44,9 @@
     <p class="govuk-body">
       You only need GOV.UK Frontend's styles. Do not load its JavaScript or call
       <code class="app-inline-code">initAll()</code>: ngx-govuk components
-      handle their own behaviour, and GOV.UK Frontend's scripts would add a
-      second set of behaviour to the same elements.
+      handle their own behaviour, and they do not have the
+      <code class="app-inline-code">data-module</code> attributes GOV.UK
+      Frontend's scripts look for, so the scripts would do nothing.
     </p>
   </div>
 
