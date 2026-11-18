@@ -1,5 +1,55 @@
 # Changelog
 
+## [0.7.0](https://github.com/tgreyuk/ngx-govuk/compare/v0.6.0...v0.7.0) (2026-11-18)
+
+
+### ⚠ BREAKING CHANGES
+
+* Require govuk-frontend 6.6.0 or later.
+* Components render GOV.UK's root element as their own element, not a `div` inside it. Update selectors such as `ngx-govuk-panel > .govuk-panel`.
+* **back-link:** Rename `inversed` to `inverse`.
+* **breadcrumbs:** Use `<nav ngxGovukBreadcrumbs>`, with `<a *ngxGovukBreadcrumbsItem>` links.
+* **button:** Rename `inversed` to `inverse`. The button is now a component, so it can't be used in `hostDirectives`.
+* **cookie-banner:** Rename the message's `heading` to `headingText`.
+* **date-input:** Rename `DateInputValue` and `DateInputPart` to `NgxGovukDateInputValue` and `NgxGovukDateInputPart`.
+* **details:** Use `<details ngxGovukDetails>`.
+* **error-message:** Put a `p ngxGovukErrorMessage` inside a field instead of setting `errorMessage`.
+* **error-summary:** Link errors with `fieldId` instead of `href`, and rename `description` to `descriptionText`.
+* **summary-list:** Add `ngxGovukSummaryActionLink` to action links, with `visuallyHiddenText`.
+* **table:** `captionSize` no longer takes `s`.
+* **text-input:** Rename `InputWidth` to `NgxGovukInputWidth`.
+
+### Features
+
+* add `provideNgxGovuk()` to set up the page ([785086c](https://github.com/tgreyuk/ngx-govuk/commit/785086c9b779a97441daea5d9e398855c0a4c6c5))
+* let true/false inputs be set as a bare attribute ([e3c891c](https://github.com/tgreyuk/ngx-govuk/commit/e3c891c6b11741bdaccfb056b5a995ee74f90aeb))
+* add text options for other languages to the character count, date input, pagination and password input ([5c3138c](https://github.com/tgreyuk/ngx-govuk/commit/5c3138c495b91fa02e8e1069d9f7a60db55799fc), [12739e9](https://github.com/tgreyuk/ngx-govuk/commit/12739e9e542df411c058ad89f2a9eeaf585c06f7), [73cf1c6](https://github.com/tgreyuk/ngx-govuk/commit/73cf1c65576c95b03aad834b88da943c9783962d), [082352c](https://github.com/tgreyuk/ngx-govuk/commit/082352c6b85081c4b8be856bbc5bf7f911329d26))
+* add more options to the checkboxes, fieldset, footer, generic header, phase banner, table and text input ([cf855b7](https://github.com/tgreyuk/ngx-govuk/commit/cf855b700c5de8f5ed6e2708f52d7eb569673aa5), [66a4f4c](https://github.com/tgreyuk/ngx-govuk/commit/66a4f4c08dc41cf7190f982fef9cd20c3c923ee1), [9de487c](https://github.com/tgreyuk/ngx-govuk/commit/9de487cd54b0e9d6e22937ccd737d277028d7253), [bdff49e](https://github.com/tgreyuk/ngx-govuk/commit/bdff49ed2a36f1aa541430c2adc8b58b62690a67), [21459da](https://github.com/tgreyuk/ngx-govuk/commit/21459da4dc1582c0859922c6840cc7c734ecad09), [3dda6c2](https://github.com/tgreyuk/ngx-govuk/commit/3dda6c2ba33995f3156790d4f6f8e7c3e0a6b0bb), [3877588](https://github.com/tgreyuk/ngx-govuk/commit/3877588ddf468f16077f4e6c4df228312f5ba66f))
+* **accordion:** add heading level and summary lines ([5e481c0](https://github.com/tgreyuk/ngx-govuk/commit/5e481c0ef229e50b7b5272a91f0f33e6ebb0fda3))
+* **breadcrumbs:** add `collapseOnMobile`, `inverse` and `labelText` ([6a7b018](https://github.com/tgreyuk/ngx-govuk/commit/6a7b0182b5346cb7e0f0ff9c1bcc6b7e60b63feb), [a35ab14](https://github.com/tgreyuk/ngx-govuk/commit/a35ab1431435b49c1e0205467998b0fcc07beff2))
+* **button:** add `preventDoubleClick` ([13e4dde](https://github.com/tgreyuk/ngx-govuk/commit/13e4dde122bc54ccc185672b8ede4069c88ecda0))
+* **details:** use a native `details` element ([cf9fd08](https://github.com/tgreyuk/ngx-govuk/commit/cf9fd08c00cd9715abfb2f1065f5bedfbb5ef766))
+* **error-message:** add the error message as its own component ([ef206ef](https://github.com/tgreyuk/ngx-govuk/commit/ef206ef78bc05a6040d2d1761eb6897cfdcd351b))
+* **error-summary:** link errors to fields by form control or id ([b26e3cf](https://github.com/tgreyuk/ngx-govuk/commit/b26e3cf239ee65fd59068bbc3c37b9141c24fbfb), [4f3561d](https://github.com/tgreyuk/ngx-govuk/commit/4f3561d61572fb420c91afc869e2f47de353e182))
+* **notification-banner:** add a `role` option, and heading and link directives ([d65c36c](https://github.com/tgreyuk/ngx-govuk/commit/d65c36c673d6b66dd393d04a894020cd53fdd3a2), [3cad7e5](https://github.com/tgreyuk/ngx-govuk/commit/3cad7e5c6333f44f1b8197b9aeb69172b9881129))
+* **service-navigation:** add external links, current and active items, `inverse` and slots ([5c0a9ec](https://github.com/tgreyuk/ngx-govuk/commit/5c0a9ec32cd81cb2cc02064b5969efdbe8c64406))
+* **tabs:** add routed tabs ([2f4b6ed](https://github.com/tgreyuk/ngx-govuk/commit/2f4b6eda2a479cd419008b38f1d9221896f28d6f))
+
+### Bug Fixes
+
+* match GOV.UK Frontend 6.6.0's markup, spacing and behaviour across components ([d733c31](https://github.com/tgreyuk/ngx-govuk/commit/d733c31220f336debfadf03e90b1d65536e159c1), [0a0a287](https://github.com/tgreyuk/ngx-govuk/commit/0a0a287dce4fdb0afad67107e754a192d31b9e16), [57ed8d1](https://github.com/tgreyuk/ngx-govuk/commit/57ed8d1381b2b04c00f1b1315c73f99a4ebac4cd), [b732889](https://github.com/tgreyuk/ngx-govuk/commit/b732889d2cdab954ef72b4ab1268196182ebac79), [409aa17](https://github.com/tgreyuk/ngx-govuk/commit/409aa17201661e6555ab3f86b8852693044b9749), [b7aa746](https://github.com/tgreyuk/ngx-govuk/commit/b7aa7464280bc60840922805cd0d0873a3b541ba), [e333742](https://github.com/tgreyuk/ngx-govuk/commit/e3337421386026769a38d3a9d08e9637925e4e90), [128b3a9](https://github.com/tgreyuk/ngx-govuk/commit/128b3a94535ba820b27b7c8ea505fcd81a0817a3), [2ecae94](https://github.com/tgreyuk/ngx-govuk/commit/2ecae946021a930fd793d5dd92667ec6d6ad5dd5), [df637e8](https://github.com/tgreyuk/ngx-govuk/commit/df637e891a7a32e794cea663bc37ceb48df110b6), [6d8eee1](https://github.com/tgreyuk/ngx-govuk/commit/6d8eee1e3665b68c35848cf930f55a3ba5299515), [af6f973](https://github.com/tgreyuk/ngx-govuk/commit/af6f973bdf8d6295acbfefec1ee8d1f68c9a86e7))
+* connect a field that is rendered after its form group ([e50446a](https://github.com/tgreyuk/ngx-govuk/commit/e50446a54ab2a54e4e4095813a24db7b6a8007ac))
+* **accordion:** let find in page open closed sections ([55f0fed](https://github.com/tgreyuk/ngx-govuk/commit/55f0fed4aa8aa87041cf7274f9308e121aeccf98))
+* **character-count:** count values set without an input event ([0611b2c](https://github.com/tgreyuk/ngx-govuk/commit/0611b2cd02f80fb384bf54bf3e4bc84c7ab33dc0), [5e10b77](https://github.com/tgreyuk/ngx-govuk/commit/5e10b77a856e71503fb8cfd69ae6aec6452878ec))
+* **checkboxes, radios:** count a divider when numbering ids ([db4ae50](https://github.com/tgreyuk/ngx-govuk/commit/db4ae504e465b4e14dece5e7531bbaeb12a13fbe), [344357a](https://github.com/tgreyuk/ngx-govuk/commit/344357a8a19721c9138336b50b6369347453f10d))
+* **cookie-banner:** move focus to a confirmation when it's shown ([0092802](https://github.com/tgreyuk/ngx-govuk/commit/0092802e2e2918909683ce6dc8bcfd120a8f7873))
+* **date-input:** mark the control touched only when focus leaves the date ([a2dd124](https://github.com/tgreyuk/ngx-govuk/commit/a2dd1242a2bf54a76c9f9191ebd71c552e6f399a))
+* **exit-this-page:** handle an empty `redirectUrl` and more than one button ([4ba15a8](https://github.com/tgreyuk/ngx-govuk/commit/4ba15a846b5b68582450bbb52029f9a66f8798f1))
+* **header:** link the logo to GOV.UK when `homepageUrl` is empty ([cb9c5ee](https://github.com/tgreyuk/ngx-govuk/commit/cb9c5eea593e9e98674867b7a808a4c6ce7023ec))
+* **language-navigation:** show a language without a link as current ([42420ab](https://github.com/tgreyuk/ngx-govuk/commit/42420ab67b328b57f6e7dfb775a9166a8385c90d))
+* **password-input:** announce the password as hidden after submitting ([0b753b8](https://github.com/tgreyuk/ngx-govuk/commit/0b753b8f10c2ac5e3b7bb0c26e31846539d64ae9))
+* **skip-link:** open the link elsewhere on a modified click ([c8c426d](https://github.com/tgreyuk/ngx-govuk/commit/c8c426d71c51e64456aa419325cd64b1aab6fdc5))
+
 ## [0.6.0](https://github.com/tgreyuk/ngx-govuk/compare/v0.5.0...v0.6.0) (2026-11-14)
 
 
