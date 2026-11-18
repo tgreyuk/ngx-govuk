@@ -578,6 +578,15 @@ export const EXAMPLES: Record<string, Example[]> = {
           (m) => m.TagDemoComponent,
         ),
     },
+    {
+      path: 'tag/colours',
+      load: () =>
+        import('./examples/tag/colours.component').then(
+          (m) => m.TagColoursDemoComponent,
+        ),
+      title: 'Colours',
+      description: 'Set "colour" to one of these. Leave it unset for blue.',
+    },
   ],
   'task-list': [
     {
