@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import { NgxGovukInputWidth } from 'ngx-govuk';
 import { NgxGovukTextInput } from './text-input.directive';
 
 @Component({
@@ -12,11 +13,12 @@ import { NgxGovukTextInput } from './text-input.directive';
     autocomplete="email"
     ngxGovukTextInput
     [formControl]="control"
-    inputWidth="three-quarters"
+    [inputWidth]="width()"
   />`,
 })
 class TestHostComponent {
   control = new FormControl('hello');
+  width = signal<NgxGovukInputWidth | undefined>('three-quarters');
 }
 
 function setup() {
@@ -27,6 +29,7 @@ function setup() {
   );
   return {
     fixture,
+    host: fixture.componentInstance,
     input: debugElement.nativeElement as HTMLInputElement,
     directive: debugElement.injector.get(NgxGovukTextInput),
   };
@@ -56,5 +59,22 @@ describe('NgxGovukTextInput', () => {
     directive.hasError.set(true);
     fixture.detectChanges();
     expect(input.classList).toContain('govuk-input--error');
+  });
+
+  it("uses GOV.UK's character width class for a number width", () => {
+    const { fixture, host, input } = setup();
+    host.width.set('10');
+    fixture.detectChanges();
+    expect(input.classList).toContain('govuk-input--width-10');
+    expect(input.classList).not.toContain('govuk-!-width-three-quarters');
+    expect(input.classList).toContain('govuk-input');
+    expect(input.classList).toContain('app-own-class');
+  });
+
+  it('removes the width class when the width is unset', () => {
+    const { fixture, host, input } = setup();
+    host.width.set(undefined);
+    fixture.detectChanges();
+    expect([...input.classList].some((c) => c.includes('width'))).toBe(false);
   });
 });
