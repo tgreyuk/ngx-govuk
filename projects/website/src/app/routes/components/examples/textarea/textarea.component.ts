@@ -4,10 +4,10 @@ import { NgxGovukFormGroup } from 'ngx-govuk/form-group';
 import { NgxGovukTextarea } from 'ngx-govuk/textarea';
 
 @Component({
-  selector: 'app-more-detail',
+  selector: 'app-textarea',
   imports: [ReactiveFormsModule, NgxGovukFormGroup, NgxGovukTextarea],
-  templateUrl: './more-detail.component.html',
+  templateUrl: './textarea.component.html',
 })
-export class MoreDetailComponent {
+export class TextareaComponent {
   moreDetailControl = new FormControl('');
 }

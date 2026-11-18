@@ -631,10 +631,10 @@ export const EXAMPLES: Record<string, Example[]> = {
   ],
   textarea: [
     {
-      path: 'textarea/more-detail',
+      path: 'textarea/textarea',
       load: () =>
-        import('./examples/textarea/more-detail.component').then(
-          (m) => m.MoreDetailComponent,
+        import('./examples/textarea/textarea.component').then(
+          (m) => m.TextareaComponent,
         ),
       showComponentCode: true,
     },
