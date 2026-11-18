@@ -12,7 +12,18 @@ ngx-govuk is a community resource of the GOV.UK Design System. The Design System
 npm install ngx-govuk govuk-frontend
 ```
 
-ngx-govuk renders GOV.UK Frontend's markup and uses its styles, so `govuk-frontend` is a peer dependency. Load only its styles: ngx-govuk components handle their own behaviour, so do not load GOV.UK Frontend's JavaScript or call `initAll()`. See [Installing ngx-govuk](https://ngx-govuk.org/get-started/installation) for setting up the page, styles and font.
+ngx-govuk renders GOV.UK Frontend's markup and uses its styles, so `govuk-frontend` is a peer dependency. Load only its styles: ngx-govuk components handle their own behaviour, so do not load GOV.UK Frontend's JavaScript or call `initAll()`. Add `provideNgxGovuk()` to your app's providers instead. It adds the classes GOV.UK Frontend's page template puts on the `html` and `body` elements:
+
+```ts
+import { ApplicationConfig } from '@angular/core';
+import { provideNgxGovuk } from 'ngx-govuk';
+
+export const appConfig: ApplicationConfig = {
+  providers: [provideNgxGovuk()],
+};
+```
+
+See [Installing ngx-govuk](https://ngx-govuk.org/get-started/installation) for setting up the page, styles and font.
 
 ## Usage
 
