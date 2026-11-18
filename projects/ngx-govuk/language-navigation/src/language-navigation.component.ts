@@ -27,7 +27,9 @@ export interface NgxGovukLanguageNavigationItem {
   dir?: 'ltr' | 'rtl';
   /**
    * The page in this language, in any form `routerLink` accepts, when your
-   * app switches language itself.
+   * app switches language itself. Your app must then also set the `lang`
+   * attribute on the `html` element, and `dir` for a right-to-left language,
+   * to the language the page is in.
    */
   routerLink?: string | readonly unknown[] | UrlTree;
   /**
