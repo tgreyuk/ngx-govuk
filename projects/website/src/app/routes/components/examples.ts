@@ -599,10 +599,10 @@ export const EXAMPLES: Record<string, Example[]> = {
   ],
   'text-input': [
     {
-      path: 'text-input/event-name',
+      path: 'text-input/text-input',
       load: () =>
-        import('./examples/text-input/event-name.component').then(
-          (m) => m.EventNameComponent,
+        import('./examples/text-input/text-input.component').then(
+          (m) => m.TextInputComponent,
         ),
       showComponentCode: true,
     },

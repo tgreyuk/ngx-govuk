@@ -4,10 +4,10 @@ import { NgxGovukFormGroup } from 'ngx-govuk/form-group';
 import { NgxGovukTextInput } from 'ngx-govuk/text-input';
 
 @Component({
-  selector: 'app-event-name',
+  selector: 'app-text-input',
   imports: [ReactiveFormsModule, NgxGovukFormGroup, NgxGovukTextInput],
-  templateUrl: './event-name.component.html',
+  templateUrl: './text-input.component.html',
 })
-export class EventNameComponent {
+export class TextInputComponent {
   eventNameControl = new FormControl('');
 }
