@@ -16,6 +16,10 @@ with two projects:
 `scripts/extract-api.mts` builds the docs site's API reference from the
 library source.
 
+`projects/ngx-govuk/README.md` is the README published to npm. It is a copy
+of the root `README.md`: edit the root one, then copy it over unchanged.
+Keep its links absolute so they work on npm.
+
 ## Commands
 
 | Command                    | Does                                                |
@@ -246,9 +250,9 @@ and shows as code only; its description says so.
 The supported versions of Angular and GOV.UK Frontend are in two places: the
 compatibility table in `README.md` and the Supported versions section of the
 docs site's Help and support page (`projects/website/src/app/routes/support/`).
-When the library's peer dependencies change, add a row to both, and update
-the versions named on the home page, the Get started overview and the
-Installing ngx-govuk guide.
+When the library's peer dependencies change, add a row to both, copy the
+README to the library, and update the versions named on the home page, the
+Get started overview and the Installing ngx-govuk guide.
 
 ## Branches and releases
 
