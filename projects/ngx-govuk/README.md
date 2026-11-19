@@ -1,10 +1,10 @@
 # ngx-govuk
 
-[![npm](https://img.shields.io/npm/v/ngx-govuk?&logo=npm)](https://www.npmjs.com/package/ngx-govuk) [![Build Status](https://github.com/tgreyuk/ngx-govuk/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/tgreyuk/ngx-govuk/actions/workflows/ci.yml)
+[![npm](https://img.shields.io/npm/v/ngx-govuk?&logo=npm)](https://www.npmjs.com/package/ngx-govuk) [![Build Status](https://github.com/govuk-angular/ngx-govuk/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/govuk-angular/ngx-govuk/actions/workflows/ci.yml)
 
 > [GOV.UK Design System](https://design-system.service.gov.uk) components for Angular.
 
-ngx-govuk is a community resource of the GOV.UK Design System. The Design System team is not responsible for it and cannot support you with using it. Contact the ngx-govuk maintainers directly through [GitHub issues](https://github.com/tgreyuk/ngx-govuk/issues) if you need help or you want to request a feature.
+ngx-govuk is a community resource of the GOV.UK Design System. The Design System team is not responsible for it and cannot support you with using it. Contact the ngx-govuk maintainers directly through [GitHub issues](https://github.com/govuk-angular/ngx-govuk/issues) if you need help or you want to request a feature.
 
 ## Installation
 
@@ -57,8 +57,8 @@ Each release supports the current major versions of Angular and govuk-frontend. 
 
 ## Contributing
 
-Issues and pull requests are welcome. See [Contributing to ngx-govuk](https://github.com/tgreyuk/ngx-govuk/blob/main/CONTRIBUTING.md) for how to set up the project and make a change.
+Issues and pull requests are welcome. See [Contributing to ngx-govuk](https://github.com/govuk-angular/ngx-govuk/blob/main/CONTRIBUTING.md) for how to set up the project and make a change.
 
 ## Licence
 
-Released under the [MIT License](https://github.com/tgreyuk/ngx-govuk/blob/main/LICENSE).
+Released under the [MIT License](https://github.com/govuk-angular/ngx-govuk/blob/main/LICENSE).
