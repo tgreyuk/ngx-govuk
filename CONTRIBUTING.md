@@ -5,7 +5,7 @@ volunteers, so issues and pull requests are welcome.
 
 ## Raising an issue
 
-Use [GitHub issues](https://github.com/tgreyuk/ngx-govuk/issues) to report a
+Use [GitHub issues](https://github.com/govuk-angular/ngx-govuk/issues) to report a
 bug, ask a question or request a feature.
 
 For a bug, say which versions of ngx-govuk, Angular and govuk-frontend you use,
@@ -26,7 +26,7 @@ straight to a pull request.
 
 You need Node.js 22 and npm.
 
-[Fork the repository](https://github.com/tgreyuk/ngx-govuk/fork) on GitHub,
+[Fork the repository](https://github.com/govuk-angular/ngx-govuk/fork) on GitHub,
 then clone your fork:
 
 ```shell
